@@ -7,6 +7,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  :root {
 =======
 .disabled-button {
@@ -21,6 +22,9 @@
 =======
 :root {
 >>>>>>> origin/nhanvien
+=======
+:root {
+>>>>>>> origin/giamgiasanpham
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -154,6 +158,7 @@ a {
   background-color: transparent; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   a:hover {
     color: #0056b3;
     text-decoration: underline; }
@@ -167,19 +172,28 @@ a:hover {
     color: #0056b3;
     text-decoration: underline; }
 >>>>>>> origin/nhanvien
+=======
+  a:hover {
+    color: #0056b3;
+    text-decoration: underline; }
+>>>>>>> origin/giamgiasanpham
 
 a:not([href]):not([tabindex]) {
   color: inherit;
   text-decoration: none; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   a:not([href]):not([tabindex]):hover, a:not([href]):not([tabindex]):focus {
     color: inherit;
     text-decoration: none; }
   a:not([href]):not([tabindex]):focus {
     outline: 0; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 a:not([href]):not([tabindex]):hover, a:not([href]):not([tabindex]):focus {
@@ -190,6 +204,8 @@ a:not([href]):not([tabindex]):focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 pre,
 code,
@@ -418,6 +434,7 @@ mark,
   display: inline-block; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .list-inline-item:not(:last-child) {
     margin-right: 0.5rem; }
 =======
@@ -428,6 +445,10 @@ mark,
   .list-inline-item:not(:last-child) {
     margin-right: 0.5rem; }
 >>>>>>> origin/nhanvien
+=======
+  .list-inline-item:not(:last-child) {
+    margin-right: 0.5rem; }
+>>>>>>> origin/giamgiasanpham
 
 .initialism {
   font-size: 90%;
@@ -443,6 +464,7 @@ mark,
   color: #6c757d; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .blockquote-footer::before {
     content: "\2014\00A0"; }
 =======
@@ -453,6 +475,10 @@ mark,
   .blockquote-footer::before {
     content: "\2014\00A0"; }
 >>>>>>> origin/nhanvien
+=======
+  .blockquote-footer::before {
+    content: "\2014\00A0"; }
+>>>>>>> origin/giamgiasanpham
 
 .img-fluid {
   max-width: 100%;
@@ -483,6 +509,7 @@ code {
   word-break: break-word; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   a > code {
     color: inherit; }
 =======
@@ -493,6 +520,10 @@ a > code {
   a > code {
     color: inherit; }
 >>>>>>> origin/nhanvien
+=======
+  a > code {
+    color: inherit; }
+>>>>>>> origin/giamgiasanpham
 
 kbd {
   padding: 0.2rem 0.4rem;
@@ -502,12 +533,16 @@ kbd {
   border-radius: 0.2rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   kbd kbd {
     padding: 0;
     font-size: 100%;
     font-weight: 700; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 kbd kbd {
@@ -517,6 +552,8 @@ kbd kbd {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 pre {
   display: block;
@@ -524,12 +561,16 @@ pre {
   color: #212529; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   pre code {
     font-size: inherit;
     color: inherit;
     word-break: normal; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 pre code {
@@ -539,6 +580,8 @@ pre code {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .pre-scrollable {
   max-height: 340px;
@@ -552,8 +595,11 @@ pre code {
   margin-left: auto; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   @media (min-width: 576px) {
     .container {
       max-width: 540px; } }
@@ -566,6 +612,7 @@ pre code {
   @media (min-width: 1200px) {
     .container {
       max-width: 1140px; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 @media (min-width: 576px) {
@@ -583,6 +630,8 @@ pre code {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .container-fluid {
   width: 100%;
@@ -605,12 +654,16 @@ pre code {
   margin-left: 0; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .no-gutters > .col,
   .no-gutters > [class*="col-"] {
     padding-right: 0;
     padding-left: 0; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .no-gutters > .col,
@@ -620,6 +673,8 @@ pre code {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col,
 .col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm,
@@ -1469,8 +1524,11 @@ pre code {
   color: #212529; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .table th,
   .table td {
     padding: 0.75rem;
@@ -1481,6 +1539,7 @@ pre code {
     border-bottom: 2px solid #dee2e6; }
   .table tbody + tbody {
     border-top: 2px solid #dee2e6; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .table th,
@@ -1496,6 +1555,8 @@ pre code {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .table-sm th,
 .table-sm td {
@@ -1505,14 +1566,18 @@ pre code {
   border: 1px solid #dee2e6; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .table-bordered th,
   .table-bordered td {
     border: 1px solid #dee2e6; }
   .table-bordered thead th,
   .table-bordered thead td {
     border-bottom-width: 2px; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .table-bordered th,
@@ -1524,6 +1589,8 @@ pre code {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .table-borderless th,
 .table-borderless td,
@@ -1553,6 +1620,7 @@ pre code {
   background-color: #9fcdff; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .table-hover .table-primary:hover > td,
   .table-hover .table-primary:hover > th {
     background-color: #9fcdff; }
@@ -1566,6 +1634,11 @@ pre code {
   .table-hover .table-primary:hover > th {
     background-color: #9fcdff; }
 >>>>>>> origin/nhanvien
+=======
+  .table-hover .table-primary:hover > td,
+  .table-hover .table-primary:hover > th {
+    background-color: #9fcdff; }
+>>>>>>> origin/giamgiasanpham
 
 .table-secondary,
 .table-secondary > th,
@@ -1582,6 +1655,7 @@ pre code {
   background-color: #c8cbcf; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .table-hover .table-secondary:hover > td,
   .table-hover .table-secondary:hover > th {
     background-color: #c8cbcf; }
@@ -1595,6 +1669,11 @@ pre code {
   .table-hover .table-secondary:hover > th {
     background-color: #c8cbcf; }
 >>>>>>> origin/nhanvien
+=======
+  .table-hover .table-secondary:hover > td,
+  .table-hover .table-secondary:hover > th {
+    background-color: #c8cbcf; }
+>>>>>>> origin/giamgiasanpham
 
 .table-success,
 .table-success > th,
@@ -1611,6 +1690,7 @@ pre code {
   background-color: #b1dfbb; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .table-hover .table-success:hover > td,
   .table-hover .table-success:hover > th {
     background-color: #b1dfbb; }
@@ -1624,6 +1704,11 @@ pre code {
   .table-hover .table-success:hover > th {
     background-color: #b1dfbb; }
 >>>>>>> origin/nhanvien
+=======
+  .table-hover .table-success:hover > td,
+  .table-hover .table-success:hover > th {
+    background-color: #b1dfbb; }
+>>>>>>> origin/giamgiasanpham
 
 .table-info,
 .table-info > th,
@@ -1640,6 +1725,7 @@ pre code {
   background-color: #abdde5; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .table-hover .table-info:hover > td,
   .table-hover .table-info:hover > th {
     background-color: #abdde5; }
@@ -1653,6 +1739,11 @@ pre code {
   .table-hover .table-info:hover > th {
     background-color: #abdde5; }
 >>>>>>> origin/nhanvien
+=======
+  .table-hover .table-info:hover > td,
+  .table-hover .table-info:hover > th {
+    background-color: #abdde5; }
+>>>>>>> origin/giamgiasanpham
 
 .table-warning,
 .table-warning > th,
@@ -1669,6 +1760,7 @@ pre code {
   background-color: #ffe8a1; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .table-hover .table-warning:hover > td,
   .table-hover .table-warning:hover > th {
     background-color: #ffe8a1; }
@@ -1682,6 +1774,11 @@ pre code {
   .table-hover .table-warning:hover > th {
     background-color: #ffe8a1; }
 >>>>>>> origin/nhanvien
+=======
+  .table-hover .table-warning:hover > td,
+  .table-hover .table-warning:hover > th {
+    background-color: #ffe8a1; }
+>>>>>>> origin/giamgiasanpham
 
 .table-danger,
 .table-danger > th,
@@ -1698,6 +1795,7 @@ pre code {
   background-color: #f1b0b7; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .table-hover .table-danger:hover > td,
   .table-hover .table-danger:hover > th {
     background-color: #f1b0b7; }
@@ -1711,6 +1809,11 @@ pre code {
   .table-hover .table-danger:hover > th {
     background-color: #f1b0b7; }
 >>>>>>> origin/nhanvien
+=======
+  .table-hover .table-danger:hover > td,
+  .table-hover .table-danger:hover > th {
+    background-color: #f1b0b7; }
+>>>>>>> origin/giamgiasanpham
 
 .table-light,
 .table-light > th,
@@ -1727,6 +1830,7 @@ pre code {
   background-color: #ececf6; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .table-hover .table-light:hover > td,
   .table-hover .table-light:hover > th {
     background-color: #ececf6; }
@@ -1740,6 +1844,11 @@ pre code {
   .table-hover .table-light:hover > th {
     background-color: #ececf6; }
 >>>>>>> origin/nhanvien
+=======
+  .table-hover .table-light:hover > td,
+  .table-hover .table-light:hover > th {
+    background-color: #ececf6; }
+>>>>>>> origin/giamgiasanpham
 
 .table-dark,
 .table-dark > th,
@@ -1756,6 +1865,7 @@ pre code {
   background-color: #b9bbbe; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .table-hover .table-dark:hover > td,
   .table-hover .table-dark:hover > th {
     background-color: #b9bbbe; }
@@ -1769,6 +1879,11 @@ pre code {
   .table-hover .table-dark:hover > th {
     background-color: #b9bbbe; }
 >>>>>>> origin/nhanvien
+=======
+  .table-hover .table-dark:hover > td,
+  .table-hover .table-dark:hover > th {
+    background-color: #b9bbbe; }
+>>>>>>> origin/giamgiasanpham
 
 .table-active,
 .table-active > th,
@@ -1777,6 +1892,7 @@ pre code {
 
 .table-hover .table-active:hover {
   background-color: rgba(0, 0, 0, 0.075); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   .table-hover .table-active:hover > td,
@@ -1792,6 +1908,11 @@ pre code {
   .table-hover .table-active:hover > th {
     background-color: rgba(0, 0, 0, 0.075); }
 >>>>>>> origin/nhanvien
+=======
+  .table-hover .table-active:hover > td,
+  .table-hover .table-active:hover > th {
+    background-color: rgba(0, 0, 0, 0.075); }
+>>>>>>> origin/giamgiasanpham
 
 .table .thead-dark th {
   color: #fff;
@@ -1808,8 +1929,11 @@ pre code {
   background-color: #343a40; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .table-dark th,
   .table-dark td,
   .table-dark thead th {
@@ -1821,6 +1945,7 @@ pre code {
   .table-dark.table-hover tbody tr:hover {
     color: #fff;
     background-color: rgba(255, 255, 255, 0.075); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .table-dark th,
@@ -1837,6 +1962,8 @@ pre code {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 @media (max-width: 575.98px) {
   .table-responsive-sm {
@@ -1844,6 +1971,7 @@ pre code {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     .table-responsive-sm > .table-bordered {
@@ -1856,6 +1984,10 @@ pre code {
     .table-responsive-sm > .table-bordered {
       border: 0; } }
 >>>>>>> origin/nhanvien
+=======
+    .table-responsive-sm > .table-bordered {
+      border: 0; } }
+>>>>>>> origin/giamgiasanpham
 
 @media (max-width: 767.98px) {
   .table-responsive-md {
@@ -1863,6 +1995,7 @@ pre code {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     .table-responsive-md > .table-bordered {
@@ -1875,6 +2008,10 @@ pre code {
     .table-responsive-md > .table-bordered {
       border: 0; } }
 >>>>>>> origin/nhanvien
+=======
+    .table-responsive-md > .table-bordered {
+      border: 0; } }
+>>>>>>> origin/giamgiasanpham
 
 @media (max-width: 991.98px) {
   .table-responsive-lg {
@@ -1882,6 +2019,7 @@ pre code {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     .table-responsive-lg > .table-bordered {
@@ -1894,6 +2032,10 @@ pre code {
     .table-responsive-lg > .table-bordered {
       border: 0; } }
 >>>>>>> origin/nhanvien
+=======
+    .table-responsive-lg > .table-bordered {
+      border: 0; } }
+>>>>>>> origin/giamgiasanpham
 
 @media (max-width: 1199.98px) {
   .table-responsive-xl {
@@ -1901,6 +2043,7 @@ pre code {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     .table-responsive-xl > .table-bordered {
@@ -1913,12 +2056,17 @@ pre code {
     .table-responsive-xl > .table-bordered {
       border: 0; } }
 >>>>>>> origin/nhanvien
+=======
+    .table-responsive-xl > .table-bordered {
+      border: 0; } }
+>>>>>>> origin/giamgiasanpham
 
 .table-responsive {
   display: block;
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   .table-responsive > .table-bordered {
@@ -1931,6 +2079,10 @@ pre code {
   .table-responsive > .table-bordered {
     border: 0; }
 >>>>>>> origin/nhanvien
+=======
+  .table-responsive > .table-bordered {
+    border: 0; }
+>>>>>>> origin/giamgiasanpham
 
 .form-control {
   display: block;
@@ -1952,8 +2104,11 @@ pre code {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   @media (prefers-reduced-motion: reduce) {
     .form-control {
       -webkit-transition: none;
@@ -1984,6 +2139,7 @@ pre code {
   .form-control:disabled, .form-control[readonly] {
     background-color: #e9ecef;
     opacity: 1; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 @media (prefers-reduced-motion: reduce) {
@@ -2019,6 +2175,8 @@ pre code {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 select.form-control:focus::-ms-value {
   color: #495057;
@@ -2061,6 +2219,7 @@ select.form-control:focus::-ms-value {
   border-width: 1px 0; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .form-control-plaintext.form-control-sm, .form-control-plaintext.form-control-lg {
     padding-right: 0;
     padding-left: 0; }
@@ -2074,6 +2233,11 @@ select.form-control:focus::-ms-value {
     padding-right: 0;
     padding-left: 0; }
 >>>>>>> origin/nhanvien
+=======
+  .form-control-plaintext.form-control-sm, .form-control-plaintext.form-control-lg {
+    padding-right: 0;
+    padding-left: 0; }
+>>>>>>> origin/giamgiasanpham
 
 .form-control-sm {
   height: calc(1.5em + 0.5rem + 2px);
@@ -2112,12 +2276,16 @@ textarea.form-control {
   margin-left: -5px; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .form-row > .col,
   .form-row > [class*="col-"] {
     padding-right: 5px;
     padding-left: 5px; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .form-row > .col,
@@ -2127,6 +2295,8 @@ textarea.form-control {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .form-check {
   position: relative;
@@ -2139,6 +2309,7 @@ textarea.form-control {
   margin-left: -1.25rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .form-check-input:disabled ~ .form-check-label {
     color: #6c757d; }
 =======
@@ -2149,6 +2320,10 @@ textarea.form-control {
   .form-check-input:disabled ~ .form-check-label {
     color: #6c757d; }
 >>>>>>> origin/nhanvien
+=======
+  .form-check-input:disabled ~ .form-check-label {
+    color: #6c757d; }
+>>>>>>> origin/giamgiasanpham
 
 .form-check-label {
   margin-bottom: 0; }
@@ -2164,13 +2339,17 @@ textarea.form-control {
   margin-right: 0.75rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .form-check-inline .form-check-input {
     position: static;
     margin-top: 0;
     margin-right: 0.3125rem;
     margin-left: 0; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .form-check-inline .form-check-input {
@@ -2181,6 +2360,8 @@ textarea.form-control {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .valid-feedback {
   display: none;
@@ -2212,8 +2393,11 @@ textarea.form-control {
   background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem); }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .was-validated .form-control:valid:focus, .form-control.is-valid:focus {
     border-color: #28a745;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
@@ -2222,6 +2406,7 @@ textarea.form-control {
   .was-validated .form-control:valid ~ .valid-tooltip, .form-control.is-valid ~ .valid-feedback,
   .form-control.is-valid ~ .valid-tooltip {
     display: block; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .was-validated .form-control:valid:focus, .form-control.is-valid:focus {
@@ -2235,6 +2420,8 @@ textarea.form-control {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .was-validated textarea.form-control:valid, textarea.form-control.is-valid {
   padding-right: calc(1.5em + 0.75rem);
@@ -2246,8 +2433,11 @@ textarea.form-control {
   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e") #fff no-repeat center right 1.75rem/calc(0.75em + 0.375rem) calc(0.75em + 0.375rem); }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .was-validated .custom-select:valid:focus, .custom-select.is-valid:focus {
     border-color: #28a745;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
@@ -2256,6 +2446,7 @@ textarea.form-control {
   .was-validated .custom-select:valid ~ .valid-tooltip, .custom-select.is-valid ~ .valid-feedback,
   .custom-select.is-valid ~ .valid-tooltip {
     display: block; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .was-validated .custom-select:valid:focus, .custom-select.is-valid:focus {
@@ -2269,6 +2460,8 @@ textarea.form-control {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .was-validated .form-control-file:valid ~ .valid-feedback,
 .was-validated .form-control-file:valid ~ .valid-tooltip, .form-control-file.is-valid ~ .valid-feedback,
@@ -2287,6 +2480,7 @@ textarea.form-control {
   color: #28a745; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .was-validated .custom-control-input:valid ~ .custom-control-label::before, .custom-control-input.is-valid ~ .custom-control-label::before {
     border-color: #28a745; }
 =======
@@ -2297,6 +2491,10 @@ textarea.form-control {
   .was-validated .custom-control-input:valid ~ .custom-control-label::before, .custom-control-input.is-valid ~ .custom-control-label::before {
     border-color: #28a745; }
 >>>>>>> origin/nhanvien
+=======
+  .was-validated .custom-control-input:valid ~ .custom-control-label::before, .custom-control-input.is-valid ~ .custom-control-label::before {
+    border-color: #28a745; }
+>>>>>>> origin/giamgiasanpham
 
 .was-validated .custom-control-input:valid ~ .valid-feedback,
 .was-validated .custom-control-input:valid ~ .valid-tooltip, .custom-control-input.is-valid ~ .valid-feedback,
@@ -2357,8 +2555,11 @@ textarea.form-control {
   background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem); }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .was-validated .form-control:invalid:focus, .form-control.is-invalid:focus {
     border-color: #dc3545;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
@@ -2367,6 +2568,7 @@ textarea.form-control {
   .was-validated .form-control:invalid ~ .invalid-tooltip, .form-control.is-invalid ~ .invalid-feedback,
   .form-control.is-invalid ~ .invalid-tooltip {
     display: block; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .was-validated .form-control:invalid:focus, .form-control.is-invalid:focus {
@@ -2380,6 +2582,8 @@ textarea.form-control {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .was-validated textarea.form-control:invalid, textarea.form-control.is-invalid {
   padding-right: calc(1.5em + 0.75rem);
@@ -2391,8 +2595,11 @@ textarea.form-control {
   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23dc3545' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23dc3545' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E") #fff no-repeat center right 1.75rem/calc(0.75em + 0.375rem) calc(0.75em + 0.375rem); }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .was-validated .custom-select:invalid:focus, .custom-select.is-invalid:focus {
     border-color: #dc3545;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
@@ -2401,6 +2608,7 @@ textarea.form-control {
   .was-validated .custom-select:invalid ~ .invalid-tooltip, .custom-select.is-invalid ~ .invalid-feedback,
   .custom-select.is-invalid ~ .invalid-tooltip {
     display: block; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .was-validated .custom-select:invalid:focus, .custom-select.is-invalid:focus {
@@ -2414,6 +2622,8 @@ textarea.form-control {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .was-validated .form-control-file:invalid ~ .invalid-feedback,
 .was-validated .form-control-file:invalid ~ .invalid-tooltip, .form-control-file.is-invalid ~ .invalid-feedback,
@@ -2432,6 +2642,7 @@ textarea.form-control {
   color: #dc3545; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .was-validated .custom-control-input:invalid ~ .custom-control-label::before, .custom-control-input.is-invalid ~ .custom-control-label::before {
     border-color: #dc3545; }
 =======
@@ -2442,6 +2653,10 @@ textarea.form-control {
   .was-validated .custom-control-input:invalid ~ .custom-control-label::before, .custom-control-input.is-invalid ~ .custom-control-label::before {
     border-color: #dc3545; }
 >>>>>>> origin/nhanvien
+=======
+  .was-validated .custom-control-input:invalid ~ .custom-control-label::before, .custom-control-input.is-invalid ~ .custom-control-label::before {
+    border-color: #dc3545; }
+>>>>>>> origin/giamgiasanpham
 
 .was-validated .custom-control-input:invalid ~ .invalid-feedback,
 .was-validated .custom-control-input:invalid ~ .invalid-tooltip, .custom-control-input.is-invalid ~ .invalid-feedback,
@@ -2485,8 +2700,11 @@ textarea.form-control {
   align-items: center; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .form-inline .form-check {
     width: 100%; }
   @media (min-width: 576px) {
@@ -2553,6 +2771,7 @@ textarea.form-control {
       justify-content: center; }
     .form-inline .custom-control-label {
       margin-bottom: 0; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .form-inline .form-check {
@@ -2624,6 +2843,8 @@ textarea.form-control {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn {
   display: inline-block;
@@ -2648,8 +2869,11 @@ textarea.form-control {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   @media (prefers-reduced-motion: reduce) {
     .btn {
       -webkit-transition: none;
@@ -2664,6 +2888,7 @@ textarea.form-control {
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
   .btn.disabled, .btn:disabled {
     opacity: 0.65; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 @media (prefers-reduced-motion: reduce) {
@@ -2683,6 +2908,8 @@ textarea.form-control {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 a.btn.disabled,
 fieldset:disabled a.btn {
@@ -2694,8 +2921,11 @@ fieldset:disabled a.btn {
   border-color: #007bff; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-primary:hover {
     color: #fff;
     background-color: #0069d9;
@@ -2716,6 +2946,7 @@ fieldset:disabled a.btn {
     .show > .btn-primary.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-primary:hover {
@@ -2741,6 +2972,8 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-secondary {
   color: #fff;
@@ -2748,8 +2981,11 @@ fieldset:disabled a.btn {
   border-color: #6c757d; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-secondary:hover {
     color: #fff;
     background-color: #5a6268;
@@ -2770,6 +3006,7 @@ fieldset:disabled a.btn {
     .show > .btn-secondary.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-secondary:hover {
@@ -2795,6 +3032,8 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-success {
   color: #fff;
@@ -2802,8 +3041,11 @@ fieldset:disabled a.btn {
   border-color: #28a745; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-success:hover {
     color: #fff;
     background-color: #218838;
@@ -2824,6 +3066,7 @@ fieldset:disabled a.btn {
     .show > .btn-success.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-success:hover {
@@ -2849,6 +3092,8 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-info {
   color: #fff;
@@ -2856,8 +3101,11 @@ fieldset:disabled a.btn {
   border-color: #17a2b8; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-info:hover {
     color: #fff;
     background-color: #138496;
@@ -2878,6 +3126,7 @@ fieldset:disabled a.btn {
     .show > .btn-info.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-info:hover {
@@ -2903,6 +3152,8 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-warning {
   color: #212529;
@@ -2910,8 +3161,11 @@ fieldset:disabled a.btn {
   border-color: #ffc107; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-warning:hover {
     color: #212529;
     background-color: #e0a800;
@@ -2932,6 +3186,7 @@ fieldset:disabled a.btn {
     .show > .btn-warning.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(222, 170, 12, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(222, 170, 12, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-warning:hover {
@@ -2957,6 +3212,8 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-danger {
   color: #fff;
@@ -2964,8 +3221,11 @@ fieldset:disabled a.btn {
   border-color: #dc3545; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-danger:hover {
     color: #fff;
     background-color: #c82333;
@@ -2986,6 +3246,7 @@ fieldset:disabled a.btn {
     .show > .btn-danger.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(225, 83, 97, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(225, 83, 97, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-danger:hover {
@@ -3011,6 +3272,8 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-light {
   color: #212529;
@@ -3018,8 +3281,11 @@ fieldset:disabled a.btn {
   border-color: #f8f9fa; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-light:hover {
     color: #212529;
     background-color: #e2e6ea;
@@ -3040,6 +3306,7 @@ fieldset:disabled a.btn {
     .show > .btn-light.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-light:hover {
@@ -3065,6 +3332,8 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-dark {
   color: #fff;
@@ -3072,8 +3341,11 @@ fieldset:disabled a.btn {
   border-color: #343a40; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-dark:hover {
     color: #fff;
     background-color: #23272b;
@@ -3094,6 +3366,7 @@ fieldset:disabled a.btn {
     .show > .btn-dark.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(82, 88, 93, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(82, 88, 93, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-dark:hover {
@@ -3119,14 +3392,19 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-outline-primary {
   color: #007bff;
   border-color: #007bff; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-outline-primary:hover {
     color: #fff;
     background-color: #007bff;
@@ -3146,6 +3424,7 @@ fieldset:disabled a.btn {
     .show > .btn-outline-primary.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-outline-primary:hover {
@@ -3170,14 +3449,19 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-outline-secondary {
   color: #6c757d;
   border-color: #6c757d; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-outline-secondary:hover {
     color: #fff;
     background-color: #6c757d;
@@ -3197,6 +3481,7 @@ fieldset:disabled a.btn {
     .show > .btn-outline-secondary.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-outline-secondary:hover {
@@ -3221,14 +3506,19 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-outline-success {
   color: #28a745;
   border-color: #28a745; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-outline-success:hover {
     color: #fff;
     background-color: #28a745;
@@ -3248,6 +3538,7 @@ fieldset:disabled a.btn {
     .show > .btn-outline-success.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-outline-success:hover {
@@ -3272,14 +3563,19 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-outline-info {
   color: #17a2b8;
   border-color: #17a2b8; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-outline-info:hover {
     color: #fff;
     background-color: #17a2b8;
@@ -3299,6 +3595,7 @@ fieldset:disabled a.btn {
     .show > .btn-outline-info.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-outline-info:hover {
@@ -3323,14 +3620,19 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-outline-warning {
   color: #ffc107;
   border-color: #ffc107; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-outline-warning:hover {
     color: #212529;
     background-color: #ffc107;
@@ -3350,6 +3652,7 @@ fieldset:disabled a.btn {
     .show > .btn-outline-warning.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-outline-warning:hover {
@@ -3374,14 +3677,19 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-outline-danger {
   color: #dc3545;
   border-color: #dc3545; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-outline-danger:hover {
     color: #fff;
     background-color: #dc3545;
@@ -3401,6 +3709,7 @@ fieldset:disabled a.btn {
     .show > .btn-outline-danger.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-outline-danger:hover {
@@ -3425,14 +3734,19 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-outline-light {
   color: #f8f9fa;
   border-color: #f8f9fa; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-outline-light:hover {
     color: #212529;
     background-color: #f8f9fa;
@@ -3452,6 +3766,7 @@ fieldset:disabled a.btn {
     .show > .btn-outline-light.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-outline-light:hover {
@@ -3476,14 +3791,19 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-outline-dark {
   color: #343a40;
   border-color: #343a40; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-outline-dark:hover {
     color: #fff;
     background-color: #343a40;
@@ -3503,6 +3823,7 @@ fieldset:disabled a.btn {
     .show > .btn-outline-dark.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);
       box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-outline-dark:hover {
@@ -3527,6 +3848,8 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-link {
   font-weight: 400;
@@ -3534,8 +3857,11 @@ fieldset:disabled a.btn {
   text-decoration: none; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-link:hover {
     color: #0056b3;
     text-decoration: underline; }
@@ -3546,6 +3872,7 @@ fieldset:disabled a.btn {
   .btn-link:disabled, .btn-link.disabled {
     color: #6c757d;
     pointer-events: none; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-link:hover {
@@ -3561,6 +3888,8 @@ fieldset:disabled a.btn {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-lg, .btn-group-lg > .btn {
   padding: 0.5rem 1rem;
@@ -3579,6 +3908,7 @@ fieldset:disabled a.btn {
   width: 100%; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .btn-block + .btn-block {
     margin-top: 0.5rem; }
 =======
@@ -3589,6 +3919,10 @@ fieldset:disabled a.btn {
   .btn-block + .btn-block {
     margin-top: 0.5rem; }
 >>>>>>> origin/nhanvien
+=======
+  .btn-block + .btn-block {
+    margin-top: 0.5rem; }
+>>>>>>> origin/giamgiasanpham
 
 input[type="submit"].btn-block,
 input[type="reset"].btn-block,
@@ -3601,8 +3935,11 @@ input[type="button"].btn-block {
   transition: opacity 0.15s linear; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   @media (prefers-reduced-motion: reduce) {
     .fade {
       -webkit-transition: none;
@@ -3610,6 +3947,7 @@ input[type="button"].btn-block {
       transition: none; } }
   .fade:not(.show) {
     opacity: 0; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 @media (prefers-reduced-motion: reduce) {
@@ -3622,6 +3960,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .collapse:not(.show) {
   display: none; }
@@ -3635,13 +3975,17 @@ input[type="button"].btn-block {
   transition: height 0.35s ease; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   @media (prefers-reduced-motion: reduce) {
     .collapsing {
       -webkit-transition: none;
       -o-transition: none;
       transition: none; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 @media (prefers-reduced-motion: reduce) {
@@ -3652,6 +3996,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .dropup,
 .dropright,
@@ -3663,8 +4009,11 @@ input[type="button"].btn-block {
   white-space: nowrap; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .dropdown-toggle::after {
     display: inline-block;
     margin-left: 0.255em;
@@ -3676,6 +4025,7 @@ input[type="button"].btn-block {
     border-left: 0.3em solid transparent; }
   .dropdown-toggle:empty::after {
     margin-left: 0; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .dropdown-toggle::after {
@@ -3692,6 +4042,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .dropdown-menu {
   position: absolute;
@@ -3848,8 +4200,11 @@ input[type="button"].btn-block {
   border: 0; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .dropdown-item:hover, .dropdown-item:focus {
     color: #16181b;
     text-decoration: none;
@@ -3862,6 +4217,7 @@ input[type="button"].btn-block {
     color: #6c757d;
     pointer-events: none;
     background-color: transparent; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .dropdown-item:hover, .dropdown-item:focus {
@@ -3879,6 +4235,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .dropdown-menu.show {
   display: block; }
@@ -3905,8 +4263,11 @@ input[type="button"].btn-block {
   vertical-align: middle; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-group > .btn,
   .btn-group-vertical > .btn {
     position: relative;
@@ -3921,6 +4282,7 @@ input[type="button"].btn-block {
     .btn-group-vertical > .btn:active,
     .btn-group-vertical > .btn.active {
       z-index: 1; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-group > .btn,
@@ -3940,6 +4302,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-toolbar {
   display: -webkit-box;
@@ -3952,6 +4316,7 @@ input[type="button"].btn-block {
   justify-content: flex-start; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .btn-toolbar .input-group {
     width: auto; }
 =======
@@ -3962,6 +4327,10 @@ input[type="button"].btn-block {
   .btn-toolbar .input-group {
     width: auto; }
 >>>>>>> origin/nhanvien
+=======
+  .btn-toolbar .input-group {
+    width: auto; }
+>>>>>>> origin/giamgiasanpham
 
 .btn-group > .btn:not(:first-child),
 .btn-group > .btn-group:not(:first-child) {
@@ -3982,14 +4351,18 @@ input[type="button"].btn-block {
   padding-left: 0.5625rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .dropdown-toggle-split::after,
   .dropup .dropdown-toggle-split::after,
   .dropright .dropdown-toggle-split::after {
     margin-left: 0; }
   .dropleft .dropdown-toggle-split::before {
     margin-right: 0; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .dropdown-toggle-split::after,
@@ -4001,6 +4374,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split {
   padding-right: 0.375rem;
@@ -4023,8 +4398,11 @@ input[type="button"].btn-block {
   justify-content: center; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-group-vertical > .btn,
   .btn-group-vertical > .btn-group {
     width: 100%; }
@@ -4039,6 +4417,7 @@ input[type="button"].btn-block {
   .btn-group-vertical > .btn-group:not(:first-child) > .btn {
     border-top-left-radius: 0;
     border-top-right-radius: 0; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-group-vertical > .btn,
@@ -4058,14 +4437,19 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn-group-toggle > .btn,
 .btn-group-toggle > .btn-group > .btn {
   margin-bottom: 0; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .btn-group-toggle > .btn input[type="radio"],
   .btn-group-toggle > .btn input[type="checkbox"],
   .btn-group-toggle > .btn-group > .btn input[type="radio"],
@@ -4073,6 +4457,7 @@ input[type="button"].btn-block {
     position: absolute;
     clip: rect(0, 0, 0, 0);
     pointer-events: none; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .btn-group-toggle > .btn input[type="radio"],
@@ -4085,6 +4470,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .input-group {
   position: relative;
@@ -4099,8 +4486,11 @@ input[type="button"].btn-block {
   width: 100%; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .input-group > .form-control,
   .input-group > .form-control-plaintext,
   .input-group > .custom-select,
@@ -4152,6 +4542,7 @@ input[type="button"].btn-block {
     .input-group > .custom-file:not(:first-child) .custom-file-label {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .input-group > .form-control,
@@ -4208,6 +4599,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .input-group-prepend,
 .input-group-append {
@@ -4216,8 +4609,11 @@ input[type="button"].btn-block {
   display: flex; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .input-group-prepend .btn,
   .input-group-append .btn {
     position: relative;
@@ -4234,6 +4630,7 @@ input[type="button"].btn-block {
   .input-group-append .input-group-text + .input-group-text,
   .input-group-append .input-group-text + .btn {
     margin-left: -1px; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .input-group-prepend .btn,
@@ -4255,6 +4652,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .input-group-prepend {
   margin-right: -1px; }
@@ -4282,6 +4681,7 @@ input[type="button"].btn-block {
   border-radius: 0.25rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .input-group-text input[type="radio"],
   .input-group-text input[type="checkbox"] {
     margin-top: 0; }
@@ -4295,6 +4695,11 @@ input[type="button"].btn-block {
   .input-group-text input[type="checkbox"] {
     margin-top: 0; }
 >>>>>>> origin/nhanvien
+=======
+  .input-group-text input[type="radio"],
+  .input-group-text input[type="checkbox"] {
+    margin-top: 0; }
+>>>>>>> origin/giamgiasanpham
 
 .input-group-lg > .form-control:not(textarea),
 .input-group-lg > .custom-select {
@@ -4366,8 +4771,11 @@ input[type="button"].btn-block {
   opacity: 0; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .custom-control-input:checked ~ .custom-control-label::before {
     color: #fff;
     border-color: #007bff;
@@ -4385,6 +4793,7 @@ input[type="button"].btn-block {
     color: #6c757d; }
     .custom-control-input:disabled ~ .custom-control-label::before {
       background-color: #e9ecef; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .custom-control-input:checked ~ .custom-control-label::before {
@@ -4407,6 +4816,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .custom-control-label {
   position: relative;
@@ -4414,8 +4825,11 @@ input[type="button"].btn-block {
   vertical-align: top; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .custom-control-label::before {
     position: absolute;
     top: 0.25rem;
@@ -4436,6 +4850,7 @@ input[type="button"].btn-block {
     height: 1rem;
     content: "";
     background: no-repeat 50% / 50% 50%; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .custom-control-label::before {
@@ -4461,6 +4876,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .custom-checkbox .custom-control-label::before {
   border-radius: 0.25rem; }
@@ -4494,8 +4911,11 @@ input[type="button"].btn-block {
   padding-left: 2.25rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .custom-switch .custom-control-label::before {
     left: -2.25rem;
     width: 1.75rem;
@@ -4525,6 +4945,7 @@ input[type="button"].btn-block {
     transform: translateX(0.75rem); }
   .custom-switch .custom-control-input:disabled:checked ~ .custom-control-label::before {
     background-color: rgba(0, 123, 255, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .custom-switch .custom-control-label::before {
@@ -4559,6 +4980,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .custom-select {
   display: inline-block;
@@ -4579,8 +5002,11 @@ input[type="button"].btn-block {
   appearance: none; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .custom-select:focus {
     border-color: #80bdff;
     outline: 0;
@@ -4598,6 +5024,7 @@ input[type="button"].btn-block {
     background-color: #e9ecef; }
   .custom-select::-ms-expand {
     display: none; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .custom-select:focus {
@@ -4620,6 +5047,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .custom-select-sm {
   height: calc(1.5em + 0.5rem + 2px);
@@ -4651,8 +5080,11 @@ input[type="button"].btn-block {
   opacity: 0; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .custom-file-input:focus ~ .custom-file-label {
     border-color: #80bdff;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
@@ -4663,6 +5095,7 @@ input[type="button"].btn-block {
     content: "Browse"; }
   .custom-file-input ~ .custom-file-label[data-browse]::after {
     content: attr(data-browse); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .custom-file-input:focus ~ .custom-file-label {
@@ -4678,6 +5111,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .custom-file-label {
   position: absolute;
@@ -4695,8 +5130,11 @@ input[type="button"].btn-block {
   border-radius: 0.25rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .custom-file-label::after {
     position: absolute;
     top: 0;
@@ -4712,6 +5150,7 @@ input[type="button"].btn-block {
     background-color: #e9ecef;
     border-left: inherit;
     border-radius: 0 0.25rem 0.25rem 0; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .custom-file-label::after {
@@ -4732,6 +5171,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .custom-range {
   width: 100%;
@@ -4743,8 +5184,11 @@ input[type="button"].btn-block {
   appearance: none; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .custom-range:focus {
     outline: none; }
     .custom-range:focus::-webkit-slider-thumb {
@@ -4860,6 +5304,7 @@ input[type="button"].btn-block {
     cursor: default; }
   .custom-range:disabled::-ms-thumb {
     background-color: #adb5bd; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .custom-range:focus {
@@ -4980,6 +5425,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .custom-control-label::before,
 .custom-file-label,
@@ -4991,8 +5438,11 @@ input[type="button"].btn-block {
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   @media (prefers-reduced-motion: reduce) {
     .custom-control-label::before,
     .custom-file-label,
@@ -5000,6 +5450,7 @@ input[type="button"].btn-block {
       -webkit-transition: none;
       -o-transition: none;
       transition: none; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 @media (prefers-reduced-motion: reduce) {
@@ -5012,6 +5463,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .nav {
   display: -webkit-box;
@@ -5028,8 +5481,11 @@ input[type="button"].btn-block {
   padding: 0.5rem 1rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .nav-link:hover, .nav-link:focus {
     text-decoration: none; }
   .nav-link.disabled {
@@ -5060,6 +5516,7 @@ input[type="button"].btn-block {
     margin-top: -1px;
     border-top-left-radius: 0;
     border-top-right-radius: 0; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .nav-link:hover, .nav-link:focus {
@@ -5095,6 +5552,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .nav-pills .nav-link {
   border-radius: 0.25rem; }
@@ -5140,8 +5599,11 @@ input[type="button"].btn-block {
   padding: 0.5rem 1rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .navbar > .container,
   .navbar > .container-fluid {
     display: -webkit-box;
@@ -5155,6 +5617,7 @@ input[type="button"].btn-block {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .navbar > .container,
@@ -5173,6 +5636,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .navbar-brand {
   display: inline-block;
@@ -5182,6 +5647,7 @@ input[type="button"].btn-block {
   font-size: 1.25rem;
   line-height: inherit;
   white-space: nowrap; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   .navbar-brand:hover, .navbar-brand:focus {
@@ -5194,6 +5660,10 @@ input[type="button"].btn-block {
   .navbar-brand:hover, .navbar-brand:focus {
     text-decoration: none; }
 >>>>>>> origin/nhanvien
+=======
+  .navbar-brand:hover, .navbar-brand:focus {
+    text-decoration: none; }
+>>>>>>> origin/giamgiasanpham
 
 .navbar-nav {
   display: -webkit-box;
@@ -5208,14 +5678,18 @@ input[type="button"].btn-block {
   list-style: none; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .navbar-nav .nav-link {
     padding-right: 0;
     padding-left: 0; }
   .navbar-nav .dropdown-menu {
     position: static;
     float: none; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .navbar-nav .nav-link {
@@ -5227,6 +5701,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .navbar-text {
   display: inline-block;
@@ -5252,6 +5728,7 @@ input[type="button"].btn-block {
   border-radius: 0.25rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .navbar-toggler:hover, .navbar-toggler:focus {
     text-decoration: none; }
 =======
@@ -5262,6 +5739,10 @@ input[type="button"].btn-block {
   .navbar-toggler:hover, .navbar-toggler:focus {
     text-decoration: none; }
 >>>>>>> origin/nhanvien
+=======
+  .navbar-toggler:hover, .navbar-toggler:focus {
+    text-decoration: none; }
+>>>>>>> origin/giamgiasanpham
 
 .navbar-toggler-icon {
   display: inline-block;
@@ -5289,8 +5770,11 @@ input[type="button"].btn-block {
     justify-content: flex-start; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
     .navbar-expand-sm .navbar-nav {
       -webkit-box-orient: horizontal;
       -webkit-box-direction: normal;
@@ -5313,6 +5797,7 @@ input[type="button"].btn-block {
       flex-basis: auto; }
     .navbar-expand-sm .navbar-toggler {
       display: none; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   .navbar-expand-sm .navbar-nav {
@@ -5340,6 +5825,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 @media (max-width: 767.98px) {
   .navbar-expand-md > .container,
@@ -5358,8 +5845,11 @@ input[type="button"].btn-block {
     justify-content: flex-start; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
     .navbar-expand-md .navbar-nav {
       -webkit-box-orient: horizontal;
       -webkit-box-direction: normal;
@@ -5382,6 +5872,7 @@ input[type="button"].btn-block {
       flex-basis: auto; }
     .navbar-expand-md .navbar-toggler {
       display: none; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   .navbar-expand-md .navbar-nav {
@@ -5409,6 +5900,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 @media (max-width: 991.98px) {
   .navbar-expand-lg > .container,
@@ -5427,8 +5920,11 @@ input[type="button"].btn-block {
     justify-content: flex-start; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
     .navbar-expand-lg .navbar-nav {
       -webkit-box-orient: horizontal;
       -webkit-box-direction: normal;
@@ -5451,6 +5947,7 @@ input[type="button"].btn-block {
       flex-basis: auto; }
     .navbar-expand-lg .navbar-toggler {
       display: none; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   .navbar-expand-lg .navbar-nav {
@@ -5478,6 +5975,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 @media (max-width: 1199.98px) {
   .navbar-expand-xl > .container,
@@ -5496,8 +5995,11 @@ input[type="button"].btn-block {
     justify-content: flex-start; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
     .navbar-expand-xl .navbar-nav {
       -webkit-box-orient: horizontal;
       -webkit-box-direction: normal;
@@ -5520,6 +6022,7 @@ input[type="button"].btn-block {
       flex-basis: auto; }
     .navbar-expand-xl .navbar-toggler {
       display: none; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   .navbar-expand-xl .navbar-nav {
@@ -5547,6 +6050,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .navbar-expand {
   -webkit-box-orient: horizontal;
@@ -5558,8 +6063,11 @@ input[type="button"].btn-block {
   justify-content: flex-start; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .navbar-expand > .container,
   .navbar-expand > .container-fluid {
     padding-right: 0;
@@ -5598,6 +6106,7 @@ input[type="button"].btn-block {
     color: rgba(0, 0, 0, 0.7); }
   .navbar-light .navbar-nav .nav-link.disabled {
     color: rgba(0, 0, 0, 0.3); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .navbar-expand > .container,
@@ -5641,6 +6150,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .navbar-light .navbar-nav .show > .nav-link,
 .navbar-light .navbar-nav .active > .nav-link,
@@ -5659,8 +6170,11 @@ input[type="button"].btn-block {
   color: rgba(0, 0, 0, 0.5); }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .navbar-light .navbar-text a {
     color: rgba(0, 0, 0, 0.9); }
     .navbar-light .navbar-text a:hover, .navbar-light .navbar-text a:focus {
@@ -5677,6 +6191,7 @@ input[type="button"].btn-block {
     color: rgba(255, 255, 255, 0.75); }
   .navbar-dark .navbar-nav .nav-link.disabled {
     color: rgba(255, 255, 255, 0.25); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .navbar-light .navbar-text a {
@@ -5698,6 +6213,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .navbar-dark .navbar-nav .show > .nav-link,
 .navbar-dark .navbar-nav .active > .nav-link,
@@ -5716,12 +6233,16 @@ input[type="button"].btn-block {
   color: rgba(255, 255, 255, 0.5); }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .navbar-dark .navbar-text a {
     color: #fff; }
     .navbar-dark .navbar-text a:hover, .navbar-dark .navbar-text a:focus {
       color: #fff; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .navbar-dark .navbar-text a {
@@ -5731,6 +6252,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .card {
   position: relative;
@@ -5749,8 +6272,11 @@ input[type="button"].btn-block {
   border-radius: 0.25rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .card > hr {
     margin-right: 0;
     margin-left: 0; }
@@ -5760,6 +6286,7 @@ input[type="button"].btn-block {
   .card > .list-group:last-child .list-group-item:last-child {
     border-bottom-right-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .card > hr {
@@ -5774,6 +6301,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .card-body {
   -webkit-box-flex: 1;
@@ -5804,12 +6333,16 @@ input[type="button"].btn-block {
   border-bottom: 1px solid rgba(0, 0, 0, 0.125); }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .card-header:first-child {
     border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0; }
   .card-header + .list-group .list-group-item:first-child {
     border-top: 0; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .card-header:first-child {
@@ -5819,11 +6352,14 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .card-footer {
   padding: 0.75rem 1.25rem;
   background-color: rgba(0, 0, 0, 0.03);
   border-top: 1px solid rgba(0, 0, 0, 0.125); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   .card-footer:last-child {
@@ -5836,6 +6372,10 @@ input[type="button"].btn-block {
   .card-footer:last-child {
     border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px); }
 >>>>>>> origin/nhanvien
+=======
+  .card-footer:last-child {
+    border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px); }
+>>>>>>> origin/giamgiasanpham
 
 .card-header-tabs {
   margin-right: -0.625rem;
@@ -5879,8 +6419,11 @@ input[type="button"].btn-block {
   flex-direction: column; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .card-deck .card {
     margin-bottom: 15px; }
   @media (min-width: 576px) {
@@ -5905,6 +6448,7 @@ input[type="button"].btn-block {
         margin-right: 15px;
         margin-bottom: 0;
         margin-left: 15px; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .card-deck .card {
@@ -5934,6 +6478,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .card-group {
   display: -webkit-box;
@@ -5945,8 +6491,11 @@ input[type="button"].btn-block {
   flex-direction: column; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .card-group > .card {
     margin-bottom: 15px; }
   @media (min-width: 576px) {
@@ -5981,6 +6530,7 @@ input[type="button"].btn-block {
           .card-group > .card:not(:first-child) .card-img-bottom,
           .card-group > .card:not(:first-child) .card-footer {
             border-bottom-left-radius: 0; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .card-group > .card {
@@ -6020,6 +6570,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .card-columns .card {
   margin-bottom: 0.75rem; }
@@ -6034,8 +6586,11 @@ input[type="button"].btn-block {
     widows: 1; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
     .card-columns .card {
       display: inline-block;
       width: 100%; } }
@@ -6056,6 +6611,7 @@ input[type="button"].btn-block {
     border-top-right-radius: 0; }
   .accordion > .card .card-header {
     margin-bottom: -1px; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   .card-columns .card {
@@ -6081,6 +6637,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .breadcrumb {
   display: -webkit-box;
@@ -6098,13 +6656,17 @@ input[type="button"].btn-block {
   padding-left: 0.5rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .breadcrumb-item + .breadcrumb-item::before {
     display: inline-block;
     padding-right: 0.5rem;
     color: #6c757d;
     content: "/"; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .breadcrumb-item + .breadcrumb-item::before {
@@ -6115,6 +6677,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .breadcrumb-item + .breadcrumb-item:hover::before {
   text-decoration: underline; }
@@ -6144,8 +6708,11 @@ input[type="button"].btn-block {
   border: 1px solid #dee2e6; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .page-link:hover {
     z-index: 2;
     color: #0056b3;
@@ -6157,6 +6724,7 @@ input[type="button"].btn-block {
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .page-link:hover {
@@ -6173,6 +6741,8 @@ input[type="button"].btn-block {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .page-item:first-child .page-link {
   margin-left: 0;
@@ -6239,8 +6809,11 @@ input[type="button"].btn-block {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   @media (prefers-reduced-motion: reduce) {
     .badge {
       -webkit-transition: none;
@@ -6250,6 +6823,7 @@ input[type="button"].btn-block {
     text-decoration: none; }
   .badge:empty {
     display: none; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 @media (prefers-reduced-motion: reduce) {
@@ -6264,6 +6838,8 @@ a.badge:hover, a.badge:focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .btn .badge {
   position: relative;
@@ -6279,8 +6855,11 @@ a.badge:hover, a.badge:focus {
   background-color: #007bff; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   a.badge-primary:hover, a.badge-primary:focus {
     color: #fff;
     background-color: #0062cc; }
@@ -6288,6 +6867,7 @@ a.badge:hover, a.badge:focus {
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 a.badge-primary:hover, a.badge-primary:focus {
@@ -6300,14 +6880,19 @@ a.badge-primary:focus, a.badge-primary.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .badge-secondary {
   color: #fff;
   background-color: #6c757d; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   a.badge-secondary:hover, a.badge-secondary:focus {
     color: #fff;
     background-color: #545b62; }
@@ -6315,6 +6900,7 @@ a.badge-primary:focus, a.badge-primary.focus {
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
     box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 a.badge-secondary:hover, a.badge-secondary:focus {
@@ -6327,14 +6913,19 @@ a.badge-secondary:focus, a.badge-secondary.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .badge-success {
   color: #fff;
   background-color: #28a745; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   a.badge-success:hover, a.badge-success:focus {
     color: #fff;
     background-color: #1e7e34; }
@@ -6342,6 +6933,7 @@ a.badge-secondary:focus, a.badge-secondary.focus {
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
     box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 a.badge-success:hover, a.badge-success:focus {
@@ -6354,14 +6946,19 @@ a.badge-success:focus, a.badge-success.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .badge-info {
   color: #fff;
   background-color: #17a2b8; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   a.badge-info:hover, a.badge-info:focus {
     color: #fff;
     background-color: #117a8b; }
@@ -6369,6 +6966,7 @@ a.badge-success:focus, a.badge-success.focus {
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);
     box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 a.badge-info:hover, a.badge-info:focus {
@@ -6381,14 +6979,19 @@ a.badge-info:focus, a.badge-info.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .badge-warning {
   color: #212529;
   background-color: #ffc107; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   a.badge-warning:hover, a.badge-warning:focus {
     color: #212529;
     background-color: #d39e00; }
@@ -6396,6 +6999,7 @@ a.badge-info:focus, a.badge-info.focus {
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);
     box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 a.badge-warning:hover, a.badge-warning:focus {
@@ -6408,14 +7012,19 @@ a.badge-warning:focus, a.badge-warning.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .badge-danger {
   color: #fff;
   background-color: #dc3545; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   a.badge-danger:hover, a.badge-danger:focus {
     color: #fff;
     background-color: #bd2130; }
@@ -6423,6 +7032,7 @@ a.badge-warning:focus, a.badge-warning.focus {
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
     box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 a.badge-danger:hover, a.badge-danger:focus {
@@ -6435,14 +7045,19 @@ a.badge-danger:focus, a.badge-danger.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .badge-light {
   color: #212529;
   background-color: #f8f9fa; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   a.badge-light:hover, a.badge-light:focus {
     color: #212529;
     background-color: #dae0e5; }
@@ -6450,6 +7065,7 @@ a.badge-danger:focus, a.badge-danger.focus {
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);
     box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 a.badge-light:hover, a.badge-light:focus {
@@ -6462,14 +7078,19 @@ a.badge-light:focus, a.badge-light.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .badge-dark {
   color: #fff;
   background-color: #343a40; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   a.badge-dark:hover, a.badge-dark:focus {
     color: #fff;
     background-color: #1d2124; }
@@ -6477,6 +7098,7 @@ a.badge-light:focus, a.badge-light.focus {
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);
     box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 a.badge-dark:hover, a.badge-dark:focus {
@@ -6489,12 +7111,15 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .jumbotron {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
   background-color: #e9ecef;
   border-radius: 0.3rem; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   @media (min-width: 576px) {
@@ -6510,6 +7135,11 @@ a.badge-dark:focus, a.badge-dark.focus {
     .jumbotron {
       padding: 4rem 2rem; } }
 >>>>>>> origin/nhanvien
+=======
+  @media (min-width: 576px) {
+    .jumbotron {
+      padding: 4rem 2rem; } }
+>>>>>>> origin/giamgiasanpham
 
 .jumbotron-fluid {
   padding-right: 0;
@@ -6533,14 +7163,18 @@ a.badge-dark:focus, a.badge-dark.focus {
   padding-right: 4rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .alert-dismissible .close {
     position: absolute;
     top: 0;
     right: 0;
     padding: 0.75rem 1.25rem;
     color: inherit; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .alert-dismissible .close {
@@ -6552,6 +7186,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .alert-primary {
   color: #004085;
@@ -6559,12 +7195,16 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #b8daff; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .alert-primary hr {
     border-top-color: #9fcdff; }
   .alert-primary .alert-link {
     color: #002752; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .alert-primary hr {
@@ -6574,6 +7214,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .alert-secondary {
   color: #383d41;
@@ -6581,12 +7223,16 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #d6d8db; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .alert-secondary hr {
     border-top-color: #c8cbcf; }
   .alert-secondary .alert-link {
     color: #202326; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .alert-secondary hr {
@@ -6596,6 +7242,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .alert-success {
   color: #155724;
@@ -6603,12 +7251,16 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #c3e6cb; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .alert-success hr {
     border-top-color: #b1dfbb; }
   .alert-success .alert-link {
     color: #0b2e13; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .alert-success hr {
@@ -6618,6 +7270,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .alert-info {
   color: #0c5460;
@@ -6625,12 +7279,16 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #bee5eb; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .alert-info hr {
     border-top-color: #abdde5; }
   .alert-info .alert-link {
     color: #062c33; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .alert-info hr {
@@ -6640,6 +7298,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .alert-warning {
   color: #856404;
@@ -6647,12 +7307,16 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #ffeeba; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .alert-warning hr {
     border-top-color: #ffe8a1; }
   .alert-warning .alert-link {
     color: #533f03; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .alert-warning hr {
@@ -6662,6 +7326,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .alert-danger {
   color: #721c24;
@@ -6669,12 +7335,16 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #f5c6cb; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .alert-danger hr {
     border-top-color: #f1b0b7; }
   .alert-danger .alert-link {
     color: #491217; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .alert-danger hr {
@@ -6684,6 +7354,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .alert-light {
   color: #818182;
@@ -6691,12 +7363,16 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #fdfdfe; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .alert-light hr {
     border-top-color: #ececf6; }
   .alert-light .alert-link {
     color: #686868; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .alert-light hr {
@@ -6706,6 +7382,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .alert-dark {
   color: #1b1e21;
@@ -6713,12 +7391,16 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #c6c8ca; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .alert-dark hr {
     border-top-color: #b9bbbe; }
   .alert-dark .alert-link {
     color: #040505; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .alert-dark hr {
@@ -6728,6 +7410,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 @-webkit-keyframes progress-bar-stripes {
   from {
@@ -6771,13 +7455,17 @@ a.badge-dark:focus, a.badge-dark.focus {
   transition: width 0.6s ease; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   @media (prefers-reduced-motion: reduce) {
     .progress-bar {
       -webkit-transition: none;
       -o-transition: none;
       transition: none; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 @media (prefers-reduced-motion: reduce) {
@@ -6788,6 +7476,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .progress-bar-striped {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
@@ -6800,12 +7490,16 @@ a.badge-dark:focus, a.badge-dark.focus {
   animation: progress-bar-stripes 1s linear infinite; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   @media (prefers-reduced-motion: reduce) {
     .progress-bar-animated {
       -webkit-animation: none;
       animation: none; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 @media (prefers-reduced-motion: reduce) {
@@ -6815,6 +7509,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .media {
   display: -webkit-box;
@@ -6846,8 +7542,11 @@ a.badge-dark:focus, a.badge-dark.focus {
   text-align: inherit; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .list-group-item-action:hover, .list-group-item-action:focus {
     z-index: 1;
     color: #495057;
@@ -6856,6 +7555,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   .list-group-item-action:active {
     color: #212529;
     background-color: #e9ecef; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .list-group-item-action:hover, .list-group-item-action:focus {
@@ -6869,6 +7569,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .list-group-item {
   position: relative;
@@ -6879,8 +7581,11 @@ a.badge-dark:focus, a.badge-dark.focus {
   border: 1px solid rgba(0, 0, 0, 0.125); }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .list-group-item:first-child {
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem; }
@@ -6897,6 +7602,7 @@ a.badge-dark:focus, a.badge-dark.focus {
     color: #fff;
     background-color: #007bff;
     border-color: #007bff; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .list-group-item:first-child {
@@ -6918,6 +7624,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .list-group-horizontal {
   -webkit-box-orient: horizontal;
@@ -6926,8 +7634,11 @@ a.badge-dark:focus, a.badge-dark.focus {
   flex-direction: row; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .list-group-horizontal .list-group-item {
     margin-right: -1px;
     margin-bottom: 0; }
@@ -6940,6 +7651,7 @@ a.badge-dark:focus, a.badge-dark.focus {
       border-top-right-radius: 0.25rem;
       border-bottom-right-radius: 0.25rem;
       border-bottom-left-radius: 0; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .list-group-horizontal .list-group-item {
@@ -6957,6 +7669,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 @media (min-width: 576px) {
   .list-group-horizontal-sm {
@@ -6966,8 +7680,11 @@ a.badge-dark:focus, a.badge-dark.focus {
     flex-direction: row; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
     .list-group-horizontal-sm .list-group-item {
       margin-right: -1px;
       margin-bottom: 0; }
@@ -6980,6 +7697,7 @@ a.badge-dark:focus, a.badge-dark.focus {
         border-top-right-radius: 0.25rem;
         border-bottom-right-radius: 0.25rem;
         border-bottom-left-radius: 0; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   .list-group-horizontal-sm .list-group-item {
@@ -6997,6 +7715,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 @media (min-width: 768px) {
   .list-group-horizontal-md {
@@ -7006,8 +7726,11 @@ a.badge-dark:focus, a.badge-dark.focus {
     flex-direction: row; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
     .list-group-horizontal-md .list-group-item {
       margin-right: -1px;
       margin-bottom: 0; }
@@ -7020,6 +7743,7 @@ a.badge-dark:focus, a.badge-dark.focus {
         border-top-right-radius: 0.25rem;
         border-bottom-right-radius: 0.25rem;
         border-bottom-left-radius: 0; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   .list-group-horizontal-md .list-group-item {
@@ -7037,6 +7761,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 @media (min-width: 992px) {
   .list-group-horizontal-lg {
@@ -7046,8 +7772,11 @@ a.badge-dark:focus, a.badge-dark.focus {
     flex-direction: row; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
     .list-group-horizontal-lg .list-group-item {
       margin-right: -1px;
       margin-bottom: 0; }
@@ -7060,6 +7789,7 @@ a.badge-dark:focus, a.badge-dark.focus {
         border-top-right-radius: 0.25rem;
         border-bottom-right-radius: 0.25rem;
         border-bottom-left-radius: 0; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   .list-group-horizontal-lg .list-group-item {
@@ -7077,6 +7807,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 @media (min-width: 1200px) {
   .list-group-horizontal-xl {
@@ -7086,8 +7818,11 @@ a.badge-dark:focus, a.badge-dark.focus {
     flex-direction: row; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
     .list-group-horizontal-xl .list-group-item {
       margin-right: -1px;
       margin-bottom: 0; }
@@ -7100,6 +7835,7 @@ a.badge-dark:focus, a.badge-dark.focus {
         border-top-right-radius: 0.25rem;
         border-bottom-right-radius: 0.25rem;
         border-bottom-left-radius: 0; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   .list-group-horizontal-xl .list-group-item {
@@ -7117,11 +7853,14 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .list-group-flush .list-group-item {
   border-right: 0;
   border-left: 0;
   border-radius: 0; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   .list-group-flush .list-group-item:last-child {
@@ -7134,6 +7873,10 @@ a.badge-dark:focus, a.badge-dark.focus {
   .list-group-flush .list-group-item:last-child {
     margin-bottom: -1px; }
 >>>>>>> origin/nhanvien
+=======
+  .list-group-flush .list-group-item:last-child {
+    margin-bottom: -1px; }
+>>>>>>> origin/giamgiasanpham
 
 .list-group-flush:first-child .list-group-item:first-child {
   border-top: 0; }
@@ -7147,8 +7890,11 @@ a.badge-dark:focus, a.badge-dark.focus {
   background-color: #b8daff; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .list-group-item-primary.list-group-item-action:hover, .list-group-item-primary.list-group-item-action:focus {
     color: #004085;
     background-color: #9fcdff; }
@@ -7156,6 +7902,7 @@ a.badge-dark:focus, a.badge-dark.focus {
     color: #fff;
     background-color: #004085;
     border-color: #004085; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .list-group-item-primary.list-group-item-action:hover, .list-group-item-primary.list-group-item-action:focus {
@@ -7168,14 +7915,19 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .list-group-item-secondary {
   color: #383d41;
   background-color: #d6d8db; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .list-group-item-secondary.list-group-item-action:hover, .list-group-item-secondary.list-group-item-action:focus {
     color: #383d41;
     background-color: #c8cbcf; }
@@ -7183,6 +7935,7 @@ a.badge-dark:focus, a.badge-dark.focus {
     color: #fff;
     background-color: #383d41;
     border-color: #383d41; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .list-group-item-secondary.list-group-item-action:hover, .list-group-item-secondary.list-group-item-action:focus {
@@ -7195,14 +7948,19 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .list-group-item-success {
   color: #155724;
   background-color: #c3e6cb; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .list-group-item-success.list-group-item-action:hover, .list-group-item-success.list-group-item-action:focus {
     color: #155724;
     background-color: #b1dfbb; }
@@ -7210,6 +7968,7 @@ a.badge-dark:focus, a.badge-dark.focus {
     color: #fff;
     background-color: #155724;
     border-color: #155724; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .list-group-item-success.list-group-item-action:hover, .list-group-item-success.list-group-item-action:focus {
@@ -7222,14 +7981,19 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .list-group-item-info {
   color: #0c5460;
   background-color: #bee5eb; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .list-group-item-info.list-group-item-action:hover, .list-group-item-info.list-group-item-action:focus {
     color: #0c5460;
     background-color: #abdde5; }
@@ -7237,6 +8001,7 @@ a.badge-dark:focus, a.badge-dark.focus {
     color: #fff;
     background-color: #0c5460;
     border-color: #0c5460; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .list-group-item-info.list-group-item-action:hover, .list-group-item-info.list-group-item-action:focus {
@@ -7249,14 +8014,19 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .list-group-item-warning {
   color: #856404;
   background-color: #ffeeba; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .list-group-item-warning.list-group-item-action:hover, .list-group-item-warning.list-group-item-action:focus {
     color: #856404;
     background-color: #ffe8a1; }
@@ -7264,6 +8034,7 @@ a.badge-dark:focus, a.badge-dark.focus {
     color: #fff;
     background-color: #856404;
     border-color: #856404; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .list-group-item-warning.list-group-item-action:hover, .list-group-item-warning.list-group-item-action:focus {
@@ -7276,14 +8047,19 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .list-group-item-danger {
   color: #721c24;
   background-color: #f5c6cb; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .list-group-item-danger.list-group-item-action:hover, .list-group-item-danger.list-group-item-action:focus {
     color: #721c24;
     background-color: #f1b0b7; }
@@ -7291,6 +8067,7 @@ a.badge-dark:focus, a.badge-dark.focus {
     color: #fff;
     background-color: #721c24;
     border-color: #721c24; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .list-group-item-danger.list-group-item-action:hover, .list-group-item-danger.list-group-item-action:focus {
@@ -7303,14 +8080,19 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .list-group-item-light {
   color: #818182;
   background-color: #fdfdfe; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .list-group-item-light.list-group-item-action:hover, .list-group-item-light.list-group-item-action:focus {
     color: #818182;
     background-color: #ececf6; }
@@ -7318,6 +8100,7 @@ a.badge-dark:focus, a.badge-dark.focus {
     color: #fff;
     background-color: #818182;
     border-color: #818182; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .list-group-item-light.list-group-item-action:hover, .list-group-item-light.list-group-item-action:focus {
@@ -7330,14 +8113,19 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .list-group-item-dark {
   color: #1b1e21;
   background-color: #c6c8ca; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .list-group-item-dark.list-group-item-action:hover, .list-group-item-dark.list-group-item-action:focus {
     color: #1b1e21;
     background-color: #b9bbbe; }
@@ -7345,6 +8133,7 @@ a.badge-dark:focus, a.badge-dark.focus {
     color: #fff;
     background-color: #1b1e21;
     border-color: #1b1e21; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .list-group-item-dark.list-group-item-action:hover, .list-group-item-dark.list-group-item-action:focus {
@@ -7357,6 +8146,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .close {
   float: right;
@@ -7368,13 +8159,17 @@ a.badge-dark:focus, a.badge-dark.focus {
   opacity: .5; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .close:hover {
     color: #000;
     text-decoration: none; }
   .close:not(:disabled):not(.disabled):hover, .close:not(:disabled):not(.disabled):focus {
     opacity: .75; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .close:hover {
@@ -7385,6 +8180,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 button.close {
   padding: 0;
@@ -7412,8 +8209,11 @@ a.close.disabled {
   border-radius: 0.25rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .toast:not(:last-child) {
     margin-bottom: 0.75rem; }
   .toast.showing {
@@ -7423,6 +8223,7 @@ a.close.disabled {
     opacity: 1; }
   .toast.hide {
     display: none; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .toast:not(:last-child) {
@@ -7437,6 +8238,8 @@ a.close.disabled {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .toast-header {
   display: -webkit-box;
@@ -7458,6 +8261,7 @@ a.close.disabled {
   overflow: hidden; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .modal-open .modal {
     overflow-x: hidden;
     overflow-y: auto; }
@@ -7471,6 +8275,11 @@ a.close.disabled {
     overflow-x: hidden;
     overflow-y: auto; }
 >>>>>>> origin/nhanvien
+=======
+  .modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto; }
+>>>>>>> origin/giamgiasanpham
 
 .modal {
   position: fixed;
@@ -7490,8 +8299,11 @@ a.close.disabled {
   pointer-events: none; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .modal.fade .modal-dialog {
     -webkit-transition: -webkit-transform 0.3s ease-out;
     transition: -webkit-transform 0.3s ease-out;
@@ -7510,6 +8322,7 @@ a.close.disabled {
     -webkit-transform: none;
     -ms-transform: none;
     transform: none; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .modal.fade .modal-dialog {
@@ -7533,6 +8346,8 @@ a.close.disabled {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .modal-dialog-scrollable {
   display: -webkit-box;
@@ -7541,8 +8356,11 @@ a.close.disabled {
   max-height: calc(100% - 1rem); }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .modal-dialog-scrollable .modal-content {
     max-height: calc(100vh - 1rem);
     overflow: hidden; }
@@ -7552,6 +8370,7 @@ a.close.disabled {
     flex-shrink: 0; }
   .modal-dialog-scrollable .modal-body {
     overflow-y: auto; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .modal-dialog-scrollable .modal-content {
@@ -7566,6 +8385,8 @@ a.close.disabled {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .modal-dialog-centered {
   display: -webkit-box;
@@ -7577,8 +8398,11 @@ a.close.disabled {
   min-height: calc(100% - 1rem); }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .modal-dialog-centered::before {
     display: block;
     height: calc(100vh - 1rem);
@@ -7596,6 +8420,7 @@ a.close.disabled {
       max-height: none; }
     .modal-dialog-centered.modal-dialog-scrollable::before {
       content: none; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .modal-dialog-centered::before {
@@ -7618,6 +8443,8 @@ a.close.disabled {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .modal-content {
   position: relative;
@@ -7646,12 +8473,16 @@ a.close.disabled {
   background-color: #000; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .modal-backdrop.fade {
     opacity: 0; }
   .modal-backdrop.show {
     opacity: 0.5; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .modal-backdrop.fade {
@@ -7661,6 +8492,8 @@ a.close.disabled {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .modal-header {
   display: -webkit-box;
@@ -7678,6 +8511,7 @@ a.close.disabled {
   border-top-right-radius: 0.3rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .modal-header .close {
     padding: 1rem 1rem;
     margin: -1rem -1rem -1rem auto; }
@@ -7691,6 +8525,11 @@ a.close.disabled {
     padding: 1rem 1rem;
     margin: -1rem -1rem -1rem auto; }
 >>>>>>> origin/nhanvien
+=======
+  .modal-header .close {
+    padding: 1rem 1rem;
+    margin: -1rem -1rem -1rem auto; }
+>>>>>>> origin/giamgiasanpham
 
 .modal-title {
   margin-bottom: 0;
@@ -7719,12 +8558,16 @@ a.close.disabled {
   border-bottom-left-radius: 0.3rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .modal-footer > :not(:first-child) {
     margin-left: .25rem; }
   .modal-footer > :not(:last-child) {
     margin-right: .25rem; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .modal-footer > :not(:first-child) {
@@ -7734,6 +8577,8 @@ a.close.disabled {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .modal-scrollbar-measure {
   position: absolute;
@@ -7750,14 +8595,18 @@ a.close.disabled {
     max-height: calc(100% - 3.5rem); }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
     .modal-dialog-scrollable .modal-content {
       max-height: calc(100vh - 3.5rem); }
   .modal-dialog-centered {
     min-height: calc(100% - 3.5rem); }
     .modal-dialog-centered::before {
       height: calc(100vh - 3.5rem); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   .modal-dialog-scrollable .modal-content {
@@ -7769,6 +8618,8 @@ a.close.disabled {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .modal-sm {
     max-width: 300px; } }
 
@@ -7805,8 +8656,11 @@ a.close.disabled {
   opacity: 0; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .tooltip.show {
     opacity: 0.9; }
   .tooltip .arrow {
@@ -7859,6 +8713,7 @@ a.close.disabled {
       left: 0;
       border-width: 0.4rem 0 0.4rem 0.4rem;
       border-left-color: #000; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .tooltip.show {
@@ -7916,6 +8771,8 @@ a.close.disabled {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .tooltip-inner {
   max-width: 200px;
@@ -7954,8 +8811,11 @@ a.close.disabled {
   border-radius: 0.3rem; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .popover .arrow {
     position: absolute;
     display: block;
@@ -8035,6 +8895,7 @@ a.close.disabled {
       right: 1px;
       border-width: 0.5rem 0 0.5rem 0.5rem;
       border-left-color: #fff; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .popover .arrow {
@@ -8119,6 +8980,8 @@ a.close.disabled {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .popover-header {
   padding: 0.5rem 0.75rem;
@@ -8128,6 +8991,7 @@ a.close.disabled {
   border-bottom: 1px solid #ebebeb;
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   .popover-header:empty {
@@ -8140,6 +9004,10 @@ a.close.disabled {
   .popover-header:empty {
     display: none; }
 >>>>>>> origin/nhanvien
+=======
+  .popover-header:empty {
+    display: none; }
+>>>>>>> origin/giamgiasanpham
 
 .popover-body {
   padding: 0.5rem 0.75rem;
@@ -8158,12 +9026,16 @@ a.close.disabled {
   overflow: hidden; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .carousel-inner::after {
     display: block;
     clear: both;
     content: ""; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .carousel-inner::after {
@@ -8173,6 +9045,8 @@ a.close.disabled {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .carousel-item {
   position: relative;
@@ -8189,13 +9063,17 @@ a.close.disabled {
   transition: transform 0.6s ease-in-out, -webkit-transform 0.6s ease-in-out; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   @media (prefers-reduced-motion: reduce) {
     .carousel-item {
       -webkit-transition: none;
       -o-transition: none;
       transition: none; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 @media (prefers-reduced-motion: reduce) {
@@ -8206,6 +9084,8 @@ a.close.disabled {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .carousel-item.active,
 .carousel-item-next,
@@ -8248,14 +9128,18 @@ a.close.disabled {
   transition: 0s 0.6s opacity; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   @media (prefers-reduced-motion: reduce) {
     .carousel-fade .active.carousel-item-left,
     .carousel-fade .active.carousel-item-right {
       -webkit-transition: none;
       -o-transition: none;
       transition: none; } }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 @media (prefers-reduced-motion: reduce) {
@@ -8267,6 +9151,8 @@ a.close.disabled {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .carousel-control-prev,
 .carousel-control-next {
@@ -8292,8 +9178,11 @@ a.close.disabled {
   transition: opacity 0.15s ease; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   @media (prefers-reduced-motion: reduce) {
     .carousel-control-prev,
     .carousel-control-next {
@@ -8307,6 +9196,7 @@ a.close.disabled {
     text-decoration: none;
     outline: 0;
     opacity: 0.9; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 @media (prefers-reduced-motion: reduce) {
@@ -8325,6 +9215,8 @@ a.close.disabled {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .carousel-control-prev {
   left: 0; }
@@ -8363,8 +9255,11 @@ a.close.disabled {
   list-style: none; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .carousel-indicators li {
     -webkit-box-sizing: content-box;
     box-sizing: content-box;
@@ -8392,6 +9287,7 @@ a.close.disabled {
         transition: none; } }
   .carousel-indicators .active {
     opacity: 1; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .carousel-indicators li {
@@ -8424,6 +9320,8 @@ a.close.disabled {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .carousel-caption {
   position: absolute;
@@ -8834,8 +9732,11 @@ button.bg-dark:focus {
   overflow: hidden; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .embed-responsive::before {
     display: block;
     content: ""; }
@@ -8851,6 +9752,7 @@ button.bg-dark:focus {
     width: 100%;
     height: 100%;
     border: 0; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .embed-responsive::before {
@@ -8871,6 +9773,8 @@ button.bg-dark:focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .embed-responsive-21by9::before {
   padding-top: 42.85714%; }
@@ -11302,6 +12206,7 @@ a.text-dark:hover, a.text-dark:focus {
     border-collapse: collapse !important; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     .table td,
     .table th {
       background-color: #fff !important; }
@@ -11315,6 +12220,11 @@ a.text-dark:hover, a.text-dark:focus {
     .table th {
       background-color: #fff !important; }
 >>>>>>> origin/nhanvien
+=======
+    .table td,
+    .table th {
+      background-color: #fff !important; }
+>>>>>>> origin/giamgiasanpham
   .table-bordered th,
   .table-bordered td {
     border: 1px solid #dee2e6 !important; }
@@ -11322,13 +12232,17 @@ a.text-dark:hover, a.text-dark:focus {
     color: inherit; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
     .table-dark th,
     .table-dark td,
     .table-dark thead th,
     .table-dark tbody + tbody {
       border-color: #dee2e6; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   .table-dark th,
@@ -11339,6 +12253,8 @@ a.text-dark:hover, a.text-dark:focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .table .thead-dark th {
     color: inherit;
     border-color: #dee2e6; } }
@@ -11358,13 +12274,17 @@ a {
   color: #494ca2; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   a:hover, a:focus {
     text-decoration: none !important;
     outline: none !important;
     -webkit-box-shadow: none;
     box-shadow: none; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 a:hover, a:focus {
@@ -11375,6 +12295,8 @@ a:hover, a:focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 button {
   -webkit-transition: .3s all ease;
@@ -11382,13 +12304,17 @@ button {
   transition: .3s all ease; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   button:hover, button:focus {
     text-decoration: none !important;
     outline: none !important;
     -webkit-box-shadow: none !important;
     box-shadow: none !important; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 button:hover, button:focus {
@@ -11399,6 +12325,8 @@ button:hover, button:focus {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 h1, h2, h3, h4, h5,
 .h1, .h2, .h3, .h4, .h5 {
@@ -11421,6 +12349,7 @@ h1, h2, h3, h4, h5,
   color: #000; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .heading-section small {
     font-size: 18px; }
 =======
@@ -11431,6 +12360,10 @@ h1, h2, h3, h4, h5,
   .heading-section small {
     font-size: 18px; }
 >>>>>>> origin/nhanvien
+=======
+  .heading-section small {
+    font-size: 18px; }
+>>>>>>> origin/giamgiasanpham
 
 .img {
   background-size: cover;
@@ -11466,8 +12399,11 @@ h1, h2, h3, h4, h5,
   position: relative; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   #sidebar .h6 {
     color: #fff; }
   #sidebar.active {
@@ -11529,6 +12465,7 @@ h1, h2, h3, h4, h5,
         #sidebar .custom-menu .btn.btn-primary:hover, #sidebar .custom-menu .btn.btn-primary:focus {
           background: #393c7f !important;
           border-color: #393c7f !important; }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 #sidebar .h6 {
@@ -11595,6 +12532,8 @@ h1, h2, h3, h4, h5,
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 a[data-toggle="collapse"] {
   position: relative; }
@@ -11625,6 +12564,7 @@ a[data-toggle="collapse"] {
   border-color: #494ca2; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   .btn.btn-primary:hover, .btn.btn-primary:focus {
     background: #494ca2 !important;
     border-color: #494ca2 !important; }
@@ -11638,6 +12578,11 @@ a[data-toggle="collapse"] {
     background: #494ca2 !important;
     border-color: #494ca2 !important; }
 >>>>>>> origin/nhanvien
+=======
+  .btn.btn-primary:hover, .btn.btn-primary:focus {
+    background: #494ca2 !important;
+    border-color: #494ca2 !important; }
+>>>>>>> origin/giamgiasanpham
 
 .footer p {
   color: rgba(255, 255, 255, 0.5); }
@@ -11653,8 +12598,11 @@ a[data-toggle="collapse"] {
   border: transparent; }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
   .form-control:focus, .form-control:active {
     border-color: #000; }
   .form-control::-webkit-input-placeholder {
@@ -11669,6 +12617,7 @@ a[data-toggle="collapse"] {
   .form-control:-moz-placeholder {
     /* Firefox 18- */
     color: rgba(255, 255, 255, 0.5); }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .form-control:focus, .form-control:active {
@@ -11688,6 +12637,8 @@ a[data-toggle="collapse"] {
 >>>>>>> origin/khachhang
 =======
 >>>>>>> origin/nhanvien
+=======
+>>>>>>> origin/giamgiasanpham
 
 .subscribe-form .form-control {
   background: #5356b1; }
