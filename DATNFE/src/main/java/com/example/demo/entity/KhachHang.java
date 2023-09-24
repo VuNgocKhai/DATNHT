@@ -11,9 +11,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.UUID;
-
-@Getter
-@Setter
 import java.util.List;
 import java.util.UUID;
 

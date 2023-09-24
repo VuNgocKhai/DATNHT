@@ -45,9 +45,13 @@ public class HoaDon implements Serializable {
 
     private Date ngay_thanh_toan;
 
-    private UUID id_nhan_vien;
+    @ManyToOne
+    @JoinColumn(name = "id_nhan_vien")
+    private NhanVien nhanVien;
 
-    private UUID id_khach_hang;
+    @ManyToOne
+    @JoinColumn(name = "id_khach_hang")
+    private KhachHang khachHang;
 
     private String mo_ta;
 

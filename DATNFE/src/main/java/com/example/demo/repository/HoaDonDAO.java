@@ -11,6 +11,6 @@ import java.util.UUID;
 @Repository
 public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
 
-    @Query(value = "select hd from HoaDon hd where hd.nhanVien.ma=?1 and hd.trangThai=1")
+    @Query(value = "select hd from HoaDon hd where hd.nhanVien.ma=?1 and hd.trangthai=1")
     Page<HoaDon> findHdByMaNv(String maNv, Pageable pageable);
 }
