@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.entity.GiamGiaHoaDon;
 import com.example.demo.entity.HoaDon;
+import com.example.demo.entity.PageDTO;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -47,12 +48,11 @@ public class HoaDonRepo {
         return url + "/" + ma;
     }
 
-    // get all  hóa đơn
-    public List<HoaDon> getAllHDchuaGG() {
-        ResponseEntity<List<HoaDon>> response =
-                restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<HoaDon>>() {
+    // get all hóa đơn chưa giảm giá theo page
+    public PageDTO<HoaDon> getAllHDchuaGGPage(Integer page) {
+        ResponseEntity<PageDTO<HoaDon>> response =
+                restTemplate.exchange(url + "/phantrang?page1=" + page, HttpMethod.GET, null, new ParameterizedTypeReference<PageDTO<HoaDon>>() {
                 });
-
         return response.getBody();
     }
 

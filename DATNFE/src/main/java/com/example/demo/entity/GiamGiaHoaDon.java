@@ -16,6 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -28,7 +30,6 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class GiamGiaHoaDon implements Serializable {
@@ -36,7 +37,7 @@ public class GiamGiaHoaDon implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(unique = true)
+    @Column(name = "ma", unique = true)
     @NotBlank(message = "Không được để trống mã !")
     private String ma;
 
@@ -44,9 +45,11 @@ public class GiamGiaHoaDon implements Serializable {
     private String ten;
 
     @NotNull(message = "Không được để trống số tiền điều kiện !")
+    @DecimalMin(value = "0", message = "Số tiền điều kiện không được là số âm!")
     private BigDecimal dieu_kien;
 
     @NotNull(message = "Không được để trống số tiền giảm !")
+    @DecimalMin(value = "0", message = "Số tiền giảm không được là số âm!")
     private BigDecimal so_tien_giam;
 
     @NotNull(message = "Không được để trống ngày bắt đầu !")
@@ -56,6 +59,7 @@ public class GiamGiaHoaDon implements Serializable {
     private Date ngay_ket_thuc;
 
     @NotNull(message = "Không được để trống số lượng !")
+    @Min(value = 0, message = "Số lượng không được âm!")
     private Integer so_luong;
 
     @NotNull(message = "Không được để trống trạng thái !")
@@ -63,5 +67,5 @@ public class GiamGiaHoaDon implements Serializable {
 
     @OneToMany(mappedBy = "gghd", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<GiamGiaChiTietHoaDon> list2;
+    private List<GiamGiaChiTietHoaDon> list1;
 }
