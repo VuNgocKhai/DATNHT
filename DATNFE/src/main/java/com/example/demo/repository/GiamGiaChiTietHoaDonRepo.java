@@ -25,6 +25,7 @@ public class GiamGiaChiTietHoaDonRepo {
     RestTemplate restTemplate = new RestTemplate();
     String url = "http://localhost:2020/rest/giamgiachitiethoadon";
 
+    String url1 = "http://localhost:2020/rest/giamgiahoadon";
 
     private String getUrldelete(UUID hdid, UUID gghdid) {
         return url + "/delete" + "/" + hdid + "/" + gghdid;
@@ -43,6 +44,29 @@ public class GiamGiaChiTietHoaDonRepo {
                 });
 
         return response.getBody();
+    }
+
+    // Lấy danh sách hóa đơn đã áp dụng giảm giá từ chương trình giảm giá cụ thể
+    public List<HoaDon> getHoaDonByChuongTrinhGiamGia(UUID chuongTrinhGiamGiaId) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<UUID> requestEntity = new HttpEntity<>(chuongTrinhGiamGiaId, headers);
+
+        ResponseEntity<List<HoaDon>> response = restTemplate.exchange(
+                url + "/hoandonbygiamgia/{chuongTrinhGiamGiaId}",
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<List<HoaDon>>() {
+                },
+                chuongTrinhGiamGiaId);
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            return response.getBody();
+        } else {
+            System.err.println("Lỗi khi lấy danh sách hóa đơn đã áp dụng giảm giá.");
+            return Collections.emptyList();
+        }
     }
 
     // tạo mới GGCTHD

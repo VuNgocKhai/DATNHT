@@ -1,6 +1,5 @@
 package com.example.demo.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,10 +19,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
-import lombok.*;
-
-import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Table(name = "hoa_don")
@@ -45,13 +39,9 @@ public class HoaDon implements Serializable {
 
     private Date ngay_thanh_toan;
 
-    @ManyToOne
-    @JoinColumn(name = "id_nhan_vien")
-    private NhanVien nhanVien;
+    private UUID id_nhan_vien;
 
-    @ManyToOne
-    @JoinColumn(name = "id_khach_hang")
-    private KhachHang khachHang;
+    private UUID id_khach_hang;
 
     private String mo_ta;
 
@@ -61,5 +51,5 @@ public class HoaDon implements Serializable {
 
     @OneToMany(mappedBy = "hd")
     @JsonIgnore
-    private List<GiamGiaChiTietHoaDon> list1;
+    private List<GiamGiaChiTietHoaDon> list2;
 }

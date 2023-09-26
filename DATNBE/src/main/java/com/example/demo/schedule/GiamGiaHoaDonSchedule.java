@@ -29,6 +29,7 @@ class GiamGiaHoaDonScheDule {
 
         expiredGiamGiaHoaDon.forEach(gghd -> {
             gghd.setTrangthai(0); // Cập nhật trạng thái thành 0
+            System.out.println(gghd);
         });
 
         giamGiaHoaDonDAO.saveAll(expiredGiamGiaHoaDon);

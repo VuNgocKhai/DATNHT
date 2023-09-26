@@ -35,11 +35,11 @@ public class HoaDonRestController {
         return hoaDonDAO.findHoaDonChuaApDungChuongTrinhGiamGia();
     }
 
-    // phân trang hóa đơn chưa được áp mã
+    // phân trang hóa đơn
     @GetMapping("/phantrang")
-    public PageDTO<HoaDon> getPageHD(@RequestParam("page1") Optional<Integer> page) {
+    public PageDTO<HoaDon> getPageHD(@RequestParam("page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.orElse(0), 5);
-        return new PageDTO<>(hoaDonDAO.findHoaDonChuaApDungChuongTrinhGiamGiaPage(pageable));
+        return new PageDTO<>(hoaDonDAO.findAll(pageable));
     }
 
     // tìm hóa đơn theo mã
