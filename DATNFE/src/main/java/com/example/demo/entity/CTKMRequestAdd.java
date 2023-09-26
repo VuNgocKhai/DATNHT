@@ -21,8 +21,8 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name="chuong_trinh_giam_gia_chi_tiet_san_pham")
+//@Entity
+//@Table(name="chuong_trinh_giam_gia_chi_tiet_san_pham")
 public class CTKMRequestAdd implements Serializable {
 
     @Id
@@ -45,11 +45,11 @@ public class CTKMRequestAdd implements Serializable {
     @Column(name = "trangthai")
     private Integer trangThai;
 
-//    public ChuongTrinhGiamGiaChiTietSP dtoCTKM(ChuongTrinhGiamGiaChiTietSP ctkm){
-//        ctkm.setGiay(Giay.builder().idGiay(this.getIdGiay()).build());
-//        ctkm.setChuongTrinhGiamGiaSP(ChuongTrinhGiamGiaSP.builder().idKhuyenMai(this.getIdKhuyenMai()).build());
-//        ctkm.setTrangThai(1);
-//        ctkm.setSoTienDaGiam(this.getSoTienDaGiam());
-//        return ctkm;
-//    }
+    public ChuongTrinhGiamGiaChiTietSP dtoCTKM(ChuongTrinhGiamGiaChiTietSP ctkm){
+        ctkm.setGiay(Giay.builder().idGiay(this.getIdGiay()).build());
+        ctkm.setChuongTrinhGiamGiaSP(ChuongTrinhGiamGiaSP.builder().idKhuyenMai(this.getIdKhuyenMai()).build());
+        ctkm.setTrangThai(1);
+        ctkm.setSoTienDaGiam(this.getSoTienDaGiam());
+        return ctkm;
+    }
 }
