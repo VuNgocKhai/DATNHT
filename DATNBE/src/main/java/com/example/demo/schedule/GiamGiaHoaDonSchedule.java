@@ -3,7 +3,6 @@ package com.example.demo.schedule;
 import com.example.demo.entity.GiamGiaHoaDon;
 import com.example.demo.repository.GiamGiaHoaDonDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +28,6 @@ class GiamGiaHoaDonScheDule {
 
         expiredGiamGiaHoaDon.forEach(gghd -> {
             gghd.setTrangthai(0); // Cập nhật trạng thái thành 0
-            System.out.println(gghd);
         });
 
         giamGiaHoaDonDAO.saveAll(expiredGiamGiaHoaDon);

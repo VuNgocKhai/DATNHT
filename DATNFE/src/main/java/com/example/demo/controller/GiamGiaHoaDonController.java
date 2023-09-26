@@ -59,9 +59,7 @@ public class GiamGiaHoaDonController {
             model.addAttribute("i", 0);
             model.addAttribute("listPGiamGiaHoaDon", pageGGHD);
             return "giamgiahoadon/giam_gia_hoa_don";
-        }
-        else if(checkma != null)
-        {
+        } else if (checkma != null) {
             result.rejectValue("ma", "error.giamGiaHoaDon", "Mã đã tồn tại");
             PageDTO<GiamGiaHoaDon> pageGGHD = giamGiaHoaDonRepo.getPageGGHD(page.orElse(0));
             model.addAttribute("i", 0);
@@ -88,23 +86,22 @@ public class GiamGiaHoaDonController {
 
     // view detail Giảm Giá Hóa Đơn
     @RequestMapping("/admin/giamgiahoadon/detail/{ma}")
-    public String detailGGHD(@PathVariable("ma") String ma, @RequestParam("page") Optional<Integer> page, Model model) {
-
-        // tìm giảm giá hóa đơn theo mã
+    public String detailGGHD(@PathVariable("ma") String ma,
+                             @RequestParam("page") Optional<Integer> page,
+                             @RequestParam("page1") Optional<Integer> page1,
+                             Model model) {
+        // tìm giảm giá hóa đơn tương ứng theo mã
         model.addAttribute("giamgiahoadon", giamGiaHoaDonRepo.getGiamGiaHoaDonByMa(ma));
 
         // Tìm danh sách hóa đơn đã được áp mã
-//        GiamGiaHoaDon gghdID = giamGiaHoaDonRepo.getGiamGiaHoaDonByMa(ma);
-        PageDTO<HoaDon> hoaDonPageDTO = giamGiaHoaDonRepo.getHoaDonByChuongTrinhGiamGiaPage(ma,page.orElse(0));
-        model.addAttribute("hoaDonListdaGG", hoaDonPageDTO);
+        PageDTO<HoaDon> hoaDonPageDTOdaGG = giamGiaHoaDonRepo.getHoaDonByChuongTrinhGiamGiaPage(ma, page.orElse(0));
+        model.addAttribute("hoaDonListdaGG", hoaDonPageDTOdaGG); // Page hóa đơn đã giảm giá
+
+        PageDTO<HoaDon> hoaDonPageDTOchuaGG = hoaDonRepo.getAllHDchuaGGPage(page1.orElse(0));
+        model.addAttribute("listHoaDon", hoaDonPageDTOchuaGG); // Page hóa đơn chưa giảm giá và có trạng thái = 0
+
         model.addAttribute("i", 0);
         return "giamgiahoadon/detail_giam_gia_hoa_don";
-    }
-
-    // Danh sách Hóa Đơn chưa được giảm giá và trạng thái = 0
-    @ModelAttribute("listHoaDon")
-    public List<HoaDon> getListHoaDon() {
-        return hoaDonRepo.getAllHDchuaGG();
     }
 
     // Xóa Giảm Giá Hóa Đơn
@@ -178,3 +175,24 @@ public class GiamGiaHoaDonController {
     }
 
 }
+
+// Tịnh tâm
+//                              _ooOoo_
+//                             o8888888o
+//                             88" . "88
+//                            (| - _ - |)
+//                             O\  =  /O
+//                          ____/`---'\____
+//                        .'   \\|   |//   `.
+//                       /   \\||| : |||//   \
+//                      /  _||||| -:- |||||-  \
+//                     |    | \\\  -  /// |    |
+//                     |   \_| ''\---/'' |_/   |
+//                      \   .-\__ `-` ___/-.  /
+//                    ___`.  .' /--.--\ `.  . ___
+//                 .""'<   `.___\_<|>_/___.'   >'"".
+//                 | | : `- \`.;`\ _ /`;.`/ - ` : | |
+//                  \  \ `-. \_ __\ /__ _/ .-` /  /
+//     ======`-.____` - . ___ \_ _ _ _ _/ ___ . - `____.-'======
+//                              `=---='
+
