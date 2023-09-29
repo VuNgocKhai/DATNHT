@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.KhachHang;
 import com.example.demo.repository.KhachHangDao;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,13 +11,21 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+
 
 @Service
 public class UserService implements UserDetailsService {
+
     @Autowired
     KhachHangDao khachHangDao;
+
     @Autowired
     BCryptPasswordEncoder pe;
+
+    @Autowired
+    HttpSession session;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         try {
@@ -28,9 +37,11 @@ public class UserService implements UserDetailsService {
             System.out.println(password);
             return User.withUsername(email).password(pe.encode(password)).roles("USER").build();
         }catch (Exception exception){
+            exception.printStackTrace();
             throw new UsernameNotFoundException(email+"not found");
         }
     }
+
 //    public void loginFromOAuth2(OAuth2AuthenticationToken oauth2){
 //        String email = oauth2.getPrincipal().getAttribute("email");
 //        String password = Long.toHexString(System.currentTimeMillis());

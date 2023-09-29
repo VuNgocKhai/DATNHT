@@ -62,6 +62,8 @@ public class NhanVienServiceImpl implements NhanVienService {
             nv.setHoTen(nhanVien.getHoTen());
             nv.setNgaySinh(nhanVien.getNgaySinh());
             nv.setDiaChi(nhanVien.getDiaChi());
+            nv.setXa(nhanVien.getXa());
+            nv.setHuyen(nhanVien.getHuyen());
             nv.setThanhPho(nhanVien.getThanhPho());
             nv.setSdt(nhanVien.getSdt());
             nv.setEmail(nhanVien.getEmail());
