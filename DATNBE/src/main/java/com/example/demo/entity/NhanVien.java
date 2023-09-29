@@ -32,6 +32,12 @@ public class NhanVien {
     @Column(name = "dia_chi")
     private String diaChi;
 
+    @Column(name = "xa")
+    private String xa;
+
+    @Column(name = "huyen")
+    private String huyen;
+
     @Column(name = "thanh_pho")
     private String thanhPho;
 

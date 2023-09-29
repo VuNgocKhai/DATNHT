@@ -50,6 +50,6 @@ public class KhachHang implements Serializable {
     @OneToOne(mappedBy = "khach_hang")
     private GioHang gio_hang;
     @JsonIgnore
-    @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<DiaChi> diaChiList;
 }

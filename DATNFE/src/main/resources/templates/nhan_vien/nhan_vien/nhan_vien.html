@@ -233,47 +233,24 @@
                         <div class="modal-body">
                             <form action="/admin/nhan-vien/create" method="post" th:object="${nhanVien}">
                                 <div class="row">
-                                    <div class="form-group col-2">
+                                    <div class="form-group col-3">
                                         <label for="formGroupExampleInput">Mã</label>
                                         <input type="text" th:field="*{ma}" class="form-control"
                                                id="formGroupExampleInput"
                                                placeholder="Mã">
                                     </div>
 
-                                    <div class="form-group col-6">
+                                    <div class="form-group col-3">
                                         <label for="formGroupExampleInput2">Họ tên</label>
                                         <input type="text" th:field="*{hoTen}" class="form-control"
                                                id="formGroupExampleInput2"
                                                placeholder="Họ tên">
                                     </div>
 
-                                    <div class="form-group col-4">
+                                    <div class="form-group col-3">
                                         <label for="formGroupExampleInput2">Ngày sinh</label>
                                         <input type="date" th:field="*{ngaySinh}" class="form-control"
                                                id="formGroupExampleInput2">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-6">
-                                        <label for="formGroupExampleInput2">Địa chỉ</label>
-                                        <input type="text" th:field="*{diaChi}" class="form-control"
-                                               id="formGroupExampleInput2"
-                                               placeholder="Địa chỉ">
-                                    </div>
-
-<!--                                    <div class="form-group col-3">-->
-<!--                                        <label for="formGroupExampleInput2">Thành phố</label>-->
-<!--                                        <input type="text" th:field="*{thanhPho}" class="form-control"-->
-<!--                                               id="formGroupExampleInput2"-->
-<!--                                               placeholder="Thành phố">-->
-<!--                                    </div>-->
-
-                                    <div class="form-group col-3">
-                                        <label for="province">Thành phố</label>
-                                        <select class="form-control province" id="province"  th:field="*{thanhPho}">
-                                            <option  value="" >Chọn Thành Phố:</option>
-                                        </select>
                                     </div>
 
                                     <div class="form-group col-3">
@@ -285,15 +262,47 @@
                                 </div>
 
                                 <div class="row">
+                                    <div class="form-group col-3">
+                                        <label for="formGroupExampleInput2">Địa chỉ</label>
+                                        <input type="text" th:field="*{diaChi}" class="form-control"
+                                               id="formGroupExampleInput2"
+                                               placeholder="Địa chỉ">
+                                    </div>
 
-                                    <div class="form-group col-5">
+
+                                    <div class="form-group col-3">
+                                        <label>Tỉnh/Thành phố</label>
+                                        <select class="form-control" id="province"  th:field="*{thanhPho}">
+                                            <option  value="" >Chọn Tỉnh/Thành phố:</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-3">
+                                        <label>Quan/Huyện :</label>
+                                        <select class="form-control " id="district" th:field="*{huyen}">
+                                            <option  value="" >Chọn Quan/Huyện:</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-3">
+                                        <label>Xa/Phường :</label>
+                                        <select class="form-control" id="ward" th:field="*{xa}">
+                                            <option  value="" >Chọn Xa/Phường</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-3">
                                         <label for="formGroupExampleInput2">Email</label>
                                         <input type="text" th:field="*{email}" class="form-control"
                                                id="formGroupExampleInput2"
                                                placeholder="Email">
                                     </div>
 
-                                    <div class="form-group col-4">
+                                    <div class="form-group col-3">
                                         <label for="formGroupExampleInput2">Mật khẩu</label>
                                         <input type="text" th:field="*{matKhau}" class="form-control"
                                                id="formGroupExampleInput2"
@@ -309,26 +318,11 @@
                                             ></option>
                                         </select>
                                     </div>
-                                </div>
 
-                                <div class="row">
-
-                                    <div class="form-group col-2">
-                                        <label for="formGroupExampleInput2">Ngày vào làm</label>
-                                        <input type="date" th:field="*{ngayVaoLam}" class="form-control"
-                                               id="formGroupExampleInput2">
-                                    </div>
-
-                                    <div class="form-group col-3">
-                                        <label for="formGroupExampleInput2">Ngày nghỉ việc</label>
-                                        <input type="date" th:field="*{ngayNghiViec}" class="form-control"
-                                               id="formGroupExampleInput2">
-                                    </div>
-
-                                    <fieldset class="form-group col-7">
-                                        <div class="row">
-                                            <legend class="col-form-label col-sm-3 pt-0">Trạng Thái :</legend>
-                                            <div class="col-sm-9">
+                                    <fieldset class="form-group col-3">
+                                        <div>
+                                            <legend class="col-form-label pt-0">Trạng Thái :</legend>
+                                            <div class="">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" th:field="*{trangThai}"
                                                            id="gridRadios1"
@@ -348,6 +342,21 @@
                                             </div>
                                         </div>
                                     </fieldset>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-3">
+                                        <label for="formGroupExampleInput2">Ngày vào làm</label>
+                                        <input type="date" th:field="*{ngayVaoLam}" class="form-control"
+                                               id="formGroupExampleInput2">
+                                    </div>
+
+                                    <div class="form-group col-3">
+                                        <label for="formGroupExampleInput2">Ngày nghỉ việc</label>
+                                        <input type="date" th:field="*{ngayNghiViec}" class="form-control"
+                                               id="formGroupExampleInput2">
+                                    </div>
                                 </div>
 
                                 <button class="btn btn-primary" type="submit">Thêm mới</button>
@@ -397,41 +406,24 @@
                                         <div class="modal-body">
                                             <form action="/admin/nhan-vien/update" method="post" th:object="${nhanVien}">
                                                 <div class="row">
-                                                    <div class="form-group col-2">
+                                                    <div class="form-group col-3">
                                                         <label for="formGroupExampleInput">Mã</label>
                                                         <input type="text" th:field="*{ma}" class="form-control"
                                                                id="formGroupExampleInput"
-                                                               placeholder="Mã"
-                                                        readonly>
+                                                               placeholder="Mã">
                                                     </div>
 
-                                                    <div class="form-group col-6">
+                                                    <div class="form-group col-3">
                                                         <label for="formGroupExampleInput2">Họ tên</label>
                                                         <input type="text" th:field="*{hoTen}" class="form-control"
                                                                id="formGroupExampleInput2"
                                                                placeholder="Họ tên">
                                                     </div>
 
-                                                    <div class="form-group col-4">
+                                                    <div class="form-group col-3">
                                                         <label for="formGroupExampleInput2">Ngày sinh</label>
                                                         <input type="date" th:field="*{ngaySinh}" class="form-control"
                                                                id="formGroupExampleInput2">
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group col-6">
-                                                        <label for="formGroupExampleInput2">Địa chỉ</label>
-                                                        <input type="text" th:field="*{diaChi}" class="form-control"
-                                                               id="formGroupExampleInput2"
-                                                               placeholder="Địa chỉ">
-                                                    </div>
-
-                                                    <div class="form-group col-3">
-                                                        <label for="province">Thành phố</label>
-                                                        <select class="form-control province" id="province"  th:field="*{thanhPho}">
-                                                            <option  value="" >Chọn Thành Phố:</option>
-                                                        </select>
                                                     </div>
 
                                                     <div class="form-group col-3">
@@ -443,15 +435,47 @@
                                                 </div>
 
                                                 <div class="row">
+                                                    <div class="form-group col-3">
+                                                        <label for="formGroupExampleInput2">Địa chỉ</label>
+                                                        <input type="text" th:field="*{diaChi}" class="form-control"
+                                                               id="formGroupExampleInput2"
+                                                               placeholder="Địa chỉ">
+                                                    </div>
 
-                                                    <div class="form-group col-5">
+
+                                                    <div class="form-group col-3">
+                                                        <label>Tỉnh/Thành phố</label>
+                                                        <select class="form-control" id="province2"  th:field="*{thanhPho}">
+                                                            <option  value="" >Chọn Tỉnh/Thành phố:</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group col-3">
+                                                        <label>Quan/Huyện :</label>
+                                                        <select class="form-control " id="district2" th:field="*{huyen}">
+                                                            <option  value="" >Chọn Quan/Huyện:</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group col-3">
+                                                        <label>Xa/Phường :</label>
+                                                        <select class="form-control" id="ward2" th:field="*{xa}">
+                                                            <option  value="" >Chọn Xa/Phường</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row">
+
+                                                    <div class="form-group col-3">
                                                         <label for="formGroupExampleInput2">Email</label>
                                                         <input type="text" th:field="*{email}" class="form-control"
                                                                id="formGroupExampleInput2"
                                                                placeholder="Email">
                                                     </div>
 
-                                                    <div class="form-group col-4">
+                                                    <div class="form-group col-3">
                                                         <label for="formGroupExampleInput2">Mật khẩu</label>
                                                         <input type="text" th:field="*{matKhau}" class="form-control"
                                                                id="formGroupExampleInput2"
@@ -467,26 +491,11 @@
                                                             ></option>
                                                         </select>
                                                     </div>
-                                                </div>
 
-                                                <div class="row">
-
-                                                    <div class="form-group col-2">
-                                                        <label for="formGroupExampleInput2">Ngày vào làm</label>
-                                                        <input type="date" th:field="*{ngayVaoLam}" class="form-control"
-                                                               id="formGroupExampleInput2">
-                                                    </div>
-
-                                                    <div class="form-group col-3">
-                                                        <label for="formGroupExampleInput2">Ngày nghỉ việc</label>
-                                                        <input type="date" th:field="*{ngayNghiViec}" class="form-control"
-                                                               id="formGroupExampleInput2">
-                                                    </div>
-
-                                                    <fieldset class="form-group col-7">
-                                                        <div class="row">
-                                                            <legend class="col-form-label col-sm-3 pt-0">Trạng Thái :</legend>
-                                                            <div class="col-sm-9">
+                                                    <fieldset class="form-group col-3">
+                                                        <div>
+                                                            <legend class="col-form-label pt-0">Trạng Thái :</legend>
+                                                            <div class="">
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" th:field="*{trangThai}"
                                                                            id="gridRadios1"
@@ -508,7 +517,22 @@
                                                     </fieldset>
                                                 </div>
 
-                                                <button class="btn btn-primary" type="submit">Cập nhật</button>
+                                                <div class="row">
+
+                                                    <div class="form-group col-3">
+                                                        <label for="formGroupExampleInput2">Ngày vào làm</label>
+                                                        <input type="date" th:field="*{ngayVaoLam}" class="form-control"
+                                                               id="formGroupExampleInput2">
+                                                    </div>
+
+                                                    <div class="form-group col-3">
+                                                        <label for="formGroupExampleInput2">Ngày nghỉ việc</label>
+                                                        <input type="date" th:field="*{ngayNghiViec}" class="form-control"
+                                                               id="formGroupExampleInput2">
+                                                    </div>
+                                                </div>
+
+                                                <button class="btn btn-primary" type="submit">Cap nhat</button>
                                             </form>
                                         </div>
                                     </div>
@@ -547,6 +571,107 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
+    const host = "https://provinces.open-api.vn/api/";
+    var callAPI = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data, "province","Tỉnh/Thành phố");
+            });
+    }
+    callAPI('https://provinces.open-api.vn/api/?depth=1');
+    var callApiDistrict = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.districts, "district","Quan/Huyện");
+            });
+    }
+    var callApiWard = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.wards, "ward","Xa/Phường");
+            });
+    }
+
+    var renderData = (array, select,type) => {
+        let row = ' <option disable value="" selected>Chọn '+type+'</option>';
+
+        array.forEach(element => {
+            row += `<option value="${element.name}" data-code="${element.code}">${element.name}</option>`
+        });
+        document.querySelector("#" + select).innerHTML = row
+    }
+
+    $("#province").change(() => {
+        const selectedCode = $("#province option:selected").data("code");
+        callApiDistrict(host + "p/" + selectedCode + "?depth=2");
+        printResult();
+    });
+    $("#district").change(() => {
+        const selectedCode = $("#district option:selected").data("code");
+        callApiWard(host + "d/" + selectedCode + "?depth=2");
+        printResult();
+    });
+    $("#ward").change(() => {
+        printResult();
+    })
+
+    var printResult = () => {
+        if ($("#district").val() != "" && $("#province").val() != "" &&
+            $("#ward").val() != "") {
+            let result = $("#province option:selected").text() +
+                " | " + $("#district option:selected").text() + " | " +
+                $("#ward option:selected").text();
+            $("#result").text(result)
+        }
+    }
+
+    var callAPI2 = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data, "province2","Tỉnh/Thành phố");
+
+            });
+    }
+    callAPI2('https://provinces.open-api.vn/api/?depth=1');
+    var callApiDistrict2 = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.districts, "district2","Quan/Huyện");
+            });
+    }
+    var callApiWard2 = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.wards, "ward2","Xa/Phường");
+            });
+    }
+
+    $("#province2").change(() => {
+        const selectedCode = $("#province2 option:selected").data("code");
+        callApiDistrict2(host + "p/" + selectedCode + "?depth=2");
+        printResult2();
+    });
+    $("#district2").change(() => {
+        const selectedCode = $("#district2 option:selected").data("code");
+        callApiWard2(host + "d/" + selectedCode + "?depth=2");
+        printResult2();
+    });
+    $("#ward2").change(() => {
+        printResult2();
+    })
+
+    var printResult2 = () => {
+        if ($("#district2").val() != "" && $("#province2").val() != "" &&
+            $("#ward2").val() != "") {
+            let result = $("#province2 option:selected").text() +
+                " | " + $("#district2 option:selected").text() + " | " +
+                $("#ward2 option:selected").text();
+            $("#result2").text(result)
+        }
+    }
+
+
+
     $(document).ready(function(){
         $(".btn-detail").click(function(){
             var ma=$(this).attr("ma");
@@ -561,6 +686,16 @@
                     form.find('[name="ngaySinh"]').val(data.ngaySinh);
                     form.find('[name="diaChi"]').val(data.diaChi);
                     form.find('[name="thanhPho"]').val(data.thanhPho);
+                    let selected1 = $("#province2 option:selected").data("code");
+                    callApiDistrict2(host + "p/" + selected1 + "?depth=2");
+                    setTimeout(function () {
+                        form.find('[name="huyen"]').val(data.huyen);
+                        let selected2 = $("#district2 option:selected").data("code");
+                        callApiWard2(host + "d/" + selected2 + "?depth=2");
+                        setTimeout(function () {
+                            form.find('[name="xa"]').val(data.xa);
+                        }, 100);
+                    }, 100);
                     form.find('[name="sdt"]').val(data.sdt);
                     form.find('[name="email"]').val(data.email);
                     form.find('[name="matKhau"]').val(data.matKhau);
@@ -568,6 +703,7 @@
                     form.find('[name="ngayVaoLam"]').val(data.ngayVaoLam);
                     form.find('[name="ngayNghiViec"]').val(data.ngayNghiViec);
                     form.find('[name="trangThai"]').filter('[value="' + data.trangThai + '"]').prop('checked', true);
+
                 },
                 error: function (error) {
                     console.log("Lỗi khi tải dữ liệu: " + error);
@@ -575,27 +711,6 @@
             });
         });
     });
-
-    const host = "https://provinces.open-api.vn/api/";
-    var callAPI = (api) => {
-        return axios.get(api)
-            .then((response) => {
-                renderData(response.data, "province");
-            });
-    }
-    callAPI('https://provinces.open-api.vn/api/?depth=1');
-    var renderData = (array, select) => {
-        let row = ' <option disable value="" selected>Chọn thành phố</option>';
-        array.forEach(element => {
-            row += `<option value="${element.name}" data-code="${element.code}">${element.name}</option>`
-        });
-        // document.querySelector("." + select).innerHTML = row
-        var selects=document.querySelectorAll("." + select);
-        for (const select of selects) {
-            select.innerHTML = row;
-        }
-    }
-
 
 </script>
 </body>

@@ -44,6 +44,7 @@ public class NhanVienController {
                        @RequestParam(defaultValue = "0") String number,
                        Model model) {
 //        page = nhanVienRepository.getPage(number);
+        nhanVien.setTrangThai(1);
         page=new PageDTO<>(nhanVienService.getAllByTrangThai(1,Integer.valueOf(number)));
         model.addAttribute("page", page);
         return "nhan_vien/nhan_vien/nhan_vien";
