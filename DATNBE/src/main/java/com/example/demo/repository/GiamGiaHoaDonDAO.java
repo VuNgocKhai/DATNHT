@@ -30,8 +30,6 @@ public interface GiamGiaHoaDonDAO extends JpaRepository<GiamGiaHoaDon, UUID> {
             @Param("ten") String ten, Pageable pageable);
 
     // Query find GGHD by trạng thái
-    Page<GiamGiaHoaDon> findGiamGiaHoaDonByTrangthai(@Param("trangthai") int trangthai, Pageable pageable);
-
     @Query("SELECT gg FROM GiamGiaHoaDon gg WHERE (:trangthai IN (0, 1) AND gg.trangthai = :trangthai) OR (:trangthai = 2)")
     Page<GiamGiaHoaDon> findGiamGiaHoaDonByTrangthai(@Param("trangthai") Integer trangthai, Pageable pageable);
 }

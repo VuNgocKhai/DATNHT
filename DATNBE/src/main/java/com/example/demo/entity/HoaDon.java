@@ -13,6 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -39,9 +41,13 @@ public class HoaDon implements Serializable {
 
     private Date ngay_thanh_toan;
 
-    private UUID id_nhan_vien;
+    @ManyToOne
+    @JoinColumn(name = "id_nhan_vien")
+    private NhanVien nhanVien;
 
-    private UUID id_khach_hang;
+    @ManyToOne
+    @JoinColumn(name = "id_khach_hang")
+    private KhachHang khachHang;
 
     private String mo_ta;
 
@@ -51,5 +57,5 @@ public class HoaDon implements Serializable {
 
     @OneToMany(mappedBy = "hd")
     @JsonIgnore
-    private List<GiamGiaChiTietHoaDon> list2;
+    private List<GiamGiaChiTietHoaDon> list1;
 }

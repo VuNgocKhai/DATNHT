@@ -113,7 +113,7 @@ public class GiamGiaHoaDonRestController {
     @GetMapping("/phantrang/{GiamGiaHoaDonMa}")
     public PageDTO<HoaDon> getHoaDonByChuongTrinhGiamGiaPage(@RequestParam("page") Optional<Integer> page, @PathVariable("GiamGiaHoaDonMa") String GiamGiaHoaDonMa) {
         Pageable pageable = PageRequest.of(page.orElse(0), 5);
-        return new PageDTO<>(giamGiaChiTietHoaDonDAO.findHoaDonByChuongTrinhGiamGiaPagePage(GiamGiaHoaDonMa,pageable));
+        return new PageDTO<>(giamGiaChiTietHoaDonDAO.findHoaDonByChuongTrinhGiamGiaPagePage(GiamGiaHoaDonMa, pageable));
     }
 
 }
