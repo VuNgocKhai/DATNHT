@@ -171,7 +171,7 @@
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
-            <div  class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Tạo khuyến mại</h5>
@@ -189,7 +189,8 @@
                                             <tr>
                                                 <td><label for="formGroupExampleInput">Mã khuyến mại</label></td>
                                                 <td>
-                                                    <input type="text" th:field="*{maKhuyenMai}" class="form-control" id="formGroupExampleInput"
+                                                    <input type="text" th:field="*{maKhuyenMai}" class="form-control"
+                                                           id="formGroupExampleInput"
                                                            placeholder="Nhập mã">
                                                 </td>
                                                 <td><label for="formGroupExampleInput2">Tên khuyến mại</label></td>
@@ -202,7 +203,8 @@
                                             <tr>
                                                 <td><label for="formGroupExampleInput2">Ngày bắt đầu</label></td>
                                                 <td>
-                                                    <input type="date" th:field="*{ngayBatDau}" class="form-control" id="formGroupExampleInput2"
+                                                    <input type="date" th:field="*{ngayBatDau}" class="form-control"
+                                                           id="formGroupExampleInput2"
                                                            placeholder="Nhập ngày bắt đầu">
                                                 </td>
                                                 <td><label for="formGroupExampleInput2">Ngày kết thúc</label></td>
@@ -220,21 +222,24 @@
                                                            placeholder="Nhập số %">
                                                 </td>
                                                 <td>
-                                                    <lable >Trạng Thái :</lable>
+                                                    <lable>Trạng Thái :</lable>
                                                 </td>
                                                 <td rowspan="2">
                                                     <div>
-                                                        <input class="form-check-input" type="radio" th:field="*{trangThai}" id="gridRadios1"
+                                                        <input class="form-check-input" type="radio"
+                                                               th:field="*{trangThai}" id="gridRadios1"
                                                                th:value="1">Hoạt động
                                                     </div>
                                                     <div>
-                                                        <input class="form-check-input" type="radio" th:field="*{trangThai}" id="gridRadios2"
+                                                        <input class="form-check-input" type="radio"
+                                                               th:field="*{trangThai}" id="gridRadios2"
                                                                th:value="0">Ngừng hoạt động
                                                     </div>
                                                 </td>
                                             </tr>
                                         </table>
-                                        <button class="btn btn-primary" type="submit" style="margin: 20px;">Thêm</button>
+                                        <button class="btn btn-primary" type="submit" style="margin: 20px;">Thêm
+                                        </button>
                                         <button th:href="@{|/admin/chuong-trinh-giam-gia-sp|}" type="button"
                                                 class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Close
@@ -263,11 +268,11 @@
                     <button type="submit" class="btn btn-primary bi bi-search"></button>
                 </div>
 
-                <div class="form-group mx-sm-3 ">
-                    <button type="button" class="btn btn-success bi bi-plus-circle-fill">
-                        <a href="/admin/chuong-trinh-giam-gia-sp/viewadd"> Tạo khuyến mại</a>
-                    </button>
-                </div>
+                <!--                <div class="form-group mx-sm-3 ">-->
+                <!--                    <button type="button" class="btn btn-success bi bi-plus-circle-fill">-->
+                <!--                        <a href="/admin/chuong-trinh-giam-gia-sp/viewadd"> Tạo khuyến mại</a>-->
+                <!--                    </button>-->
+                <!--                </div>-->
 
                 <div class="form-group mx-sm-3">
                     <button style="margin-left: 10px" type="button" class="btn btn-primary bi bi-plus-circle-fill"
@@ -291,12 +296,6 @@
                             <input name="keyword" type="radio" value="1">Đang hoạt động
                         </button>
                     </div>
-                    <div>
-                        <button type="submit" class="btn btn-light">
-                            <input name="keyword" type="radio" value="2">Sắp diễn ra
-                        </button>
-                    </div>
-
                 </form>
             </div>
 
