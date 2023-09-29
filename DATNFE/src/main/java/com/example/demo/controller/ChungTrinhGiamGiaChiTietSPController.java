@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.CTKMRequestAdd;
 import com.example.demo.entity.ChuongTrinhGiamGiaChiTietSP;
 import com.example.demo.entity.ChuongTrinhGiamGiaSP;
 import com.example.demo.entity.Giay;
