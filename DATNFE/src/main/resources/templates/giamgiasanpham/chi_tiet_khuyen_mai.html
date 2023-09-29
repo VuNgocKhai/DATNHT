@@ -195,14 +195,14 @@
                                             <form action="/admin/create-ctkm" method="post">
                                                 <input hidden name="idKM" th:value="${voucherForm.idKhuyenMai}"/>
                                                 <td>
-                                                    <input hidden name="idGiay" th:value="${g.idGiay}"/>
-                                                    [[${g.maGiay}]]</td>
-                                                <td>[[${g.tenGiay}]]</td>
+                                                    <input hidden name="idGiay" th:value="${g.id}"/>
+                                                    [[${g.ma}]]</td>
+                                                <td>[[${g.ten}]]</td>
                                                 <td>
-                                                    <input hidden name="giaBan" th:value="${g.giaBan}"/>
+                                                    <input hidden name="giaBan" th:value="${g.giaban}"/>
                                                     <input hidden name="phanTramGiam" th:value="${voucherForm.phanTramGiam}"/>
-                                                    [[${g.giaBan}]]</td>
-                                                <td th:text="${g.trangThai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>
+                                                    [[${g.giaban}]]</td>
+                                                <td th:text="${g.trangthai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>
                                                 <td>
                                                     <button class="btn btn-primary" type="submit">
                                                         <a class="bi bi-plus-circle"></a>
@@ -294,12 +294,12 @@
                     <tbody>
                     <tr th:each="item,state:${dsSPTable}">
                         <td scope="row">[[${item.chuongTrinhGiamGiaSP.maKhuyenMai}]]</td>
-                        <td>[[${item.giay.maGiay}]]</td>
-                        <td>[[${item.giay.tenGiay}]]</td>
+                        <td>[[${item.giay.ma}]]</td>
+                        <td>[[${item.giay.ten}]]</td>
                         <td>[[${item.soTienDaGiam}]]</td>
                         <td th:text="${item.trangThai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>
                         <td>
-                            <a th:href="@{|/admin/ctkm/delete/${voucherForm.idKhuyenMai}/${item.giay.idGiay}|}"
+                            <a th:href="@{|/admin/ctkm/delete/${voucherForm.idKhuyenMai}/${item.giay.id}|}"
                                class="bi bi-trash"></a>
                         </td>
                     </tr>

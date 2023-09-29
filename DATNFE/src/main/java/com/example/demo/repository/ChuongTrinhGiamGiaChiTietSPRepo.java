@@ -1,10 +1,6 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.ChuongTrinhGiamGiaChiTietSP;
-import com.example.demo.entity.ChuongTrinhGiamGiaSP;
-import com.example.demo.entity.DanhMuc;
-import com.example.demo.entity.PageDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +32,7 @@ public class ChuongTrinhGiamGiaChiTietSPRepo {
 
         return response.getBody();
     }
+
     public ChuongTrinhGiamGiaChiTietSP getCTKMById(UUID idVoucher) {
         return restTemplate.getForObject(getUrlId(idVoucher), ChuongTrinhGiamGiaChiTietSP.class);
     }
