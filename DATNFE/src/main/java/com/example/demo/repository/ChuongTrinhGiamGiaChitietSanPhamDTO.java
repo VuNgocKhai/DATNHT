@@ -39,7 +39,7 @@ public interface ChuongTrinhGiamGiaChitietSanPhamDTO extends JpaRepository<Chuon
             "where id_chuong_trinh_giam_gia=?1 and id_giay=?2", nativeQuery = true)
     int deleteBy2Id(UUID idKm, UUID idGiay);
 
-    @Modifying
+
     @Query(value = "insert into chuong_trinh_giam_gia_chi_tiet_san_pham (id_giay, id_chuong_trinh_giam_gia, so_tien_da_giam, trangthai)" +
             "values(?1,?2,?3,1)", nativeQuery = true)
     void createSPApdung(String idGiay, String idKm, BigDecimal soTienGiam);

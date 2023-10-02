@@ -1,24 +1,12 @@
 package com.example.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.List;
 import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Table(name = "hoa_don")
+@Table(name = "hoa_don_chi_tiet")
 @Entity
 @Getter
 @Setter
@@ -35,8 +23,13 @@ public class HoaDonChiTiet {
     @ManyToOne
     @JoinColumn(name = "id_giay_chi_tiet")
     private GiayChiTiet giayChiTiet;
+
     private Integer so_luong;
+
+    private BigDecimal gia_nhap;
+
     private BigDecimal don_gia;
+
     private Integer trangthai;
 
 }
