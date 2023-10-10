@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.sql.Date;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -176,24 +174,3 @@ public class GiamGiaHoaDonController {
     }
 
 }
-
-// Tịnh tâm
-//                              _ooOoo_
-//                             o8888888o
-//                             88" . "88
-//                            (| - _ - |)
-//                             O\  =  /O
-//                          ____/`---'\____
-//                        .'   \\|   |//   `.
-//                       /   \\||| : |||//   \
-//                      /  _||||| -:- |||||-  \
-//                     |    | \\\  -  /// |    |
-//                     |   \_| ''\---/'' |_/   |
-//                      \   .-\__ `-` ___/-.  /
-//                    ___`.  .' /--.--\ `.  . ___
-//                 .""'<   `.___\_<|>_/___.'   >'"".
-//                 | | : `- \`.;`\ _ /`;.`/ - ` : | |
-//                  \  \ `-. \_ __\ /__ _/ .-` /  /
-//     ======`-.____` - . ___ \_ _ _ _ _/ ___ . - `____.-'======
-//                              `=---='
-

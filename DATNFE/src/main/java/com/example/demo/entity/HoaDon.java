@@ -59,7 +59,9 @@ public class HoaDon implements Serializable {
 
     private Integer trangthai;
 
-    @OneToMany(mappedBy = "hd")
+    private String dia_chi;
+
+    @OneToMany(mappedBy = "hoaDon", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<GiamGiaChiTietHoaDon> list1;
+    private List<HoaDonChiTiet> list1;
 }

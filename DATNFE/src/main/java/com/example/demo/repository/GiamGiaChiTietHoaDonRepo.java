@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.GiamGiaChiTietHoaDon;
+import com.example.demo.entity.GiamGiaHoaDon;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -48,5 +49,15 @@ public class GiamGiaChiTietHoaDonRepo {
     //xóa GGCTHD
     public void deleteGGCTHD(UUID hdid, UUID gghdid) {
         restTemplate.delete(getUrldelete(hdid, gghdid));
+    }
+
+    // find giảm giá CT hóa đơn theo id hóa đơn và id giảm giá hóa đơn
+    public GiamGiaChiTietHoaDon getGiamGiaCTHoaDonByHDandGGHD(UUID hdid, UUID gghdid) {
+        return restTemplate.getForObject(getUrl1("/getGGCTHDbyHDandGGHD/" + hdid + "/" + gghdid), GiamGiaChiTietHoaDon.class);
+    }
+
+    // find giảm giá CT hóa đơn theo id hóa đơn v
+    public GiamGiaChiTietHoaDon getGiamGiaCTHoaDonByHD(UUID hdid) {
+        return restTemplate.getForObject(getUrl1("getGGCTHDbyHD/" + hdid), GiamGiaChiTietHoaDon.class);
     }
 }
