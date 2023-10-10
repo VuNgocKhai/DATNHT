@@ -1,7 +1,7 @@
 package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +9,13 @@ import java.util.UUID;
 
 @Table(name = "anh_giay")
 @Entity
-@Data
+//@Data
+@Setter
+@Getter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Anh implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

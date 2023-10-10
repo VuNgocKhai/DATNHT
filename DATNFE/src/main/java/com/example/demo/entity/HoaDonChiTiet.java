@@ -26,7 +26,7 @@ public class HoaDonChiTiet {
 
     private Integer so_luong;
 
-    private BigDecimal gia_nhap;
+//    private BigDecimal gia_nhap;
 
     private BigDecimal don_gia;
 

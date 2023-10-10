@@ -19,15 +19,15 @@ public class NhanVienServiceImpl implements NhanVienService {
     private NhanVienDAO nhanVienDAO;
 
     @Override
-    public Page<NhanVien> findNhanVien(Optional<String> ma, Optional<String> data, Optional<String> idCv, Integer number) {
+    public Page<NhanVien> findNhanVien(Optional<String> ma, Optional<String> data, Optional<String> maCv, Integer number) {
         Pageable pageable = PageRequest.of(number, 5);
         String maF= ma.get().trim().isEmpty()?null:ma.get().trim();
         String dataF= data.get().trim().isEmpty()?null:data.get().trim();
-        UUID idCvF= idCv.get().trim().isEmpty()?null:UUID.fromString(idCv.get());
+        String maCvF= maCv.get().trim().isEmpty()?null:maCv.get();
         return nhanVienDAO.findNhanVien(
                 maF,
                 dataF,
-                idCvF,
+                maCvF,
                 pageable
         );
     }

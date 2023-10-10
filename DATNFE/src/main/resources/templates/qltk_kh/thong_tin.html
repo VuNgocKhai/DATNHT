@@ -13,24 +13,36 @@
         <div class="row">
             <div class="col-3">
                 <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/qltk-kh/thong-tin">Thông tin tài khoản</a>
+                    <li class="nav-item" style="margin-bottom: 5px">
+                        <a style="
+            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/thong-tin">Thông
+                            tin tài
+                            khoản</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/qltk-kh/doi-mat-khau">Đổi mật khẩu</a>
+                    <li class="nav-item" style="margin-bottom: 5px">
+                        <a style="
+            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/doi-mat-khau">Đổi
+                            mật khẩu</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Địa chỉ</a>
+                    <li class="nav-item" style="margin-bottom: 5px">
+                        <a style="
+            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/dia-chi">Địa chỉ</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Đơn hàng</a>
+                    <li class="nav-item" style="margin-bottom: 5px">
+                        <a style="
+            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/don-hang">Đơn hàng</a>
                     </li>
                 </ul>
             </div>
             <div class="col-9">
-                <form th:object="${khachHang}">
+                <form th:object="${khachHang}" method="post" th:action="@{|/qltk-kh/cap-nhat-thong-tin/${khachHang.id}|}">
                     <div class="row">
                         <input type="text" hidden th:field="*{id}">
+                        <div class="col-6">
+                            <label for="formGroupExampleInput">Mã</label>
+                            <input type="text" th:field="*{ma}" class="form-control" id="formGroupExampleInput"
+                                   placeholder="Mã">
+                        </div>
                         <div class="col-6">
                             <label for="formGroupExampleInput">Họ Và Tên</label>
                             <input type="text" th:field="*{hoten}" class="form-control" id="formGroupExampleInput"
@@ -48,14 +60,9 @@
                                    placeholder="Số điện thoại">
                         </div>
 
-                        <div class="col-6">
-                            <label for="formGroupExampleInput">Email</label>
-                            <input type="text" th:field="*{email}" class="form-control" id="formGroupExampleInput"
-                                   placeholder="Email">
-                        </div>
                     </div>
                     <br>
-                    <button type="submit" class="btn-primary btn">Cập nhật </button>
+                    <button type="submit" class="btn-primary btn">Cập nhật</button>
                 </form>
             </div>
         </div>

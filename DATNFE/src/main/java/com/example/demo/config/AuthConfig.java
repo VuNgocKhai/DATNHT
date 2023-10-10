@@ -35,12 +35,6 @@ public class AuthConfig extends WebSecurityConfigurerAdapter  {
     @Autowired
     UserService userService;
 
-    @Autowired
-    KhachHangDao khachHangDao;
-
-    @Autowired
-    HttpSession session;
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService);
@@ -50,12 +44,11 @@ public class AuthConfig extends WebSecurityConfigurerAdapter  {
         http.csrf().disable().cors().disable();
         http.authorizeRequests()
                 .antMatchers("/assets/**").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
         http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-//                .defaultSuccessUrl("/trangchu",false)
-                .successHandler(new CustomAuthenticationSuccessHandler(session)) // Đăng ký CustomAuthenticationSuccessHandler
+                .defaultSuccessUrl("/trangchu",false)
                 .failureUrl("/login?error=true")
                 .usernameParameter("username")
                 .passwordParameter("password")
@@ -65,28 +58,4 @@ public class AuthConfig extends WebSecurityConfigurerAdapter  {
                 .permitAll();
     }
 
-
-
-
-    @Component
-    public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-
-        private final HttpSession httpSession;
-
-        public CustomAuthenticationSuccessHandler(HttpSession httpSession) {
-            this.httpSession = httpSession;
-        }
-
-        @Override
-        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-            // Lấy thông tin người dùng đã đăng nhập thành công
-            String email = authentication.getName();
-
-            // Tìm thông tin khách hàng dựa trên email và lưu vào session
-            KhachHang khachHang = khachHangDao.getKhByEmail(email);
-            httpSession.setAttribute("khachHangLogin", khachHang);
-            // Chuyển hướng đến trang chính sau khi đăng nhập thành công
-            response.sendRedirect("/trangchu");
-        }
-    }
 }

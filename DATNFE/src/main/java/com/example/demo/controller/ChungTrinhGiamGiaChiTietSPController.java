@@ -40,7 +40,7 @@ public class ChungTrinhGiamGiaChiTietSPController {
         Integer ptGiamInt = Integer.parseInt(phanTramGiam);
         BigDecimal soTienDaGiam = BigDecimal.valueOf(giaBanInt * ptGiamInt / 100);
         ChuongTrinhGiamGiaChiTietSP ctkm = new ChuongTrinhGiamGiaChiTietSP();
-        ctkm.setGiay(Giay.builder().idGiay(idGiay).build());
+        ctkm.setGiay(Giay.builder().id(idGiay).build());
         ctkm.setChuongTrinhGiamGiaSP(ChuongTrinhGiamGiaSP.builder().idKhuyenMai(idKM).build());
         ctkm.setTrangThai(1);
         ctkm.setSoTienDaGiam(soTienDaGiam);
