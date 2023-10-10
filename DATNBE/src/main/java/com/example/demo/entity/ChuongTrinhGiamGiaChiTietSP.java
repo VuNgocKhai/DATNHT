@@ -45,3 +45,5 @@ public class ChuongTrinhGiamGiaChiTietSP {
     @Column(name = "trangthai")
     private Integer trangThai;
 }
+
+/// Hêloo 

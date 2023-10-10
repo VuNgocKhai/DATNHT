@@ -1,5 +1,9 @@
 package com.example.demo.entity;
 
+import lombok.*;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +26,7 @@ public class PageDTO<T> {
     private long totalPages;
     private long size;
     private long numberOfElements;
+
     // ... other pagination fields ...
 
     public PageDTO(Page<T> page) {

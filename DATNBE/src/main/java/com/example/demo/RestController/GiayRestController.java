@@ -39,10 +39,10 @@ public class GiayRestController {
     public ResponseEntity<?> updateGiay(@RequestBody Giay giay, @PathVariable UUID id){
         Optional<Giay> op = repository.findById(id);
         op.map(o-> {
-            o.setMaGiay(giay.getMaGiay());
-            o.setGiaBan(giay.getGiaBan());
-            o.setTenGiay(giay.getTenGiay());
-            o.setTrangThai(giay.getTrangThai());
+            o.setMa(giay.getMa());
+            o.setGiaban(giay.getGiaban());
+            o.setTen(giay.getTen());
+            o.setTrangthai(giay.getTrangthai());
             return repository.save(o);
         }).orElse(null);
         return ResponseEntity.ok(op);
