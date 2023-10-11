@@ -55,6 +55,12 @@ public class HoaDon implements Serializable {
 
     private String mo_ta;
 
+    private String dia_chi;
+
+    private String ten_nguoi_nhan;
+
+    private String sdt_nguoi_nhan;
+
     private BigDecimal tong_tien;
 
     private Integer trangthai;

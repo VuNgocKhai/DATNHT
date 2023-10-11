@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.KhachHang;
 import com.example.demo.entity.NhanVien;
 import com.example.demo.dto.NhanVienDto;
 import org.springframework.data.domain.Page;
@@ -36,4 +37,7 @@ public interface NhanVienDAO extends JpaRepository<NhanVien, UUID> {
 
     Page<NhanVien> getAllByTrangThai(Integer tt,
                                 Pageable pageable);
+
+    @Query("select p from NhanVien p where p.email=?1")
+    NhanVien getNVByEmail(String email);
 }

@@ -20,7 +20,7 @@ public class GioHangChiTiet {
     @ManyToOne
     @JoinColumn(name = "id_gio_hang")
     private GioHang gio_hang;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_giay_chi_tiet")
     private GiayChiTiet giay_chi_tiet;
     private Integer so_luong;

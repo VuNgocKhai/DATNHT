@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html th:replace="~{/layout/index :: dynamic(~{::body})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" href="#">Home</a>
+                <a class="breadcrumb-item text-dark" href="#">Shop</a>
+                <span class="breadcrumb-item active">Checkout</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+
+<!-- Checkout Start -->
+<div style="width: 88%;margin: auto;">
+    <div class="row px-xl-5">
+        <div class="col-lg-12">
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Địa Chỉ
+                        Nhận Hàng</span></h5>
+            <div class="bg-light p-30 mb-5"
+                 style="display: flex;justify-content: space-between;align-items: center;">
+                <div class="col-lg-3" style="font-weight: 700;
+                color: #222;">
+                    Nguyễn Thành Danh (+84) 385090080
+                </div>
+                <div class="col-lg-6">
+                    Số 10, Ngõ 341/82, Đ. Xuân Phương, P.Xuân Phương, Q.Nam Từ Liêm, TP Hà Nội, Phường Xuân Phương,
+                    Quận Nam Từ Liêm, Hà Nội
+                </div>
+                <div class="col-lg-2">
+                    <button class="btn btn-primary">Thay đổi</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-12">
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Danh
+                        Sách Sản Phẩm</span></h5>
+            <div class="bg-light p-30 mb-5"
+                 style="display: flex;justify-content: space-between;align-items: center;">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <td class="text-center td-image">Hình ảnh</td>
+                        <td class="text-left td-product">Tên sản phẩm</td>
+                        <td class="text-center td-model">Mã sản phẩm</td>
+                        <td class="text-center td-qty">Số lượng</td>
+                        <td class="text-right td-price">Giá</td>
+                        <td class="text-right td-total">Tổng</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="x:${listGHCT}">
+                        <td class="text-center td-image"><a
+                                href="https://myshoes.vn/giay-nike-air-max-sc-nam-xanh-navy.html"><img
+                                th:src="@{|/images/${x.giay_chi_tiet.giay.getAnhDau(x.giay_chi_tiet.giay.anhs)}|}"
+                                style="width: 50px;"
+                                alt="Giày Nike Air Max SC Nam - Xanh Navy"
+                                title="Giày Nike Air Max SC Nam - Xanh Navy" class="img-thumbnail"></a></td>
+                        <td class="text-left td-product"><a
+                                href="https://myshoes.vn/giay-nike-air-max-sc-nam-xanh-navy.html">[[${x.giay_chi_tiet.giay.ten}]]</a> <!----> <br> <small>Chọn size nam: [[${x.giay_chi_tiet.kich_co.ten}]]</small>
+                            <!----> <!----> <!----> <!----> <!---->
+                        </td>
+                        <td class="text-left td-model">[[${x.giay_chi_tiet.giay.ma}]]</td>
+                        <td class="text-left td-qty">
+                            [[${x.so_luong}]]
+                        </td>
+                        <td class="text-right td-price">[[${x.giay_chi_tiet.giay.giaban}]]</td>
+                        <td class="text-right td-total">[[${x.giay_chi_tiet.giay.tinhTong(x.giay_chi_tiet.giay.giaban,x.so_luong)}]]</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="col-lg-12">
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Mã Giảm
+                        Giá</span></h5>
+            <div class="bg-light p-30 mb-5"
+                 style="display: flex;justify-content: space-between;align-items: center;">
+                <div class="section-body" style="width: 100%;">
+                    <div class="form-group form-coupon"><label for="input-coupon" class="control-label">Nhập mã giảm
+                        giá nếu có</label>
+                        <div class="input-group"><input type="text" placeholder="Nhập mã giảm giá nếu có" th:value="${maGGHD}"
+                                                        id="input-coupon" class="form-control"> <span class="input-group-btn"><button
+                                type="button" data-loading-text="Đang Xử lý..."
+                                class="btn btn-primary"><span>Xác nhận</span></button></span></div> <!---->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing
+                        Address</span></h5>
+            <div class="bg-light p-30 mb-5">
+                <div class="checkout-section shipping-payment" style="display: flex;justify-content: space-between;">
+                    <div class="section-shipping">
+                        <div class="title section-title mb-4" style="font-size: large;font-weight: 900;
+                            color: #222;">PHƯƠNG THỨC GIAO HÀNG</div>
+                        <div class="section-body"><!---->
+                            <div>
+                                <div class="shippings">
+                                    <div class="ship-wrapper">
+                                        <div class="radio"><label><input type="radio" name="shipping_method"
+                                                                         value="free.free"> <span class="shipping-quote-title">Miễn phí
+                                                        giao hàng - 0₫</span> <!----></label></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="shippings">
+                                    <div class="ship-wrapper">
+                                        <div class="radio"><label><input type="radio" name="shipping_method"
+                                                                         value="flat.flat"> <span class="shipping-quote-title">Ship siêu
+                                                        tốc - 25.000₫</span> <!----></label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section-payment">
+                        <div class="title section-title mb-4" style="font-weight: 900;
+                            color: #222;">PHƯƠNG THỨC THANH TOÁN</div>
+                        <div class="section-body"><!---->
+                            <div>
+                                <div class="radio"><label><input type="radio" name="payment_method"
+                                                                 value="vnpay_payment"> <span>Thanh toán trực tuyến với
+                                                VNPAY</span></label></div>
+                            </div>
+                            <div>
+                                <div class="radio"><label><input type="radio" name="payment_method" value="cod">
+                                    <span>Thanh toán khi nhận hàng</span></label></div>
+                            </div>
+                            <div>
+                                <div class="radio"><label><input type="radio" name="payment_method"
+                                                                 value="bank_transfer"> <span>Chuyển khoản ngân hàng</span></label></div>
+                            </div>
+                            <div>
+                                <div class="radio"><label><input type="radio" name="payment_method" value="cod1">
+                                    <span>Tiền mặt tại cửa hàng</span></label></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order
+                        Total</span></h5>
+            <div class="bg-light p-30 mb-5">
+                <div class="border-bottom pt-3 pb-2">
+                    <div class="d-flex justify-content-between mb-3">
+                        <h6>Thành Tiền:</h6>
+                        <h6>[[${tongTien}]]</h6>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <h6 class="font-weight-medium">Phí giao hàng:</h6>
+                        <h6 class="font-weight-medium">0đ</h6>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6 class="font-weight-medium">Mã giảm giá ([[${maGGHD}]]):</h6>
+                        <h6 class="font-weight-medium">-[[${tienGGHD}]]</h6>
+                    </div>
+                </div>
+                <div class="pt-2">
+                    <div class="d-flex justify-content-between mt-2 mb-3">
+                        <h5>Tổng:</h5>
+                        <h5>[[${tienThanhToan}]]</h5>
+                    </div>
+                </div>
+                <button class="btn btn-block btn-primary font-weight-bold py-3">Đặt Hàng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Checkout End -->
+</body>
+</html>

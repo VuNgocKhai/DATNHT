@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 @Table(name = "gio_hang")
 @Entity
@@ -26,4 +25,11 @@ public class GioHang {
     private Date ngay_cap_nhap;
     private String ghi_chu;
     private Integer trangthai;
+    @OneToMany(mappedBy = "gio_hang",fetch = FetchType.EAGER)
+    Set<GioHangChiTiet> gioHangChiTiets;
+    public List<GioHangChiTiet> getListGHCT(Set<GioHangChiTiet> gioHangChiTiets){
+        List<GioHangChiTiet> list = new ArrayList<GioHangChiTiet>(gioHangChiTiets);
+        list.sort(Comparator.comparing(GioHangChiTiet::getId));
+        return list;
+    }
 }
