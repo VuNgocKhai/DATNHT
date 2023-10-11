@@ -41,12 +41,9 @@ public class GiamGiaChiTietHoaDonRestController {
     public void deleteGGCTHD(@PathVariable("hdid") UUID HoaDonID, @PathVariable("gghdid") UUID GiamGiaHoaDonID) {
         giamGiaChiTietHoaDonDAO.deleteByHoaDonIdAndGiamGiaHoaDonId(HoaDonID, GiamGiaHoaDonID);
     }
-<<<<<<< HEAD
 
     @RequestMapping("getGGCTHDbyHD/{hdid}")
     public GiamGiaChiTietHoaDon getGGCTHDbyHDandGGHD(@PathVariable("hdid") UUID HoaDonID) {
         return giamGiaChiTietHoaDonDAO.getGGCTHDByHoaDonId(HoaDonID);
     }
-=======
->>>>>>> origin/giamgiasanpham
 }

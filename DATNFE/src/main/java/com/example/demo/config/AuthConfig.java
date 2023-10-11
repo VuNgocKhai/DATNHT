@@ -50,7 +50,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter  {
         http.csrf().disable().cors().disable();
         http.authorizeRequests()
                 .antMatchers("/assets/**").permitAll()
-                .anyRequest().permitAll();
+                .anyRequest().authenticated();
         http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")

@@ -39,14 +39,11 @@ public class GiamGiaHoaDonRestController {
     public List<GiamGiaHoaDon> getListGiamGiaHoaDon() {
         return giamGiaHoaDonDAO.findAll();
     }
-<<<<<<< HEAD
     //Lấy list danh sách hóa đơn trạng thái = 1
     @GetMapping("/trang-thai-1")
     public List<GiamGiaHoaDon> getListGiamGiaHoaDonHoatDong() {
         return giamGiaHoaDonDAO.getAllGiamGiaHoaDonHoatDong();
     }
-=======
->>>>>>> origin/giamgiasanpham
 
     // Phân trang giảm giá hóa đơn
     @GetMapping("/phantrang")
@@ -69,7 +66,6 @@ public class GiamGiaHoaDonRestController {
 
     //update giảm giá hóa đơn theo mã
     @PostMapping("/{ma}")
-<<<<<<< HEAD
     public GiamGiaHoaDon updateGiamGiaHoaDon(@PathVariable("ma") String ma, @RequestBody GiamGiaHoaDon updatedGiamGiaHoaDon) {
         // Truy vấn đối tượng GiamGiaHoaDon từ cơ sở dữ liệu dựa trên ma
         GiamGiaHoaDon existingGiamGiaHoaDon= giamGiaHoaDonDAO.findGiamGiaHoaDonByMa(ma);
@@ -88,12 +84,6 @@ public class GiamGiaHoaDonRestController {
     }
 
 
-=======
-    public GiamGiaHoaDon updateGiamGiaHoaDon(@PathVariable("ma") String ma, @RequestBody GiamGiaHoaDon giamGiaHoaDon) {
-        return giamGiaHoaDonDAO.save(giamGiaHoaDon);
-    }
-
->>>>>>> origin/giamgiasanpham
     // Xóa giảm giá hóa đơn theo id
     @RequestMapping("/{id}")
     public void delete(@PathVariable("id") UUID id) {

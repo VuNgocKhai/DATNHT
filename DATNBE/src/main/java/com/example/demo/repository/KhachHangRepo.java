@@ -15,9 +15,5 @@ public interface KhachHangRepo extends JpaRepository<KhachHang, UUID> {
     KhachHang getkhachhanByma(String ma);
 
     @Query("select kh from KhachHang  kh where kh.hoten like ?1 or kh.sdt like ?1 or  kh.ma like ?1")
-<<<<<<< HEAD
     Page<KhachHang> search( String keyword, Pageable pageable);
-=======
-         Page<KhachHang> search( String keyword, Pageable pageable);
->>>>>>> origin/giamgiasanpham
 }
