@@ -37,6 +37,8 @@ public class NhanVienController {
     @Autowired
     private ChucVuRepository chucVuRepository;
 
+    private int numberCurrent=0;
+
     PageDTO<NhanVien> page;
 
     @GetMapping("")
@@ -45,6 +47,7 @@ public class NhanVienController {
                        Model model) {
 //        page = nhanVienRepository.getPage(number);
         nhanVien.setTrangThai(1);
+        numberCurrent=Integer.valueOf(number);
         page=new PageDTO<>(nhanVienService.getAllByTrangThai(1,Integer.valueOf(number)));
         model.addAttribute("page", page);
         return "nhan_vien/nhan_vien/nhan_vien";
@@ -53,14 +56,15 @@ public class NhanVienController {
     @GetMapping("/find")
     public String find(@RequestParam Optional<String> ma,
                        @RequestParam Optional<String> data,
-                       @RequestParam Optional<String> idCv,
+                       @RequestParam Optional<String> maCv,
                        @ModelAttribute NhanVien nhanVien,
                        Model model,
                        Optional<String> number) {
-        page = new PageDTO<>(nhanVienService.findNhanVien(ma,data,idCv, Integer.valueOf(number.orElse("0"))));
+        nhanVien.setTrangThai(1);
+        page = new PageDTO<>(nhanVienService.findNhanVien(ma,data,maCv, Integer.valueOf(number.orElse("0"))));
         model.addAttribute("page", page);
         model.addAttribute("data", data.orElse(null));
-        model.addAttribute("idCv", idCv.orElse(null));
+        model.addAttribute("maCv", maCv.orElse(null));
         model.addAttribute("ma", ma.orElse(null));
         return "nhan_vien/nhan_vien/nhan_vien_tim_kiem";
     }
@@ -97,13 +101,13 @@ public class NhanVienController {
     @PostMapping("/update")
     public String update(@ModelAttribute NhanVien nhanVien) {
         nhanVienRepository.update(nhanVien);
-        return "redirect:/admin/nhan-vien";
+        return "redirect:/admin/nhan-vien?number="+numberCurrent;
     }
 
     @GetMapping("/delete/{ma}")
     public String delete(@PathVariable String ma) {
         nhanVienRepository.delete(ma);
-        return "redirect:/admin/nhan-vien";
+        return "redirect:/admin/nhan-vien?number="+numberCurrent;
     }
 
     @ModelAttribute("listNhanVien")

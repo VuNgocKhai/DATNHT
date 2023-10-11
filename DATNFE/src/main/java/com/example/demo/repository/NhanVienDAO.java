@@ -25,13 +25,13 @@ public interface NhanVienDAO extends JpaRepository<NhanVien, UUID> {
             nativeQuery = true)
     NhanVienDto getNhanVienDto();
 
-    @Query(value = "select nv from NhanVien nv where " +
-            " (nv.ma is null or nv.ma=:ma) and " +
-            " ((nv.sdt is null or nv.sdt like %:data%) or " +
-            " (nv.email is null or nv.email like %:data%) or" +
-            " (nv.hoTen is null or nv.hoTen like %:data%)) and " +
-            " (nv.chucVu.id is null or nv.chucVu.id=:idCv)")
-    Page<NhanVien> findNhanVien(String ma,String data, UUID idCv,
+    @Query(value = "SELECT nv FROM NhanVien nv WHERE " +
+            "(:ma IS NULL OR nv.ma = :ma) AND " +
+            "((:data IS NULL OR nv.sdt LIKE %:data%) OR " +
+            "(:data IS NULL OR nv.email LIKE %:data%) OR " +
+            "(:data IS NULL OR nv.hoTen LIKE %:data%)) AND " +
+            "(:maCv IS NULL OR nv.chucVu.ma = :maCv)")
+    Page<NhanVien> findNhanVien(String ma,String data, String maCv,
                                 Pageable pageable);
 
 

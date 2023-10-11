@@ -200,9 +200,9 @@
                     </div>
                     <div class="form-group col-3">
                         <label for="formGroupExampleInput2">Chức vụ</label>
-                        <select class="form-control" id="formGroupExampleInput2" name="idCv">
+                        <select class="form-control" id="formGroupExampleInput2" name="maCv">
                             <option th:value="${null}" >Tất cả</option>
-                            <option th:each="cv : ${listChucVu}" th:value="${cv.id}" th:text="${cv.ten} "
+                            <option th:each="cv : ${listChucVu}" th:value="${cv.ma}" th:text="${cv.ten} "
                             ></option>
                         </select>
                     </div>
@@ -273,21 +273,21 @@
                                     <div class="form-group col-3">
                                         <label>Tỉnh/Thành phố</label>
                                         <select class="form-control" id="province"  th:field="*{thanhPho}">
-                                            <option  value="" >Chọn Tỉnh/Thành phố:</option>
+                                            <option  value="" >Chọn Tỉnh/Thành phố</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group col-3">
-                                        <label>Quan/Huyện :</label>
+                                        <label>Quận/Huyện</label>
                                         <select class="form-control " id="district" th:field="*{huyen}">
-                                            <option  value="" >Chọn Quan/Huyện:</option>
+                                            <option  value="" >Chọn Quận/Huyện</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group col-3">
-                                        <label>Xa/Phường :</label>
+                                        <label>Xã/Phường</label>
                                         <select class="form-control" id="ward" th:field="*{xa}">
-                                            <option  value="" >Chọn Xa/Phường</option>
+                                            <option  value="" >Chọn Xã/Phường</option>
                                         </select>
                                     </div>
 
@@ -410,7 +410,7 @@
                                                         <label for="formGroupExampleInput">Mã</label>
                                                         <input type="text" th:field="*{ma}" class="form-control"
                                                                id="formGroupExampleInput"
-                                                               placeholder="Mã">
+                                                               placeholder="Mã" readonly>
                                                     </div>
 
                                                     <div class="form-group col-3">
@@ -446,21 +446,21 @@
                                                     <div class="form-group col-3">
                                                         <label>Tỉnh/Thành phố</label>
                                                         <select class="form-control" id="province2"  th:field="*{thanhPho}">
-                                                            <option  value="" >Chọn Tỉnh/Thành phố:</option>
+                                                            <option  value="" >Chọn Tỉnh/Thành phố</option>
                                                         </select>
                                                     </div>
 
                                                     <div class="form-group col-3">
-                                                        <label>Quan/Huyện :</label>
+                                                        <label>Quận/Huyện</label>
                                                         <select class="form-control " id="district2" th:field="*{huyen}">
-                                                            <option  value="" >Chọn Quan/Huyện:</option>
+                                                            <option  value="" >Chọn Quận/Huyện</option>
                                                         </select>
                                                     </div>
 
                                                     <div class="form-group col-3">
-                                                        <label>Xa/Phường :</label>
+                                                        <label>Xã/Phường</label>
                                                         <select class="form-control" id="ward2" th:field="*{xa}">
-                                                            <option  value="" >Chọn Xa/Phường</option>
+                                                            <option  value="" >Chọn Xã/Phường</option>
                                                         </select>
                                                     </div>
 
@@ -532,17 +532,13 @@
                                                     </div>
                                                 </div>
 
-                                                <button class="btn btn-primary" type="submit">Cap nhat</button>
+                                                <button class="btn btn-primary" type="submit">Cập nhật</button>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-<!--                            <a th:href=" @{|/admin/nhan-vien/detail/${item.ma}|}" title="Xem chi tiết"-->
-<!--                               >-->
-<!--                                <i class="fa fa-eye" aria-hidden="true"></i>-->
-<!--                            </a>-->
                             <a th:href=" @{|/admin/nhan-vien/delete/${item.ma}|}" title="Xóa">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </a>
@@ -582,13 +578,13 @@
     var callApiDistrict = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data.districts, "district","Quan/Huyện");
+                renderData(response.data.districts, "district","Quận/Huyện");
             });
     }
     var callApiWard = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data.wards, "ward","Xa/Phường");
+                renderData(response.data.wards, "ward","Xã/Phường");
             });
     }
 
@@ -636,13 +632,13 @@
     var callApiDistrict2 = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data.districts, "district2","Quan/Huyện");
+                renderData(response.data.districts, "district2","Quận/Huyện");
             });
     }
     var callApiWard2 = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data.wards, "ward2","Xa/Phường");
+                renderData(response.data.wards, "ward2","Xã/Phường");
             });
     }
 
@@ -694,8 +690,8 @@
                         callApiWard2(host + "d/" + selected2 + "?depth=2");
                         setTimeout(function () {
                             form.find('[name="xa"]').val(data.xa);
-                        }, 100);
-                    }, 100);
+                        }, 300);
+                    }, 200);
                     form.find('[name="sdt"]').val(data.sdt);
                     form.find('[name="email"]').val(data.email);
                     form.find('[name="matKhau"]').val(data.matKhau);
