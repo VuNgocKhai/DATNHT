@@ -376,11 +376,17 @@
                     </tr>
                     <tr th:each="hd:${hoaDonListdaGG.content}">
                         <th scope="row">[[${hd.ma}]]</th>
-                        <th>[[${hd.ngay_tao}]]</th>
+                        <th>
+                            <span th:if="${hd.ngay_tao == null}" class="badge badge-pill badge-primary badge-sm">Đang Chờ</span>
+                            <span th:if="${hd.ngay_tao != null}" th:text="${hd.ngay_tao}"></span>
+                        </th>
                         <th>[[${hd.ngay_thanh_toan}]]</th>
                         <th>[[${hd.nhanVien.hoTen}]]</th>
-                        <th>[[${hd.khachHang.hoten}]]</th>
-                        <th>[[${hd.tong_tien}]]</th>
+                        <th>
+                            <span th:if="${hd.khachHang == null}" class="badge badge-pill badge-primary badge-sm">Chưa Có Thông Tin</span>
+                            <span th:if="${hd.khachHang != null}" th:text="${hd.khachHang.hoten}"></span>
+                        </th>
+                        <th th:text="${hd.tong_tien != null ? hd.tong_tien : 0}"></th>
                         <th>[[${hd.mo_ta}]]</th>
                         <th th:text="${hd.trangthai == 1 ? 'Đã Thanh Toán' : 'Chưa Thanh Toán'}"></th>
                         <th>

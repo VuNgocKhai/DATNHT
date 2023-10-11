@@ -39,6 +39,11 @@ public class GiamGiaHoaDonRestController {
     public List<GiamGiaHoaDon> getListGiamGiaHoaDon() {
         return giamGiaHoaDonDAO.findAll();
     }
+    //Lấy list danh sách hóa đơn trạng thái = 1
+    @GetMapping("/trang-thai-1")
+    public List<GiamGiaHoaDon> getListGiamGiaHoaDonHoatDong() {
+        return giamGiaHoaDonDAO.getAllGiamGiaHoaDonHoatDong();
+    }
 
     // Phân trang giảm giá hóa đơn
     @GetMapping("/phantrang")
@@ -61,9 +66,23 @@ public class GiamGiaHoaDonRestController {
 
     //update giảm giá hóa đơn theo mã
     @PostMapping("/{ma}")
-    public GiamGiaHoaDon updateGiamGiaHoaDon(@PathVariable("ma") String ma, @RequestBody GiamGiaHoaDon giamGiaHoaDon) {
-        return giamGiaHoaDonDAO.save(giamGiaHoaDon);
+    public GiamGiaHoaDon updateGiamGiaHoaDon(@PathVariable("ma") String ma, @RequestBody GiamGiaHoaDon updatedGiamGiaHoaDon) {
+        // Truy vấn đối tượng GiamGiaHoaDon từ cơ sở dữ liệu dựa trên ma
+        GiamGiaHoaDon existingGiamGiaHoaDon= giamGiaHoaDonDAO.findGiamGiaHoaDonByMa(ma);
+
+        if (existingGiamGiaHoaDon != null) {
+            // Cập nhật các thuộc tính của đối tượng đã có từ updatedGiamGiaHoaDon
+            existingGiamGiaHoaDon.setTen(updatedGiamGiaHoaDon.getTen());
+            existingGiamGiaHoaDon.setDieu_kien(updatedGiamGiaHoaDon.getDieu_kien());
+            existingGiamGiaHoaDon.setSo_tien_giam(updatedGiamGiaHoaDon.getSo_tien_giam());
+            existingGiamGiaHoaDon.setNgay_bat_dau(updatedGiamGiaHoaDon.getNgay_bat_dau());
+            existingGiamGiaHoaDon.setNgay_ket_thuc(updatedGiamGiaHoaDon.getNgay_ket_thuc());
+            existingGiamGiaHoaDon.setSo_luong(updatedGiamGiaHoaDon.getSo_luong());
+            existingGiamGiaHoaDon.setTrangthai(updatedGiamGiaHoaDon.getTrangthai());
+        }
+        return  giamGiaHoaDonDAO.save(existingGiamGiaHoaDon);
     }
+
 
     // Xóa giảm giá hóa đơn theo id
     @RequestMapping("/{id}")

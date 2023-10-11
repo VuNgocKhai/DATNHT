@@ -2,7 +2,9 @@ package com.example.demo.repository;
 
 import com.example.demo.entity.HoaDon;
 import com.example.demo.entity.PageDTO;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
@@ -26,7 +28,7 @@ public class HoaDonRepo {
         return url + "/" + ma;
     }
 
-    // get all  hóa đơn chưa giảm giá theo page
+    // get all hóa đơn chưa giảm giá theo page
     public PageDTO<HoaDon> getAllHDchuaGGPage(Integer page) {
         ResponseEntity<PageDTO<HoaDon>> response =
                 restTemplate.exchange(url + "/phantrang?page1=" + page, HttpMethod.GET, null, new ParameterizedTypeReference<PageDTO<HoaDon>>() {
@@ -34,8 +36,39 @@ public class HoaDonRepo {
         return response.getBody();
     }
 
-    // findGGHD by mã
+    // get all hóa đơn chưa thanh toán
+    public PageDTO<HoaDon> getAllHDchuaTTPage(Integer page) {
+        ResponseEntity<PageDTO<HoaDon>> response =
+                restTemplate.exchange(url + "/pagehdctt?page=" + page, HttpMethod.GET, null, new ParameterizedTypeReference<PageDTO<HoaDon>>() {
+                });
+        return response.getBody();
+    }
+
+    // find HD by mã
     public HoaDon getHoaDonByMa(String ma) {
         return restTemplate.getForObject(getUrl(ma), HoaDon.class);
+    }
+
+    // Xóa Hóa Đơn
+    public void deleteHD(UUID id) {
+        restTemplate.delete(getUrl1(id));
+    }
+
+    // Tìm hóa đơn theo mã hoặc tên khách hàng
+    public PageDTO<HoaDon> timkiemHoaDon(String keyword, Integer page) {
+        ResponseEntity<PageDTO<HoaDon>> response = restTemplate.exchange(
+                getUrl("tim-kiem-hoa-don?keyword=" + keyword + "&page=" + page),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<PageDTO<HoaDon>>() {
+                }
+        );
+        return response.getBody();
+    }
+
+    public String createHoaDon(HoaDon hoaDon) {
+        HttpEntity<HoaDon> entity = new HttpEntity<>(hoaDon);
+        JsonNode resp = restTemplate.postForObject(url, entity, JsonNode.class);
+        return resp.get("ma").asText();
     }
 }

@@ -17,16 +17,16 @@ public class HoaDonChiTiet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     @ManyToOne
     @JoinColumn(name = "id_hoa_don")
     private HoaDon hoaDon;
+
     @ManyToOne
     @JoinColumn(name = "id_giay_chi_tiet")
     private GiayChiTiet giayChiTiet;
 
     private Integer so_luong;
-
-    private BigDecimal gia_nhap;
 
     private BigDecimal don_gia;
 

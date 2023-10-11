@@ -1,7 +1,6 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.DiaChi;
-import com.example.demo.entity.KhachHang;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -36,14 +35,16 @@ public class DiaChiRepo {
 
     public String save(DiaChi diaChi) {
         HttpEntity<DiaChi> entity = new HttpEntity<>(diaChi);
-        JsonNode jsonNode = restTemplate.postForObject(url,entity,JsonNode.class);
+        JsonNode jsonNode = restTemplate.postForObject(url, entity, JsonNode.class);
         return jsonNode.get("tendiachi").asText();
     }
 
     public DiaChi getbyma1(UUID ma) {
         return restTemplate.getForObject(getUrl1(ma), DiaChi.class);
     }
-
+    public DiaChi getDCbyma(String ma) {
+        return restTemplate.getForObject(getUrl("getDiaChiByMa/" + ma), DiaChi.class);
+    }
 
     public void delete(UUID ma) {
         restTemplate.delete(getUrl1(ma));
@@ -54,4 +55,12 @@ public class DiaChiRepo {
         restTemplate.put(getUrl(id), entity);
         return dc;
     }
+
+    public List<DiaChi> getListDCbyKH(String ma) {
+        ResponseEntity<List<DiaChi>> entity = restTemplate.exchange(url + "/getDiaChiByKH/" + ma, HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<DiaChi>>() {
+                });
+        return entity.getBody();
+    }
+
 }
