@@ -108,6 +108,7 @@ public class NhanVienController {
     public String delete(@PathVariable String ma) {
         nhanVienRepository.delete(ma);
         return "redirect:/admin/nhan-vien?number="+numberCurrent;
+
     }
 
     @ModelAttribute("listNhanVien")

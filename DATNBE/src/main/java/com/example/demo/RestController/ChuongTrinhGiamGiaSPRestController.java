@@ -116,9 +116,17 @@ public class ChuongTrinhGiamGiaSPRestController {
         return ResponseEntity.ok(chuongTrinhGiamGiaSPRepository.findChuongTrinhGiamGiaSPByIdKhuyenMai(idKM));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody ChuongTrinhGiamGiaSP ctggsp, @PathVariable("id") UUID id) {
-        return ResponseEntity.ok(chuongTrinhGiamGiaSPRepository.save(ctggsp));
+    @PutMapping("/{ma}")
+    public ResponseEntity<?> update(@RequestBody ChuongTrinhGiamGiaSP ctggsp, @PathVariable("ma") String ma) {
+        ChuongTrinhGiamGiaSP getOneCTGG = chuongTrinhGiamGiaSPRepository.findByMa(ma);
+
+        getOneCTGG.setTenKhuyenMai(ctggsp.getTenKhuyenMai());
+        getOneCTGG.setNgayBatDau(ctggsp.getNgayBatDau());
+        getOneCTGG.setNgayKetThuc(ctggsp.getNgayKetThuc());
+        getOneCTGG.setPhanTramGiam(ctggsp.getPhanTramGiam());
+        getOneCTGG.setTrangThai(ctggsp.getTrangThai());
+
+        return ResponseEntity.ok(chuongTrinhGiamGiaSPRepository.save(getOneCTGG));
     }
 
 }

@@ -2,11 +2,19 @@ package com.example.demo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+<<<<<<< HEAD
+=======
+import lombok.Data;
+>>>>>>> origin/giamgiasanpham
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+<<<<<<< HEAD
+=======
+@Data
+>>>>>>> origin/giamgiasanpham
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -32,6 +40,7 @@ public class DiaChi {
     @Column(name = "thanh_pho")
     private String thanhpho;
 
+<<<<<<< HEAD
     @Column(name = "ten_nguoi_nhan")
     private String ten_nguoi_nhan;
 
@@ -42,6 +51,11 @@ public class DiaChi {
     private Integer trangthai;
 
 
+=======
+    @Column(name = "trangthai")
+    private Integer trangthai;
+
+>>>>>>> origin/giamgiasanpham
     @ManyToOne
     @JoinColumn(name = "id_khach_hang")
     private KhachHang khachHang;

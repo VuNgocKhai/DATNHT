@@ -27,10 +27,13 @@ public interface GiamGiaChiTietHoaDonDAO extends JpaRepository<GiamGiaChiTietHoa
     @Modifying
     @Query("DELETE FROM GiamGiaChiTietHoaDon ct WHERE ct.hd.id = :hoaDonId AND ct.gghd.id = :giamGiaHoaDonId")
     void deleteByHoaDonIdAndGiamGiaHoaDonId(@Param("hoaDonId") UUID hoaDonId, @Param("giamGiaHoaDonId") UUID giamGiaHoaDonId);
+<<<<<<< HEAD
 
     @Query("SELECT ct FROM GiamGiaChiTietHoaDon ct WHERE ct.hd.id = :hoaDonId AND ct.gghd.id = :giamGiaHoaDonId")
     GiamGiaChiTietHoaDon getGGCTHDByHoaDonIdAndGiamGiaHoaDonId(@Param("hoaDonId") UUID hoaDonId, @Param("giamGiaHoaDonId") UUID giamGiaHoaDonId);
 
     @Query("SELECT ct FROM GiamGiaChiTietHoaDon ct WHERE ct.hd.id = :hoaDonId")
     GiamGiaChiTietHoaDon getGGCTHDByHoaDonId(@Param("hoaDonId") UUID hoaDonId);
+=======
+>>>>>>> origin/giamgiasanpham
 }

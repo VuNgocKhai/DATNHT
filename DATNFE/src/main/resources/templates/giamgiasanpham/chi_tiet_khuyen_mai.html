@@ -177,50 +177,57 @@
                             <h5 class="modal-title" id="exampleModalLabel">Cập nhật sản phẩm áp dụng</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <div>
-                                <div class="list-group">
-                                    <table class="table" style="margin: 20px 0;">
-                                        <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">Mã</th>
-                                            <th scope="col">Tên</th>
-                                            <th scope="col">Giá</th>
-                                            <th scope="col">Trạng thái</th>
-                                            <th scope="col">#</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="g,state:${listGiay}">
-                                            <form action="/admin/create-ctkm" method="post">
+                        <form action="/admin/create-ctkm" method="post">
+                            <div class="modal-body">
+                                <div>
+                                    <div class="list-group">
+                                        <table class="table" style="margin: 20px 0;">
+                                            <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Mã</th>
+                                                <th scope="col">Tên</th>
+                                                <th scope="col">Giá</th>
+                                                <th scope="col">Trạng thái</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="g,state:${listGiay}">
                                                 <input hidden name="idKM" th:value="${voucherForm.idKhuyenMai}"/>
                                                 <td>
+                                                    <input type="checkbox" th:value="${g.id}" name="listIdGiay">
+                                                </td>
+                                                <td>
                                                     <input hidden name="idGiay" th:value="${g.id}"/>
-                                                    [[${g.ma}]]</td>
+                                                    [[${g.ma}]]
+                                                </td>
                                                 <td>[[${g.ten}]]</td>
                                                 <td>
-                                                    <input hidden name="giaBan" th:value="${g.giaban}"/>
-                                                    <input hidden name="phanTramGiam" th:value="${voucherForm.phanTramGiam}"/>
-                                                    [[${g.giaban}]]</td>
-                                                <td th:text="${g.trangthai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>
-                                                <td>
-                                                    <button class="btn btn-primary" type="submit">
-                                                        <a class="bi bi-plus-circle"></a>
-                                                    </button>
+                                                    <input hidden th:name="${g.id +'giaBan'}"
+                                                           th:value="${g.giaban}"/>
+                                                    <input hidden th:name="${g.id + 'phanTramGiam'}"
+                                                           th:value="${voucherForm.phanTramGiam}"/>
+                                                    [[${g.giaban}]]
                                                 </td>
-                                            </form>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                                <td th:text="${g.trangthai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>
+
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button th:href="@{|/admin/chuong-trinh-giam-gia-sp/detail/{idVoucher}|}" type="button"
-                                    class="btn btn-secondary"
-                                    data-bs-dismiss="modal">Close
-                            </button>
-                        </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit"
+                                        data-bs-dismiss="modal">Cập nhật
+                                </button>
+                                <button th:href="@{|/admin/chuong-trinh-giam-gia-sp/detail/{idVoucher}|}" type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -324,3 +331,5 @@
 <script src="/assets/js/main.js"></script>
 </body>
 </html>
+
+

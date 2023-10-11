@@ -1,7 +1,10 @@
 package com.example.demo.RestController;
 
 import com.example.demo.entity.DiaChi;
+<<<<<<< HEAD
 import com.example.demo.entity.GiamGiaHoaDon;
+=======
+>>>>>>> origin/giamgiasanpham
 import com.example.demo.repository.DiaChiRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +48,7 @@ public class DiaChiController {
     public ResponseEntity<?> update(@RequestBody DiaChi diacchi, @PathVariable("id")  String id) {
         return ResponseEntity.ok(diaChiRepo.save(diacchi));
     }
+<<<<<<< HEAD
 
     @GetMapping("/getDiaChiByKH/{ma}")
     public List<DiaChi> getDCbyKH(@PathVariable("ma") String ma) {
@@ -54,4 +58,6 @@ public class DiaChiController {
     public DiaChi getDCbyMa(@PathVariable("maDC") String ma) {
         return diaChiRepo.findDiaChiByByMa(ma);
     }
+=======
+>>>>>>> origin/giamgiasanpham
 }

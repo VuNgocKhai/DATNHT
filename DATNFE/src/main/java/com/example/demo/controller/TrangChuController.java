@@ -37,5 +37,4 @@ public class TrangChuController {
         model.addAttribute("items",giayDAO.findAll());
         return "home/sanpham";
     }
-
 }

@@ -8,7 +8,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+<<<<<<< HEAD
 import javax.persistence.CascadeType;
+=======
+>>>>>>> origin/giamgiasanpham
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -56,6 +59,7 @@ public class HoaDon implements Serializable {
 
     private Integer trangthai;
 
+<<<<<<< HEAD
     private String dia_chi;
 
 
@@ -63,4 +67,9 @@ public class HoaDon implements Serializable {
     @OneToMany(mappedBy = "hoaDon", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<HoaDonChiTiet> list1;
+=======
+    @OneToMany(mappedBy = "hd")
+    @JsonIgnore
+    private List<GiamGiaChiTietHoaDon> list1;
+>>>>>>> origin/giamgiasanpham
 }

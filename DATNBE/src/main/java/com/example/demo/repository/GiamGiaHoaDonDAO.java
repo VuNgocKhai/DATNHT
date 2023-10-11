@@ -8,7 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.sql.Date;
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> origin/giamgiasanpham
 import java.util.UUID;
 
 public interface GiamGiaHoaDonDAO extends JpaRepository<GiamGiaHoaDon, UUID> {
@@ -33,10 +36,13 @@ public interface GiamGiaHoaDonDAO extends JpaRepository<GiamGiaHoaDon, UUID> {
     // Query find GGHD by trạng thái
     @Query("SELECT gg FROM GiamGiaHoaDon gg WHERE (:trangthai IN (0, 1) AND gg.trangthai = :trangthai) OR (:trangthai = 2)")
     Page<GiamGiaHoaDon> findGiamGiaHoaDonByTrangthai(@Param("trangthai") Integer trangthai, Pageable pageable);
+<<<<<<< HEAD
 
     // Query find GGHD với trạng thái = 1
     @Query("SELECT gg FROM GiamGiaHoaDon gg WHERE gg.trangthai = 1 and gg.so_luong > 0")
     List<GiamGiaHoaDon> getAllGiamGiaHoaDonHoatDong();
+=======
+>>>>>>> origin/giamgiasanpham
 }
 
 
