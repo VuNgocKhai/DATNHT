@@ -552,47 +552,45 @@
                             <div class="col-12">
                                 <label>Tên Địa Chỉ:</label>
                                 <input type="text" class="form-control" th:if="${diachiHoaDon == null}" name="dia_chi">
-                                <input type="text" class="form-control" th:if="${diachiHoaDon != null}"
+                                <input type="text" class="form-control" th:if="${diachiHoaDon != null}" name="dia_chi"
                                        th:value="${diachiHoaDon.tendiachi}">
                             </div>
                             <div class="col-6" style="margin-top: 10px">
                                 <label>Thành Phố:</label>
-                                     <select class="form-control"  name="province" id="province" th:if="${diachiHoaDon == null}" >
-                                        <option th:if="${diachiHoaDon == null}" ></option>
+                                     <select class="form-control"  name="province" id="province" >
+                                        <option th:if="${diachiHoaDon == null}" >Chọn</option>
+                                         <option th:if="${diachiHoaDon != null}" th:value="${diachiHoaDon.thanhpho}" >[[${diachiHoaDon.thanhpho}]]</option>
                                     </select>
 
-                                <input type="text" class="form-control" th:if="${diachiHoaDon != null}" name="province"
-                                       th:value="${diachiHoaDon.thanhpho}" >
+
                             </div>
                             <br>
                             <div class="col-6" style="margin-top: 10px">
                                 <label>Huyện:</label>
-                                 <select class="form-control" name="district" id="district" th:if="${diachiHoaDon == null}" >
-                                     <option th:if="${diachiHoaDon == null}" >Chọn Quận/Huyện</option>
+                                 <select class="form-control" name="district" id="district" >
+                                     <option th:if="${diachiHoaDon == null}" ></option>
+                                     <option th:if="${diachiHoaDon != null}" th:value="${diachiHoaDon.huyen}" >[[${diachiHoaDon.huyen}]]</option>
                                   </select>
-
-                                <input type="text" class="form-control" th:if="${diachiHoaDon != null}" name="district"
-                                       th:value="${diachiHoaDon.huyen}" >
 
                             </div>
                             <br>
                             <div class="col-12" style="margin-top: 10px">
                                 <label>Xã:</label>
 
-                                <select class="form-control" name="ward" id="ward" th:if="${diachiHoaDon == null}" >
-                                    <option th:if="${diachiHoaDon == null}">Chọn Xã/Phường</option>
+                                <select class="form-control" name="ward" id="ward" >
+                                    <option th:if="${diachiHoaDon == null}"></option>
+                                      <option th:if="${diachiHoaDon != null}" th:value="${diachiHoaDon.xa}">[[${diachiHoaDon.xa}]]</option>
                                  </select>
-
-                                <input type="text" class="form-control" th:if="${diachiHoaDon != null}"
-                                       th:value="${diachiHoaDon.xa}">
                             </div>
                         </div>
+
                         </form>
                         <div id="estimated-delivery-time" style="display: none;">
                             Dự kiến giao hàng trong 3-4 ngày.
                         </div>
                     </span>
                 </div>
+
                 <div class="col-1"></div>
                 <div class="col-5 bỏ border-light"
                      style="align-content: space-around; display: flex; flex-direction: column; gap: 10px; border-left-radius:20px ;background-color: whitesmoke">
@@ -722,9 +720,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
-    // 1. what is API
-    // 2. How do I call API
-    // 3. Explain code
     const host = "https://provinces.open-api.vn/api/";
     var callAPI = (api) => {
         return axios.get(api)
@@ -747,12 +742,12 @@
     }
 
     var renderData = (array, select) => {
-        let row = ' <option disable value="">chọn</option>';
-
+        let row = '<option disable value="">chọn</option>';
         array.forEach(element => {
-            row += `<option value="${element.name}" data-code="${element.code}">${element.name}</option>`
+            row += `<option value="${element.name}" data-code="${element.code}">${element.name}</option>`;
         });
-        document.querySelector("#" + select).innerHTML = row
+        document.querySelector("#" + select).innerHTML = row;
+
     }
 
     $("#province").change(() => {
@@ -770,17 +765,19 @@
     })
 
     var printResult = () => {
-        if ($("#district").va() != "" && $("#province").val() != "" &&
-            $("#ward").val() != "") {
+        if ($("#district").val() != "" && $("#province").val() != "" && $("#ward").val() != "") {
             let result = $("#province option:selected").text() +
-                " | " + $("#district option:selected").text() + " | " +
+                ", " + $("#district option:selected").text() + ", "+
                 $("#ward option:selected").text();
-            $("#result").text(result)
+            $("#result").text(result);
+        } else {
+            $("#result").text("");
         }
-
     }
 </script>
 
+
+<!--Tự động post-->
 <script>
     // Thêm sự kiện theo dõi sự thay đổi trên các trường thông tin địa chỉ
     document.getElementById('address-form').addEventListener('input', function () {
@@ -793,6 +790,7 @@
         });
     });
 </script>
+
 
 <!--Sau khi nhập thông tin địa chỉ nó sẽ hiện thị số ngày sau-->
 <script>
@@ -818,8 +816,8 @@
     });
 </script>
 
+<!--Số chọn sản phẩm checkbox-->
 <script>
-    // Add an event listener to all checkboxes
     document.addEventListener('change', function (event) {
         if (event.target.type === 'checkbox') {
             updateSelectedCount();
@@ -840,6 +838,7 @@
         selectedCountElement.textContent = selectedCount;
     }
 </script>
+
 <!--script nút xác nhận địa chỉ-->
 <script>
     var radioButtons = document.querySelectorAll('input[type="radio"]');

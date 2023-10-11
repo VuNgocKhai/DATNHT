@@ -259,24 +259,24 @@
                     </div>
                 </div>
 
-                    <br>
-                    <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">Trạng Thái : </legend>
-                        <div class="col-sm-10">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" th:field="*{trangthai}" id="gridRadios1" th:value="1">
-                                <label class="form-check-label" for="gridRadios1">
-                                    Hoạt Động
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" th:field="*{trangthai}" id="gridRadios2" th:value="0" >
-                                <label class="form-check-label" for="gridRadios2">
-                                    Không Hoạt Động
-                                </label>
-                            </div>
+                <br>
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Trạng Thái : </legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" th:field="*{trangthai}" id="gridRadios1" th:value="1">
+                            <label class="form-check-label" for="gridRadios1">
+                                Hoạt Động
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" th:field="*{trangthai}" id="gridRadios2" th:value="0" >
+                            <label class="form-check-label" for="gridRadios2">
+                                Không Hoạt Động
+                            </label>
                         </div>
                     </div>
+                </div>
                 <br>
                 <button class="btn btn-primary" type="submit">Thêm Mới</button>
                 <button class="btn btn-success" th:formaction="@{|/admin/diachi/update/${diachi.madc}|}" type="submit">Cập Nhập</button>

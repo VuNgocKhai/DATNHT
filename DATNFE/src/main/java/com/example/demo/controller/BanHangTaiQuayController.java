@@ -149,7 +149,7 @@ public class BanHangTaiQuayController {
             model.addAttribute("KhachHangDetail", hoaDon.getKhachHang());
             List<DiaChi> diaChiList = diachiDao.getdiachibyma(hoaDon.getKhachHang().getMa());
             model.addAttribute("ListDiaChi", diaChiList);
-            DiaChi diaChi = diachiDao.getDiachiByma(hoaDon.getDia_chi());
+            DiaChi diaChi = diachiDao.getDiachiBytendiachi(hoaDon.getDia_chi());
             if (diaChi != null) {
                 model.addAttribute("diachiHoaDon", diaChi);
 
@@ -297,18 +297,14 @@ public class BanHangTaiQuayController {
     @PostMapping("/admin/ban-hang-tai-quay/tao-don-hang/add-dia-chi")
     public String themDiaChiKhachHangVaoHoaDon(@RequestParam("maHD") String maHD,
                                                @RequestParam("maDC") String maDC,
-//                                               @RequestParam("ward") String xa1,
-//                                               @RequestParam("district") String huyen1,
-//                                               @RequestParam("province") String thanhPho1,
+
                                                RedirectAttributes redirectAttributes) {
 
         if(maDC != null || maDC != null)
         {
             HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
-            DiaChi diaChi = diachiDao.getDiachiByma(maDC);
+            DiaChi diaChi = diachiDao.getDiachiBytendiachi(maDC);
             String maDiaChi = diaChi.getTendiachi();
-//            String diaChiGop = maDiaChi + ", "
-//            + xa1 + ", " + huyen1 + ", " + thanhPho1;
             hoaDon.setDia_chi(maDiaChi);
             hoaDonRepo.createHoaDon(hoaDon);
         }
@@ -326,12 +322,11 @@ public class BanHangTaiQuayController {
                                                @RequestParam("province") String thanhPho1,
                                                RedirectAttributes redirectAttributes) {
 
-            HoaDon hoaDon2 = hoaDonRepo.getHoaDonByMa(maHD);
-
+            HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
         // Gộp các giá trị thành một chuỗi địa chỉ
              String diaChiGop = diaChi1 + ", " + xa1 + ", " + huyen1 + ", " + thanhPho1;
-            hoaDon2.setDia_chi(diaChiGop);
-            hoaDonRepo.createHoaDon(hoaDon2);
+            hoaDon.setDia_chi(diaChiGop);
+            hoaDonRepo.createHoaDon(hoaDon);
 
 
         redirectAttributes.addAttribute("maHD", maHD);
