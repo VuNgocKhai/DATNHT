@@ -42,6 +42,14 @@ public class GiamGiaHoaDonRepo {
 
         return response.getBody();
     }
+    // get all giảm giá hóa đơn với trạng thái =1
+    public List<GiamGiaHoaDon> getAllGGHDtrangthai1() {
+        ResponseEntity<List<GiamGiaHoaDon>> response =
+                restTemplate.exchange(url + "/trang-thai-1", HttpMethod.GET, null, new ParameterizedTypeReference<List<GiamGiaHoaDon>>() {
+                });
+
+        return response.getBody();
+    }
 
     // phân trang
     public PageDTO<GiamGiaHoaDon> getPageGGHD(Integer page) {

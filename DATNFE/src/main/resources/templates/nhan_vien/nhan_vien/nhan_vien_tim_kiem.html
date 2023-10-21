@@ -192,20 +192,26 @@
     color: #000000;font-family: 'Lora';text-align: center;">Tìm kiếm nhân viên</h2>
                 <div class="row">
                     <div class="form-group col-3">
-                        <label for="formGroupExampleInput">Tìm theo mã,tên,sdt,email</label>
+                        <label for="formGroupExampleInput">Mã</label>
+                        <input type="text" name="ma" class="form-control" id="formGroupExampleInput"
+                               placeholder="Mã">
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="formGroupExampleInput">Tên,sdt,email</label>
                         <input type="text" name="data" class="form-control" id="formGroupExampleInput"
                                placeholder="Mã">
                     </div>
                     <div class="form-group col-3">
                         <label for="formGroupExampleInput2">Chức vụ</label>
-                        <select class="form-control" id="formGroupExampleInput2" name="idCv">
-                            <option th:each="cv : ${listChucVu}" th:value="${cv.id}" th:text="${cv.ten} "
+                        <select class="form-control" id="formGroupExampleInput2" name="maCv">
+                            <option th:value="${null}" >Tất cả</option>
+                            <option th:each="cv : ${listChucVu}" th:value="${cv.ma}" th:text="${cv.ten} "
                             ></option>
                         </select>
                     </div>
                     <div class="col form-group ">
-                        <label for="formGroupExampleInput3"></label>
-                        <button class="btn btn-primary" type="submit" id="formGroupExampleInput3"
+                        <label for="formGroupExampleInput"></label>
+                        <button class="btn btn-primary" type="submit" id="formGroupExampleInput"
                                 title="Nhấn để tìm" style="margin-top: 35px;">
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </button>
@@ -230,40 +236,24 @@
                         <div class="modal-body">
                             <form action="/admin/nhan-vien/create" method="post" th:object="${nhanVien}">
                                 <div class="row">
-                                    <div class="form-group col-2">
+                                    <div class="form-group col-3">
                                         <label for="formGroupExampleInput">Mã</label>
                                         <input type="text" th:field="*{ma}" class="form-control"
                                                id="formGroupExampleInput"
                                                placeholder="Mã">
                                     </div>
 
-                                    <div class="form-group col-6">
+                                    <div class="form-group col-3">
                                         <label for="formGroupExampleInput2">Họ tên</label>
                                         <input type="text" th:field="*{hoTen}" class="form-control"
                                                id="formGroupExampleInput2"
                                                placeholder="Họ tên">
                                     </div>
 
-                                    <div class="form-group col-4">
+                                    <div class="form-group col-3">
                                         <label for="formGroupExampleInput2">Ngày sinh</label>
                                         <input type="date" th:field="*{ngaySinh}" class="form-control"
                                                id="formGroupExampleInput2">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-6">
-                                        <label for="formGroupExampleInput2">Địa chỉ</label>
-                                        <input type="text" th:field="*{diaChi}" class="form-control"
-                                               id="formGroupExampleInput2"
-                                               placeholder="Địa chỉ">
-                                    </div>
-
-                                    <div class="form-group col-3">
-                                        <label for="formGroupExampleInput2">Thành phố</label>
-                                        <input type="text" th:field="*{thanhPho}" class="form-control"
-                                               id="formGroupExampleInput2"
-                                               placeholder="Thành phố">
                                     </div>
 
                                     <div class="form-group col-3">
@@ -275,15 +265,47 @@
                                 </div>
 
                                 <div class="row">
+                                    <div class="form-group col-3">
+                                        <label for="formGroupExampleInput2">Địa chỉ</label>
+                                        <input type="text" th:field="*{diaChi}" class="form-control"
+                                               id="formGroupExampleInput2"
+                                               placeholder="Địa chỉ">
+                                    </div>
 
-                                    <div class="form-group col-5">
+
+                                    <div class="form-group col-3">
+                                        <label>Tỉnh/Thành phố</label>
+                                        <select class="form-control" id="province"  th:field="*{thanhPho}">
+                                            <option  value="" >Chọn Tỉnh/Thành phố</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-3">
+                                        <label>Quận/Huyện</label>
+                                        <select class="form-control " id="district" th:field="*{huyen}">
+                                            <option  value="" >Chọn Quận/Huyện</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-3">
+                                        <label>Xã/Phường</label>
+                                        <select class="form-control" id="ward" th:field="*{xa}">
+                                            <option  value="" >Chọn Xã/Phường</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-3">
                                         <label for="formGroupExampleInput2">Email</label>
                                         <input type="text" th:field="*{email}" class="form-control"
                                                id="formGroupExampleInput2"
                                                placeholder="Email">
                                     </div>
 
-                                    <div class="form-group col-4">
+                                    <div class="form-group col-3">
                                         <label for="formGroupExampleInput2">Mật khẩu</label>
                                         <input type="text" th:field="*{matKhau}" class="form-control"
                                                id="formGroupExampleInput2"
@@ -299,26 +321,11 @@
                                             ></option>
                                         </select>
                                     </div>
-                                </div>
 
-                                <div class="row">
-
-                                    <div class="form-group col-2">
-                                        <label for="formGroupExampleInput2">Ngày vào làm</label>
-                                        <input type="date" th:field="*{ngayVaoLam}" class="form-control"
-                                               id="formGroupExampleInput2">
-                                    </div>
-
-                                    <div class="form-group col-3">
-                                        <label for="formGroupExampleInput2">Ngày nghỉ việc</label>
-                                        <input type="date" th:field="*{ngayNghiViec}" class="form-control"
-                                               id="formGroupExampleInput2">
-                                    </div>
-
-                                    <fieldset class="form-group col-7">
-                                        <div class="row">
-                                            <legend class="col-form-label col-sm-3 pt-0">Trạng Thái :</legend>
-                                            <div class="col-sm-9">
+                                    <fieldset class="form-group col-3">
+                                        <div>
+                                            <legend class="col-form-label pt-0">Trạng Thái :</legend>
+                                            <div class="">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" th:field="*{trangThai}"
                                                            id="gridRadios1"
@@ -340,6 +347,21 @@
                                     </fieldset>
                                 </div>
 
+                                <div class="row">
+
+                                    <div class="form-group col-3">
+                                        <label for="formGroupExampleInput2">Ngày vào làm</label>
+                                        <input type="date" th:field="*{ngayVaoLam}" class="form-control"
+                                               id="formGroupExampleInput2">
+                                    </div>
+
+                                    <div class="form-group col-3">
+                                        <label for="formGroupExampleInput2">Ngày nghỉ việc</label>
+                                        <input type="date" th:field="*{ngayNghiViec}" class="form-control"
+                                               id="formGroupExampleInput2">
+                                    </div>
+                                </div>
+
                                 <button class="btn btn-primary" type="submit">Thêm mới</button>
                             </form>
                         </div>
@@ -357,7 +379,6 @@
                         <th>Họ tên</th>
                         <th>Ngày sinh</th>
                         <th>Địa chỉ</th>
-                        <th>Thành phố</th>
                         <th>Số điện thoại</th>
                         <th>Email</th>
                         <th>Mật khẩu</th>
@@ -365,7 +386,7 @@
                         <th>Ngày nghỉ việc</th>
                         <th>Trạng thái</th>
                         <th>Chức vụ</th>
-                        <th>Sự kiện</th>
+                        <th>Thao tác</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -373,8 +394,7 @@
                         <th scope="row">[[${item.ma}]]</th>
                         <th>[[${item.hoTen}]]</th>
                         <th>[[${item.ngaySinh}]]</th>
-                        <th>[[${item.diaChi}]]</th>
-                        <th>[[${item.thanhPho}]]</th>
+                        <th>[[${item.diaChi}]],[[${item.xa}]],[[${item.huyen}]],[[${item.thanhPho}]]</th>
                         <th>[[${item.sdt}]]</th>
                         <th>[[${item.email}]]</th>
                         <th>[[${item.matKhau}]]</th>
@@ -383,9 +403,153 @@
                         <th th:text="${item.trangThai==1 ? 'Hoạt động':'Không hoạt động'}"></th>
                         <th>[[${item.chucVu.ten}]]</th>
                         <th>
-                            <a th:href=" @{|/admin/nhan-vien/detail/${item.ma}|}" title="Xem chi tiết">
+                            <!--            modal xem,updte nhan vien-->
+                            <a href="#" title="Xem chi tiết" type="button" data-toggle="modal" data-target="#exampleModalUd" class="btn-detail" th:ma="${item.ma}">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                             </a>
+
+                            <div class="modal fade" id="exampleModalUd" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content" style="background-color: #d4d4d4">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Cập nhật nhân viên</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/admin/nhan-vien/update" method="post" th:object="${nhanVien}">
+                                                <div class="row">
+                                                    <div class="form-group col-3">
+                                                        <label for="formGroupExampleInput">Mã</label>
+                                                        <input type="text" th:field="*{ma}" class="form-control"
+                                                               id="formGroupExampleInput"
+                                                               placeholder="Mã" readonly>
+                                                    </div>
+
+                                                    <div class="form-group col-3">
+                                                        <label for="formGroupExampleInput2">Họ tên</label>
+                                                        <input type="text" th:field="*{hoTen}" class="form-control"
+                                                               id="formGroupExampleInput2"
+                                                               placeholder="Họ tên">
+                                                    </div>
+
+                                                    <div class="form-group col-3">
+                                                        <label for="formGroupExampleInput2">Ngày sinh</label>
+                                                        <input type="date" th:field="*{ngaySinh}" class="form-control"
+                                                               id="formGroupExampleInput2">
+                                                    </div>
+
+                                                    <div class="form-group col-3">
+                                                        <label for="formGroupExampleInput2">Số điện thoại</label>
+                                                        <input type="text" th:field="*{sdt}" class="form-control"
+                                                               id="formGroupExampleInput2"
+                                                               placeholder="Số điện thoại">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-group col-3">
+                                                        <label for="formGroupExampleInput2">Địa chỉ</label>
+                                                        <input type="text" th:field="*{diaChi}" class="form-control"
+                                                               id="formGroupExampleInput2"
+                                                               placeholder="Địa chỉ">
+                                                    </div>
+
+
+                                                    <div class="form-group col-3">
+                                                        <label>Tỉnh/Thành phố</label>
+                                                        <select class="form-control" id="province2"  th:field="*{thanhPho}">
+                                                            <option  value="" >Chọn Tỉnh/Thành phố</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group col-3">
+                                                        <label>Quận/Huyện</label>
+                                                        <select class="form-control " id="district2" th:field="*{huyen}">
+                                                            <option  value="" >Chọn Quận/Huyện</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group col-3">
+                                                        <label>Xã/Phường</label>
+                                                        <select class="form-control" id="ward2" th:field="*{xa}">
+                                                            <option  value="" >Chọn Xã/Phường</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row">
+
+                                                    <div class="form-group col-3">
+                                                        <label for="formGroupExampleInput2">Email</label>
+                                                        <input type="text" th:field="*{email}" class="form-control"
+                                                               id="formGroupExampleInput2"
+                                                               placeholder="Email">
+                                                    </div>
+
+                                                    <div class="form-group col-3">
+                                                        <label for="formGroupExampleInput2">Mật khẩu</label>
+                                                        <input type="text" th:field="*{matKhau}" class="form-control"
+                                                               id="formGroupExampleInput2"
+                                                               placeholder="Mật khẩu">
+                                                    </div>
+
+                                                    <div class="form-group col-3">
+                                                        <label for="formGroupExampleInput2">Chức vụ</label>
+                                                        <select class="form-control" id="formGroupExampleInput2"
+                                                                th:field="*{chucVu.id}">
+                                                            <option th:each="cv : ${listChucVu}" th:value="${cv.id}"
+                                                                    th:text="${cv.ten} "
+                                                            ></option>
+                                                        </select>
+                                                    </div>
+
+                                                    <fieldset class="form-group col-3">
+                                                        <div>
+                                                            <legend class="col-form-label pt-0">Trạng Thái :</legend>
+                                                            <div class="">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" th:field="*{trangThai}"
+                                                                           id="gridRadios1"
+                                                                           th:value="1">
+                                                                    <label class="form-check-label" for="gridRadios1">
+                                                                        Hoạt động
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" th:field="*{trangThai}"
+                                                                           id="gridRadios2"
+                                                                           th:value="0">
+                                                                    <label class="form-check-label" for="gridRadios2">
+                                                                        Không hoạt động
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+
+                                                <div class="row">
+
+                                                    <div class="form-group col-3">
+                                                        <label for="formGroupExampleInput2">Ngày vào làm</label>
+                                                        <input type="date" th:field="*{ngayVaoLam}" class="form-control"
+                                                               id="formGroupExampleInput2">
+                                                    </div>
+
+                                                    <div class="form-group col-3">
+                                                        <label for="formGroupExampleInput2">Ngày nghỉ việc</label>
+                                                        <input type="date" th:field="*{ngayNghiViec}" class="form-control"
+                                                               id="formGroupExampleInput2">
+                                                    </div>
+                                                </div>
+
+                                                <button class="btn btn-primary" type="submit">Cập nhật</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <a th:href=" @{|/admin/nhan-vien/delete/${item.ma}|}" title="Xóa">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </a>
@@ -398,7 +562,7 @@
 
                 <span th:if="${page.totalPages>0}">
                     <span th:each="i : ${#numbers.sequence(0, page.totalPages-1)}">
-                    <a th:text="${i+1}" th:href="@{|/admin/nhan-vien/find?number=${i}&idCv=${idCv}&data=${data}&ma=${ma}|}" class="btn btn-primary"></a>
+                    <a th:text="${i+1}" th:href="@{|/admin/nhan-vien/find?number=${i}&maCv=${maCv}&data=${data}&ma=${ma}|}" class="btn btn-primary"></a>
                     </span>
                 </span>
             </div>
@@ -406,9 +570,154 @@
     </div>
 </div>
 
-<script src="/assets/js/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/assets/js/popper.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    const host = "https://provinces.open-api.vn/api/";
+    var callAPI = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data, "province","Tỉnh/Thành phố");
+            });
+    }
+    callAPI('https://provinces.open-api.vn/api/?depth=1');
+    var callApiDistrict = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.districts, "district","Quận/Huyện");
+            });
+    }
+    var callApiWard = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.wards, "ward","Xã/Phường");
+            });
+    }
+
+    var renderData = (array, select,type) => {
+        let row = ' <option disable value="" selected>Chọn '+type+'</option>';
+
+        array.forEach(element => {
+            row += `<option value="${element.name}" data-code="${element.code}">${element.name}</option>`
+        });
+        document.querySelector("#" + select).innerHTML = row
+    }
+
+    $("#province").change(() => {
+        const selectedCode = $("#province option:selected").data("code");
+        callApiDistrict(host + "p/" + selectedCode + "?depth=2");
+        printResult();
+    });
+    $("#district").change(() => {
+        const selectedCode = $("#district option:selected").data("code");
+        callApiWard(host + "d/" + selectedCode + "?depth=2");
+        printResult();
+    });
+    $("#ward").change(() => {
+        printResult();
+    })
+
+    var printResult = () => {
+        if ($("#district").val() != "" && $("#province").val() != "" &&
+            $("#ward").val() != "") {
+            let result = $("#province option:selected").text() +
+                " | " + $("#district option:selected").text() + " | " +
+                $("#ward option:selected").text();
+            $("#result").text(result)
+        }
+    }
+
+    var callAPI2 = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data, "province2","Tỉnh/Thành phố");
+
+            });
+    }
+    callAPI2('https://provinces.open-api.vn/api/?depth=1');
+    var callApiDistrict2 = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.districts, "district2","Quận/Huyện");
+            });
+    }
+    var callApiWard2 = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.wards, "ward2","Xã/Phường");
+            });
+    }
+
+    $("#province2").change(() => {
+        const selectedCode = $("#province2 option:selected").data("code");
+        callApiDistrict2(host + "p/" + selectedCode + "?depth=2");
+        printResult2();
+    });
+    $("#district2").change(() => {
+        const selectedCode = $("#district2 option:selected").data("code");
+        callApiWard2(host + "d/" + selectedCode + "?depth=2");
+        printResult2();
+    });
+    $("#ward2").change(() => {
+        printResult2();
+    })
+
+    var printResult2 = () => {
+        if ($("#district2").val() != "" && $("#province2").val() != "" &&
+            $("#ward2").val() != "") {
+            let result = $("#province2 option:selected").text() +
+                " | " + $("#district2 option:selected").text() + " | " +
+                $("#ward2 option:selected").text();
+            $("#result2").text(result)
+        }
+    }
+
+
+
+    $(document).ready(function(){
+        $(".btn-detail").click(function(){
+            var ma=$(this).attr("ma");
+            var form = $("#exampleModalUd"); // Chọn tất cả các thẻ <form> trên trang
+            $.ajax({
+                url: "http://localhost:2020/rest/nhanvien/"+ma,
+                method: "GET",
+                dataType: "json", // Kiểu dữ liệu trả về từ máy chủ (json, html, text, etc.)
+                success: function (data) {
+                    form.find('[name="ma"]').val(data.ma);
+                    form.find('[name="hoTen"]').val(data.hoTen);
+                    form.find('[name="ngaySinh"]').val(data.ngaySinh);
+                    form.find('[name="diaChi"]').val(data.diaChi);
+                    form.find('[name="thanhPho"]').val(data.thanhPho);
+                    let selected1 = $("#province2 option:selected").data("code");
+                    callApiDistrict2(host + "p/" + selected1 + "?depth=2");
+                    setTimeout(function () {
+                        form.find('[name="huyen"]').val(data.huyen);
+                        let selected2 = $("#district2 option:selected").data("code");
+                        callApiWard2(host + "d/" + selected2 + "?depth=2");
+                        setTimeout(function () {
+                            form.find('[name="xa"]').val(data.xa);
+                        }, 300);
+                    }, 200);
+                    form.find('[name="sdt"]').val(data.sdt);
+                    form.find('[name="email"]').val(data.email);
+                    form.find('[name="matKhau"]').val(data.matKhau);
+                    form.find('[name="chucVu.id"]').val(data.chucVu.id);
+                    form.find('[name="ngayVaoLam"]').val(data.ngayVaoLam);
+                    form.find('[name="ngayNghiViec"]').val(data.ngayNghiViec);
+                    form.find('[name="trangThai"]').filter('[value="' + data.trangThai + '"]').prop('checked', true);
+
+                },
+                error: function (error) {
+                    console.log("Lỗi khi tải dữ liệu: " + error);
+                }
+            });
+        });
+    });
+
+</script>
 </body>
 </html>

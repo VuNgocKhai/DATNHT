@@ -27,7 +27,7 @@
             <div class="col-lg-5 mb-30">
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner bg-light">
-                        <div class="carousel-item active" th:each="image:*{anhs}">
+                        <div class="carousel-item " th:each="image,iterStat :*{anhs}" th:class="${iterStat.first} ? 'carousel-item active' : 'carousel-item'">
                             <img class="w-100 h-100" th:src="@{|/images/${image.ten_url}|}" alt="Image">
                         </div>
                     </div>

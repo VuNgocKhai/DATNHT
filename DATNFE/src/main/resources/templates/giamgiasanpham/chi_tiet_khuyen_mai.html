@@ -187,7 +187,7 @@
                                                 <th scope="col">#</th>
                                                 <th scope="col">Mã</th>
                                                 <th scope="col">Tên</th>
-                                                <th scope="col">Giá</th>
+                                                <th scope="col">Giá bán</th>
                                                 <th scope="col">Trạng thái</th>
                                             </tr>
                                             </thead>
@@ -294,6 +294,7 @@
                         <th scope="col">Mã sản phẩm áp dụng</th>
                         <th scope="col">Tên sản phẩm</th>
                         <th scope="col">Số tiền giảm</th>
+                        <th scope="col">Giá sau khuyến mại</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Sự Kiện</th>
                     </tr>
@@ -304,6 +305,7 @@
                         <td>[[${item.giay.ma}]]</td>
                         <td>[[${item.giay.ten}]]</td>
                         <td>[[${item.soTienDaGiam}]]</td>
+                        <td>[[${item.giay.gia_sau_khuyen_mai}]]</td>
                         <td th:text="${item.trangThai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>
                         <td>
                             <a th:href="@{|/admin/ctkm/delete/${voucherForm.idKhuyenMai}/${item.giay.id}|}"

@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.KhachHang;
+import com.example.demo.entity.NhanVien;
 import com.example.demo.repository.KhachHangDao;
+import com.example.demo.repository.NhanVienDAO;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -19,7 +21,8 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     KhachHangDao khachHangDao;
-
+    @Autowired
+    NhanVienDAO nhanVienDAO;
     @Autowired
     BCryptPasswordEncoder pe;
 
@@ -29,13 +32,26 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         try {
-            System.out.println(email);
-            KhachHang accounts = khachHangDao.getKhByEmail(email.trim());
-            System.out.println(accounts);
-//            Tao UserDetail tu Account
-            String password = accounts.getMatkhau();
-            System.out.println(password);
-            return User.withUsername(email).password(pe.encode(password)).roles("USER").build();
+            boolean kq = true;
+            String password = "";
+            String roles = "";
+            if (kq){
+                KhachHang accounts = khachHangDao.getKhByEmail(email.trim());
+                if (accounts==null){
+                    kq=false;
+                }else {
+                    password = accounts.getMatkhau();
+                    roles="USER";
+                    System.out.println(password);
+                }
+            }
+            if (kq==false){
+                NhanVien accounts = nhanVienDAO.getNVByEmail(email.trim());
+//              Tao UserDetail tu Account
+                password = accounts.getMatKhau();
+                roles = accounts.getChucVu().getTen();
+            }
+            return User.withUsername(email).password(pe.encode(password)).roles(roles).build();
         }catch (Exception exception){
             exception.printStackTrace();
             throw new UsernameNotFoundException(email+"not found");

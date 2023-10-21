@@ -17,41 +17,49 @@
         <div class="row">
             <div class="col-3">
                 <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/qltk-kh/thong-tin">Thông tin tài khoản</a>
+                    <li class="nav-item" style="margin-bottom: 5px">
+                        <a style="
+            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/thong-tin">Thông
+                            tin tài
+                            khoản</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/qltk-kh/doi-mat-khau">Đổi mật khẩu</a>
+                    <li class="nav-item" style="margin-bottom: 5px">
+                        <a style="
+            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/doi-mat-khau">Đổi
+                            mật khẩu</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Địa chỉ</a>
+                    <li class="nav-item" style="margin-bottom: 5px">
+                        <a style="
+            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/dia-chi">Địa chỉ</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Đơn hàng</a>
+                    <li class="nav-item" style="margin-bottom: 5px">
+                        <a style="
+            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/don-hang">Đơn hàng</a>
                     </li>
                 </ul>
             </div>
             <div class="col-9">
-                <form>
+                <form method="post" action="/qltk-kh/doi-mat-khau" >
                     <div class="row">
                         <div class="col-6">
-                            <label for="formGroupExampleInput">Mat khau cũ</label>
-                            <input type="text" class="form-control" id="formGroupExampleInput"
-                                   placeholder="Nhap mat khau cũ">
+                            <label for="formGroupExampleInput">Mật khẩu cũ</label>
+                            <input type="password" name="mkCu" class="form-control" id="formGroupExampleInput"
+
+                                   placeholder="Nhập mật khẩu cũ">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label for="formGroupExampleInput">Mat khau mới</label>
-                            <input type="text" class="form-control" id="formGroupExampleInput"
-                                   placeholder="Nhap mat khau mới">
+                            <label for="formGroupExampleInput">Mật khẩu mới</label>
+                            <input type="password" name="mkMoi" class="form-control" id="formGroupExampleInput"
+                                   placeholder="Nhập mật khẩu mới">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label for="formGroupExampleInput">Xac nhan mat khau mới</label>
-                            <input type="text" class="form-control" id="formGroupExampleInput"
-                                   placeholder="Nhap lai mat khau mới">
+                            <label for="formGroupExampleInput">Xác nhận mật khẩu mới</label>
+                            <input type="password" name="mkMoi2" class="form-control" id="formGroupExampleInput"
+                                   placeholder="Nhập lại mật khẩu mới">
                         </div>
                     </div>
                     <br>

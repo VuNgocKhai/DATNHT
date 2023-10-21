@@ -189,9 +189,9 @@
                                             <tr>
                                                 <td><label for="formGroupExampleInput">Mã khuyến mại</label></td>
                                                 <td>
-                                                    <input type="text" th:field="*{maKhuyenMai}" class="form-control"
+                                                    <input  disabled type="text" th:field="*{maKhuyenMai}" class="form-control"
                                                            id="formGroupExampleInput"
-                                                           placeholder="Nhập mã">
+                                                           placeholder="Nhập mã" >
                                                 </td>
                                                 <td><label for="formGroupExampleInput2">Tên khuyến mại</label></td>
                                                 <td>
@@ -267,13 +267,6 @@
                 <div class="form-group mx-sm-3 ">
                     <button type="submit" class="btn btn-primary bi bi-search"></button>
                 </div>
-
-                <!--                <div class="form-group mx-sm-3 ">-->
-                <!--                    <button type="button" class="btn btn-success bi bi-plus-circle-fill">-->
-                <!--                        <a href="/admin/chuong-trinh-giam-gia-sp/viewadd"> Tạo khuyến mại</a>-->
-                <!--                    </button>-->
-                <!--                </div>-->
-
                 <div class="form-group mx-sm-3">
                     <button style="margin-left: 10px" type="button" class="btn btn-primary bi bi-plus-circle-fill"
                             data-bs-toggle="modal"
@@ -336,9 +329,15 @@
                     </td>
                     <!--                        <td th:text="${item.trangThai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>-->
                     <td>
-                        <a th:href="@{|/admin/chuong-trinh-giam-gia-sp/detail/${item.idKhuyenMai}|}"
+                        <a th:href="@{|/admin/chuong-trinh-giam-gia-sp/detail/${item.maKhuyenMai}|}"
                            class="bi bi-card-list"></a>
-                        <a th:href="@{|/admin/chuong-trinh-giam-gia-sp/viewupdate/${item.idKhuyenMai}|}"
+<!--                        <button style="margin-left: 10px" type="button" class="btn btn-primary bi bi-pencil-square"-->
+<!--                                data-bs-toggle="modal"-->
+<!--                                data-bs-target="#exampleModal">-->
+<!--                            <a th:href="@{|/admin/chuong-trinh-giam-gia-sp/viewupdate/${item.maKhuyenMai}|}"-->
+<!--                               class="bi bi-pencil-square"></a>-->
+<!--                        </button>-->
+                        <a th:href="@{|/admin/chuong-trinh-giam-gia-sp/viewupdate/${item.maKhuyenMai}|}"
                            class="bi bi-pencil-square"></a>
                     </td>
                 </tr>

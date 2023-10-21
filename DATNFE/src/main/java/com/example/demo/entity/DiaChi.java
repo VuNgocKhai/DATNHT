@@ -33,6 +33,12 @@ public class DiaChi {
     @Column(name = "thanh_pho")
     private String thanhpho;
 
+    @Column(name = "ten_nguoi_nhan")
+    private String ten_nguoi_nhan;
+
+    @Column(name = "sdt_nguoi_nhan")
+    private String sdt_nguoi_nhan;
+
     @Column(name = "trangthai")
     private Integer trangthai;
 

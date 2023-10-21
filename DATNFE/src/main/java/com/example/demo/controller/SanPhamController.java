@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Controller
-public class SanPhamController {
+public class    SanPhamController {
     @Autowired
     AnhGiayDAO anhGiayDAO;
     @Autowired

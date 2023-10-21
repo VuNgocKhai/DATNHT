@@ -4,6 +4,7 @@ import com.example.demo.entity.ChuongTrinhGiamGiaChiTietSP;
 import com.example.demo.entity.ChuongTrinhGiamGiaSP;
 import com.example.demo.entity.Giay;
 import com.example.demo.entity.PageDTO;
+import com.example.demo.repository.CTrinhKMSPDTO;
 import com.example.demo.repository.ChuongTrinhGiamGiaChiTietSPRepo;
 import com.example.demo.repository.ChuongTrinhGiamGiaChitietSanPhamDTO;
 import com.example.demo.repository.ChuongTrinhGiamGiaSPRepo;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -41,20 +44,10 @@ public class ChuongTrinhGiamGiaSPController {
     @Autowired
     GiayDTO giayDTO;
 
+    @Autowired
+    CTrinhKMSPDTO kmDTO;
+
     ///////////         CHUONG TRINH GIAM GIA SAN PHAM          ///////////////
-//    @RequestMapping("/admin/chuong-trinh-giam-gia-sp")
-//    public String voucher(@ModelAttribute("voucherForm") ChuongTrinhGiamGiaSP chuongTrinhGiamGiaSP,
-//                          @RequestParam("page") Optional<Integer> pageNumber, Model model,
-//                          @RequestParam("keyword") Optional<String> keyword) {
-//        PageDTO<ChuongTrinhGiamGiaSP> pageNo = repo.searchAndPaginate(pageNumber.orElse(0), "%" + keyword.orElse("") + "%");
-////        PageDTO<ChuongTrinhGiamGiaSP> pageS = repo.searchTrangThai(pageNumber.orElse(0), "%" + keyword.orElse("") + "%");
-//        model.addAttribute("i", 0);
-//        model.addAttribute("voucherTable", pageNo);
-////        model.addAttribute("voucherTable", pageS);
-//        model.addAttribute("keyword", keyword.orElse(""));
-//        model.addAttribute("voucherForm", new ChuongTrinhGiamGiaSP());
-//        return "giamgiasanpham/chuong_trinh_giam_gia_san_pham";
-//    }
 
     @RequestMapping("/admin/chuong-trinh-giam-gia-sp")
     public String voucher(@ModelAttribute("voucherForm") ChuongTrinhGiamGiaSP chuongTrinhGiamGiaSP,
@@ -79,11 +72,12 @@ public class ChuongTrinhGiamGiaSPController {
         return "redirect:/admin/chuong-trinh-giam-gia-sp";
     }
 
-    @GetMapping("/admin/chuong-trinh-giam-gia-sp/viewupdate/{id}")
+    @GetMapping("/admin/chuong-trinh-giam-gia-sp/viewupdate/{ma}")
     public String viewUpdate(@ModelAttribute("voucherForm") ChuongTrinhGiamGiaSP chuongTrinhGiamGiaSP,
-                             @PathVariable("id") UUID id, Model model) {
+                             @PathVariable("ma") String ma, Model model) {
         model.addAttribute("voucherForm", new ChuongTrinhGiamGiaSP());
-        model.addAttribute("voucherForm", repo.getOneById(id));
+        model.addAttribute("voucherForm", kmDTO.getOneByMa(ma));
+//        return "giamgiasanpham/chuong_trinh_giam_gia_san_pham";
         return "giamgiasanpham/update-khuyen-mai-san-pham";
     }
 
@@ -93,9 +87,23 @@ public class ChuongTrinhGiamGiaSPController {
         return "giamgiasanpham/add-khuyen-mai-san-pham";
     }
 
-    @PostMapping("/admin/chuong-trinh-giam-gia-sp/update/{id}")
-    public String update(@PathVariable("id") UUID id, @ModelAttribute("voucherForm") ChuongTrinhGiamGiaSP voucherForm) {
-        repo.update(id, voucherForm);
+    @PostMapping("/admin/chuong-trinh-giam-gia-sp/update/{ma}")
+    public String update(HttpServletRequest req, @PathVariable("ma") String ma, @ModelAttribute("voucherForm") ChuongTrinhGiamGiaSP voucherForm) {
+       // repo.update(id, voucherForm);
+        String tenKM = req.getParameter("tenKhuyenMai");
+        Integer trangThai = Integer.valueOf(req.getParameter("trangThai"));
+        Integer ptGiam = Integer.valueOf(req.getParameter("phanTramGiam"));
+        String ngayBD = req.getParameter("ngayBatDau");
+        String ngayKT = req.getParameter("ngayKetThuc");
+        System.out.println(ma);
+        voucherForm = kmDTO.getOneByMa(ma);
+        voucherForm.setTrangThai(trangThai);
+        voucherForm.setTenKhuyenMai(tenKM);
+        voucherForm.setPhanTramGiam(ptGiam);
+        voucherForm.setNgayBatDau(Date.valueOf(ngayBD));
+        voucherForm.setNgayKetThuc(Date.valueOf(ngayKT));
+        kmDTO.save(voucherForm);
+
         return "redirect:/admin/chuong-trinh-giam-gia-sp";
     }
 
@@ -107,12 +115,14 @@ public class ChuongTrinhGiamGiaSPController {
 ///////////          END          ///////////////
 
     //////////      chi-tiet-khuyen-mai     ////
-    @RequestMapping("/admin/chuong-trinh-giam-gia-sp/detail/{idVoucher}")
+
+    @RequestMapping("/admin/chuong-trinh-giam-gia-sp/detail/{maVoucher}")
     public String detailVoucher(@ModelAttribute("ctkmForm") ChuongTrinhGiamGiaChiTietSP ctggctsp,
-                                @PathVariable("idVoucher") UUID idVoucher, Model model) {
-        model.addAttribute("voucherForm", repo.getOneById(idVoucher));
+                                @PathVariable("maVoucher") String maKM, Model model) {
+        ChuongTrinhGiamGiaSP getKM = kmDTO.getOneByMa(maKM);
+        model.addAttribute("voucherForm", getKM);
         model.addAttribute("giayCheckBox", giayRepo.getListGiay());     //ListAllGiay
-        List<ChuongTrinhGiamGiaChiTietSP> dsIdSanPham = ctkmDTO.listGiayByIdKM(idVoucher);
+        List<ChuongTrinhGiamGiaChiTietSP> dsIdSanPham = ctkmDTO.listGiayByIdKM(getKM.getIdKhuyenMai());
         model.addAttribute("dsSPTable", dsIdSanPham);
         model.addAttribute("listGiay", giayDTO.listGiayChuaApDung());
 
@@ -123,12 +133,16 @@ public class ChuongTrinhGiamGiaSPController {
     public String deleteby2Id(@PathVariable("idKhuyenMai") UUID idKM,
                               @PathVariable("idGiay") UUID idGiay,
                               Model model) {
+        String  maKM = repo.getOneById(idKM).getMaKhuyenMai();
         ChuongTrinhGiamGiaChiTietSP delCTKM = ctkmDTO.selectByTwoId(idKM, idGiay);
         ctkmDTO.deleteById(delCTKM.getId());
         List<ChuongTrinhGiamGiaChiTietSP> dsIdSanPham = ctkmDTO.listGiayByIdKM(idKM);
         model.addAttribute("dsSPTable", dsIdSanPham);
+        Giay giay = giayDTO.getOneById(idGiay);
+        giay.setGia_sau_khuyen_mai(giay.getGiaban());
+        giayDTO.save(giay);
 
-        return "redirect:/admin/chuong-trinh-giam-gia-sp/detail/" +idKM;
+        return "redirect:/admin/chuong-trinh-giam-gia-sp/detail/" +maKM;
     }
 
     ////////////////////////////////////////////
@@ -149,7 +163,5 @@ public class ChuongTrinhGiamGiaSPController {
         //return "giamgiasanpham/chuong_tring_giam_gia_san_pham";
         return "giamgiasanpham/chi_tiet_khuyen_mai";
     }
-
-
 
 }

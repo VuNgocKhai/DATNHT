@@ -18,12 +18,16 @@ public class GiayChiTiet implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     @ManyToOne(fetch = FetchType.EAGER) // lấy thông tin của kích cỡ
     @JoinColumn(name = "id_kich_co")
     private KichCo kich_co;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_giay")
     private Giay giay;
+
     private Integer so_luong_ton;
+
     private Integer trangthai;
 }

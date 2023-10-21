@@ -17,7 +17,8 @@ public class HoaDonChiTiet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_hoa_don")
     private HoaDon hoaDon;
     @ManyToOne
