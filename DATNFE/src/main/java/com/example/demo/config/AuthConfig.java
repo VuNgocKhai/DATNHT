@@ -35,6 +35,12 @@ public class AuthConfig extends WebSecurityConfigurerAdapter  {
     @Autowired
     UserService userService;
 
+    @Autowired
+    KhachHangDao khachHangDao;
+
+    @Autowired
+    HttpSession session;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService);

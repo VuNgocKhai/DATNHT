@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Table(name = "chuong_trinh_giam_gia_chi_tiet_hoa_don")
@@ -33,6 +34,12 @@ public class GiamGiaChiTietHoaDon implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_hoa_don")
     private HoaDon hd;
+
+    private BigDecimal tong_tien;
+
+    private BigDecimal so_tien_da_giam;
+
+    private BigDecimal tong_tien_thanh_toan;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_chuong_trinh_giam_gia_hoa_don")

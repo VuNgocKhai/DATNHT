@@ -123,11 +123,12 @@ public class ChuongTrinhGiamGiaSPController {
     public String deleteby2Id(@PathVariable("idKhuyenMai") UUID idKM,
                               @PathVariable("idGiay") UUID idGiay,
                               Model model) {
-        ctkmDTO.deleteByTwoId(idKM, idGiay);
+        ChuongTrinhGiamGiaChiTietSP delCTKM = ctkmDTO.selectByTwoId(idKM, idGiay);
+        ctkmDTO.deleteById(delCTKM.getId());
         List<ChuongTrinhGiamGiaChiTietSP> dsIdSanPham = ctkmDTO.listGiayByIdKM(idKM);
         model.addAttribute("dsSPTable", dsIdSanPham);
-        // ctkmDTO.deleteBy2Id(idKM, idGiay);
-        return "redirect:/admin/chuong-trinh-giam-gia-sp";
+
+        return "redirect:/admin/chuong-trinh-giam-gia-sp/detail/" +idKM;
     }
 
     ////////////////////////////////////////////
@@ -150,13 +151,5 @@ public class ChuongTrinhGiamGiaSPController {
     }
 
 
-    @RequestMapping("/admin/chuong-trinh-giam-gia-sp/test/{idVoucher}")
-    public String detr(@PathVariable("idVoucher") UUID idVoucher, Model model) {
-        List<ChuongTrinhGiamGiaChiTietSP> dsIdSanPham = ctkmDTO.getListSPApDungByIdKhuyenMai(idVoucher);
-        model.addAttribute("ctkmTable", dsIdSanPham);
-        System.out.println(dsIdSanPham);
-        //    model.addAttribute("ctkmTable", ctkmRepo.getListCtkm());
-        return "giamgiasanpham/test-data";
-    }
 
 }

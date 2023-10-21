@@ -6,10 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Table(name = "giay")
 @Entity
@@ -67,6 +64,12 @@ public class Giay implements Serializable {
     private Integer trangthai;
     public String getAnhDau(Set<Anh> anhs1){
         List<Anh> list = new ArrayList<Anh>(anhs1);
+        list.sort(Comparator.comparing(Anh::getId));
         return list.get(0).getTen_url();
+    };
+    public BigDecimal tinhTong(BigDecimal giaban,Integer soluong){
+        Double giaban1 = Double.parseDouble(String.valueOf(giaban));
+        BigDecimal tongTien = BigDecimal.valueOf(giaban1*soluong);
+        return tongTien;
     };
 }

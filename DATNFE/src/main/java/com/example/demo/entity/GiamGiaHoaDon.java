@@ -55,6 +55,8 @@ public class GiamGiaHoaDon implements Serializable {
     @NotNull(message = "Không được để trống ngày kết thúc !")
     private Date ngay_ket_thuc;
 
+    private Integer phan_tram_giam;
+
     @NotNull(message = "Không được để trống số lượng !")
     private Integer so_luong;
 

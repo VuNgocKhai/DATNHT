@@ -2,7 +2,6 @@ package com.example.demo.RestController;
 
 import com.example.demo.entity.HoaDon;
 import com.example.demo.entity.PageDTO;
-import com.example.demo.repository.GiamGiaHoaDonDAO;
 import com.example.demo.repository.HoaDonDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -42,6 +40,13 @@ public class HoaDonRestController {
         return new PageDTO<>(hoaDonDAO.findHoaDonChuaApDungChuongTrinhGiamGiaPage(pageable));
     }
 
+    // phân trang hóa đơn chưa thanh toán
+    @GetMapping("/pagehdctt")
+    public PageDTO<HoaDon> getPageHDchuaThanhToan(@RequestParam("page") Optional<Integer> page) {
+        Pageable pageable = PageRequest.of(page.orElse(0), 5);
+        return new PageDTO<>(hoaDonDAO.findHoaDonChuaThanhToan(pageable));
+    }
+
     // tìm hóa đơn theo mã
     @GetMapping("/{ma}")
     public HoaDon getHoaDonByMa(@PathVariable("ma") String ma) {
@@ -64,6 +69,16 @@ public class HoaDonRestController {
     @RequestMapping("/{id}")
     public void delete(@PathVariable("id") UUID id) {
         hoaDonDAO.deleteById(id);
+    }
+
+    // lọc giảm giá hóa đơn theo tên
+    @GetMapping("/tim-kiem-hoa-don")
+    public PageDTO<HoaDon> findHoaDonByMaOrTenKH(
+            @RequestParam("keyword") String keyword,
+            @RequestParam("page") Optional<Integer> page) {
+
+        Pageable pageable = PageRequest.of(page.orElse(0), 5);
+        return new PageDTO<>(hoaDonDAO.searchHoaDonByKeyword(keyword, pageable));
     }
 
 }
