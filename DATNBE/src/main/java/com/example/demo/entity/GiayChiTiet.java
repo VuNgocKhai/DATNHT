@@ -27,16 +27,12 @@ public class GiayChiTiet implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
     @ManyToOne
     @JoinColumn(name = "id_kich_co")
     private KichCo kich_co;
-
     @ManyToOne
     @JoinColumn(name = "id_giay")
     private Giay giay;
-
     private Integer so_luong_ton;
-
     private Integer trangthai;
 }

@@ -1,5 +1,6 @@
 package com.example.demo.RestController;
 
+import com.example.demo.entity.GiamGiaHoaDon;
 import com.example.demo.entity.HoaDon;
 import com.example.demo.entity.PageDTO;
 import com.example.demo.repository.HoaDonDAO;
@@ -81,4 +82,13 @@ public class HoaDonRestController {
         return new PageDTO<>(hoaDonDAO.searchHoaDonByKeyword(keyword, pageable));
     }
 
+    //Tìm hóa đơn theo trạng thái
+    @GetMapping("/tim-hd-theo-trang-thai")
+    public PageDTO<HoaDon> timHDTheoTrangThai(
+            @RequestParam("trangthai") Integer trangthai,
+            @RequestParam("page") Optional<Integer> page) {
+
+        Pageable pageable = PageRequest.of(page.orElse(0), 5);
+        return new PageDTO<>(hoaDonDAO.findHoaDonbyTrangThai(trangthai, pageable));
+    }
 }

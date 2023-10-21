@@ -122,6 +122,8 @@ public class GiamGiaHoaDonController {
         PageDTO<GiamGiaHoaDon> pageResult = giamGiaHoaDonRepo.getPageGGHDByDateRange(startDate, endDate, page.orElse(0));
         model.addAttribute("i", 0);
         model.addAttribute("listPGiamGiaHoaDon", pageResult);
+        model.addAttribute("ngayBatDauDetail", startDate);
+        model.addAttribute("ngayKetThucDetail", endDate);
         return "giamgiahoadon/giam_gia_hoa_don";
     }
 

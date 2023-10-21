@@ -57,6 +57,10 @@ public class GiamGiaHoaDon implements Serializable {
     @NotNull(message = "Không được để trống ngày kết thúc !")
     private Date ngay_ket_thuc;
 
+    @NotNull(message = "Không được để trống phần trăm giảm !")
+    @Min(value = 0, message = "Phần trăm giảm không được âm!")
+    private Integer phan_tram_giam;
+
     @NotNull(message = "Không được để trống số lượng !")
     @Min(value = 0, message = "Số lượng không được âm!")
     private Integer so_luong;
@@ -66,5 +70,5 @@ public class GiamGiaHoaDon implements Serializable {
 
     @OneToMany(mappedBy = "gghd", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<GiamGiaChiTietHoaDon> list1;
+    private List<GiamGiaChiTietHoaDon> ListGGCTHD;
 }

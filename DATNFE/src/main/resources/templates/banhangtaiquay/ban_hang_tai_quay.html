@@ -175,7 +175,7 @@
                         </div>
                         <div class="col-xl-4">
                             <div class="dataTables_filter" style="padding-top: 17px">
-                                <form action="/admin/ban-hang-tai-quay/tao-don-hang" method="post" th:object="${hdct}">
+                                <form action="/admin/ban-hang-tai-quay/tao-don-hang" method="post">
                                     <button type="submit" class="btn btn-primary"
                                             style="float: right; margin-left: 10px">
                                         <span class="btn-label">
@@ -227,13 +227,18 @@
                         <span th:if="${hd.khachHang != null}" th:text="${hd.khachHang.hoten}"></span>
                     </th>
 
-                    <th th:text="${hd.tong_tien != null ? hd.tong_tien : 0}"></th>
-                    <th th:text="${hd.trangthai == 1 ? 'Đã Thanh Toán' : 'Chưa Thanh Toán'}"></th>
+                    <th class="giaBan" th:text="${hd.tong_tien != null ? hd.tong_tien : 0}"></th>
+                    <th >
+                        <span th:if="${hd.trangthai == 0}" class="badge badge-pill badge-sm" style="background-color: #00dbde">Chưa Thanh Toán</span>
+                        <span th:if="${hd.trangthai == 1}" class="badge badge-pill badge-sm" style="background-color: green">Đã Thanh Toán</span>
+                        <span th:if="${hd.trangthai == 2}" class="badge badge-pill badge-sm" style="background-color: yellow">Chờ Xác Nhận</span>
+                    </th>
+
                     <th>
                         <a onclick="return confirm('Bạn có chắc chắn muốn hủy?')"
-                           th:href="@{|/admin/ban-hang-tai-quay/delete/${hd.id}|}"><i class="bi bi-trash"></i></a>
+                           th:href="@{|/admin/ban-hang-tai-quay/delete/${hd.id}|}"><i style="color: red" class="bi bi-trash"></i></a>
                         <a
-                                th:href="@{|/admin/ban-hang-tai-quay/view-cart/${hd.ma}|}"><i
+                                th:href="@{|/admin/ban-hang-tai-quay/view-cart/${hd.ma}|}"><i style="color: #a2a237"
                                 class="bi bi-pencil-square"></i></a>
                     </th>
                 </tr>
@@ -284,5 +289,18 @@
 <script src="/assets/js/popper.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var giaBanElements = document.querySelectorAll('.giaBan');
+        giaBanElements.forEach(function (element) {
+            var giaBanText = element.textContent.trim();
+            var giaBan = parseFloat(giaBanText.replace('Giá Bán:', '').trim());
+            var giaBanFormatted = giaBan.toLocaleString('vi-VN'); // Định dạng giá
+
+            // Cập nhật lại văn bản đã định dạng trong phần tử
+            element.textContent = giaBanFormatted + " VNĐ";
+        });
+    });
+</script>
 </body>
 </html>

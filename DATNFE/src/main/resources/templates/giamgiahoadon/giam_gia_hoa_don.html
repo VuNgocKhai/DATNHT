@@ -227,7 +227,7 @@
                                                      th:errors="*{ngay_ket_thuc}" required></div>
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-4">
                                             <div class="form-group">
                                                 <label for="formGroupExampleInput2">Số Tiền Giảm</label>
                                                 <input type="number" th:field="*{so_tien_giam}" class="form-control"
@@ -237,7 +237,17 @@
                                                      th:errors="*{so_tien_giam}" required></div>
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="formGroupExampleInput2">Phần Trăm Giảm</label>
+                                                <input type="number" th:field="*{phan_tram_giam}" class="form-control"
+                                                       id="formGroupExampleInput2" placeholder="Phần trăm giảm"
+                                                       step="any">
+                                                <div th:if="${#fields.hasErrors('phan_tram_giam')}" class="text-danger"
+                                                     th:errors="*{phan_tram_giam}" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
                                             <div class="form-group">
                                                 <label for="formGroupExampleInput2">Số Lượng</label>
                                                 <input type="number" th:field="*{so_luong}" class="form-control"
@@ -302,14 +312,25 @@
                             <div class="col-sm-5">
                                 <label for="ngay_bat_dau" style="margin-top: 0.5rem; margin-right: 0.5rem;">Ngày bắt
                                     đầu:</label>
-                                <input type="date" class="form-control" id="ngay_bat_dau" name="ngay_bat_dau"
-                                       onchange="checkAndSubmitForm()" required>
+                                <span th:if="${ngayBatDauDetail == null}">
+                                    <input type="date" class="form-control" id="ngay_bat_dau" name="ngay_bat_dau"
+                                           onchange="checkAndSubmitForm()" required>
+                                </span>
+                                <span th:if="${ngayBatDauDetail != null}">
+                                    <input type="date" class="form-control" id="ngay_bat_dau" name="ngay_bat_dau"
+                                          th:value="${ngayBatDauDetail}" onchange="checkAndSubmitForm()" required>
+                                </span>
                             </div>
                             <div class="col-sm-5">
-                                <label for="ngay_ket_thuc" style="margin-top: 0.5rem; margin-right: 0.5rem;">Ngày
-                                    kết thúc:</label>
-                                <input type="date" class="form-control" id="ngay_ket_thuc" name="ngay_ket_thuc"
-                                       onchange="checkAndSubmitForm()" required>
+                                <label for="ngay_ket_thuc" style="margin-top: 0.5rem; margin-right: 0.5rem;">Ngày kết thúc:</label>
+                                <span th:if="${ngayKetThucDetail == null}">
+                                     <input type="date" class="form-control" id="ngay_ket_thuc" name="ngay_ket_thuc"
+                                            onchange="checkAndSubmitForm()" required>
+                                </span>
+                                <span th:if="${ngayKetThucDetail != null}">
+                                     <input type="date" class="form-control" id="ngay_ket_thuc" name="ngay_ket_thuc"
+                                           th:value="${ngayKetThucDetail}" onchange="checkAndSubmitForm()" required>
+                                </span>
                             </div>
                         </div>
                     </form>
@@ -360,7 +381,8 @@
                 <tr>
                     <th scope="col">Mã</th>
                     <th scope="col">Tên Chương Trình</th>
-                    <th scope="col">Số Tiền Giảm</th>
+                    <th scope="col">Phần trăm giảm</th>
+                    <th scope="col">Số Tiền Giảm Max</th>
                     <th scope="col">Số Lượng</th>
                     <th scope="col">Trạng Thái</th>
                     <th scope="col">Action</th>
@@ -373,6 +395,7 @@
                 <tr th:each="item:${listPGiamGiaHoaDon.content}">
                     <th scope="row">[[${item.ma}]]</th>
                     <th>[[${item.ten}]]</th>
+                    <th>[[${item.phan_tram_giam}]] %</th>
                     <th>[[${item.so_tien_giam}]]</th>
                     <th>[[${item.so_luong}]]</th>
                     <th th:text="${item.trangthai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></th>
@@ -398,7 +421,8 @@
                 </div>
                 <ul class="pagination" style="margin-right: 24px;">
                     <li class="page-item">
-                        <a class="page-link" th:if="${listPGiamGiaHoaDon.number > 0}" th:href="@{|/admin/giamgiahoadon?page=${listPGiamGiaHoaDon.number-1}|}"
+                        <a class="page-link" th:if="${listPGiamGiaHoaDon.number > 0}"
+                           th:href="@{|/admin/giamgiahoadon?page=${listPGiamGiaHoaDon.number-1}|}"
                            aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
@@ -409,7 +433,8 @@
                                              th:href="@{|/admin/giamgiahoadon?page=${status.index}|}">[[${status.index+1}]]</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" th:if="${listPGiamGiaHoaDon.number < listPGiamGiaHoaDon.totalPages - 1}" th:href="@{|/admin/giamgiahoadon?page=${listPGiamGiaHoaDon.number+1}|}"
+                        <a class="page-link" th:if="${listPGiamGiaHoaDon.number < listPGiamGiaHoaDon.totalPages - 1}"
+                           th:href="@{|/admin/giamgiahoadon?page=${listPGiamGiaHoaDon.number+1}|}"
                            aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
@@ -430,82 +455,119 @@
                 <div class="modal-body">
                     <form action="/admin/giamgiahoadon/update" method="post" th:object="${giamgiahoadon}">
                         <input type="text" hidden th:field="*{id}">
-                        <input type="hidden" th:field="*{ma}" class="form-control" id="formGroupExampleInput"
-                               placeholder="Mã" readonly>
                         <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput">Mã</label>
+                                    <input type="text" th:field="*{ma}" class="form-control"
+                                           id="formGroupExampleInput"
+                                           placeholder="Mã" required>
+                                    <div th:if="${#fields.hasErrors('ma')}" class="text-danger"
+                                         th:errors="*{ma}"></div>
+                                </div>
+                            </div>
 
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="formGroupExampleInput2">Tên</label>
                                     <input type="text" th:field="*{ten}" class="form-control"
                                            id="formGroupExampleInput2"
-                                           placeholder="Tên" required>
+                                           placeholder="Tên">
+                                    <div th:if="${#fields.hasErrors('ten')}" class="text-danger"
+                                         th:errors="*{ten}" required></div>
                                 </div>
+
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="formGroupExampleInput2">Điều Kiện</label>
                                     <input type="text" th:field="*{dieu_kien}" class="form-control"
                                            id="formGroupExampleInput2"
-                                           placeholder="Điều Kiện" required>
+                                           placeholder="Điều Kiện">
+                                    <div th:if="${#fields.hasErrors('dieu_kien')}" class="text-danger"
+                                         th:errors="*{dieu_kien}" required></div>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="formGroupExampleInput2">Ngày Bắt Đầu</label>
                                     <input type="date" th:field="*{ngay_bat_dau}" class="form-control"
-                                           id="formGroupExampleInput2" required>
+                                           id="formGroupExampleInput2">
+                                    <div th:if="${#fields.hasErrors('ngay_bat_dau')}" class="text-danger"
+                                         th:errors="*{ngay_bat_dau}" required></div>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="formGroupExampleInput2">Ngày Kết Thức</label>
+                                    <label for="formGroupExampleInput2">Ngày Kết Thúc</label>
                                     <input type="date" th:field="*{ngay_ket_thuc}" class="form-control"
-                                           id="formGroupExampleInput2" required>
+                                           id="formGroupExampleInput2">
+                                    <div th:if="${#fields.hasErrors('ngay_ket_thuc')}" class="text-danger"
+                                         th:errors="*{ngay_ket_thuc}" required></div>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="formGroupExampleInput2">Số Tiền Giảm</label>
                                     <input type="number" th:field="*{so_tien_giam}" class="form-control"
-                                           id="formGroupExampleInput2" placeholder="Số Tiền Giảm" step="any" required>
+                                           id="formGroupExampleInput2" placeholder="Số Tiền Giảm"
+                                           step="any">
+                                    <div th:if="${#fields.hasErrors('so_tien_giam')}" class="text-danger"
+                                         th:errors="*{so_tien_giam}" required></div>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput2">Phần Trăm Giảm</label>
+                                    <input type="number" th:field="*{phan_tram_giam}" class="form-control"
+                                           id="formGroupExampleInput2" placeholder="Phần trăm giảm"
+                                           step="any">
+                                    <div th:if="${#fields.hasErrors('phan_tram_giam')}" class="text-danger"
+                                         th:errors="*{phan_tram_giam}" required></div>
+                                </div>
+                            </div>
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="formGroupExampleInput2">Số Lượng</label>
                                     <input type="number" th:field="*{so_luong}" class="form-control"
                                            id="formGroupExampleInput2"
-                                           placeholder="Số Lượng" required>
+                                           placeholder="Số Lượng">
+                                    <div th:if="${#fields.hasErrors('so_luong')}" class="text-danger"
+                                         th:errors="*{so_luong}" required></div>
                                 </div>
                             </div>
+                            <div class="col-6">
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label col-sm-2 pt-0">Trạng Thái :</legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                       th:field="*{trangthai}" id="gridRadios1"
+                                                       th:value="1">
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    Hoạt Động
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                       th:field="*{trangthai}" id="gridRadios2"
+                                                       th:value="0">
+                                                <label class="form-check-label" for="gridRadios2">
+                                                    Không Hoạt Động
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div th:if="${#fields.hasErrors('trangthai')}" class="text-danger"
+                                             th:errors="*{trangthai}"></div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
                         </div>
-                        <fieldset class="form-group">
-                            <div class="row">
-                                <legend class="col-form-label col-sm-2 pt-0">Trạng Thái :</legend>
-                                <div class="col-sm-10">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" th:field="*{trangthai}"
-                                               id="gridRadios1"
-                                               th:value="1">
-                                        <label class="form-check-label" for="gridRadios1">
-                                            Hoạt Động
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" th:field="*{trangthai}"
-                                               id="gridRadios2"
-                                               th:value="0">
-                                        <label class="form-check-label" for="gridRadios2">
-                                            Không Hoạt Động
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
                         <button class="btn btn-primary"
-                                onclick="return confirm('Bạn có chắc chắn muốn sửa thông tin giảm giá ?')"
-                                type="submit">Update
+                                onclick="return confirm('Bạn có chắc chắn muốn sửa ?')"
+                                type="submit">Sửa
                         </button>
                     </form>
                 </div>
@@ -552,6 +614,7 @@
                     form.find('[name="ngaySinh"]').val(data.ngaySinh);
                     form.find('[name="dieu_kien"]').val(data.dieu_kien);
                     form.find('[name="so_tien_giam"]').val(data.so_tien_giam);
+                    form.find('[name="phan_tram_giam"]').val(data.phan_tram_giam);
                     form.find('[name="ngay_bat_dau"]').val(data.ngay_bat_dau);
                     form.find('[name="ngay_ket_thuc"]').val(data.ngay_ket_thuc);
                     form.find('[name="so_luong"]').val(data.so_luong);

@@ -20,10 +20,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Giay implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     private String ma;
+
     private String ten;
 
     @ManyToOne
@@ -67,18 +70,25 @@ public class Giay implements Serializable {
     private ThuongHieu thuong_hieu;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER) // lấy hết các thông tin
+    @OneToMany(mappedBy = "giay", fetch = FetchType.EAGER) // lấy hết các thông tin
     Set<Anh> anhs;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "giay", fetch = FetchType.EAGER)
     Set<GiayChiTiet> giayChiTiets;
+
     private String mota;
+
     private BigDecimal gianhap;
+
     private BigDecimal giaban;
+
+    private BigDecimal gia_sau_khuyen_mai;
+
     private Integer trangthai;
-    public String getAnhDau(Set<Anh> anhs1){
+
+    public String getAnhDau(Set<Anh> anhs1) {
         List<Anh> list = new ArrayList<Anh>(anhs1);
         return list.get(0).getTen_url();
-    };
+    }
 }

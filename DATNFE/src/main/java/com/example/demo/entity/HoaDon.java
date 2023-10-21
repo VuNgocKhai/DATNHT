@@ -2,29 +2,27 @@ package com.example.demo.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
-import lombok.*;
-
-import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
@@ -43,9 +41,9 @@ public class HoaDon implements Serializable {
 
     private String ma;
 
-    private Date ngay_tao;
+    private LocalDate ngay_tao;
 
-    private Date ngay_thanh_toan;
+    private LocalDate ngay_thanh_toan;
 
     @ManyToOne
     @JoinColumn(name = "id_nhan_vien")
@@ -71,12 +69,12 @@ public class HoaDon implements Serializable {
     @JsonIgnore
     private List<GiamGiaChiTietHoaDon> list1;
 
-    @OneToMany(mappedBy = "hoaDon",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "hoaDon",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<HoaDonChiTiet> listHdct;
 
-    public String convertTrangThai(){
-        switch (this.trangthai){
+    public String convertTrangThai() {
+        switch (this.trangthai) {
             case 1:
                 return "Chờ xác nhận";
             case 2:
