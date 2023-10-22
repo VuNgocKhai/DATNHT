@@ -83,4 +83,15 @@ public class HoaDonRepo {
         );
         return response.getBody();
     }
+
+    public PageDTO<HoaDon> getPageHDByTrangThai1(Integer trangthai, String keyword, String timtheo, Integer page) {
+        ResponseEntity<PageDTO<HoaDon>> response = restTemplate.exchange(
+                getUrl("tim-hd-theo-trang-thai?trangthai=" + trangthai + "&keyword=" + keyword  + "&timTheo=" + timtheo + "&page=" + page),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<PageDTO<HoaDon>>() {
+                }
+        );
+        return response.getBody();
+    }
 }

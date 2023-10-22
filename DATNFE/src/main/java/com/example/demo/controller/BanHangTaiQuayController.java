@@ -559,7 +559,6 @@ public class BanHangTaiQuayController {
     @RequestMapping("/admin/ban-hang-tai-quay/xac-nhan-don-hang/{maHD}")
     public String xacNhan(@PathVariable("maHD") String maHD,
                           RedirectAttributes redirectAttributes) {
-        System.out.println(maHD);
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
         LocalDate currentDate = LocalDate.now();
         hoaDon.setNgay_thanh_toan(currentDate);

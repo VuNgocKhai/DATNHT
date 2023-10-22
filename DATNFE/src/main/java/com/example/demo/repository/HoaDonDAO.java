@@ -29,4 +29,6 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
 
     @Query("SELECT MAX(hd.ma) FROM HoaDon hd")
     String findHighestMaHoaDon();
+
+    void deleteByMa(String ma);
 }

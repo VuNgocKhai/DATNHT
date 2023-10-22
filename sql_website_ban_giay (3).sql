@@ -339,3 +339,31 @@ INSERT INTO website_ban_giay.dbo.chuong_trinh_giam_gia_chi_tiet_san_pham (id,id_
 	 (N'2D2A2541-2D46-425A-835D-578E7F92EA26',N'BC03F312-454A-48DA-A318-80D1E3979AD1',N'13090853-794B-4746-BA0D-006172DD4976',100,1),
 	 (N'A70E75F8-2662-41F3-96EE-8F4D4A1CA41E',N'144262A4-C9BF-4764-A288-8C66D9A3C2F7',N'5A9AFEF6-1ADC-43AE-A5DD-E160754913CA',200,1);
 
+	update hoa_don set trangthai = 1 where ma ='HD1'
+	update hoa_don set trangthai = 1 where ma ='HD2'
+	update hoa_don set trangthai = 1 where ma ='HD3'
+	update hoa_don set trangthai = 1 where ma ='HD4'
+	update hoa_don set trangthai = 1 where ma ='HD5'
+	update hoa_don set trangthai = 1 where ma ='HD6'
+
+	update hoa_don set ngay_thanh_toan = null where ma ='HD1'
+	update hoa_don set ngay_thanh_toan = null where ma ='HD2'
+	update hoa_don set ngay_thanh_toan = null where ma ='HD3'
+	update hoa_don set ngay_thanh_toan = null where ma ='HD4'
+	update hoa_don set ngay_thanh_toan = null where ma ='HD5'
+	update hoa_don set ngay_thanh_toan = null where ma ='HD6'
+
+	update hoa_don set trangthai = 2 where ma ='HD7'
+	update hoa_don set trangthai = 2 where ma ='HD8'
+	update hoa_don set trangthai = 2 where ma ='HD9'
+	update hoa_don set trangthai = 2 where ma ='HD10'
+	update hoa_don set trangthai = 2 where ma ='HD11'
+	update hoa_don set trangthai = 2 where ma ='HD6'
+
+		update hoa_don set trangthai = 1 where ma ='HD000001'
+		update hoa_don set ngay_thanh_toan = null where ma ='HD000001'
+
+	select * from hoa_don
+	select * from hoa_don where ma ='HD000001'
+	delete from hoa_don where ma ='HD000001'
+	update hoa_don set ma ='HD6' where id ='046D6C46-6621-0246-9A02-CA8BAD5C9646'

@@ -97,7 +97,7 @@ public class GiamGiaHoaDonController {
         model.addAttribute("hoaDonListdaGG", hoaDonPageDTOdaGG); // Page hóa đơn đã giảm giá
 
         PageDTO<HoaDon> hoaDonPageDTOchuaGG = hoaDonRepo.getAllHDchuaGGPage(page1.orElse(0));
-        model.addAttribute("listHoaDon", hoaDonPageDTOchuaGG); // Page hóa đơn chưa giảm giá và có trạng thái = 0
+        model.addAttribute("listHoaDon", hoaDonPageDTOchuaGG); // Page hóa đơn chưa giảm giá và có trạng thái = 1
 
         model.addAttribute("i", 0);
         return "giamgiahoadon/detail_giam_gia_hoa_don";
