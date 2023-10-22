@@ -47,7 +47,6 @@ public class GioHangController {
     CallAPIGHN callAPIGHN;
     @Autowired
     UntityService untityService;
-    @RequestMapping("/ctsp/{x}")
     public String ctsp(Model model, @PathVariable("x") String ma) {
         Giay giay = giayDAO.getGiayByMa(ma);
         model.addAttribute("item", giay);
@@ -56,10 +55,6 @@ public class GioHangController {
 
     @PostMapping("/cart/add")
     public String addcart(@RequestParam("ma_giay") String ma_giay, @RequestParam("size_giay") String size_giay, @RequestParam("so_luong") Integer so_luong) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        KhachHang khachHang = khachHangDao.getKhByEmail(username);
-        GiayChiTiet giayChiTiet = giayChiTietDAO.getAllByMaGiayAndSize(ma_giay, size_giay);
         GioHang gioHang = khachHang.getGio_hang();
         GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
         boolean kq = true;
@@ -132,11 +127,6 @@ public class GioHangController {
         BigDecimal tienGGHD = tongTien.multiply(BigDecimal.valueOf(phan_tramGGHD)).divide(BigDecimal.valueOf(100));
         if (tienGGHD.compareTo(so_tienGGHD) > 0) {
             tienGGHD = so_tienGGHD;
-        }
-        model.addAttribute("tienGGHD", tienGGHD);
-        model.addAttribute("tongTien", tongTien);
-        model.addAttribute("tienThanhToan", tongTien.subtract(tienGGHD));
-        model.addAttribute("listGiay", listvalue1);
         model.addAttribute("maGGHD", maGGHD);
         model.addAttribute("maVC", maVC);
         model.addAttribute("listGHCT", gioHangChiTietList);

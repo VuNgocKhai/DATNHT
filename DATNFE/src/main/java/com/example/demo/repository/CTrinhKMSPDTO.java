@@ -12,10 +12,7 @@ import java.util.UUID;
 @Repository
 public interface CTrinhKMSPDTO extends JpaRepository<ChuongTrinhGiamGiaSP, UUID> {
 
-//    @Modifying
-//    @Query(value = "update chuong_tring_giam_gia_san_pham set trangthai =0\n" +
-//            "where  ngay_ket_thuc < getdate()", nativeQuery = true)
-//
-//    ChuongTrinhGiamGiaSP(Date)
+    @Query(value = "select * from chuong_tring_giam_gia_san_pham where ma = ?1 ", nativeQuery = true)
+    ChuongTrinhGiamGiaSP getOneByMa(String maKM);
 
 }

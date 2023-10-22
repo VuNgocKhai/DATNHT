@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 ﻿drop database website_ban_giay
 create database website_ban_giay
+=======
+﻿--drop database website_ban_giay
+--create database website_ban_giay
+>>>>>>> origin/giamgiasanpham
 use website_ban_giay
 create table thuong_hieu (
 	id uniqueidentifier primary key default newid(),
@@ -79,6 +84,10 @@ create table giay (
 	gianhap decimal,
 	giaban decimal,
 	trangthai int null,
+<<<<<<< HEAD
+=======
+	gia_sau_khuyen_mai decimal,
+>>>>>>> origin/giamgiasanpham
 	foreign key (id_thuong_hieu) references thuong_hieu(id),
 	foreign key (id_gioi_tinh) references gioi_tinh(id),
 	foreign key (id_danh_muc) references danh_muc(id),
@@ -317,9 +326,15 @@ INSERT INTO website_ban_giay.dbo.dia_chi (id,ma,id_khach_hang,ten_dia_chi,xa,huy
 INSERT INTO website_ban_giay.dbo.gio_hang (id,ma,id_khach_hang,ngay_tao,ngay_cap_nhap,ghi_chu,trangthai) VALUES
 	 (N'5E83CE5E-CEEF-484F-BE89-021B0464CC8B',N'GH02',N'019427F5-1E52-402F-B5DC-EC17AD5F139A','2023-09-09',NULL,NULL,1),
 	 (N'CE792713-9983-4E45-9D9B-532A003CC015',N'GH01',N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843','2023-09-09',NULL,NULL,1);
+<<<<<<< HEAD
 INSERT INTO website_ban_giay.dbo.gio_hang_chi_tiet (id,id_khach_hang,id_gio_hang,id_giay_chi_tiet,so_luong,ghi_chu,trangthai) VALUES
 	 (N'092052B5-324D-4DB4-94FE-46C8A159236C',N'019427F5-1E52-402F-B5DC-EC17AD5F139A',N'CE792713-9983-4E45-9D9B-532A003CC015',N'E22DEB74-ECA4-41BB-AB18-55A8CD2B9CB9',1,NULL,1),
 	 (N'93A2B0C6-19E4-4403-B33A-4D6BDF05AE32',N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'5E83CE5E-CEEF-484F-BE89-021B0464CC8B',N'396ED021-F577-4BA5-B5D3-353E40F6FA4E',1,NULL,1);
+=======
+INSERT INTO website_ban_giay.dbo.gio_hang_chi_tiet (id,id_gio_hang,id_giay_chi_tiet,so_luong,ghi_chu,trangthai) VALUES
+	 (N'092052B5-324D-4DB4-94FE-46C8A159236C',N'CE792713-9983-4E45-9D9B-532A003CC015',N'E22DEB74-ECA4-41BB-AB18-55A8CD2B9CB9',1,NULL,1),
+	 (N'93A2B0C6-19E4-4403-B33A-4D6BDF05AE32',N'5E83CE5E-CEEF-484F-BE89-021B0464CC8B',N'396ED021-F577-4BA5-B5D3-353E40F6FA4E',1,NULL,1);
+>>>>>>> origin/giamgiasanpham
 INSERT INTO website_ban_giay.dbo.hoa_don (id,ma,ngay_tao,ngay_thanh_toan,id_nhan_vien,id_khach_hang,mo_ta,tong_tien,ten_nguoi_nhan,sdt_nguoi_nhan,trangthai) VALUES
 	 (N'3CAD650A-4B71-41FB-8FA4-6682B25F6541',N'HD01','2023-09-09','2023-09-09',N'9D8372B8-AAA4-464A-A938-3C6927210010',N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'Đã Thanh Toán',111111,N'Nguyễn Thành Danh',N'0385090080',1),
 	 (N'DEC073F7-5FBB-4E5F-9766-AFAC0B275AEB',N'HD02','2023-09-09','2023-09-09',N'5D89F310-6D41-41EE-B5B8-57F5B6DB7A9A',N'019427F5-1E52-402F-B5DC-EC17AD5F139A',N'Đã Thanh Toán',111111,N'Nguyễn Thành Danh1',N'0385090081',1);
@@ -339,3 +354,10 @@ INSERT INTO website_ban_giay.dbo.chuong_trinh_giam_gia_chi_tiet_san_pham (id,id_
 	 (N'2D2A2541-2D46-425A-835D-578E7F92EA26',N'BC03F312-454A-48DA-A318-80D1E3979AD1',N'13090853-794B-4746-BA0D-006172DD4976',100,1),
 	 (N'A70E75F8-2662-41F3-96EE-8F4D4A1CA41E',N'144262A4-C9BF-4764-A288-8C66D9A3C2F7',N'5A9AFEF6-1ADC-43AE-A5DD-E160754913CA',200,1);
 
+<<<<<<< HEAD
+=======
+
+	 select*from giay where id = 'BC03F312-454A-48DA-A318-80D1E3979AD1'
+
+	 update giay set gia_sau_khuyen_mai = where id ='BC03F312-454A-48DA-A318-80D1E3979AD1'
+>>>>>>> origin/giamgiasanpham

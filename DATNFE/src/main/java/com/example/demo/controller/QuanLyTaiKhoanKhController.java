@@ -41,7 +41,6 @@ public class QuanLyTaiKhoanKhController {
     @Autowired
     private KhachHangDao khachHangDao;
 
-
     private Authentication authentication;
 
     @RequestMapping("/qltk-kh")
