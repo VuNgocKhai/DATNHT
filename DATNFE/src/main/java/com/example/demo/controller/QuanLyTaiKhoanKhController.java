@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -39,6 +40,7 @@ public class QuanLyTaiKhoanKhController {
 
     @Autowired
     private KhachHangDao khachHangDao;
+
 
     private Authentication authentication;
 
@@ -66,7 +68,10 @@ public class QuanLyTaiKhoanKhController {
     }
 
     @RequestMapping("/qltk-kh/doi-mat-khau")
-    public String doiMatKhau() {
+    public String doiMatKhau(Model model) {
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
+        model.addAttribute("khachHang", khachHang);
         return "qltk_kh/doi_mat_khau";
     }
 
@@ -92,6 +97,8 @@ public class QuanLyTaiKhoanKhController {
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
         diaChi.setKhachHang(khachHang);
         model.addAttribute("listdiachi", diachiDao.getAllByMaDiaChi(khachHang.getMa()));
+        model.addAttribute("khachHang", khachHang);
+        model.addAttribute("diaChiUd", new DiaChi());
         return "qltk_kh/dia_chi";
     }
 
@@ -103,27 +110,40 @@ public class QuanLyTaiKhoanKhController {
 
     @PostMapping("/qltk-kh/them-dia-chi")
     public String themDiaChi(@ModelAttribute DiaChi diaChi) {
+        if(diaChi.getTrangthai()!=null){
+            if(diaChi.getTrangthai()==1){
+                diachiDao.updateTtDiaChiByIdKh(0,diaChi.getKhachHang().getId());
+            }
+        }
         diachiDao.save(diaChi);
         return "redirect:/qltk-kh/dia-chi";
     }
 
-    @PostMapping("/qltk-kh/cap-nhat-dia-chi/{ma}")
-    public String capNhatDiaChi(@PathVariable String ma, @ModelAttribute DiaChi diaChi) {
-        DiaChi dc1 = diachiDao.getDiachiByma(ma);
-        dc1.setMadc(diaChi.getMadc());
+    @PostMapping("/qltk-kh/cap-nhat-dia-chi")
+    public String capNhatDiaChi(@ModelAttribute("diaChiUd") DiaChi diaChi) {
+        DiaChi dc1 = diachiDao.getDiachiByma(diaChi.getMadc());
         dc1.setHuyen(diaChi.getHuyen());
         dc1.setXa(diaChi.getXa());
         dc1.setThanhpho(diaChi.getThanhpho());
         dc1.setTendiachi(diaChi.getTendiachi());
         dc1.setTrangthai(diaChi.getTrangthai());
+        dc1.setTen_nguoi_nhan(diaChi.getTen_nguoi_nhan());
+        dc1.setSdt_nguoi_nhan(diaChi.getSdt_nguoi_nhan());
+        if(diaChi.getTrangthai()!=null){
+            if(diaChi.getTrangthai()==1){
+                diachiDao.updateTtDiaChiByIdKh(0,diaChi.getKhachHang().getId());
+            }
+        }
         diachiDao.save(dc1);
         return "redirect:/qltk-kh/dia-chi";
     }
 
-    @GetMapping("/qltk-kh/chi-tiet-dia-chi/{ma}")
-    public String chiTietDiaChi(Model model, @PathVariable("ma") String madc) {
-        model.addAttribute("diaChi", diachiDao.getDiachiByma(madc));
-        return "qltk_kh/chi_tiet_dia_chi";
+    @GetMapping("/qltk-kh/dat-dc-mac-dinh/{ma}")
+    public String datDcMacDinh(@PathVariable("ma") String madc) {
+        DiaChi dc=diachiDao.getDiachiByma(madc);
+        diachiDao.updateTtDiaChiByIdKh(0,dc.getKhachHang().getId());
+        diachiDao.updateTtDiaChiByMaDc(1,madc);
+        return "redirect:/qltk-kh/dia-chi";
     }
 
     static Map<String, Integer> trangThaiDonHang;
@@ -147,11 +167,15 @@ public class QuanLyTaiKhoanKhController {
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
         Pageable pageable= PageRequest.of(Integer.valueOf(number),5);
         Page<HoaDon>page=hoaDonDAO.findHdByMaKhAndTt(khachHang.getMa(),trangThaiDonHang.get(trangThaiDon),pageable);
+        System.out.println(trangThaiDon+trangThaiDonHang.get(trangThaiDon));
         PageDTO<HoaDon> pageDTO=new PageDTO<>(page);
         model.addAttribute("pageHd",pageDTO);
         model.addAttribute("trangThaiDonHang",trangThaiDonHang);
         model.addAttribute("trangThaiDon",trangThaiDon);
+        model.addAttribute("khachHang", khachHang);
         return "qltk_kh/don_hang";
     }
+
+
 
 }

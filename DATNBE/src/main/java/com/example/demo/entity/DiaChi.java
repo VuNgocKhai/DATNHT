@@ -45,7 +45,7 @@ public class DiaChi {
     private Integer trangthai;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_khach_hang")
     private KhachHang khachHang;
 }

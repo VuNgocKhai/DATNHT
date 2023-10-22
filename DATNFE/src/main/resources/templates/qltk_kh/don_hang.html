@@ -1,27 +1,37 @@
 <!DOCTYPE html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
 <style>
-    .nav-item {
-        background-color: #3D464D;
-        border-radius: 5px;
-        color: white;
+    ul li {
+        margin-bottom: 5px;
     }
 
-    .navbar li a {
+    ul li a {
         color: #3D464D;
     }
 
-    .navbar li {
-        background-color: #F5F5F5;
-        margin-left: 5px;
+    ul li a:hover {
+        color: #FFD333;
+    }
+
+    .nav {
+        display: block !important;
+
     }
 
     #[[${trangThaiDon}]]
     {
-        background-color: #3D464D;
+        border-bottom: 1px solid #6C757F;
     }
 
-    #[[${trangThaiDon}]] a {
-        color: white;
+    #hoSo:hover {
+        text-decoration: none;
+    }
+
+    main > .container:first-child > .row > .col-9 {
+        background-color: white;
+        border: .0625rem solid #efefef;
+        border-radius: 5px;
     }
 </style>
 <html th:replace="~{/layout/index :: dynamic(~{::main})}" xmlns:th="http://www.thymeleaf.org">
@@ -37,26 +47,75 @@
         <div class="row">
             <div class="col-3">
                 <ul class="nav flex-column">
-                    <li class="nav-item" style="margin-bottom: 5px">
-                        <a style="
-            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/thong-tin">Thông
-                            tin tài
-                            khoản</a>
+                    <li class="nav-item" style="border-bottom: .0625rem solid #efefef">
+                        <a href="/qltk-kh/thong-tin" id="hoSo">
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
+                                         style="width: 100%">
+                                </div>
+                                <div class="col-9 ">
+                                    <div class="row">
+                                        <div style="width: 100%">
+                                            [[${khachHang.hoten}]]
+                                        </div>
+                                        <div>
+                                            <i class="fa-solid fa-pen"></i>
+                                            Sửa hồ sơ
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </li>
-                    <li class="nav-item" style="margin-bottom: 5px">
-                        <a style="
-            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/doi-mat-khau">Đổi
-                            mật khẩu</a>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/qltk-kh/thong-tin">
+                            <div class="row">
+                                <div class="col-1">
+                                    <i class="fa-solid fa-user fa-beat"></i>
+                                </div>
+                                <div class="col-9">
+                                    Thông tin tài khoản
+                                </div>
+                            </div>
+                        </a>
                     </li>
-                    <li class="nav-item" style="margin-bottom: 5px">
-                        <a style="
-            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/dia-chi">Địa
-                            chỉ</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qltk-kh/doi-mat-khau">
+                            <div class="row">
+                                <div class="col-1">
+                                    <i class="fa-solid fa-lock fa-beat"></i>
+                                </div>
+                                <div class="col-9">
+                                    Đổi mật khẩu
+                                </div>
+                            </div>
+                        </a>
                     </li>
-                    <li class="nav-item" style="margin-bottom: 5px">
-                        <a style="
-            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/don-hang">Đơn
-                            hàng</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qltk-kh/dia-chi">
+                            <div class="row">
+                                <div class="col-1">
+                                    <i class="fa-solid fa-location-dot fa-beat"></i></div>
+                                <div class="col-9">
+                                    Địa
+                                    chỉ
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qltk-kh/don-hang">
+                            <div class="row">
+                                <div class="col-1">
+                                    <i class="fa-solid fa-cart-shopping fa-beat"></i>
+                                </div>
+                                <div class="col-9">
+                                    Đơn
+                                    hàng
+                                </div>
+                            </div>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -148,7 +207,6 @@
                                     <h5>Tổng [[${hd.tong_tien}]] VNĐ</h5>
                                 </div>
                             </div>
-                            <div style="border-top: 3px solid #6C757D;"></div>
                         </div>
                     </div>
                 </div>

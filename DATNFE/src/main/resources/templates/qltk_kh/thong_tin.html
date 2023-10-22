@@ -1,4 +1,38 @@
 <!DOCTYPE html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+<style>
+    ul li {
+        margin-bottom: 5px;
+    }
+
+    ul li a {
+        color: #3D464D;
+    }
+
+    ul li a:hover {
+        color: #FFD333;
+    }
+
+    .nav {
+        display: block !important;
+    }
+
+    .container .row .col-9 form div.row {
+        margin-bottom: 10px;
+    }
+
+    .container > .row > .col-9 {
+        background-color: white;
+        border: .0625rem solid #efefef;
+        border-radius: 5px;
+    }
+
+    #hoSo:hover {
+        text-decoration: none;
+    }
+
+</style>
 <html th:replace="~{/layout/index :: dynamic(~{::main})}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -13,56 +47,157 @@
         <div class="row">
             <div class="col-3">
                 <ul class="nav flex-column">
-                    <li class="nav-item" style="margin-bottom: 5px">
-                        <a style="
-            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/thong-tin">Thông
-                            tin tài
-                            khoản</a>
+                    <li class="nav-item" style="border-bottom: .0625rem solid #efefef;padding-bottom: 10px;padding-top: 15px">
+                        <a href="/qltk-kh/thong-tin" id="hoSo">
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
+                                         style="width: 100%">
+                                </div>
+                                <div class="col-9 ">
+                                    <div class="row">
+                                        <div style="width: 100%">
+                                            [[${khachHang.hoten}]]
+                                        </div>
+                                        <div>
+                                            <i class="fa-solid fa-pen"></i>
+                                            Sửa hồ sơ
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </li>
-                    <li class="nav-item" style="margin-bottom: 5px">
-                        <a style="
-            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/doi-mat-khau">Đổi
-                            mật khẩu</a>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/qltk-kh/thong-tin">
+                            <div class="row">
+                                <div class="col-1">
+                                    <i class="fa-solid fa-user fa-beat"></i>
+                                </div>
+                                <div class="col-9">
+                                    Thông tin tài khoản
+                                </div>
+                            </div>
+                        </a>
                     </li>
-                    <li class="nav-item" style="margin-bottom: 5px">
-                        <a style="
-            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/dia-chi">Địa chỉ</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qltk-kh/doi-mat-khau">
+                            <div class="row">
+                                <div class="col-1">
+                                    <i class="fa-solid fa-lock fa-beat"></i>
+                                </div>
+                                <div class="col-9">
+                                    Đổi mật khẩu
+                                </div>
+                            </div>
+                        </a>
                     </li>
-                    <li class="nav-item" style="margin-bottom: 5px">
-                        <a style="
-            background-color: #3D464D;border-radius: 5px;color: white" class="nav-link" href="/qltk-kh/don-hang">Đơn hàng</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qltk-kh/dia-chi">
+                            <div class="row">
+                                <div class="col-1">
+                                    <i class="fa-solid fa-location-dot fa-beat"></i></div>
+                                <div class="col-9">
+                                    Địa
+                                    chỉ
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qltk-kh/don-hang">
+                            <div class="row">
+                                <div class="col-1">
+                                    <i class="fa-solid fa-cart-shopping fa-beat"></i>
+                                </div>
+                                <div class="col-9">
+                                    Đơn
+                                    hàng
+                                </div>
+                            </div>
+                        </a>
                     </li>
                 </ul>
             </div>
             <div class="col-9">
-                <form th:object="${khachHang}" method="post" th:action="@{|/qltk-kh/cap-nhat-thong-tin/${khachHang.id}|}">
-                    <div class="row">
+                <ul class="nav flex-column">
+                    <li class="nav-item" style="border-bottom: .0625rem solid #efefef;padding-bottom: 10px;padding-top: 15px">
+                        <h5 style="margin-bottom: 0px">Hồ Sơ Của Tôi</h5>
+                        <span >Quản lý thông tin hồ sơ để bảo mật tài khoản
+                        </span>
+                    </li>
+                </ul>
+                <form th:object="${khachHang}" method="post"
+                      th:action="@{|/qltk-kh/cap-nhat-thong-tin/${khachHang.id}|}">
+                    <div class="row" style="margin-top: 20px">
                         <input type="text" hidden th:field="*{id}">
-                        <div class="col-6">
-                            <label for="formGroupExampleInput">Mã</label>
-                            <input type="text" th:field="*{ma}" class="form-control" id="formGroupExampleInput"
-                                   placeholder="Mã">
+                        <div class="col-6 row">
+                            <div class="col-4 ">
+                                <p class="float-right">
+                                    Mã
+                                </p>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" th:field="*{ma}" class="form-control" id="formGroupExampleInput"
+                                       placeholder="Mã">
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <label for="formGroupExampleInput">Họ Và Tên</label>
-                            <input type="text" th:field="*{hoten}" class="form-control" id="formGroupExampleInput"
-                                   placeholder="Họ và tên">
-                        </div>
-                        <div class="col-6">
-                            <label for="formGroupExampleInput">Ngày Sinh</label>
-                            <input type="date" th:field="*{ngaysinh}" class="form-control" id="formGroupExampleInput"
-                                   placeholder="Ngày Sinh">
-                        </div>
-
-                        <div class="col-6">
-                            <label for="formGroupExampleInput">Số điện thoại</label>
-                            <input type="text" th:field="*{sdt}" class="form-control" id="formGroupExampleInput"
-                                   placeholder="Số điện thoại">
-                        </div>
-
                     </div>
-                    <br>
-                    <button type="submit" class="btn-primary btn">Cập nhật</button>
+
+                    <div class="row">
+                        <div class="col-6 row">
+                            <div class="col-4 ">
+                                <p class="float-right">
+                                    Họ Và Tên
+                                </p>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" th:field="*{hoten}" class="form-control" id="formGroupExampleInput"
+                                       placeholder="Họ và tên">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 row">
+                            <div class="col-4 ">
+                                <p class="float-right">
+                                    Ngày Sinh </p>
+                            </div>
+                            <div class="col-8">
+                                <input type="date" th:field="*{ngaysinh}" class="form-control"
+                                       id="formGroupExampleInput"
+                                       placeholder="Ngày Sinh">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 row">
+                            <div class="col-4 ">
+                                <p class="float-right">
+                                    Số điện thoại </p>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" th:field="*{sdt}" class="form-control" id="formGroupExampleInput"
+                                       placeholder="Số điện thoại">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 row">
+                            <div class="col-4 ">
+
+                            </div>
+                            <div class="col-8">
+                                <button type="submit" class="btn-primary btn">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    Cập nhật
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

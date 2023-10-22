@@ -213,7 +213,6 @@ public class GioHangController {
     }
 
     @PostMapping("/checkout")
-
     public String checkout1(Model model, HttpServletRequest request, @RequestParam("maVC") String maVC) {
         String maGGHD = "";
         Integer phan_tramGGHD = 0;
