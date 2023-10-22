@@ -114,8 +114,7 @@ public class BanHangTaiQuayController {
         hoaDon.setMa(ma);
         hoaDon.setNhanVien(nhanVien);
         LocalDate currentDate = LocalDate.now();
-        java.sql.Date sqlDate = Date.valueOf(currentDate);
-        hoaDon.setNgay_tao(sqlDate);
+        hoaDon.setNgay_tao(currentDate);
         hoaDon.setTrangthai(0);
         hoaDonRepo.createHoaDon(hoaDon);
 

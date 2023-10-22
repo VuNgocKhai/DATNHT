@@ -242,7 +242,7 @@
     }
 
     var renderData = (array, select) => {
-        let row = '<option th:value="${diachi.thanhpho}" ">[[${diachi.thanhpho}]]</option>';
+        let row = '<option th:value="${diachi.thanhpho}">[[${diachi.thanhpho}]]</option>';
 
         array.forEach(element => {
             row += `<option value="${element.name}" data-code="${element.code}">${element.name}</option>`

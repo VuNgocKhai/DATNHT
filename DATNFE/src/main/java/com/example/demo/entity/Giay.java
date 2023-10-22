@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 
 @Table(name = "giay")
@@ -61,10 +62,15 @@ public class Giay implements Serializable {
     private String mota;
     private BigDecimal gianhap;
     private BigDecimal giaban;
+    private BigDecimal gia_sau_khuyen_mai;
+    private Integer do_hot;
+    private LocalDate ngay_nhap;
     private Integer trangthai;
+    @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER)
+    Set<ChuongTrinhGiamGiaChiTietSP> chuongTrinhGiamGiaChiTietSP;
     public String getAnhDau(Set<Anh> anhs1){
         List<Anh> list = new ArrayList<Anh>(anhs1);
-        list.sort(Comparator.comparing(Anh::getId));
+        list.sort(Comparator.comparing(Anh::getTen_url));
         return list.get(0).getTen_url();
     };
     public BigDecimal tinhTong(BigDecimal giaban,Integer soluong){
@@ -72,4 +78,18 @@ public class Giay implements Serializable {
         BigDecimal tongTien = BigDecimal.valueOf(giaban1*soluong);
         return tongTien;
     };
+   public ChuongTrinhGiamGiaChiTietSP getCHGTHD(){
+       List<ChuongTrinhGiamGiaChiTietSP> list = new ArrayList<ChuongTrinhGiamGiaChiTietSP>(chuongTrinhGiamGiaChiTietSP);
+       for (ChuongTrinhGiamGiaChiTietSP x:list
+            ) {
+           if (x.getTrangThai()==1){
+               return x;
+           }
+       }
+       return null;
+   }
+   public boolean getNewGiay(){
+       boolean isNewItem = ngay_nhap.isAfter(LocalDate.now().minusDays(7));
+       return isNewItem;
+   }
 }

@@ -6,12 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.UUID;
@@ -47,6 +42,7 @@ public class ChuongTrinhGiamGiaSP implements Serializable {
 
     @Column(name = "trangthai")
     private Integer trangThai;
+
 
 //    @OneToMany(mappedBy = "cuaHang", fetch = FetchType.EAGER)
 //    private List<NhanVien> listNV;

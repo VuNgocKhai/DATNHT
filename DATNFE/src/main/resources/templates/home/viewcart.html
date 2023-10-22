@@ -37,7 +37,7 @@
                     <tbody class="align-middle">
                     <tr th:each="x:${listGHCT}">
                         <td><input type="checkbox" th:checked="${listGiay.contains(x.giay_chi_tiet.id)}" onchange="this.form.submit()" name="listGiay" th:value="${x.giay_chi_tiet.id}"></td>
-                        <td class="align-middle"><img th:src="@{|/images/${x.giay_chi_tiet.giay.getAnhDau(x.giay_chi_tiet.giay.anhs)}|}" alt="" style="width: 50px;"></td>
+                        <td class="align-middle"><img  th:src="@{|/images/${x.giay_chi_tiet.giay.getAnhDau(x.giay_chi_tiet.giay.anhs)}|}" alt="" style="width: 120px;"></td>
                         <td class="align-middle">[[${x.giay_chi_tiet.giay.ten}]] <br>
                             Chọn size nam: [[${x.giay_chi_tiet.kich_co.ten}]]</td>
                         <td class="align-middle">[[${x.giay_chi_tiet.giay.ma}]]</td>
@@ -56,8 +56,8 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="align-middle">[[${x.giay_chi_tiet.giay.giaban}]]</td>
-                        <td class="align-middle">[[${x.giay_chi_tiet.giay.tinhTong(x.giay_chi_tiet.giay.giaban,x.so_luong)}]]</td>
+                        <td class="align-middle">[[${x.giay_chi_tiet.giay.gia_sau_khuyen_mai}]]</td>
+                        <td class="align-middle">[[${x.giay_chi_tiet.giay.tinhTong(x.giay_chi_tiet.giay.gia_sau_khuyen_mai,x.so_luong)}]]</td>
                         <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
                     </tr>
                     </tbody>

@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import lombok.*;
 
@@ -43,9 +44,9 @@ public class HoaDon implements Serializable {
 
     private String ma;
 
-    private Date ngay_tao;
+    private LocalDate ngay_tao;
 
-    private Date ngay_thanh_toan;
+    private LocalDate ngay_thanh_toan;
 
     @ManyToOne
     @JoinColumn(name = "id_nhan_vien")
