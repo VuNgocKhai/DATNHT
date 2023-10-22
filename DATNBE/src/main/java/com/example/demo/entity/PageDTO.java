@@ -1,9 +1,5 @@
 package com.example.demo.entity;
 
-import lombok.*;
-import org.springframework.data.domain.Page;
-
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

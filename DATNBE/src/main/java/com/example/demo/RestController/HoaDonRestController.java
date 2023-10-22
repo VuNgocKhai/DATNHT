@@ -1,9 +1,11 @@
 package com.example.demo.RestController;
 
+import com.example.demo.entity.GiamGiaHoaDon;
 import com.example.demo.entity.HoaDon;
 import com.example.demo.entity.PageDTO;
 import com.example.demo.repository.HoaDonDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -81,4 +83,31 @@ public class HoaDonRestController {
         return new PageDTO<>(hoaDonDAO.searchHoaDonByKeyword(keyword, pageable));
     }
 
+    //Tìm hóa đơn theo trạng thái
+    @GetMapping("/tim-hd-theo-trang-thai")
+    public PageDTO<HoaDon> timHDTheoTrangThai(
+            @RequestParam("trangthai") Integer trangthai,
+            @RequestParam("page") Optional<Integer> page) {
+
+        Pageable pageable = PageRequest.of(page.orElse(0), 5);
+        return new PageDTO<>(hoaDonDAO.findHoaDonbyTrangThai(trangthai, pageable));
+    }
+
+    //Tìm hóa đơn theo trạng thái
+    @GetMapping("/tim-hd-theo-trang-thai")
+    public PageDTO<HoaDon> timHDTheoTrangThai(
+            @RequestParam("trangthai") Integer trangthai,
+            @RequestParam("page") Optional<Integer> page,
+            @RequestParam("timTheo") String timTheo,
+            @RequestParam("keyword") String keyword) {
+
+        Pageable pageable = PageRequest.of(page.orElse(0), 5);
+        Page<HoaDon> hoaDonPage;
+        if (keyword != null) {
+            hoaDonPage = hoaDonDAO.searchHoaDon(keyword,"%" + timTheo + "%" ,trangthai, PageRequest.of(0, 5));
+        } else {
+            hoaDonPage = hoaDonDAO.searchHoaDon(keyword,"%" + timTheo + "%" ,trangthai, PageRequest.of(0, 5));
+        }
+        return new PageDTO<>(hoaDonPage);
+    }
 }

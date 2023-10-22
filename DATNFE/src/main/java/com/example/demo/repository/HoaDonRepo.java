@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.GiamGiaHoaDon;
 import com.example.demo.entity.HoaDon;
 import com.example.demo.entity.PageDTO;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -70,5 +71,27 @@ public class HoaDonRepo {
         HttpEntity<HoaDon> entity = new HttpEntity<>(hoaDon);
         JsonNode resp = restTemplate.postForObject(url, entity, JsonNode.class);
         return resp.get("ma").asText();
+    }
+    //Tìm hóa đơn theo trạng thái
+    public PageDTO<HoaDon> getPageHDByTrangThai(Integer trangthai, Integer page) {
+        ResponseEntity<PageDTO<HoaDon>> response = restTemplate.exchange(
+                getUrl("tim-hd-theo-trang-thai?trangthai=" + trangthai + "&page=" + page),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<PageDTO<HoaDon>>() {
+                }
+        );
+        return response.getBody();
+    }
+
+    public PageDTO<HoaDon> getPageHDByTrangThai1(Integer trangthai, String keyword, String timtheo, Integer page) {
+        ResponseEntity<PageDTO<HoaDon>> response = restTemplate.exchange(
+                getUrl("tim-hd-theo-trang-thai?trangthai=" + trangthai + "&keyword=" + keyword  + "&timTheo=" + timtheo + "&page=" + page),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<PageDTO<HoaDon>>() {
+                }
+        );
+        return response.getBody();
     }
 }

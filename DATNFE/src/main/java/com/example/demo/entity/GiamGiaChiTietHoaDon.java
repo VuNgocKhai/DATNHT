@@ -35,15 +35,15 @@ public class GiamGiaChiTietHoaDon implements Serializable {
     @JoinColumn(name = "id_hoa_don")
     private HoaDon hd;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_chuong_trinh_giam_gia_hoa_don")
+    private GiamGiaHoaDon gghd;
+
     private BigDecimal tong_tien;
 
     private BigDecimal so_tien_da_giam;
 
     private BigDecimal tong_tien_thanh_toan;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_chuong_trinh_giam_gia_hoa_don")
-    private GiamGiaHoaDon gghd;
 
     private Integer trangthai;
 }

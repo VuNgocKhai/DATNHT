@@ -1,6 +1,5 @@
 package com.example.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Table(name = "chuong_trinh_giam_gia_chi_tiet_hoa_don")
@@ -31,12 +31,18 @@ public class GiamGiaChiTietHoaDon implements Serializable {
     private UUID id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name ="id_hoa_don")
+    @JoinColumn(name = "id_hoa_don")
     private HoaDon hd;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name ="id_chuong_trinh_giam_gia_hoa_don")
+    @JoinColumn(name = "id_chuong_trinh_giam_gia_hoa_don")
     private GiamGiaHoaDon gghd;
+
+    private BigDecimal tong_tien;
+
+    private BigDecimal so_tien_da_giam;
+
+    private BigDecimal tong_tien_thanh_toan;
 
     private Integer trangthai;
 }
