@@ -237,9 +237,10 @@
                                        placeholder="Tìm Kiếm ">
 
                                 <select class="form-control" id="size" name="size" style="margin-left: 20px">
-                                    <option value="">Tất Cả</option>
-                                    <option value="size M">size M</option>
-                                    <option value="size L">size L</option>
+                                        <option value="">Tất Cả</option>
+                                    <span th:each="dskichco:${dskichco}">
+                                        <option th:value="${dskichco.ten}">[[${dskichco.ten}]]</option>
+                                    </span>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary mb-2" id="searchButton">Tìm Kiếm</button>
@@ -645,7 +646,7 @@
                                                     </div>
                                                     <div class="col-3 d-flex justify-content-center align-items-center">
                                                         <input type="radio" class="form-control" th:name="maDC"
-                                                               th:value="${dc.tendiachi}"
+                                                               th:value="${dc.madc}"
                                                                th:checked="${dc.trangthai == 1}">
                                                     </div>
                                                 </div>
@@ -685,13 +686,18 @@
                               <input type="hidden" class="form-control" th:name="maHD" th:value="${maHD}">
                             <div class="row">
                                   <div class="col-6">
-                                    <label>Tên Người Nhận:</label>
-                                    <input type="text" class="form-control" th:if="${diachiHoaDon == null}"
-                                           name="ten_nguoi_nhan">
-                                    <input type="text" class="form-control" th:if="${diachiHoaDon != null}"
-                                           name="ten_nguoi_nhan"
-                                           th:value="${diachiHoaDon.ten_nguoi_nhan}">
-                                 </div>
+                                      <input type="hidden" class="form-control" th:if="${diachiHoaDon == null}"
+                                                     name="maDC">
+                                      <input type="hidden" class="form-control" th:if="${diachiHoaDon != null}"
+                                           name="maDC"
+                                           th:value="${diachiHoaDon.madc}">
+                                      <label>Tên Người Nhận:</label>
+                                      <input type="text" class="form-control" th:if="${diachiHoaDon == null}"
+                                               name="ten_nguoi_nhan">
+                                      <input type="text" class="form-control" th:if="${diachiHoaDon != null}"
+                                               name="ten_nguoi_nhan"
+                                               th:value="${diachiHoaDon.ten_nguoi_nhan}">
+                                     </div>
                                  <div class="col-6">
                                     <label>Số Điện Thoại:</label>
                                     <input type="text" class="form-control" th:if="${diachiHoaDon == null}"
@@ -973,11 +979,7 @@
 
 <!--Tự động post-->
 <script>
-    // Thêm sự kiện theo dõi sự thay đổi trên các trường thông tin địa chỉ
     document.getElementById('address-form').addEventListener('input', function () {
-        // Tự động gửi dữ liệu khi có sự thay đổi
-        // Sử dụng AJAX hoặc Fetch API để gửi dữ liệu đến máy chủ
-        // Ví dụ sử dụng Fetch API:
         fetch('/admin/ban-hang-tai-quay/tao-don-hang/add-dia-chi1', {
             method: 'POST',
             body: new FormData(document.getElementById('address-form'))
@@ -989,16 +991,12 @@
 <!--Sau khi nhập thông tin địa chỉ nó sẽ hiện thị số ngày sau-->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Lắng nghe sự kiện khi thông tin địa chỉ thay đổi
         const addressForm = document.getElementById("address-form");
         addressForm.addEventListener("change", function () {
-            // Lấy thông tin địa chỉ từ các trường dữ liệu
             const diaChi = document.querySelector('input[name="dia_chi"]').value;
             const thanhPho = document.querySelector('select[name="province"]').value;
             const huyen = document.querySelector('select[name="district"]').value;
             const xa = document.querySelector('select[name="ward"]').value;
-
-            // Thực hiện tính toán thời gian giao hàng dự kiến
             if (diaChi && thanhPho && huyen && xa) {
                 const estimatedDeliveryTime = document.getElementById("estimated-delivery-time");
                 estimatedDeliveryTime.style.display = "block";

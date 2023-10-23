@@ -278,7 +278,7 @@
                                         </thead>
                                         <tbody>
                                         <tr th:if="${PageHoaDonTT1.content.isEmpty()}">
-                                            <td colspan="6">Không Hóa đơn nào đang chờ</td>
+                                            <td colspan="7">Không Hóa đơn nào đang chờ</td>
                                         </tr>
 
                                         <tr th:each="hd:${PageHoaDonTT1.content}">
@@ -408,7 +408,7 @@
                                         </thead>
                                         <tbody>
                                         <tr th:if="${PageHoaDonTT2.content.isEmpty()}">
-                                            <td colspan="6">Không Hóa đơn nào đang chờ</td>
+                                            <td colspan="8">Không Hóa đơn nào đang chuẩn bị</td>
                                         </tr>
 
                                         <tr th:each="hd:${PageHoaDonTT2.content}">
@@ -544,7 +544,7 @@
                                         </thead>
                                         <tbody>
                                         <tr th:if="${PageHoaDonTT3.content.isEmpty()}">
-                                            <td colspan="6">Không Hóa đơn nào đang chờ</td>
+                                            <td colspan="8">Không Hóa đơn nào đang giao</td>
                                         </tr>
 
                                         <tr th:each="hd:${PageHoaDonTT3.content}">
@@ -674,7 +674,7 @@
                                     </thead>
                                     <tbody>
                                     <tr th:if="${PageHoaDonTT4.content.isEmpty()}">
-                                        <td colspan="7">Không Hóa đơn nào đang chờ</td>
+                                        <td colspan="7">Không Hóa đơn nào đã hoàn thành</td>
                                     </tr>
                                     <tr th:each="hd:${PageHoaDonTT4.content}">
                                         <th scope="row">[[${hd.ma}]]</th>
@@ -787,7 +787,7 @@
                                     </thead>
                                     <tbody>
                                     <tr th:if="${PageHoaDonTT5.content.isEmpty()}">
-                                        <td colspan="7">Không Hóa đơn nào đang chờ</td>
+                                        <td colspan="7">Không Hóa đơn nào đã hủy</td>
                                     </tr>
                                     <tr th:each="hd:${PageHoaDonTT5.content}">
                                         <th scope="row">[[${hd.ma}]]</th>
@@ -900,7 +900,7 @@
                                     </thead>
                                     <tbody>
                                     <tr th:if="${PageHoaDonTT6.content.isEmpty()}">
-                                        <td colspan="7">Không Hóa đơn nào đang chờ</td>
+                                        <td colspan="7">Không Hóa đơn nào trả hàng / hoàn tiền</td>
                                     </tr>
                                     <tr th:each="hd:${PageHoaDonTT6.content}">
                                         <th scope="row">[[${hd.ma}]]</th>
