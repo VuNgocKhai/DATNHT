@@ -72,9 +72,6 @@ public class Giay implements Serializable {
     Set<Anh> anhs;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER) // lấy hết các thông tin
-    Set<Anh> anhs;
-    @JsonIgnore
     @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER)
     Set<GiayChiTiet> giayChiTiets;
 
