@@ -20,8 +20,8 @@ public interface DiachiDao extends JpaRepository<DiaChi, UUID> {
     @Query("select p from DiaChi p where p.madc = ?1")
     DiaChi getDiachiByma(String ma);
 
-    @Query("select p from DiaChi p where p.tendiachi = ?1")
-    DiaChi getDiachiBytendiachi(String tendiachi);
+    @Query("select p from DiaChi p where p.tendiachi = ?1 and p.khachHang.id = ?2")
+    DiaChi getDiachiBytendiachi(String tendiachi,UUID idKhachHang);
 
     @Query("select p from DiaChi p where p.khachHang.ma = ?1 and p.trangthai = 1")
     DiaChi getDiaChiByKhachHangMaAndTrangthai(String maKH);

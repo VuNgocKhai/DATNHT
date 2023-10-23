@@ -75,7 +75,7 @@ public class HoaDonRepo {
     //Tìm hóa đơn theo trạng thái
     public PageDTO<HoaDon> getPageHDByTrangThai(Integer trangthai, Integer page) {
         ResponseEntity<PageDTO<HoaDon>> response = restTemplate.exchange(
-                getUrl("tim-hd-theo-trang-thai?trangthai=" + trangthai + "&page=" + page),
+                getUrl("phan-trang?trangthai=" + trangthai + "&page=" + page),
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<PageDTO<HoaDon>>() {

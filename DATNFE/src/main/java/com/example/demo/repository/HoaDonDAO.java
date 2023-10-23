@@ -31,4 +31,21 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
     String findHighestMaHoaDon();
 
     void deleteByMa(String ma);
+
+    @Query("SELECT MAX(CAST(SUBSTRING(hd.ma, 3, LENGTH(hd.ma) - 2) AS int)) FROM HoaDon hd")
+    Integer findMaxMaHoaDonNumber();
+
+    default String generateNextMaHoaDon() {
+        Integer maxMaNumber = findMaxMaHoaDonNumber();
+        int nextNumber;
+
+        if (maxMaNumber != null) {
+            nextNumber = maxMaNumber + 1;
+        } else {
+            nextNumber = 1;
+        }
+
+        return "HD" + nextNumber;
+    }
+
 }
