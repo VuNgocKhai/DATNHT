@@ -13,4 +13,6 @@ public interface GioHangChiTietDAO extends JpaRepository<GioHangChiTiet, UUID> {
     @Transactional
     @Query("update GioHangChiTiet set so_luong=?1 where id=?2 ")
     Boolean updateGHCT(Integer solyong,UUID uuid);
+    @Query("SELECT COUNT(p.id) FROM GioHangChiTiet p where p.gio_hang.khach_hang.ma=?1")
+    Integer countGH(String maKH);
 }
