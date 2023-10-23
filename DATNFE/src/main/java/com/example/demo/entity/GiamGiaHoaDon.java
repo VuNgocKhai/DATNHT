@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -55,6 +56,8 @@ public class GiamGiaHoaDon implements Serializable {
     @NotNull(message = "Không được để trống ngày kết thúc !")
     private Date ngay_ket_thuc;
 
+    @NotNull(message = "Không được để trống phần trăm giảm !")
+    @Min(value = 0, message = "Phần trăm giảm không được âm!")
     private Integer phan_tram_giam;
 
     @NotNull(message = "Không được để trống số lượng !")
@@ -65,5 +68,5 @@ public class GiamGiaHoaDon implements Serializable {
 
     @OneToMany(mappedBy = "gghd", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<GiamGiaChiTietHoaDon> list2;
+    private List<GiamGiaChiTietHoaDon> ListGGCTHD;
 }

@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import javax.persistence.*;
+
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,5 +18,5 @@ public class Anh implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_giay")
     private Giay giay;
-   private Integer trangthai;
+    private Integer trangthai;
 }

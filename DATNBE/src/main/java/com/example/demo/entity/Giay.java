@@ -6,10 +6,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.util.*;
 
 @Table(name = "giay")
 @Entity
@@ -20,10 +18,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Giay implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     private String ma;
+
     private String ten;
 
     @ManyToOne
@@ -67,19 +68,28 @@ public class Giay implements Serializable {
     private ThuongHieu thuong_hieu;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER) // lấy hết các thông tin
+    @OneToMany(mappedBy = "giay", fetch = FetchType.EAGER) // lấy hết các thông tin
     Set<Anh> anhs;
 
     @JsonIgnore
     @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER)
     Set<GiayChiTiet> giayChiTiets;
+
     private String mota;
+
     private BigDecimal gianhap;
+
     private BigDecimal giaban;
-    private Integer trangthai;
+
+    @Column(name = "gia_sau_khuyen_mai")
     private BigDecimal gia_sau_khuyen_mai;
+    private Integer do_hot;
+    private LocalDate ngay_nhap;
+    private Integer trangthai;
+//    @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER)
+//    Set<ChuongTrinhGiamGiaChiTietSP> chuongTrinhGiamGiaChiTietSP;
     public String getAnhDau(Set<Anh> anhs1){
         List<Anh> list = new ArrayList<Anh>(anhs1);
         return list.get(0).getTen_url();
-    };
+    }
 }
