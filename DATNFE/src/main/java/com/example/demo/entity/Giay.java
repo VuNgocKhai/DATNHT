@@ -80,6 +80,8 @@ public class Giay implements Serializable {
     private BigDecimal gianhap;
 
     private BigDecimal giaban;
+
+    @Column(name = "gia_sau_khuyen_mai")
     private BigDecimal gia_sau_khuyen_mai;
     private Integer do_hot;
     private LocalDate ngay_nhap;

@@ -80,12 +80,14 @@ public class Giay implements Serializable {
     private BigDecimal gianhap;
 
     private BigDecimal giaban;
+
+    @Column(name = "gia_sau_khuyen_mai")
     private BigDecimal gia_sau_khuyen_mai;
     private Integer do_hot;
     private LocalDate ngay_nhap;
     private Integer trangthai;
-    @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER)
-    Set<ChuongTrinhGiamGiaChiTietSP> chuongTrinhGiamGiaChiTietSP;
+//    @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER)
+//    Set<ChuongTrinhGiamGiaChiTietSP> chuongTrinhGiamGiaChiTietSP;
     public String getAnhDau(Set<Anh> anhs1){
         List<Anh> list = new ArrayList<Anh>(anhs1);
         return list.get(0).getTen_url();
