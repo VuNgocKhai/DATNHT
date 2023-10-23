@@ -84,6 +84,7 @@ public class Giay implements Serializable {
     private Integer do_hot;
     private LocalDate ngay_nhap;
     private Integer trangthai;
+    @JsonIgnore
     @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER)
     Set<ChuongTrinhGiamGiaChiTietSP> chuongTrinhGiamGiaChiTietSP;
     public String getAnhDau(Set<Anh> anhs1){

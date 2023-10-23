@@ -44,7 +44,6 @@ public class GlobalInterceptor
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        System.out.println("HElô");
         request.setAttribute("listCamGiac", camGiacRepo.getListCamGiac());
         request.setAttribute("listChatLieu", chatLieuRepo.getListChatLieu());
         request.setAttribute("listDanhMuc", danhMucRepo.getListDanhMuc());
