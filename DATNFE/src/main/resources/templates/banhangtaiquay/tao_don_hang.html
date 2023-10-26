@@ -66,6 +66,21 @@
         input[type="number"] {
             -moz-appearance: textfield; /* Firefox */
         }
+
+        /*nút đơn vị vận chuyển*/
+        .radio-container {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .radio-container input:checked + .logo-image {
+            border: 2px solid yellow;
+        }
+
+        .logo-image {
+            width: 100px;
+            transition: border 0.3s;
+        }
     </style>
 </head>
 <body>
@@ -209,14 +224,14 @@
         </nav>
 
         <!--        Chọn các sản phẩm cần thêm vào hóa đơn + header-->
-        <div class="container bg-light" style="border: 2px solid #ccc; padding: 20px; border-radius: 10px;">
+        <div class="container bg-light" style="border: 2px solid #ccc; padding: 30px; border-radius: 10px;">
             <div class="row">
                 <div class="col-5">
                     <h4 class="page-title" style="color: #721c24">Các Sản Phẩm Đã Chọn</h4>
                 </div>
                 <div class="col-3"></div>
                 <div class="col-4">
-                    <button class="btn btn-info waves-effect waves-light" data-bs-toggle="modal"
+                    <button th:if="${trangthaicheck == 1 || trangthaicheck == 2}" class="btn btn-info waves-effect waves-light" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
                         <span class="btn-label"><i class="bi bi-plus-square"></i></span> Chọn Sản Phẩm
                     </button>
@@ -237,7 +252,7 @@
                                        placeholder="Tìm Kiếm ">
 
                                 <select class="form-control" id="size" name="size" style="margin-left: 20px">
-                                        <option value="">Tất Cả</option>
+                                    <option value="">Tất Cả</option>
                                     <span th:each="dskichco:${dskichco}">
                                         <option th:value="${dskichco.ten}">[[${dskichco.ten}]]</option>
                                     </span>
@@ -350,7 +365,7 @@
         <div style="margin-top: 20px"></div>
 
         <!--        Danh sách sản phẩm đã chọn -->
-        <div class="container bg-light" style="border: 2px solid #ccc; padding: 20px; border-radius: 10px;">
+        <div class="container bg-light" style="border: 2px solid #ccc; padding: 30px; border-radius: 10px;">
             <table class="table table-hover">
                 <thead class="thead-light">
                 <tr>
@@ -359,7 +374,7 @@
                     <th scope="col" style="text-align: center">Size</th>
                     <th scope="col" style="text-align: center">Số Lượng</th>
                     <th scope="col" style="text-align: center">Đơn Giá</th>
-                    <th scope="col" style="text-align: center">Thao Tác</th>
+                    <th th:if="${trangthaicheck == 1 || trangthaicheck == 2}" scope="col" style="text-align: center">Thao Tác</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -400,7 +415,7 @@
                                               th:value="${hdct.hoaDon.ma}">
                                             <input type="hidden" class="form-control small-input" th:name="idctsp"
                                                    th:value="${hdct.giayChiTiet.id}">
-                                        <div class="input-group-prepend">
+                                        <div th:if="${trangthaicheck == 1 || trangthaicheck == 2}" class="input-group-prepend">
                                             <button type="submit" class="btn btn-outline-secondary"
                                                     onclick="decrementValue(this)"><i
                                                     class="bi bi-dash-circle-fill"></i></button>
@@ -415,7 +430,7 @@
                                                th:value="${hdct.hoaDon.ma}">
                                         <input type="hidden" class="form-control small-input" th:name="idctsp"
                                                th:value="${hdct.giayChiTiet.id}">
-                                        <div class="input-group-append">
+                                        <div th:if="${trangthaicheck == 1 || trangthaicheck == 2}" class="input-group-append">
                                             <button type="submit" class="btn btn-outline-secondary"
                                                     onclick="incrementValue(this)"><i
                                                     class="bi bi-plus-circle-fill"></i>
@@ -433,7 +448,7 @@
                         </span>
                     </td>
                     <td class="d-flex justify-content-center align-items-center"
-                        th:if="${hdct.giayChiTiet != null}">
+                        th:if="${hdct.giayChiTiet != null && trangthaicheck == 1 || trangthaicheck == 2}">
                         <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                            th:href="@{|/admin/ban-hang-tai-quay/tao-don-hang/delete/${hdct.hoaDon.ma}/${hdct.giayChiTiet.id}/${hdct.so_luong}|}">
                             <i style="font-size: 2rem; color: red;" class="bi bi-x-square"></i>
@@ -479,14 +494,14 @@
         <div style="margin-top: 20px"></div>
 
         <!--        Chọn khách hàng-->
-        <div class="container bg-light" style="border: 2px solid #ccc; padding: 20px; border-radius: 10px;">
+        <div class="container bg-light" style="border: 2px solid #ccc; padding: 30px; border-radius: 10px;">
             <div class="row">
                 <div class="col-5">
                     <h4 class="page-title" style="color: coral">Tài Khoản</h4>
                 </div>
                 <div class="col-3"></div>
                 <div class="col-4">
-                    <button class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal"
+                    <button th:if="${trangthaicheck == 1 || trangthaicheck == 2}" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal"
                             data-bs-target="#exampleModal1"><i
                             class="bi bi-person-vcard-fill"></i> Chọn Khách Hàng
                     </button>
@@ -494,31 +509,25 @@
             </div>
             <hr style="border: 1px solid #000">
             <div>
-                <span>
-                    <label style="font-weight: bold;color: #721c24"><i class="bi bi-person-vcard-fill"></i> Tên Khách Hàng:</label>
-                    <span style="margin-left: 25px" th:if="${KhachHangDetail == null}"> Khách Lẻ</span>
-                    <span style="margin-left: 25px"
+                <span class="row">
+                    <label class="col-2" style="font-weight: bold;color: #721c24"><i
+                            class="bi bi-person-vcard-fill"></i> Tên Khách Hàng:</label>
+                    <span class="col-3" style="margin-left: 25px" th:if="${KhachHangDetail == null}"> Khách Lẻ</span>
+                    <span class="col-3" style="margin-left: 25px"
                           th:if="${KhachHangDetail != null}">[[${KhachHangDetail.hoten}]]</span>
                 </span>
-                <span th:if="${KhachHangDetail != null}">
+                <span class="row" th:if="${KhachHangDetail != null}">
                     <br>
-                    <label style="font-weight: bold;color: #de6a6a"><i class="bi bi-person-bounding-box"></i> Tên Tài Khoản:</label>
-                    <span style="margin-left: 25px" th:if="${KhachHangDetail != null}"
+                    <label class="col-2" style="font-weight: bold;color: #919138"><i
+                            class="bi bi-envelope-paper-fill"></i> Tài Khoản/ Email:</label>
+                    <span class="col-3" style="margin-left: 25px" th:if="${KhachHangDetail != null}"
                           th:text="${KhachHangDetail.email}"></span>
                 </span>
-                <span th:if="${KhachHangDetail != null}">
+                <span class="row" th:if="${KhachHangDetail != null}">
                     <br>
-                    <label style="font-weight: bold;color: #4949b8"><i
-                            class="bi bi-telephone"></i> Số Điện Thoại:</label>
-                    <span style="margin-left: 25px" th:if="${KhachHangDetail != null}"
+                    <label class="col-2" style="font-weight: bold;color: #4949b8"><i class="bi bi-telephone"></i> Số Điện Thoại:</label>
+                    <span class="col-3" style="margin-left: 25px" th:if="${KhachHangDetail != null}"
                           th:text="${KhachHangDetail.sdt}"></span>
-                </span>
-                <span th:if="${KhachHangDetail != null}">
-                    <br>
-                    <label style="font-weight: bold;color: #919138"><i
-                            class="bi bi-envelope-paper-fill"></i> Email:</label>
-                    <span style="margin-left: 25px" th:if="${KhachHangDetail != null}"
-                          th:text="${KhachHangDetail.email}"></span>
                 </span>
             </div>
 
@@ -585,7 +594,7 @@
         <div style="margin-top: 20px"></div>
 
         <!--        Chọn Địa chỉ và Voucher-->
-        <div class="container bg-light" style="border: 2px solid #ccc; padding: 20px; border-radius: 10px;">
+        <div class="container bg-light" style="border: 2px solid #ccc; padding: 30px; border-radius: 10px;">
             <div class="row">
                 <div class="col-5">
                     <h4 class="page-title" style="color: #8d8d39">Khách Hàng</h4>
@@ -593,7 +602,7 @@
                 <div class="col-3">
                 </div>
                 <div class="col-4">
-                    <button th:if="${KhachHangDetail != null}" id="nutChonDiaChi"
+                    <button th:if="${KhachHangDetail != null && trangthaicheck == 1 || trangthaicheck == 2}" id="nutChonDiaChi"
                             class="btn btn-warning waves-effect waves-light" data-bs-toggle="modal"
                             data-bs-target="#exampleModal2">
                         <i class="bi bi-geo-alt-fill"></i>
@@ -686,63 +695,59 @@
                               <input type="hidden" class="form-control" th:name="maHD" th:value="${maHD}">
                             <div class="row">
                                   <div class="col-6">
-                                      <input type="hidden" class="form-control" th:if="${diachiHoaDon == null}"
-                                                     name="maDC">
-                                      <input type="hidden" class="form-control" th:if="${diachiHoaDon != null}"
-                                           name="maDC"
-                                           th:value="${diachiHoaDon.madc}">
                                       <label>Tên Người Nhận:</label>
-                                      <input type="text" class="form-control" th:if="${diachiHoaDon == null}"
-                                               name="ten_nguoi_nhan">
-                                      <input type="text" class="form-control" th:if="${diachiHoaDon != null}"
-                                               name="ten_nguoi_nhan"
-                                               th:value="${diachiHoaDon.ten_nguoi_nhan}">
+                                      <input type="text" class="form-control" th:readonly="${trangthaicheck == 3 || trangthaicheck == 4 || trangthaicheck == 5 || trangthaicheck == 6 }" th:if="${tenNNDetail == null}"
+                                             name="ten_nguoi_nhan">
+                                      <input type="text" class="form-control" th:readonly="${trangthaicheck == 3 || trangthaicheck == 4 || trangthaicheck == 5 || trangthaicheck == 6 }" th:if="${tenNNDetail != null}"
+                                             name="ten_nguoi_nhan"
+                                             th:value="${tenNNDetail}">
                                      </div>
                                  <div class="col-6">
                                     <label>Số Điện Thoại:</label>
-                                    <input type="text" class="form-control" th:if="${diachiHoaDon == null}"
+                                    <input type="text" class="form-control" th:readonly="${trangthaicheck == 3 || trangthaicheck == 4 || trangthaicheck == 5 || trangthaicheck == 6 }" th:if="${sdtDetail == null}"
                                            name="sdt_nguoi_nhan">
-                                    <input type="text" class="form-control" th:if="${diachiHoaDon != null}"
+                                    <input type="text" class="form-control" th:readonly="${trangthaicheck == 3 || trangthaicheck == 4 || trangthaicheck == 5 || trangthaicheck == 6 }" th:if="${sdtDetail != null}"
                                            name="sdt_nguoi_nhan"
-                                           th:value="${diachiHoaDon.sdt_nguoi_nhan}">
+                                           th:value="${sdtDetail}">
                                  </div>
                                  <br>
                                  <div class="col-4" style="margin-top: 10px">
                                      <label>Thành Phố:</label>
                                      <select class="form-control" name="province" id="province">
-                                              <option th:if="${diachiHoaDon != null}"
-                                                      th:selected="${province == diachiHoaDon.thanhpho ? 'selected' : ''}"></option>
+                                              <option th:if="${thanhPhoDetail != null}" th:readonly="${trangthaicheck == 3 || trangthaicheck == 4 || trangthaicheck == 5 || trangthaicheck == 6 }"
+                                                      th:selected="${thanhPhoDetail == province ? 'selected' : ''}"></option>
                                      </select>
                                  </div>
                                  <br>
                                  <div class="col-4" style="margin-top: 10px">
                                      <label>Huyện:</label>
-                                     <select class="form-control" name="district" id="district">
-                                         <option th:if="${diachiHoaDon != null}"
-                                                 th:selected="${district == diachiHoaDon.huyen ? 'selected' : ''}"></option>
+                                     <select class="form-control"  name="district" id="district">
+                                         <option th:if="${huyenDetail != null}" th:readonly="${trangthaicheck == 3 || trangthaicheck == 4 || trangthaicheck == 5 || trangthaicheck == 6 }"
+                                                 th:selected="${huyenDetail == district ? 'selected' : ''}"></option>
                                       </select>
                                  </div>
                                  <br>
                                  <div class="col-4" style="margin-top: 10px">
                                     <label>Xã:</label>
-                                    <select class="form-control" name="ward" id="ward">
-                                          <option th:if="${diachiHoaDon != null}"
-                                                  th:selected="${ward == diachiHoaDon.xa ? 'selected' : ''}"></option>
+                                    <select class="form-control"  name="ward" id="ward">
+                                          <option th:if="${xaDetail != null}" th:readonly="${trangthaicheck == 3 || trangthaicheck == 4 || trangthaicheck == 5 || trangthaicheck == 6 }"
+                                                  th:selected="${xaDetail == ward ? 'selected' : ''}"></option>
                                     </select>
                                  </div>
                                  <br>
                                  <div class="col-12" style="margin-top: 10px">
                                     <label>Tên Địa Chỉ:</label>
-                                    <input type="text" class="form-control" th:if="${diachiHoaDon == null}"
+                                    <input type="text" class="form-control" th:readonly="${trangthaicheck == 3 || trangthaicheck == 4 || trangthaicheck == 5 || trangthaicheck == 6 }" th:if="${tenDcDetail == null}"
                                            name="dia_chi">
-                                    <input type="text" class="form-control" th:if="${diachiHoaDon != null}"
+                                    <input type="text" class="form-control" th:readonly="${trangthaicheck == 3 || trangthaicheck == 4 || trangthaicheck == 5 || trangthaicheck == 6 }" th:if="${tenDcDetail != null}"
                                            name="dia_chi"
-                                           th:value="${diachiHoaDon.tendiachi}">
+                                           th:value="${tenDcDetail}">
                                  </div>
                                  <div class="col-12" style="margin-top: 10px">
                                     <label>Ghi chú:</label>
                                     <br>
-                                    <textarea name="mota" cols="72" rows="10"></textarea>
+                                    <textarea th:value="${moTaDetail}" name="mota" cols="72"
+                                              rows="10">[[${moTaDetail}]]</textarea>
                                  </div>
                             </div>
                         </form>
@@ -755,15 +760,22 @@
                 <div class="col-5">
                     <br>
                     <label><h5 style="color: #060696">Thông tin Thanh toán</h5></label>
-                    <div class="form-inline" style="margin-top: 4px">
-                        <input type="text" class="form-control" th:value="${detailMaGGHD}" placeholder="Mã Giảm Giá">
-                        <button class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal3">
-                            <i class="bi bi-plus-square"></i> Chọn Voucher
-                        </button>
-                    </div>
                     <br>
-                    <form action="" class="row">
+                    <div class="row" th:if="${trangthaicheck == 1 || trangthaicheck == 2}">
+                        <span class="col-12"><label>Voucher:</label></span>
+                        <span class="col-7">
+                            <input type="text" class="form-control form-control-lg" th:value="${detailMaGGHD}"
+                                   placeholder="Mã Giảm Giá">
+                        </span>
+                        <span class="col-5">
+                            <button class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal3">
+                            <i class="bi bi-plus-square"></i>
+                            Chọn Voucher
+                            </button>
+                        </span>
+                    </div>
+                    <form action="" class="row" style="margin-top: 10px">
                         <div class="col-6">
                             <label>Phương thức mua hàng:</label>
                             <select class="form-control" name="phuongThucMuaHang" id="phuongThucMuaHang">
@@ -778,46 +790,57 @@
                                 <option value="1">Online</option>
                             </select>
                         </div>
-                        <span id="donViVanChuyen" class="col-12" style="display: none;margin-top: 17px">
+                        <div id="donViVanChuyen" class="col-12" style="display: none; margin-top: 17px">
                             Đơn vị vận chuyển:
-                            <div>
-                                <input type="radio" name="chonPhuongThuc">
-                                <img style="width: 100px" src="/assets/images/ghnlogo.jpg" alt="">
-                            </div>
                             <br>
-                            <div style="display: inline">
-                                <input type="radio" name="chonPhuongThuc">
-                                <img style="width: 100px" src="/assets/images/ghtklogo.jpg" alt="">
+                            <div class="row" style="margin-top: 10px">
+                                <div class="col-6">
+                                    <label class="radio-container">
+                                        <input type="radio" name="chonPhuongThuc" id="ghnRadio" style="display: none;">
+                                        <img class="logo-image" src="/assets/images/ghnlogo.jpg" alt="" onclick="selectRadio('ghnRadio');">
+                                    </label>
+                                </div>
+                                <div class="col-6">
+                                    <label class="radio-container">
+                                        <input type="radio" name="chonPhuongThuc" id="ghtkRadio" style="display: none;">
+                                        <img class="logo-image" src="/assets/images/ghtklogo.jpg" alt="" onclick="selectRadio('ghtkRadio');">
+                                    </label>
+                                </div>
                             </div>
-                        </span>
+                        </div>
                     </form>
                     <div class="row" style="margin-top: 35px">
                         <div class="col-12">
-                            <h5>
-                                <span style="color: #0303a9">Tiền Hàng: </span>
-                                <span class="giaBan">[[${TongTienTruocGiam}]]</span>
+                            <h5 class="row" style="font-weight: bolder">
+                                <span class="col-5" style="color: #0303a9">Tiền Hàng: </span>
+                                <span class="giaBan col-6">[[${TongTienTruocGiam}]]</span>
                             </h5>
-                            <h5 style="margin-top: 15px">
-                                <span style="color: green">Số Tiền Giảm: </span>
-                                <span class="giaBan">[[${soTienGiam}]]</span>
+                            <h5 class="row" style="margin-top: 15px;font-weight: bolder">
+                                <span class="col-5" style="color: green">Số Tiền Giảm: </span>
+                                <span class="giaBan col-6">[[${soTienGiam}]]</span>
                             </h5>
-                            <h5 style="margin-top: 15px">
-                                <span style="color: green">Phí vận chuyển: </span>
-                                <span class="giaBan"></span>
+                            <h5 class="row" style="margin-top: 15px;font-weight: bolder">
+                                <span class="col-5" style="color: #b5b502">Phí vận chuyển: </span>
+                                <span class="giaBan col-6">0</span>
                             </h5>
-                            <h4 style="margin-top: 15px">
-                                <span style="color: darkred">Tổng số tiền:</span>
-                                <span class="giaBan">[[${TongTienSauGiam}]]</span>
+                            <h4 class="row" style="margin-top: 15px;font-weight: bolder">
+                                <span class="col-5" style="color: darkred">Tổng số tiền:</span>
+                                <span class="giaBan col-6">[[${TongTienSauGiam}]]</span>
                             </h4>
                         </div>
                     </div>
                 </div>
                 <form style="width: 400px; text-align: right; margin-left: auto; margin-top: auto; margin-bottom: auto;">
-                    <button type="submit" class="btn btn-success waves-effect waves-light">
-                        <a style="color:white;" th:href="@{|/admin/ban-hang-tai-quay/xac-nhan-don-hang/${maHD}|}">
-                            Xác Nhận
-                        </a>
-                    </button>
+                    <span th:if="${trangthaicheck == 1 || trangthaicheck == 2}">
+                        <button th:disabled="${TongTienTruocGiam <= 0}" type="submit" class="btn btn-success waves-effect waves-light">
+                            <a th:if="${TongTienTruocGiam > 0}" style="color:white;" th:href="@{|/admin/ban-hang-tai-quay/xac-nhan-don-hang/${maHD}|}">
+                                Xác Nhận
+                            </a>
+                             <span th:if="${TongTienTruocGiam <= 0}">
+                                     Xác Nhận
+                             </span>
+                        </button>
+                    </span>
                     <a href="/admin/ban-hang" type="submit"
                        class="btn btn-danger waves-effect waves-light">
                         Cancel
@@ -844,12 +867,10 @@
                                         </div>
                                         <div class="col-7">
                                             <h6 style="font-weight: 20px">
-                                                Giảm [[${item.phan_tram_giam}]] % cho hóa đơn
+                                                Giảm [[${item.phan_tram_giam}]] % cho hóa đơn (Giảm Tối Đa: <span style="color: #e3e308" class="giaBan">[[${item.so_tien_giam}]]</span>)
                                             </h6>
                                             <div>
                                                 Đơn Hàng Tối Thiểu: <span style="color: #e3e308" class="giaBan">[[${item.dieu_kien}]]</span>
-                                                <br>
-                                                Giảm Tối Đa: <span style="color: #e3e308" class="giaBan">[[${item.so_tien_giam}]]</span>
                                             </div>
                                             <div style="color: red">
                                                 Hạn sử dụng: [[${item.ngay_ket_thuc}]]
@@ -1217,5 +1238,20 @@
     });
 </script>
 <!--End Hiển thị giao diện đơn vị vận chuyển-->
+
+<!--Radio đơn vị vận chuyển-->
+<script>
+    function selectRadio(radioId) {
+        // Xóa chọn tất cả các radio trước đó
+        var radios = document.getElementsByName("chonPhuongThuc");
+        for (var i = 0; i < radios.length; i++) {
+            radios[i].checked = false;
+        }
+
+        // Chọn radio tương ứng
+        document.getElementById(radioId).checked = true;
+    }
+</script>
+<!--end radio đơn vị vẩn chuyển-->
 </body>
 </html>

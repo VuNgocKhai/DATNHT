@@ -80,18 +80,24 @@ public class BanHangController {
             } else if ("xac-nhan".equals(huyxacnhan1)) {
                 for (String maHD : selectedMa1) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
-                    LocalDate currentDate = LocalDate.now();
-                    hoaDon.setNgay_thanh_toan(currentDate);
-                    hoaDon.setTrangthai(2);
-                    hoaDonRepo.createHoaDon(hoaDon);
+                    if (hoaDon.getTong_tien() != null && hoaDon.getTong_tien().compareTo(BigDecimal.ZERO) != 0)
+                    {
+                        LocalDate currentDate = LocalDate.now();
+                        hoaDon.setNgay_thanh_toan(currentDate);
+                        hoaDon.setTrangthai(2);
+                        hoaDonRepo.createHoaDon(hoaDon);
+                    }
                 }
             }
         } else if (selectedMa2 != null) {
             if ("giaohang".equals(giaohang)) {
                 for (String maHD : selectedMa2) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
-                    hoaDon.setTrangthai(3);
-                    hoaDonRepo.createHoaDon(hoaDon);
+                    if (hoaDon.getTong_tien() != null && hoaDon.getTong_tien().compareTo(BigDecimal.ZERO) != 0)
+                    {
+                        hoaDon.setTrangthai(3);
+                        hoaDonRepo.createHoaDon(hoaDon);
+                    }
                 }
             } else if ("huy".equals(huyxacnhan2)) {
                 for (String maHD : selectedMa2) {
