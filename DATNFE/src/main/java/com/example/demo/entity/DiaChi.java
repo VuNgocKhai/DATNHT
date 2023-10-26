@@ -2,13 +2,22 @@ package com.example.demo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -33,6 +42,12 @@ public class DiaChi {
 
     @Column(name = "thanh_pho")
     private String thanhpho;
+
+    @Column(name = "ten_nguoi_nhan")
+    private String ten_nguoi_nhan;
+
+    @Column(name = "sdt_nguoi_nhan")
+    private String sdt_nguoi_nhan;
 
     @Column(name = "trangthai")
     private Integer trangthai;

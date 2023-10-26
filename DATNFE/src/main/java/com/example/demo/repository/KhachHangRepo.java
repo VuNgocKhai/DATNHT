@@ -22,8 +22,8 @@ public class KhachHangRepo {
         return url + "/" + ma;
     }
 
-    private String getUrl1(UUID ma) {
-        return url + "/" + ma;
+    private String getUrl1(UUID id) {
+        return url + "/" + id;
     }
 
     public List<KhachHang> getAll() {
@@ -33,8 +33,8 @@ public class KhachHangRepo {
         return responseEntity.getBody();
     }
 
-    public KhachHang getBykhachhangma(UUID ma) {
-        return restTemplate.getForObject(getUrl1(ma), KhachHang.class);
+    public KhachHang getBykhachhangma(String ma) {
+        return restTemplate.getForObject(getUrl(ma), KhachHang.class);
     }
 
     public String save(KhachHang kh) {

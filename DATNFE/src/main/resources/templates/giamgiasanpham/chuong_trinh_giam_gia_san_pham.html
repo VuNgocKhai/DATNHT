@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Voucher</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+</head>
+<body>
+
+
+<div class="wrapper d-flex align-items-stretch">
+
+    <!--    START SILDEBAR      -->
+    <nav id="sidebar">
+        <div class="custom-menu">
+            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                <i class="fa fa-bars"></i>
+                <span class="sr-only">Toggle Menu</span>
+            </button>
+        </div>
+        <div class="p-4">
+            <h1><a href="danh_muc.html" class="logo">DLFV</a></h1>
+            <ul class="list-unstyled components mb-5">
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-home mr-3"></span>Thống Kê</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-user mr-3"></span> Quản Lý Đơn Hàng</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><span class="fa fa-briefcase mr-3"></span> Bán Hàng Tại Quầy</a>
+                </li>
+                <li>
+                    <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu2">
+                        <li>
+                            <a href="#">Sản Phẩm</a>
+                        </li>
+                        <li>
+                            <a href="#">Thương Hiệu</a>
+                        </li>
+                        <li>
+                            <a href="/admin/danhmuc">Danh Mục</a>
+                        </li>
+                        <li>
+                            <a href="#">Chất Liệu</a>
+                        </li>
+                        <li>
+                            <a href="#">Đế Giày</a>
+                        </li>
+                        <li>
+                            <a href="#">Màu Sắc</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu3">
+                        <li>
+                            <a href="#">Nhân Viên</a>
+                        </li>
+                        <li>
+                            <a href="#">Khách Hàng</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-cubes mr-3"></span>Khuyến Mại</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu4">
+                        <li>
+                            <a href="/admin/chuong-trinh-giam-gia-sp">Sản Phẩm</a>
+                        </li>
+                        <li>
+                            <a href="#">Hóa Đơn</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="mb-5">
+                <h3 class="h6 mb-3">Subscribe for newsletter</h3>
+                <form action="#" class="subscribe-form">
+                    <div class="form-group d-flex">
+                        <div class="icon"><span class="icon-paper-plane"></span></div>
+                        <input type="text" class="form-control" placeholder="Enter Email Address">
+                    </div>
+                </form>
+            </div>
+
+            <div class="footer">
+                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a
+                            href="https://colorlib.com" target="_blank">Colorlib.com</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            </div>
+
+        </div>
+    </nav>
+    <!--    END SILDEBAR      -->
+
+
+    <div id="content" class="p-4 p-md-5 pt-5">
+        <!-- Start Page Content  -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: -50px;">
+            <div class="container-fluid" style="display: flex;justify-content: end;">
+                <ul class="navbar-nav">
+                    <!-- Avatar -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                           id="navbarDropdownMenuLink"
+                           role="button" data-toggle="dropdown" aria-expanded="false">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" class="rounded-circle"
+                                 height="72" alt="Avatar" loading="lazy"/>
+                        </a>
+                        <div class="dropdown-menu" style="margin-left: -88px;">
+                            <a class="dropdown-item" href="#">Đăng Xuất</a>
+                            <a class="dropdown-item" href="#">Thông Tin Cá Nhân</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!--        End Page Content    -->
+
+
+        <!--        START FORM ADD MODAL      -->
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tạo khuyến mại</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <div class="list-group">
+                                <!--        START FORM ADD      -->
+                                <div class="container"
+                                     style="border: 1px solid black;border-radius: 10px;padding: 20px; background-color: #E4F4F7">
+                                    <form action="/admin/chuong-trinh-giam-gia-sp/create" method="post"
+                                          th:object="${voucherForm}">
+                                        <!--                <input type="text" hidden th:field="*{id}">-->
+                                        <table class="table table-borderless">
+                                            <tr>
+                                                <td><label for="formGroupExampleInput">Mã khuyến mại</label></td>
+                                                <td>
+                                                    <input  disabled type="text" th:field="*{maKhuyenMai}" class="form-control"
+                                                           id="formGroupExampleInput"
+                                                           placeholder="Nhập mã" >
+                                                </td>
+                                                <td><label for="formGroupExampleInput2">Tên khuyến mại</label></td>
+                                                <td>
+                                                    <input type="text" th:field="*{tenKhuyenMai}" class="form-control"
+                                                           id="formGroupExampleInput2"
+                                                           placeholder="Nhập tên">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label for="formGroupExampleInput2">Ngày bắt đầu</label></td>
+                                                <td>
+                                                    <input type="date" th:field="*{ngayBatDau}" class="form-control"
+                                                           id="formGroupExampleInput2"
+                                                           placeholder="Nhập ngày bắt đầu">
+                                                </td>
+                                                <td><label for="formGroupExampleInput2">Ngày kết thúc</label></td>
+                                                <td>
+                                                    <input type="date" th:field="*{ngayKetThuc}" class="form-control"
+                                                           id="formGroupExampleInput2"
+                                                           placeholder="Nhập ngày kết thúc">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label for="formGroupExampleInput2">Phần trăm giảm</label></td>
+                                                <td>
+                                                    <input type="number" th:field="*{phanTramGiam}" class="form-control"
+                                                           id="formGroupExampleInput2"
+                                                           placeholder="Nhập số %">
+                                                </td>
+                                                <td>
+                                                    <lable>Trạng Thái :</lable>
+                                                </td>
+                                                <td rowspan="2">
+                                                    <div>
+                                                        <input class="form-check-input" type="radio"
+                                                               th:field="*{trangThai}" id="gridRadios1"
+                                                               th:value="1">Hoạt động
+                                                    </div>
+                                                    <div>
+                                                        <input class="form-check-input" type="radio"
+                                                               th:field="*{trangThai}" id="gridRadios2"
+                                                               th:value="0">Ngừng hoạt động
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <button class="btn btn-primary" type="submit" style="margin: 20px;">Thêm
+                                        </button>
+                                        <button th:href="@{|/admin/chuong-trinh-giam-gia-sp|}" type="button"
+                                                class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close
+                                        </button>
+                                    </form>
+                                </div>
+                                <!--        END FORM ADD      -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--            END MODAL       -->
+
+
+        <!--        START FORM SEARCH      -->
+        <div style="padding: 20px">
+            <form class="form-inline" action="/admin/chuong-trinh-giam-gia-sp" method="get">
+                <div class="form-group mx-sm-3">
+                    <input type="text" name="keyword" placeholder="Nhập mã hoặc tên khuyến mại" class="form-control">
+                </div>
+                <div class="form-group mx-sm-3 ">
+                    <button type="submit" class="btn btn-primary bi bi-search"></button>
+                </div>
+                <div class="form-group mx-sm-3">
+                    <button style="margin-left: 10px" type="button" class="btn btn-primary bi bi-plus-circle-fill"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                        Tạo khuyến mại
+                    </button>
+                </div>
+
+
+            </form>
+            <div style="padding: 20px">
+                <form class="form-inline" action="/admin/chuong-trinh-giam-gia-sp" method="get">
+                    <div>
+                        <button type="submit" class="btn btn-light">
+                            <input name="keyword" type="radio" value="0">Ngừng hoạt động
+                        </button>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-light">
+                            <input name="keyword" type="radio" value="1">Đang hoạt động
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+        <!--        END FORM SEARCH      -->
+
+
+        <!--        START FILL TABLE      -->
+        <div style="margin: 20px">
+            <h1 style="text-transform: uppercase;
+    color: black;font-family: 'Lora';text-align: center;">Danh Sách Khuyến mại</h1>
+            <table class="table" style="margin: 20px 0;">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Mã</th>
+                    <th scope="col">Tên Khuyến Mại</th>
+                    <th scope="col">Phần trăm</th>
+                    <th scope="col">Ngày bắt đầu</th>
+                    <th scope="col">Ngày kết thúc</th>
+                    <th scope="col">Trạng Thái</th>
+                    <th scope="col">Sự Kiện</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item,state:${voucherTable.content}">
+                    <td scope="row">[[${item.maKhuyenMai}]]</td>
+                    <td>[[${item.tenKhuyenMai}]]</td>
+                    <td>[[${item.phanTramGiam}]]</td>
+                    <!--                    <td th:text="${#dates.format(item.ngayBatDau, 'dd-MM-yyyy')}>Ngay BD</td>-->
+                    <td>[[${item.ngayBatDau}]]</td>
+                    <td>[[${item.ngayKetThuc}]]</td>
+
+                    <td>
+                        <span th:if="${item.trangThai == 1}">Đang hoạt động</span>
+                        <span th:if="${item.trangThai == 0}">Ngừng hoạt động</span>
+                        <span th:if="${item.trangThai == 2}">Sắp diễn ra</span>
+                    </td>
+                    <!--                        <td th:text="${item.trangThai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>-->
+                    <td>
+                        <a th:href="@{|/admin/chuong-trinh-giam-gia-sp/detail/${item.maKhuyenMai}|}"
+                           class="bi bi-card-list"></a>
+<!--                        <button style="margin-left: 10px" type="button" class="btn btn-primary bi bi-pencil-square"-->
+<!--                                data-bs-toggle="modal"-->
+<!--                                data-bs-target="#exampleModal">-->
+<!--                            <a th:href="@{|/admin/chuong-trinh-giam-gia-sp/viewupdate/${item.maKhuyenMai}|}"-->
+<!--                               class="bi bi-pencil-square"></a>-->
+<!--                        </button>-->
+                        <a th:href="@{|/admin/chuong-trinh-giam-gia-sp/viewupdate/${item.maKhuyenMai}|}"
+                           class="bi bi-pencil-square"></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--        END FILL TABLE      -->
+
+
+        <!--        START PAGEABLE      -->
+        <nav aria-label="Page navigation example" style="display: flex;justify-content: space-between;">
+            <div style="margin-left: 20px">
+                <p>Bạn đang xem trang [[${voucherTable.number+1}]] / [[${voucherTable.totalPages}]]</p>
+            </div>
+            <ul class="pagination" style="margin-right: 24px;">
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{|/admin/chuong-trinh-giam-gia-sp?page=${voucherTable.number-1}&keyword=${keyword}|}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <li th:each="tongtrang,status:${#numbers.sequence(1, voucherTable.totalPages)}" class="page-item">
+                    <a class="page-link"
+                       th:href="@{|/admin/chuong-trinh-giam-gia-sp?page=${status.index}&keyword=${keyword}|}">[[${status.index+1}]]</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{|/admin/chuong-trinh-giam-gia-sp?page=${voucherTable.number+1}&keyword=${keyword}|}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!--        END PAGEABLE      -->
+
+    </div>
+</div>
+
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/popper.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

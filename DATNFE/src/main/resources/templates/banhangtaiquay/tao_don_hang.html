@@ -1,0 +1,1235 @@
+<!doctype html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sidebar 03</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        #listGCTTable {
+            table-layout: fixed;
+        }
+
+        #listGCTTable thead th {
+            position: sticky;
+            top: 0;
+            background-color: white;
+        }
+
+        #listGCTTable tbody {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        #ListKhachHangTable {
+            table-layout: fixed;
+        }
+
+        #ListKhachHangTable thead th {
+            position: sticky;
+            top: 0;
+            background-color: white;
+        }
+
+        #ListKhachHangTable tbody {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Hiệu ứng border nổi cho các thẻ địa chỉ */
+        .address-card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #fff;
+            margin-bottom: 10px;
+        }
+
+        /* Tạo khoảng cách giữa tiêu đề và nút radio */
+        .address-card h6 {
+            margin-bottom: 10px;
+        }
+
+        /* Ẩn mũi tên lên và xuống trên input type number */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield; /* Firefox */
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper d-flex align-items-stretch">
+    <!--    Nav-->
+    <nav id="sidebar">
+        <div class="custom-menu">
+            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                <i class="fa fa-bars"></i>
+                <span class="sr-only">Toggle Menu</span>
+            </button>
+        </div>
+        <div class="p-4">
+            <h1><a href="danh_muc.html" class="logo">DLFV</a></h1>
+            <ul class="list-unstyled components mb-5">
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-home mr-3"></span>Thống Kê</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-user mr-3"></span> Quản Lý Đơn Hàng</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><span class="fa fa-briefcase mr-3"></span> Bán Hàng Tại Quầy</a>
+                </li>
+                <li>
+                    <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu2">
+                        <li>
+                            <a href="#">Sản Phẩm</a>
+                        </li>
+                        <li>
+                            <a href="#">Thương Hiệu</a>
+                        </li>
+                        <li>
+                            <a href="/admin/danhmuc">Danh Mục</a>
+                        </li>
+                        <li>
+                            <a href="#">Chất Liệu</a>
+                        </li>
+                        <li>
+                            <a href="#">Đế Giày</a>
+                        </li>
+                        <li>
+                            <a href="#">Màu Sắc</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu3">
+                        <li>
+                            <a href="#">Nhân Viên</a>
+                        </li>
+                        <li>
+                            <a href="#">Khách Hàng</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-cubes mr-3"></span>Khuyến Mại</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu4">
+                        <li>
+                            <a href="#">Sản Phẩm</a>
+                        </li>
+                        <li>
+                            <a href="/admin/giamgiahoadon">Hóa Đơn</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="mb-5">
+                <h3 class="h6 mb-3">Subscribe for newsletter</h3>
+                <form action="#" class="subscribe-form">
+                    <div class="form-group d-flex">
+                        <div class="icon"><span class="icon-paper-plane"></span></div>
+                        <input type="text" class="form-control" placeholder="Enter Email Address">
+                    </div>
+                </form>
+            </div>
+
+            <div class="footer">
+                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a
+                            href="https://colorlib.com" target="_blank">Colorlib.com</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            </div>
+
+        </div>
+    </nav>
+    <!--    End Nav-->
+
+    <!-- Page Content  -->
+    <div id="content" class="p-4 p-md-5 pt-5 bg-secondary">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: -50px;">
+            <div class="container-fluid" style="display: flex;justify-content: end;">
+                <ul class="navbar-nav">
+                    <!-- Avatar -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                           id="navbarDropdownMenuLink"
+                           role="button" data-toggle="dropdown" aria-expanded="false">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" class="rounded-circle"
+                                 height="72" alt="Avatar" loading="lazy"/>
+                        </a>
+                        <div class="dropdown-menu" style="margin-left: -88px;">
+                            <a class="dropdown-item" href="#">Đăng Xuất</a>
+                            <a class="dropdown-item" href="#">Thông Tin Cá Nhân</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!--        Chọn các sản phẩm cần thêm vào hóa đơn + header-->
+        <div class="container bg-light" style="border: 2px solid #ccc; padding: 20px; border-radius: 10px;">
+            <div class="row">
+                <div class="col-5">
+                    <h4 class="page-title" style="color: #721c24">Các Sản Phẩm Đã Chọn</h4>
+                </div>
+                <div class="col-3"></div>
+                <div class="col-4">
+                    <button class="btn btn-info waves-effect waves-light" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                        <span class="btn-label"><i class="bi bi-plus-square"></i></span> Chọn Sản Phẩm
+                    </button>
+                </div>
+            </div>
+            <!--            Model chọn sản phẩm-->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" style="background-color: #d4d4d4">
+                        <br>
+                        <form class="form-inline search-form" th:action="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}}"
+                              method="get">
+                            <div class="form-group mx-sm-3 mb-2">
+                                <input hidden="" type="text" class="form-control" name="maHD" th:value="${maHD}"
+                                       placeholder="Tìm Kiếm ">
+                                <input type="text" class="form-control" id="keyword" name="keyword"
+                                       placeholder="Tìm Kiếm ">
+
+                                <select class="form-control" id="size" name="size" style="margin-left: 20px">
+                                        <option value="">Tất Cả</option>
+                                    <span th:each="dskichco:${dskichco}">
+                                        <option th:value="${dskichco.ten}">[[${dskichco.ten}]]</option>
+                                    </span>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2" id="searchButton">Tìm Kiếm</button>
+                        </form>
+                        <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-to-cart}" method="post">
+
+                            <div class="modal-body" id="ListGiayChiTiettable">
+                                <div th:if="${ListGiayChiTiet.content.isEmpty()}">
+                                    <h4 style="text-align: center">Danh Sách Giày Trống !</h4>
+                                </div>
+                                <div th:each="gct:${ListGiayChiTiet.content}" class="address-card">
+                                    <div class="row">
+                                        <div class="col-2"
+                                             style="display: flex; justify-content: center; align-items: center;">
+                                            <input type="checkbox" style="width: 35px; height: 35px;"
+                                                   th:value="${gct.id}" th:name="selectedIds">
+                                        </div>
+                                        <div class="col-7 row">
+                                            <div class="col-5">
+                                                <img style="width: 100px"
+                                                     th:src="@{|/images/${gct.giay.getAnhDau(gct.giay.anhs)}|}" alt="">
+                                            </div>
+                                            <div class="col-7">
+                                                <span style="margin: auto">
+                                                    <span style="color: #721c24">Tên Giày: </span> [[${gct.giay.ten}]]<br>
+                                                    <span style="color: #86862f"> Giá Bán: </span>
+                                                    <span style="color: #86862f" class="giaBan">[[${gct.giay.gia_sau_khuyen_mai}]] </span> <br>
+                                                    <span style="color: darkgreen">Kích Cỡ: </span> [[${gct.kich_co.ten}]]<br>
+                                                    <span style="color: #3e3ea4">Số lượng tồn:</span> [[${gct.so_luong_ton}]]
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <span>
+                                                Số Lượng:
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <button type="button" class="btn btn-outline-secondary"
+                                                                onclick="decrementValue(this)">
+                                                            -
+                                                        </button>
+                                                    </div>
+                                                    <input type="number" class="form-control col-4 bg-secondary"
+                                                           th:name="'quantity[' + ${gct.id} + ']'" value="1"
+                                                           th:data-max-stock="${gct.so_luong_ton}">
+                                                    <div class="input-group-append">
+                                                        <button type="button" class="btn btn-outline-secondary"
+                                                                onclick="incrementValue(this)">
+                                                            +
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--            nav-->
+                            <nav aria-label="Page navigation example"
+                                 style="display: flex;justify-content: space-between;">
+                                <div style="margin-left: 20px">
+                                    <p>Bạn đang xem [[${ListGiayChiTiet.numberOfElements}]] trên tổng số
+                                        [[${ListGiayChiTiet.totalElements}]]</p>
+                                </div>
+                                <ul class="pagination" style="margin-right: 24px;">
+                                    <li class="page-item">
+                                        <a class="page-link linkhd" th:if="${ListGiayChiTiet.number > 0}"
+                                           th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page2=${ListGiayChiTiet.number-1}|}"
+                                           aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li th:each="tongtrang,status:${#numbers.sequence(1, ListGiayChiTiet.totalPages)}"
+                                        class="page-item">
+                                        <a class="page-link linkhd"
+                                           th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page2=${status.index}|}">[[${status.index+1}]]</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link linkhd"
+                                           th:if="${ListGiayChiTiet.number < ListGiayChiTiet.totalPages - 1}"
+                                           th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page2=${ListGiayChiTiet.number+1}|}"
+                                           aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <!--            nav-->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <div class="modal-header">
+                                    <input type="hidden" class="form-control" th:name="maHD" th:value="${maHD}">
+                                    <button type="submit" class="btn btn-success"
+                                            style="float: right;text-decoration: none;">
+                                        Chọn Sản Phẩm (<span id="selectedCount">0</span>)
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--            End modal chọn sản phẩm-->
+        </div>
+        <!--        End Chọn các sản phẩm cần thêm vào hóa đơn + header-->
+
+        <div style="margin-top: 20px"></div>
+
+        <!--        Danh sách sản phẩm đã chọn -->
+        <div class="container bg-light" style="border: 2px solid #ccc; padding: 20px; border-radius: 10px;">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col" style="text-align: center">Ảnh</th>
+                    <th scope="col" style="text-align: center">Sản Phẩm</th>
+                    <th scope="col" style="text-align: center">Size</th>
+                    <th scope="col" style="text-align: center">Số Lượng</th>
+                    <th scope="col" style="text-align: center">Đơn Giá</th>
+                    <th scope="col" style="text-align: center">Thao Tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${hoaDonChiTietPage.content.isEmpty()}">
+                    Danh sách trống
+                </tr>
+                <tr th:each="hdct:${hoaDonChiTietPage.content}">
+                    <td>
+                        <span th:if="${hdct.giayChiTiet == null}"></span>
+                        <span class="d-flex justify-content-center align-items-center"
+                              th:if="${hdct.giayChiTiet != null}">
+                            <img style="width: 100px"
+                                 th:src="@{|/images/${hdct.giayChiTiet.giay.getAnhDau(hdct.giayChiTiet.giay.anhs)}|}"
+                                 alt="">
+                        </span>
+                    </td>
+                    <td>
+                        <span th:if="${hdct.giayChiTiet == null}"></span>
+                        <span class="d-flex justify-content-center align-items-center"
+                              th:if="${hdct.giayChiTiet != null}">
+                            [[${hdct.giayChiTiet.giay.ten}]]
+                        </span>
+                    </td>
+                    <td>
+                        <span th:if="${hdct.giayChiTiet == null}"></span>
+                        <span class="d-flex justify-content-center align-items-center"
+                              th:if="${hdct.giayChiTiet != null}">
+                            [[${hdct.giayChiTiet.kich_co.ten}]]
+                        </span>
+                    </td>
+                    <td>
+                        <span th:if="${hdct.so_luong == null}"></span>
+                        <span class="d-flex justify-content-center align-items-center"
+                              th:if="${hdct.so_luong != null}">
+                                <div class="input-group">
+                                    <form action="/giam/so-luong-hoa-don" method="post">
+                                       <input type="hidden" class="form-control" th:name="maHD"
+                                              th:value="${hdct.hoaDon.ma}">
+                                            <input type="hidden" class="form-control small-input" th:name="idctsp"
+                                                   th:value="${hdct.giayChiTiet.id}">
+                                        <div class="input-group-prepend">
+                                            <button type="submit" class="btn btn-outline-secondary"
+                                                    onclick="decrementValue(this)"><i
+                                                    class="bi bi-dash-circle-fill"></i></button>
+                                        </div>
+                                    </form>
+                                        <input type="number" style="width: 30px"
+                                               class="form-control bg-secondary text-center" th:name="soluong"
+                                               th:value="${hdct.so_luong}"
+                                               th:data-max-stock="${hdct.giayChiTiet.so_luong_ton} + ${hdct.so_luong}">
+                                    <form action="/add/so-luong-hoa-don" method="post" id="soLuongForm">
+                                        <input type="hidden" class="form-control" th:name="maHD"
+                                               th:value="${hdct.hoaDon.ma}">
+                                        <input type="hidden" class="form-control small-input" th:name="idctsp"
+                                               th:value="${hdct.giayChiTiet.id}">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-outline-secondary"
+                                                    onclick="incrementValue(this)"><i
+                                                    class="bi bi-plus-circle-fill"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </span>
+                    </td>
+                    <td>
+                        <span th:if="${hdct.don_gia == null}"></span>
+                        <span class="d-flex justify-content-center align-items-center giaBan"
+                              th:if="${hdct.don_gia != null}">
+                            [[${hdct.don_gia}]]
+                        </span>
+                    </td>
+                    <td class="d-flex justify-content-center align-items-center"
+                        th:if="${hdct.giayChiTiet != null}">
+                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
+                           th:href="@{|/admin/ban-hang-tai-quay/tao-don-hang/delete/${hdct.hoaDon.ma}/${hdct.giayChiTiet.id}/${hdct.so_luong}|}">
+                            <i style="font-size: 2rem; color: red;" class="bi bi-x-square"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!--            nav-->
+            <nav aria-label="Page navigation example"
+                 style="display: flex;justify-content: space-between;">
+                <div style="margin-left: 20px">
+                    <p>Bạn đang xem [[${hoaDonChiTietPage.numberOfElements}]] trên tổng số
+                        [[${hoaDonChiTietPage.totalElements}]]</p>
+                </div>
+                <ul class="pagination" style="margin-right: 24px;">
+                    <li class="page-item">
+                        <a class="page-link" th:if="${hoaDonChiTietPage.number > 0}"
+                           th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${hoaDonChiTietPage.number-1}|}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <li th:each="tongtrang,status:${#numbers.sequence(1, hoaDonChiTietPage.totalPages)}"
+                        class="page-item"><a class="page-link"
+                                             th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${status.index}|}">[[${status.index+1}]]</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:if="${hoaDonChiTietPage.number < hoaDonChiTietPage.totalPages - 1}"
+                           th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${hoaDonChiTietPage.number+1}|}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!--            nav-->
+        </div>
+        <!--     End Danh sách sản phẩm đã chọn-->
+
+        <div style="margin-top: 20px"></div>
+
+        <!--        Chọn khách hàng-->
+        <div class="container bg-light" style="border: 2px solid #ccc; padding: 20px; border-radius: 10px;">
+            <div class="row">
+                <div class="col-5">
+                    <h4 class="page-title" style="color: coral">Tài Khoản</h4>
+                </div>
+                <div class="col-3"></div>
+                <div class="col-4">
+                    <button class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal1"><i
+                            class="bi bi-person-vcard-fill"></i> Chọn Khách Hàng
+                    </button>
+                </div>
+            </div>
+            <hr style="border: 1px solid #000">
+            <div>
+                <span>
+
+                    <label style="font-weight: bold;color: #721c24"><i class="bi bi-person-vcard-fill"></i> Tên Khách Hàng:</label>
+                    <span style="margin-left: 25px" th:if="${KhachHangDetail == null}"> Khách Lẻ</span>
+                    <span style="margin-left: 25px"
+                          th:if="${KhachHangDetail != null}">[[${KhachHangDetail.hoten}]]</span>
+                </span>
+                <span th:if="${KhachHangDetail != null}">
+                    <br>
+                    <label style="font-weight: bold;color: #de6a6a"><i class="bi bi-person-bounding-box"></i> Tên Tài Khoản:</label>
+                    <span style="margin-left: 25px" th:if="${KhachHangDetail != null}"
+                          th:text="${KhachHangDetail.email}"></span>
+                </span>
+                <span th:if="${KhachHangDetail != null}">
+                    <br>
+                    <label style="font-weight: bold;color: #4949b8"><i
+                            class="bi bi-telephone"></i> Số Điện Thoại:</label>
+                    <span style="margin-left: 25px" th:if="${KhachHangDetail != null}"
+                          th:text="${KhachHangDetail.sdt}"></span>
+                </span>
+                <span th:if="${KhachHangDetail != null}">
+                    <br>
+                    <label style="font-weight: bold;color: #919138"><i
+                            class="bi bi-envelope-paper-fill"></i> Email:</label>
+                    <span style="margin-left: 25px" th:if="${KhachHangDetail != null}"
+                          th:text="${KhachHangDetail.email}"></span>
+                </span>
+            </div>
+
+            <!--            Model chọn khách hàng-->
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content" style="background-color: #d4d4d4">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Chọn Tài Khoản Khách Hàng</h5>
+                        </div>
+                        <div class="modal-body">
+                            <table id="ListKhachHangTable"
+                                   class="table table-hover">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Mã</th>
+                                    <th scope="col">Họ Tên</th>
+                                    <th scope="col">Ngày Sinh</th>
+                                    <th scope="col">SDT</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody style="max-height: 300px; overflow-y: auto;">
+                                <!-- Dữ liệu của tbody -->
+                                <tr th:if="${ListKhachHang.isEmpty()}">
+                                    <td colspan="9">Danh Sách Khách Hàng Trống</td>
+                                </tr>
+                                <tr th:each="kh:${ListKhachHang}">
+                                    <th>[[${kh.ma}]]</th>
+                                    <th>[[${kh.hoten}]]</th>
+                                    <th>[[${kh.ngaysinh}]]</th>
+                                    <th>[[${kh.sdt}]]</th>
+                                    <th>[[${kh.email}]]</th>
+                                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-khach-hang}"
+                                          method="post">
+                                        <th>
+                                            <input type="hidden" class="form-control" th:name="maKH"
+                                                   th:value="${kh.ma}">
+                                            <input type="hidden" class="form-control" th:name="maHD"
+                                                   th:value="${maHD}">
+                                            <button type="submit" class="btn btn-link" style="text-decoration: none;">
+                                                <i class="bi bi-plus-circle"></i>
+                                                Chọn
+                                            </button>
+                                        </th>
+                                    </form>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!--            end phần table-->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--            End modal chọn khách hàng-->
+        </div>
+        <!--        End chọn khách hàng-->
+
+        <div style="margin-top: 20px"></div>
+
+        <!--        Chọn Địa chỉ và Voucher-->
+        <div class="container bg-light" style="border: 2px solid #ccc; padding: 20px; border-radius: 10px;">
+            <div class="row">
+                <div class="col-5">
+                    <h4 class="page-title" style="color: #8d8d39">Khách Hàng</h4>
+                </div>
+                <div class="col-3">
+                </div>
+                <div class="col-4">
+                    <button th:if="${KhachHangDetail != null}" id="nutChonDiaChi"
+                            class="btn btn-warning waves-effect waves-light" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal2">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        Chọn Địa Chỉ
+                    </button>
+                    <!-- Modal chọn địa chỉ -->
+                    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Chọn Địa Chỉ Khách Hàng</h5>
+                                </div>
+                                <div class="modal-body" style="background-color: #ddd">
+                                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-dia-chi}"
+                                          method="post">
+                                        <input type="hidden" class="form-control" th:name="maHD" th:value="${maHD}">
+
+                                        <div>
+                                            <div th:if="${KhachHangcheck == null}">
+                                                Khách hàng này chưa có địa chỉ
+                                            </div>
+                                            <div th:if="${KhachHangcheck != null}" th:each="dc:${ListDiaChi}"
+                                                 class="address-card">
+                                                <div class="row">
+                                                    <div class="col-2 d-flex justify-content-center align-items-center">
+                                                        <i style="font-size: 3rem; color: cornflowerblue;"
+                                                           class="bi bi-geo-alt-fill bi-3x"></i>
+                                                    </div>
+                                                    <div class="col-7">
+                                                        <h6>
+                                                            [[${dc.khachHang.hoten}]] |
+                                                            <span style="color: darkgray;">[[${dc.khachHang.sdt}]]</span>
+                                                        </h6>
+                                                        <div>
+                                                            <span style="color: black">
+                                                                Địa chỉ:
+                                                            </span>
+                                                            [[${dc.tendiachi}]]
+                                                        </div>
+                                                        <div>
+                                                            Xã : [[${dc.xa}]] , Huyện : [[${dc.huyen}]] , Thành Phố :
+                                                            [[${dc.thanhpho}]]
+                                                        </div>
+                                                        <div class="col-5" style="border: 2px solid red"
+                                                             th:if="${dc.trangthai == 1}">
+                                                            <span style="margin: 2px;color: red">
+                                                                 Địa chỉ mặc định
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3 d-flex justify-content-center align-items-center">
+                                                        <input type="radio" class="form-control" th:name="maDC"
+                                                               th:value="${dc.madc}"
+                                                               th:checked="${dc.trangthai == 1}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-success btn-block" id="submitBtn">
+                                                    Xác Nhận
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End modal chọn địa chỉ -->
+                </div>
+            </div>
+            <hr style="border: 1px solid #000">
+            <div class="row">
+                <div class="col-6">
+                     <span id="diaChiSection" class="col-12">
+                        <br>
+                        <label>
+                            <h5 style="color: green">Thông tin Khách Hàng</h5>
+                        </label>
+                        <br>
+                        <form action="/admin/ban-hang-tai-quay/tao-don-hang/add-dia-chi1" method="post"
+                              id="address-form">
+                              <input type="hidden" class="form-control" th:name="maHD" th:value="${maHD}">
+                            <div class="row">
+                                  <div class="col-6">
+                                      <input type="hidden" class="form-control" th:if="${diachiHoaDon == null}"
+                                                     name="maDC">
+                                      <input type="hidden" class="form-control" th:if="${diachiHoaDon != null}"
+                                           name="maDC"
+                                           th:value="${diachiHoaDon.madc}">
+                                      <label>Tên Người Nhận:</label>
+                                      <input type="text" class="form-control" th:if="${diachiHoaDon == null}"
+                                               name="ten_nguoi_nhan">
+                                      <input type="text" class="form-control" th:if="${diachiHoaDon != null}"
+                                               name="ten_nguoi_nhan"
+                                               th:value="${diachiHoaDon.ten_nguoi_nhan}">
+                                     </div>
+                                 <div class="col-6">
+                                    <label>Số Điện Thoại:</label>
+                                    <input type="text" class="form-control" th:if="${diachiHoaDon == null}"
+                                           name="sdt_nguoi_nhan">
+                                    <input type="text" class="form-control" th:if="${diachiHoaDon != null}"
+                                           name="sdt_nguoi_nhan"
+                                           th:value="${diachiHoaDon.sdt_nguoi_nhan}">
+                                 </div>
+                                 <br>
+                                 <div class="col-4" style="margin-top: 10px">
+                                     <label>Thành Phố:</label>
+                                     <select class="form-control" name="province" id="province">
+                                                <option th:if="${diachiHoaDon == null}" value=""></option>
+                                              <option th:if="${diachiHoaDon != null}" th:value="${diachiHoaDon.thanhpho}">[[${diachiHoaDon.thanhpho}]]</option>
+                                     </select>
+                                 </div>
+                                 <br>
+                                 <div class="col-4" style="margin-top: 10px">
+                                     <label>Huyện:</label>
+                                     <select class="form-control" name="district" id="district">
+                                         <option th:if="${diachiHoaDon != null}"
+                                                 th:value="${diachiHoaDon.huyen}">[[${diachiHoaDon.huyen}]]</option>
+                                      </select>
+                                 </div>
+                                 <br>
+                                 <div class="col-4" style="margin-top: 10px">
+                                    <label>Xã:</label>
+                                    <select class="form-control" name="ward" id="ward">
+                                          <option th:if="${diachiHoaDon != null}"
+                                                  th:value="${diachiHoaDon.xa}">[[${diachiHoaDon.xa}]]</option>
+                                    </select>
+                                 </div>
+                                 <br>
+                                 <div class="col-12" style="margin-top: 10px">
+                                    <label>Tên Địa Chỉ:</label>
+                                    <input type="text" class="form-control" th:if="${diachiHoaDon == null}"
+                                           name="dia_chi">
+                                    <input type="text" class="form-control" th:if="${diachiHoaDon != null}"
+                                           name="dia_chi"
+                                           th:value="${diachiHoaDon.tendiachi}">
+                                 </div>
+                                 <div class="col-12" style="margin-top: 10px">
+                                    <label>Ghi chú:</label>
+                                    <br>
+                                    <textarea name="mota" cols="72" rows="10"></textarea>
+                                 </div>
+                            </div>
+                        </form>
+                        <div id="estimated-delivery-time" style="display: none;margin-top: 10px">
+                            Dự kiến giao hàng trong 3-4 ngày.
+                        </div>
+                    </span>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-5">
+                    <br>
+                    <label><h5 style="color: #060696">Thông tin Thanh toán</h5></label>
+                    <div class="form-inline" style="margin-top: 4px">
+                        <input type="text" class="form-control" th:value="${detailMaGGHD}" placeholder="Mã Giảm Giá">
+                        <button class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal3">
+                            <i class="bi bi-plus-square"></i> Chọn Voucher
+                        </button>
+                    </div>
+                    <br>
+                    <form action="" class="row">
+                        <div class="col-6">
+                            <label>Phương thức mua hàng:</label>
+                            <select class="form-control" name="phuongThucMuaHang" id="phuongThucMuaHang">
+                                <option value="0">Tại cửa hàng</option>
+                                <option value="1">Online</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label>Phương thức thanh toán:</label>
+                            <select class="form-control" name="phuongThucThanhToan">
+                                <option value="0">Tiền mặt</option>
+                                <option value="1">Online</option>
+                            </select>
+                        </div>
+                        <span id="donViVanChuyen" class="col-12" style="display: none;margin-top: 17px">
+                            Đơn vị vận chuyển:
+                            <div>
+                                <input type="radio" name="chonPhuongThuc">
+                                <img style="width: 100px" src="/assets/images/ghnlogo.jpg" alt="">
+                            </div>
+                            <br>
+                            <div style="display: inline">
+                                <input type="radio" name="chonPhuongThuc">
+                                <img style="width: 100px" src="/assets/images/ghtklogo.jpg" alt="">
+                            </div>
+                        </span>
+                    </form>
+                    <div class="row" style="margin-top: 35px">
+                        <div class="col-12">
+                            <h5>
+                                <span style="color: #0303a9">Tiền Hàng: </span>
+                                <span class="giaBan">[[${TongTienTruocGiam}]]</span>
+                            </h5>
+                            <h5 style="margin-top: 15px">
+                                <span style="color: green">Số Tiền Giảm: </span>
+                                <span class="giaBan">[[${soTienGiam}]]</span>
+                            </h5>
+                            <h5 style="margin-top: 15px">
+                                <span style="color: green">Phí vận chuyển: </span>
+                                <span class="giaBan"></span>
+                            </h5>
+                            <h4 style="margin-top: 15px">
+                                <span style="color: darkred">Tổng số tiền:</span>
+                                <span class="giaBan">[[${TongTienSauGiam}]]</span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <form style="width: 400px; text-align: right; margin-left: auto; margin-top: auto; margin-bottom: auto;">
+                    <button type="submit" class="btn btn-success waves-effect waves-light">
+                        <a style="color:white;" th:href="@{|/admin/ban-hang-tai-quay/xac-nhan-don-hang/${maHD}|}">
+                            Xác Nhận
+                        </a>
+                    </button>
+                    <a href="/admin/ban-hang" type="submit"
+                       class="btn btn-danger waves-effect waves-light">
+                        Cancel
+                    </a>
+                </form>
+                <!--                    phần modal danh sách voucher-->
+                <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content" style="background-color: #d4d4d4">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Chọn Voucher cho khách hàng</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div th:if="${ListGiamGiaHoaDon.isEmpty()}">
+                                    <td colspan="9">Không có dữ liệu</td>
+                                </div>
+                                <div th:each="item:${ListGiamGiaHoaDon}"
+                                     class="address-card">
+                                    <div class="row">
+                                        <div class="col-2 d-flex justify-content-center align-items-center">
+                                            <img src="https://img.timviec.com.vn/2020/10/voucher-la-gi-3.jpg"
+                                                 width="100px" height="100px">
+                                        </div>
+                                        <div class="col-7">
+                                            <h6 style="font-weight: 20px">
+                                                Giảm [[${item.phan_tram_giam}]] % cho hóa đơn
+                                            </h6>
+                                            <div>
+                                                Đơn Hàng Tối Thiểu: <span style="color: #e3e308" class="giaBan">[[${item.dieu_kien}]]</span>
+                                                <br>
+                                                Giảm Tối Đa: <span style="color: #e3e308" class="giaBan">[[${item.so_tien_giam}]]</span>
+                                            </div>
+                                            <div style="color: red">
+                                                Hạn sử dụng: [[${item.ngay_ket_thuc}]]
+                                            </div>
+                                        </div>
+                                        <div class="col-3 d-flex justify-content-center align-items-center">
+                                            <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-voucher}"
+                                                  method="post" class="d-inline">
+                                                <input type="hidden" class="form-control" th:name="maHD"
+                                                       th:value="${maHD}">
+                                                <input type="hidden" class="form-control" th:name="maGGHD"
+                                                       th:value="${item.ma}">
+                                                <button type="submit" class="btn btn-success"
+                                                        style="text-decoration: none;height: 100px"
+                                                        th:disabled="${checkGGHD != 1 || detailMaGGHD == item.ma}">
+                                                    Áp dụng
+                                                </button>
+                                            </form>
+                                            <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/delete}"
+                                                  method="get"
+                                                  class="d-inline">
+                                                <input type="hidden" class="form-control" th:name="maHD"
+                                                       th:value="${maHD}">
+                                                <input type="hidden" class="form-control" th:name="maGGHD"
+                                                       th:value="${item.ma}">
+                                                <button type="submit" class="btn btn-danger"
+                                                        style="text-decoration: none;height: 100px"
+                                                        th:disabled="${detailMaGGHD != item.ma}">
+                                                    Hủy bỏ
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    end phần modal danh sách voucher-->
+                </div>
+            </div>
+        </div>
+        <!--        End Chọn Địa chỉ và Voucher-->
+    </div>
+    <!--    End Page Content-->
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!--<script src="/assets/js/jquery.min.js"></script>-->
+<script src="/assets/js/popper.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!--Lọc địa chỉ-->
+<script>
+    const host = "https://provinces.open-api.vn/api/";
+    var callAPI = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data, "province");
+            });
+    }
+    callAPI('https://provinces.open-api.vn/api/?depth=1');
+    var callApiDistrict = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.districts, "district");
+            });
+    }
+    var callApiWard = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.wards, "ward");
+            });
+    }
+
+    var renderData = (array, select) => {
+        let row = '<option value="">chọn</option>';
+        array.forEach(element => {
+            row += `<option value="${element.name}" data-code="${element.code}">${element.name}</option>`;
+        });
+        document.querySelector("#" + select).innerHTML = row;
+    }
+
+
+    $("#province").change(() => {
+        const selectedCode = $("#province option:selected").data("code");
+        callApiDistrict(host + "p/" + selectedCode + "?depth=2");
+        printResult();
+    });
+    $("#district").change(() => {
+        const selectedCode = $("#district option:selected").data("code");
+        callApiWard(host + "d/" + selectedCode + "?depth=2");
+        printResult();
+    });
+    $("#ward").change(() => {
+        printResult();
+    })
+
+    var printResult = () => {
+        if ($("#district").val() != "" && $("#province").val() != "" && $("#ward").val() != "") {
+            let result = $("#province option:selected").text() +
+                ", " + $("#district option:selected").text() + ", " +
+                $("#ward option:selected").text();
+            $("#result").text(result);
+        } else {
+            $("#result").text("");
+        }
+    }
+</script>
+<!--End lọc địa chỉ-->
+
+<!--Tự động post-->
+<script>
+    $(document).ready(function () {
+        // Lắng nghe sự kiện thay đổi trên các trường dữ liệu
+        $("input, select, textarea").on("input", function () {
+            // Tạo một đối tượng chứa dữ liệu bạn muốn lưu
+            var formData = $("#address-form").serialize();
+
+            // Gửi dữ liệu thông qua AJAX
+            $.ajax({
+                type: "POST",
+                url: "/admin/ban-hang-tai-quay/tao-don-hang/add-dia-chi1", // Điều chỉnh URL của bạn
+                data: formData,
+                success: function (response) {
+                    // Xử lý phản hồi từ máy chủ (nếu cần)
+                },
+            });
+        });
+    });
+</script>
+
+<!--End tự động post-->
+
+<!--Sau khi nhập thông tin địa chỉ nó sẽ hiện thị số ngày sau-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const addressForm = document.getElementById("address-form");
+        addressForm.addEventListener("change", function () {
+            const diaChi = document.querySelector('input[name="dia_chi"]').value;
+            const thanhPho = document.querySelector('select[name="province"]').value;
+            const huyen = document.querySelector('select[name="district"]').value;
+            const xa = document.querySelector('select[name="ward"]').value;
+            if (diaChi && thanhPho && huyen && xa) {
+                const estimatedDeliveryTime = document.getElementById("estimated-delivery-time");
+                estimatedDeliveryTime.style.display = "block";
+            } else {
+                const estimatedDeliveryTime = document.getElementById("estimated-delivery-time");
+                estimatedDeliveryTime.style.display = "none";
+            }
+        });
+    });
+</script>
+<!--End sau khi nhập thông tin địa chỉ nó sẽ hiển thị số ngày sau-->
+
+<!--Chọn nhiều sản phẩm bằng checkbox-->
+<script>
+    document.addEventListener('change', function (event) {
+        if (event.target.type === 'checkbox') {
+            updateSelectedCount();
+        }
+    });
+
+    function updateSelectedCount() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        let selectedCount = 0;
+
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                selectedCount++;
+            }
+        });
+
+        const selectedCountElement = document.getElementById('selectedCount');
+        selectedCountElement.textContent = selectedCount;
+    }
+</script>
+<!--End chọn nhiều sản phẩm bằng checkbox-->
+
+<!--sửa số lượng-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const soluongInputs = document.querySelectorAll("input[name='soluong']");
+
+        soluongInputs.forEach(function (soluongInput) {
+            soluongInput.addEventListener("input", function () {
+                const maHD = document.querySelector("input[name='maHD']").value;
+                const idctsp = document.querySelector("input[name='idctsp']").value;
+                const soluong = this.value;
+
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "/add/so-luong-hoa-don", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // Xử lý phản hồi từ máy chủ (nếu cần)
+                    }
+                };
+                const data = `maHD=${maHD}&idctsp=${idctsp}&soluong=${soluong}`;
+                xhr.send(data);
+            });
+        });
+    });
+</script>
+<!--End sửa số lượng-->
+
+<!--nút tăng giảm số lượng-->
+<script>
+    function checkValue(inputElement) {
+        const input = inputElement.closest('.input-group').querySelector('input[type="number"]');
+        const decrementButton = inputElement.closest('.input-group').querySelector('button[onclick="decrementValue(this)"]');
+        const incrementButton = inputElement.closest('.input-group').querySelector('button[onclick="incrementValue(this)"]');
+        const value = parseInt(input.value);
+        const maxStock = parseInt(input.getAttribute('data-max-stock'));
+
+        if (value < 1) {
+            input.value = 1;
+            decrementButton.disabled = true;
+        } else if (value >= maxStock) {
+            input.value = maxStock;
+            incrementButton.disabled = true;
+        } else {
+            decrementButton.disabled = false;
+            incrementButton.disabled = false;
+        }
+    }
+
+    function decrementValue(inputElement) {
+        const input = inputElement.closest('.input-group').querySelector('input[type="number"]');
+        input.value = parseInt(input.value) - 1;
+        checkValue(input);
+    }
+
+    function incrementValue(inputElement) {
+        const input = inputElement.closest('.input-group').querySelector('input[type="number"]');
+        input.value = parseInt(input.value) + 1;
+        checkValue(input);
+    }
+</script>
+<!--end nút tăng giảm số lượng-->
+
+<!--Định dạng số tiền VNĐ-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var giaBanElements = document.querySelectorAll('.giaBan');
+        giaBanElements.forEach(function (element) {
+            var giaBanText = element.textContent.trim();
+            var giaBan = parseFloat(giaBanText.replace('Giá Bán:', '').trim());
+            var giaBanFormatted = giaBan.toLocaleString('vi-VN'); // Định dạng giá
+
+            // Cập nhật lại văn bản đã định dạng trong phần tử
+            element.textContent = giaBanFormatted + " VNĐ";
+        });
+    });
+</script>
+<!--End định dạng số tiền VNĐ-->
+
+<!--// Ngăn chuyển trang khi chuyển page trong modal-->
+<script>
+    $(document).ready(function () {
+        // Bắt sự kiện click trên các nút nav
+        $('.linkhd').on('click', function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của nút nav
+
+            // Lấy URL từ thuộc tính th:href của nút nav
+            var url = $(this).attr('href');
+
+            // Gửi yêu cầu AJAX để tải lại nội dung của bảng
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'html', // Đảm bảo rằng bạn đang lấy HTML
+                success: function (data) {
+                    $('#ListGiayChiTiettable').html($(data).find('#ListGiayChiTiettable').html());
+
+                    // Hiển thị lại modal
+                    $('#exampleModal').modal('show');
+
+                    var giaBanElements = document.querySelectorAll('.giaBan');
+                    giaBanElements.forEach(function (element) {
+                        var giaBanText = element.textContent.trim();
+                        var giaBan = parseFloat(giaBanText.replace('Giá Bán:', '').trim());
+                        var giaBanFormatted = giaBan.toLocaleString('vi-VN'); // Định dạng giá
+
+                        // Cập nhật lại văn bản đã định dạng trong phần tử
+                        element.textContent = giaBanFormatted + " VNĐ";
+                    });
+
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải dữ liệu.');
+                }
+            });
+        });
+    });
+
+</script>
+<!--End Ngăn chuyển trang khi chuyển page trong modal-->
+
+<!--Tìm Kiếm Sản Phẩm Trong Modal-->
+<script>
+    $(document).ready(function () {
+        // Bắt sự kiện click trên nút Tìm kiếm
+        $('#searchButton').click(function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của nút Tìm kiếm
+
+            // Lấy URL từ thuộc tính action của biểu mẫu tìm kiếm
+            var url = $('#searchForm').attr('action');
+            // Lấy giá trị từ trường nhập "keyword"
+            var keyword = $('#keyword').val();
+            var size = $('#size').val();
+            // Gửi yêu cầu AJAX để tải lại nội dung của bảng
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: {
+                    keyword: keyword,
+                    size: size
+                },
+                dataType: 'html',
+                success: function (data) {
+                    // Cập nhật kết quả tìm kiếm vào phần tử có ID "ListGiayChiTiettable"
+                    $('#ListGiayChiTiettable').html($(data).find('#ListGiayChiTiettable').html());
+                    // Hiển thị lại modal
+                    $('#exampleModal').modal('show');
+                    var giaBanElements = document.querySelectorAll('.giaBan');
+                    giaBanElements.forEach(function (element) {
+                        var giaBanText = element.textContent.trim();
+                        var giaBan = parseFloat(giaBanText.replace('Giá Bán:', '').trim());
+                        var giaBanFormatted = giaBan.toLocaleString('vi-VN'); // Định dạng giá
+
+                        // Cập nhật lại văn bản đã định dạng trong phần tử
+                        element.textContent = giaBanFormatted + " VNĐ";
+                    });
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải dữ liệu.');
+                }
+            });
+        });
+    });
+
+</script>
+<!--End tìm kiếm sản phẩm trong Modal-->
+
+<!--Hiển thị giao diện đơn vị vận chuyển-->
+<script>
+    // Lấy phần tử select của phương thức mua hàng
+    var phuongThucMuaHangSelect = document.getElementById("phuongThucMuaHang");
+    // Lấy phần tử đơn vị vận chuyển
+    var donViVanChuyen = document.getElementById("donViVanChuyen");
+
+    phuongThucMuaHangSelect.addEventListener("change", function () {
+        if (phuongThucMuaHangSelect.value === "1") {
+            // Nếu người dùng chọn "Online," hiển thị đơn vị vận chuyển
+            donViVanChuyen.style.display = "block";
+        } else {
+            // Nếu không, ẩn đơn vị vận chuyển
+            donViVanChuyen.style.display = "none";
+        }
+    });
+</script>
+<!--End Hiển thị giao diện đơn vị vận chuyển-->
+</body>
+</html>
