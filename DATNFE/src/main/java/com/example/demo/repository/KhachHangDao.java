@@ -16,4 +16,7 @@ public interface KhachHangDao extends JpaRepository<KhachHang, UUID> {
 
     @Query("select kh from KhachHang kh where kh.ma = ?1")
     KhachHang GetKhachhangByma(String ma);
+
+    @Query("select count(kh) from KhachHang kh")
+    int countKh();
 }
