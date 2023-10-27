@@ -40,9 +40,19 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "and hd.trangthai = 0")
     Page<HoaDon> searchHoaDonByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
-    @Query("SELECT hd FROM HoaDon hd WHERE ((hd.ma LIKE %:keyword% and hd.ma like :timTheo ) " +
-            "or (hd.khachHang.hoten LIKE %:keyword% and hd.khachHang.ma like :timTheo) " +
-            "or (hd.nhanVien.hoTen LIKE %:keyword% and hd.nhanVien.ma like :timTheo) or (hd.tong_tien LIKE %:keyword%)) " +
+    @Query("SELECT hd FROM HoaDon hd WHERE (hd.ma like %:keyword% and hd.ma like %:timTheo%) " +
             "AND hd.trangthai = :trangThai")
     Page<HoaDon> searchHoaDon(@Param("keyword") String keyword, @Param("timTheo") String timtheo, @Param("trangThai") Integer trangThai, Pageable pageable);
+
+    @Query("SELECT hd FROM HoaDon hd WHERE (hd.khachHang.hoten like %:keyword% and hd.khachHang.ma like %:timTheo% )" +
+            "AND hd.trangthai = :trangThai")
+    Page<HoaDon> searchMaKhByhoten(@Param("keyword") String keyword, @Param("timTheo") String timtheo, @Param("trangThai") Integer trangThai, Pageable pageable);
+
+    @Query("SELECT hd FROM HoaDon hd WHERE (hd.nhanVien.hoTen like %:keyword% and hd.nhanVien.ma like %:timTheo%) " +
+            "AND hd.trangthai = :trangThai")
+    Page<HoaDon> searchMaNVbyhoten(@Param("keyword") String keyword, @Param("timTheo") String timtheo, @Param("trangThai") Integer trangThai, Pageable pageable);
+
+    @Query("SELECT hd FROM HoaDon hd WHERE (hd.tong_tien like %:keyword%) " +
+            "AND hd.trangthai = :trangThai")
+    Page<HoaDon> searchTongtien(@Param("keyword") String keyword, @Param("trangThai") Integer trangThai, Pageable pageable);
 }

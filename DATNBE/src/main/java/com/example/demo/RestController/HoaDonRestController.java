@@ -104,10 +104,14 @@ public class HoaDonRestController {
 
         Pageable pageable = PageRequest.of(page.orElse(0), 5);
         Page<HoaDon> hoaDonPage;
-        if (keyword != null) {
-            hoaDonPage = hoaDonDAO.searchHoaDon(keyword,"%" + timTheo + "%" ,trangthai, PageRequest.of(0, 5));
-        } else {
-            hoaDonPage = hoaDonDAO.searchHoaDon(keyword,"%" + timTheo + "%" ,trangthai, PageRequest.of(0, 5));
+        if (keyword != null && timTheo.equals("HD")) {
+            hoaDonPage = hoaDonDAO.searchHoaDon("%" + keyword + "%","%" + timTheo + "%" ,trangthai, pageable);
+        }else if (keyword != null && timTheo.equals("KH")){
+            hoaDonPage = hoaDonDAO.searchMaKhByhoten("%" + keyword + "%","%" + timTheo + "%" ,trangthai, pageable);
+        }else if (keyword != null && timTheo.equals("NV")){
+            hoaDonPage = hoaDonDAO.searchMaNVbyhoten("%" + keyword + "%","%" + timTheo + "%" ,trangthai, pageable);
+        }else {
+            hoaDonPage = hoaDonDAO.searchTongtien("%" + keyword + "%" ,trangthai, pageable);
         }
         return new PageDTO<>(hoaDonPage);
     }
