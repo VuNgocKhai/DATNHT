@@ -710,8 +710,8 @@
                                  <div class="col-4" style="margin-top: 10px">
                                      <label>Thành Phố:</label>
                                      <select class="form-control" name="province" id="province">
-                                              <option th:if="${diachiHoaDon != null}"
-                                                      th:selected="${province == diachiHoaDon.thanhpho ? 'selected' : ''}"></option>
+                                                <option th:if="${diachiHoaDon == null}" value=""></option>
+                                              <option th:if="${diachiHoaDon != null}" th:value="${diachiHoaDon.thanhpho}">[[${diachiHoaDon.thanhpho}]]</option>
                                      </select>
                                  </div>
                                  <br>
@@ -719,7 +719,7 @@
                                      <label>Huyện:</label>
                                      <select class="form-control" name="district" id="district">
                                          <option th:if="${diachiHoaDon != null}"
-                                                 th:selected="${district == diachiHoaDon.huyen ? 'selected' : ''}"></option>
+                                                 th:value="${diachiHoaDon.huyen}">[[${diachiHoaDon.huyen}]]</option>
                                       </select>
                                  </div>
                                  <br>
@@ -727,7 +727,7 @@
                                     <label>Xã:</label>
                                     <select class="form-control" name="ward" id="ward">
                                           <option th:if="${diachiHoaDon != null}"
-                                                  th:selected="${ward == diachiHoaDon.xa ? 'selected' : ''}"></option>
+                                                  th:value="${diachiHoaDon.xa}">[[${diachiHoaDon.xa}]]</option>
                                     </select>
                                  </div>
                                  <br>
@@ -791,7 +791,6 @@
                                 <img style="width: 100px" src="/assets/images/ghtklogo.jpg" alt="">
                             </div>
                         </span>
-
                     <div class="row" style="margin-top: 35px">
                         <div class="col-12">
                             <h5>
@@ -942,7 +941,7 @@
     }
 
     var renderData = (array, select) => {
-        let row = '<option disable value="">chọn</option>';
+        let row = '<option value="">chọn</option>';
         array.forEach(element => {
             row += `<option value="${element.name}" data-code="${element.code}">${element.name}</option>`;
         });

@@ -93,7 +93,6 @@ public class BanHangTaiQuayController {
     @Autowired
     private KichCoRepo kichCoRepo;
 
-
     // Hiển thị danh sách hóa đơn đang chờ
     @RequestMapping("/admin/ban-hang-tai-quay")
     public String giamGiaHoaDon(@RequestParam("page") Optional<Integer> page,

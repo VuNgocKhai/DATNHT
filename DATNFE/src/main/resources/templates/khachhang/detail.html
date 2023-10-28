@@ -150,12 +150,9 @@
             <form th:action="@{|/admin/khachhang/update/${khachhang.ma}}" method="post" th:object="${khachhang}">
                 <div class="row">
                     <input type="text" hidden  th:field="*{id}">
-                    <div class="col-md-6">
-                        <label for="formGroupExampleInput">Mã</label>
-                        <input type="text" th:field="*{ma}" class="form-control" id="formGroupExampleInput" placeholder="Mã">
-                    </div>
+                        <input type="text" hidden th:field="*{ma}" class="form-control" id="formGroupExampleInput" placeholder="Mã">
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <label for="formGroupExampleInput">Họ Và Tên</label>
                         <input type="text" th:field="*{hoten}" class="form-control" id="formGroupExampleInput" placeholder="Họ và tên">
                     </div>
@@ -223,13 +220,13 @@
                 <div class="row">
 
                     <div class="col-md-6">
-                        <label for="formGroupExampleInput">Mã:</label>
-                        <input type="text" th:field="*{madc}"   class="form-control" id="formGroupExampleInput" placeholder="">
+                        <label for="formGroupExampleInput">Tên Người Nhận:</label>
+                        <input type="text" th:field="*{ten_nguoi_nhan}"   class="form-control" id="formGroupExampleInput" placeholder="">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="formGroupExampleInput">Đia Chỉ</label>
-                        <input type="text" th:field="*{tendiachi}"   class="form-control" id="formGroupExampleInput" placeholder="">
+                        <label for="formGroupExampleInput">Số Điện Thoại</label>
+                        <input type="text" th:field="*{sdt_nguoi_nhan}"   class="form-control" id="formGroupExampleInput" placeholder="">
                     </div>
 
                 </div>
@@ -258,6 +255,12 @@
                         </select>
                     </div>
                 </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="formGroupExampleInput">Đia Chỉ Cụ thể</label>
+                        <input type="text" th:field="*{tendiachi}"   class="form-control" id="formGroupExampleInput" placeholder="">
+                    </div>
 
                 <br>
                 <div class="row">
@@ -287,7 +290,6 @@
                 <table class="table" style="margin: 20px 0;">
                     <tr>
                         <th>Tên Địa Chỉ</th>
-                        <th >Mã</th>
                         <th >Khách Hàng</th>
                         <th >Thành Phố</th>
                         <th >Huyện</th>
@@ -297,7 +299,6 @@
                     </tr>
                     <tr th:each="item:${listdiachi}">
                         <td>[[${item.tendiachi}]]</td>
-                        <td>[[${item.madc}]]</td>
                         <td>[[${item.khachHang.hoten}]]</td>
                         <td>[[${item.thanhpho}]]</td>
                         <td>[[${item.huyen}]]</td>
