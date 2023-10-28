@@ -113,6 +113,7 @@ public class Giay implements Serializable {
        }
        return null;
    }
+
    public boolean getNewGiay(){
        boolean isNewItem = ngay_nhap.isAfter(LocalDate.now().minusDays(7));
        return isNewItem;

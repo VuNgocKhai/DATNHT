@@ -93,6 +93,7 @@ public class BanHangTaiQuayController {
     @Autowired
     private KichCoRepo kichCoRepo;
 
+
     // Hiển thị danh sách hóa đơn đang chờ
     @RequestMapping("/admin/ban-hang-tai-quay")
     public String giamGiaHoaDon(@RequestParam("page") Optional<Integer> page,
@@ -110,7 +111,6 @@ public class BanHangTaiQuayController {
         return "redirect:/admin/ban-hang";
     }
 
-
     // tìm kiếm hóa đơn theo mã hoặc theo tên khách hàng
     @RequestMapping("/admin/ban-hang-tai-quay/tim-kiem-hoa-don")
     public String locGiamGiaHoaDonTheoTen(@RequestParam(value = "keyword", required = false) String keyword,
@@ -122,25 +122,17 @@ public class BanHangTaiQuayController {
         return "banhangtaiquay/ban_hang_tai_quay";
     }
 
-
     @PostMapping("/admin/ban-hang-tai-quay/tao-don-hang")
     public String taoHoaDonTaiQuay(RedirectAttributes redirectAttributes) {
         NhanVien nhanVien = nhanVienRepository.getByMa("NV02");
         HoaDon hoaDon = new HoaDon();
-
-        String maHoaDonMoi = hoaDonDAO.generateNextMaHoaDon(); // Sử dụng phương thức tạo mã hóa đơn mới
-
+        String maHoaDonMoi = hoaDonDAO.generateNextMaHoaDon();
         hoaDon.setMa(maHoaDonMoi);
         hoaDon.setNhanVien(nhanVien);
         LocalDate currentDate = LocalDate.now();
         hoaDon.setNgay_tao(currentDate);
         hoaDon.setTrangthai(1);
         hoaDonRepo.createHoaDon(hoaDon);
-
-        HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
-        hoaDonChiTiet.setHoaDon(hoaDonRepo.getHoaDonByMa(maHoaDonMoi));
-        hoaDonChiTietRepo.createHDCT(hoaDonChiTiet);
-
         redirectAttributes.addAttribute("maHD", maHoaDonMoi);
         return "redirect:/admin/ban-hang-tai-quay/view-cart/{maHD}";
     }
@@ -164,24 +156,36 @@ public class BanHangTaiQuayController {
         model.addAttribute("hoaDonChiTietPage", pageDTO); // danh sách hóa đơn chi tiết theo page
 
         model.addAttribute("ListKhachHang", khachHangRepo.getAll()); //ListKhachHang
-
         model.addAttribute("ListGiamGiaHoaDon", giamGiaHoaDonRepo.getAllGGHDtrangthai1()); //List Giảm giá hóa đơn
-
         model.addAttribute("maHD", ma); // Mã hóa đơn
-
         model.addAttribute("dskichco",kichCoRepo.getListKichCo());
 
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(ma);
+        model.addAttribute("trangthaicheck",hoaDon.getTrangthai());
         model.addAttribute("KhachHangcheck", hoaDon.getKhachHang());
         if (hoaDon.getKhachHang() != null) {
             model.addAttribute("KhachHangDetail", hoaDon.getKhachHang());
             List<DiaChi> diaChiList = diachiDao.getdiachibyma(hoaDon.getKhachHang().getMa());
             model.addAttribute("ListDiaChi", diaChiList);
-            String maDC = StringUtils.substringBefore(hoaDon.getDia_chi(), ":");
-            UUID idKhacHang = hoaDon.getKhachHang().getId();
-            DiaChi diaChi = diachiDao.getDiachiByma(maDC);
-            if (diaChi != null) {
-                model.addAttribute("diachiHoaDon", diaChi);
+        }
+
+        String diaChiGop = hoaDon.getDia_chi();
+        if(diaChiGop != null)
+        {
+            String[] diaChiDetails = diaChiGop.split(",");
+            if (diaChiDetails.length >= 4) {
+                String tenDiaChi = diaChiDetails[0].trim();
+                String xa = diaChiDetails[1].trim();
+                String huyen = diaChiDetails[2].trim();
+                String thanhPho = diaChiDetails[3].trim();
+
+                model.addAttribute("tenNNDetail",hoaDon.getTen_nguoi_nhan());
+                model.addAttribute("sdtDetail",hoaDon.getSdt_nguoi_nhan());
+                model.addAttribute("tenDcDetail",tenDiaChi);
+                model.addAttribute("xaDetail",xa);
+                model.addAttribute("huyenDetail",huyen);
+                model.addAttribute("thanhPhoDetail",thanhPho);
+                model.addAttribute("moTaDetail",hoaDon.getMo_ta());
             }
         }
 
@@ -207,7 +211,6 @@ public class BanHangTaiQuayController {
             model.addAttribute("detailMaGGHD", giamGiaChiTietHoaDon.getGghd().getMa());
 
         } else {
-
             model.addAttribute("checkGGHD", 1);
         }
 
@@ -294,8 +297,6 @@ public class BanHangTaiQuayController {
                 if (hdct.getGiayChiTiet().getId().equals(idctsp)) {
                     hdct.setSo_luong(hdct.getSo_luong() + 1);
                     hdct.setDon_gia(giayChiTiet.getGiay().getGia_sau_khuyen_mai());
-
-                    // Cập nhật số lượng tồn của sản phẩm
                     giayChiTiet.setSo_luong_ton(soLuongTon - 1);
                     giayChiTietDAO.save(giayChiTiet);
                     break;
@@ -413,7 +414,7 @@ public class BanHangTaiQuayController {
         KhachHang khachHang = khachHangRepo.getBykhachhangma(maKH);
         hoaDon.setKhachHang(khachHang);
         DiaChi diaChi = diachiDao.getDiaChiByKhachHangMaAndTrangthai(maKH);
-        String diaChiGop = diaChi.getMadc() + ":" + diaChi.getTendiachi() + ", " + diaChi.getXa() + ", " + diaChi.getHuyen() + ", " + diaChi.getThanhpho();
+        String diaChiGop = diaChi.getTendiachi() + ", " + diaChi.getXa() + ", " + diaChi.getHuyen() + ", " + diaChi.getThanhpho();
         hoaDon.setDia_chi(diaChiGop);
         hoaDon.setTen_nguoi_nhan(diaChi.getTen_nguoi_nhan());
         hoaDon.setSdt_nguoi_nhan(diaChi.getSdt_nguoi_nhan());
@@ -429,15 +430,11 @@ public class BanHangTaiQuayController {
 
         if (maDC != null || maDC != null) {
             HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
-
             DiaChi diaChi = diachiDao.getDiachiByma(maDC);
-
-            String diaChiGop = diaChi.getMadc() + ":" + diaChi.getTendiachi() + ", " + diaChi.getXa() + ", " + diaChi.getHuyen() + ", " + diaChi.getThanhpho();
-
+            String diaChiGop = diaChi.getTendiachi() + ", " + diaChi.getXa() + ", " + diaChi.getHuyen() + ", " + diaChi.getThanhpho();
             hoaDon.setDia_chi(diaChiGop);
             hoaDon.setTen_nguoi_nhan(diaChi.getTen_nguoi_nhan());
             hoaDon.setSdt_nguoi_nhan(diaChi.getSdt_nguoi_nhan());
-
             hoaDonRepo.createHoaDon(hoaDon);
         }
 
@@ -448,7 +445,6 @@ public class BanHangTaiQuayController {
 
     @PostMapping("/admin/ban-hang-tai-quay/tao-don-hang/add-dia-chi1")
     public String themDiaChiKhachHangVaoHoaDon1(@RequestParam("maHD") String maHD,
-                                                @RequestParam("maDC") String maDC,
                                                 @RequestParam("ten_nguoi_nhan") String tennguoinhan,
                                                 @RequestParam("sdt_nguoi_nhan") String sdtnguoinhan,
                                                 @RequestParam("dia_chi") String diaChi1,
@@ -459,8 +455,7 @@ public class BanHangTaiQuayController {
                                                 RedirectAttributes redirectAttributes) {
 
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
-        DiaChi diaChi = diachiDao.getDiachiByma(maDC);
-        String diaChiGop = diaChi.getMadc() + ":" + diaChi1 + ", " + xa1 + ", " + huyen1 + ", " + thanhPho1;
+        String diaChiGop = diaChi1 + ", " + xa1 + ", " + huyen1 + ", " + thanhPho1;
         hoaDon.setDia_chi(diaChiGop);
         hoaDon.setTen_nguoi_nhan(tennguoinhan);
         hoaDon.setSdt_nguoi_nhan(sdtnguoinhan);
