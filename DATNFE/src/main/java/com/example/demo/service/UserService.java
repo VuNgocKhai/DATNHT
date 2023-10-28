@@ -42,6 +42,7 @@ public class UserService implements UserDetailsService {
                 }else {
                     password = accounts.getMatkhau();
                     roles="USER";
+
                     System.out.println("MK:Mã Hóa là :"+ pe.encode(password));
                 }
             }

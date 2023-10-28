@@ -11,12 +11,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +41,9 @@ public class QuanLyTaiKhoanKhController {
 
     private Authentication authentication;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @RequestMapping("/qltk-kh")
     public String qltkKh() {
         return "qltk_kh/index";
@@ -62,6 +63,7 @@ public class QuanLyTaiKhoanKhController {
         khachHang.setMatkhau(kh.getMatkhau());
         khachHang.setTrangthai(kh.getTrangthai());
         khachHang.setEmail(kh.getEmail());
+        khachHang.setMa(kh.getMa());
         khachHangRepo.update(idKh, khachHang);
         return "redirect:/qltk-kh/thong-tin";
     }
@@ -81,9 +83,9 @@ public class QuanLyTaiKhoanKhController {
     ) {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
-        if (mkCu.trim().equalsIgnoreCase(khachHang.getMatkhau())) {
+        if(passwordEncoder.matches(mkCu,khachHang.getMatkhau())){
             if (mkMoi.trim().equalsIgnoreCase(mkMoi2.trim())) {
-                khachHang.setMatkhau(mkMoi);
+                khachHang.setMatkhau(passwordEncoder.encode(mkMoi));
                 khachHangRepo.update(String.valueOf(khachHang.getId()), khachHang);
             }
         }
@@ -109,10 +111,12 @@ public class QuanLyTaiKhoanKhController {
 
     @PostMapping("/qltk-kh/them-dia-chi")
     public String themDiaChi(@ModelAttribute DiaChi diaChi) {
-        if(diaChi.getTrangthai()!=null){
-            if(diaChi.getTrangthai()==1){
-                diachiDao.updateTtDiaChiByIdKh(0,diaChi.getKhachHang().getId());
-            }
+        if(diaChi.getTrangthai()==null || diaChi.getTrangthai()==0){
+            diaChi.setTrangthai(0);
+        }
+        else{
+            diachiDao.updateTtDiaChiByIdKh(0,diaChi.getKhachHang().getId());
+            diachiDao.updateTtDiaChiByMaDc(1,diaChi.getMadc());
         }
         diachiDao.save(diaChi);
         return "redirect:/qltk-kh/dia-chi";
@@ -128,10 +132,13 @@ public class QuanLyTaiKhoanKhController {
         dc1.setTrangthai(diaChi.getTrangthai());
         dc1.setTen_nguoi_nhan(diaChi.getTen_nguoi_nhan());
         dc1.setSdt_nguoi_nhan(diaChi.getSdt_nguoi_nhan());
-        if(diaChi.getTrangthai()!=null){
-            if(diaChi.getTrangthai()==1){
-                diachiDao.updateTtDiaChiByIdKh(0,diaChi.getKhachHang().getId());
-            }
+
+        if(diaChi.getTrangthai()==null || diaChi.getTrangthai()==0){
+            dc1.setTrangthai(0);
+        }
+        else{
+            diachiDao.updateTtDiaChiByIdKh(0,dc1.getKhachHang().getId());
+            diachiDao.updateTtDiaChiByMaDc(1,dc1.getMadc());
         }
         diachiDao.save(dc1);
         return "redirect:/qltk-kh/dia-chi";
@@ -173,6 +180,20 @@ public class QuanLyTaiKhoanKhController {
         model.addAttribute("trangThaiDon",trangThaiDon);
         model.addAttribute("khachHang", khachHang);
         return "qltk_kh/don_hang";
+    }
+
+    @GetMapping("/dang-ky-khach-hang")
+    public String dangKyKhachHang(Model model,@ModelAttribute KhachHang khachHang){
+        return "qltk_kh/dang_ky";
+    }
+
+    @PostMapping("/dang-ky-khach-hang")
+    public String dangKyKhachHangPost(Model model,@ModelAttribute KhachHang khachHang){
+        khachHang.setMa("KH"+String.valueOf(khachHangDao.countKh()+1));
+        khachHang.setTrangthai(1);
+        khachHang.setMatkhau(passwordEncoder.encode(khachHang.getMatkhau()));
+        khachHangDao.save(khachHang);
+        return "redirect:/login";
     }
 
 

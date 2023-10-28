@@ -33,4 +33,6 @@ public interface KhachHangDao extends JpaRepository<KhachHang, UUID> {
 
         return "KH" + nextNumber;
     }
+    @Query("select count(kh) from KhachHang kh")
+    int countKh();
 }
