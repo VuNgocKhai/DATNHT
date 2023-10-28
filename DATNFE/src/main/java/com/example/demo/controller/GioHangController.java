@@ -22,7 +22,10 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
-
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 @Controller
 public class GioHangController {
     @Autowired
@@ -52,6 +55,27 @@ public class GioHangController {
         Giay giay = giayDAO.getGiayByMa(ma);
         model.addAttribute("item", giay);
         return "home/chitietsanpham";
+    }
+    @RequestMapping("/createBill")
+    public void createBill() {
+                try (PDDocument doc = new PDDocument()) {
+                    PDPage page = new PDPage();
+                    doc.addPage(page);
+
+                    PDPageContentStream content = new PDPageContentStream(doc, page);
+                    content.setFont(PDType1Font.HELVETICA_BOLD, 12);
+                    content.beginText();
+                    content.newLineAtOffset(100, 700);
+                    content.showText("Hello, World!");
+                    content.endText();
+
+                    content.close();
+
+                    doc.save("output.pdf");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
     }
 
     @PostMapping("/cart/add")
@@ -322,20 +346,6 @@ public class GioHangController {
             sdt_nguoi_nhan = request.getParameter("sdt");
         }
         if (pttt.equals("vnpay_payment")){
-//            String[] listvalue = request.getParameterValues("listGiay");
-//            List<String> listvalue1 = new ArrayList<>();
-//            for (String x:listvalue
-//            ) {
-//               listvalue1.add(x);
-//            }
-//            StringBuilder sb = new StringBuilder();
-//            for (int i = 0; i < listvalue1.size(); i++) {
-//                sb.append(listvalue1.get(i));
-//                if (i < listvalue1.size() - 1) { // Nếu không phải phần tử cuối cùng
-//                    sb.append("_");
-//                }
-//            }
-//            String StringListGCT = sb.toString();
             String vnp_Version = "2.1.0";
             String vnp_Command = "pay";
             String orderType = "other";
