@@ -58,7 +58,7 @@
                 <ul class="nav flex-column">
                     <li class="nav-item"
                         style="border-bottom: .0625rem solid #efefef;padding-bottom: 10px;padding-top: 15px">
-                        <a href="/qltk-kh/thong-tin" id="hoSo">
+                        <a href="#" id="hoSo">
                             <div class="row">
                                 <div class="col-3">
                                     <img src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
@@ -151,7 +151,7 @@
                                     <!-- Modal dia chi -->
                                     <div class="modal fade" id="exampleModal" tabindex="-1"
                                          aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
+                                        <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Địa chỉ
@@ -167,23 +167,8 @@
                                                           th:object="${diaChi}">
                                                         <div class="row">
                                                             <input th:field="*{khachHang.id}" hidden>
-                                                            <div class="form-group col-6">
-                                                                <label for="formGroupExampleInput2">Mã</label>
-                                                                <input type="text" th:field="*{madc}"
-                                                                       class="form-control"
-                                                                       id="formGroupExampleInput2"
-                                                                       placeholder="Mã">
-                                                            </div>
 
-                                                            <div class="form-group col-6">
-                                                                <label>Tên người nhận</label>
-                                                                <input type="text" th:field="*{ten_nguoi_nhan}"
-                                                                       class="form-control"
-                                                                       id="formGroupExampleInput2"
-                                                                       placeholder="Tên người nhận">
-                                                            </div>
-
-                                                            <div class="form-group col-6">
+                                                            <div class="form-group col-4">
                                                                 <label>Địa chỉ cụ thể</label>
                                                                 <input type="text" th:field="*{tendiachi}"
                                                                        class="form-control"
@@ -191,7 +176,15 @@
                                                                        placeholder="Địa chỉ cụ thể">
                                                             </div>
 
-                                                            <div class="form-group col-6">
+                                                            <div class="form-group col-4">
+                                                                <label>Tên người nhận</label>
+                                                                <input type="text" th:field="*{ten_nguoi_nhan}"
+                                                                       class="form-control"
+                                                                       id="formGroupExampleInput2"
+                                                                       placeholder="Tên người nhận">
+                                                            </div>
+
+                                                            <div class="form-group col-4">
                                                                 <label>Số điện thoại người nhận</label>
                                                                 <input type="text" th:field="*{sdt_nguoi_nhan}"
                                                                        class="form-control"
@@ -255,7 +248,6 @@
                             <div style="border-bottom: .0625rem solid #efefef;padding-top: 12px;padding-bottom: 12px">
                                 <div class="row">
                                     <div class="col-9">
-                                        <span>[[${item.madc}]]</span><br>
                                         Tên người nhận: [[${item.ten_nguoi_nhan}]] | SĐT người nhận:
                                         [[${item.sdt_nguoi_nhan}]]
                                     </div>
@@ -269,8 +261,8 @@
 
                                         <!-- Modalud dia chi -->
                                         <div class="modal fade" id="exampleModal2" tabindex="-1"
-                                             aria-labelledby="exampleModalLabel" aria-hidden="true" th:width="100%">
-                                            <div class="modal-dialog">
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Địa chỉ
@@ -384,8 +376,9 @@
                                         </div>
                                     </div>
                                     <div class="col-3" style="margin-top: 10px">
-                                        <a th:href="@{|/qltk-kh/dat-dc-mac-dinh/${item.madc}|}" th:disabled="${item.trangthai==1}">
-                                            <button class="btn btn-primary">
+                                        <a th:href="@{|/qltk-kh/dat-dc-mac-dinh/${item.madc}|}" >
+                                            <button class="btn btn-primary"
+                                                    th:disabled="${item.trangthai==1}">
                                                 Thiết lập mặc định
                                             </button>
                                         </a>

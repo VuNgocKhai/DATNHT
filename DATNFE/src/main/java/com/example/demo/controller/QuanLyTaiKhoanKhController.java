@@ -111,6 +111,7 @@ public class QuanLyTaiKhoanKhController {
 
     @PostMapping("/qltk-kh/them-dia-chi")
     public String themDiaChi(@ModelAttribute DiaChi diaChi) {
+        diaChi.setMadc("DC"+String.valueOf(diachiDao.getMaMax()+1));
         if(diaChi.getTrangthai()==null || diaChi.getTrangthai()==0){
             diaChi.setTrangthai(0);
         }
@@ -171,12 +172,11 @@ public class QuanLyTaiKhoanKhController {
                           ) {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
-        Pageable pageable= PageRequest.of(Integer.valueOf(number),5);
+        Pageable pageable= PageRequest.of(Integer.valueOf(number),2);
         Page<HoaDon>page=hoaDonDAO.findHdByMaKhAndTt(khachHang.getMa(),trangThaiDonHang.get(trangThaiDon),pageable);
-        System.out.println(trangThaiDon+trangThaiDonHang.get(trangThaiDon));
         PageDTO<HoaDon> pageDTO=new PageDTO<>(page);
         model.addAttribute("pageHd",pageDTO);
-        model.addAttribute("trangThaiDonHang",trangThaiDonHang);
+//        model.addAttribute("trangThaiDonHang",trangThaiDonHang);
         model.addAttribute("trangThaiDon",trangThaiDon);
         model.addAttribute("khachHang", khachHang);
         return "qltk_kh/don_hang";
@@ -189,7 +189,7 @@ public class QuanLyTaiKhoanKhController {
 
     @PostMapping("/dang-ky-khach-hang")
     public String dangKyKhachHangPost(Model model,@ModelAttribute KhachHang khachHang){
-        khachHang.setMa("KH"+String.valueOf(khachHangDao.countKh()+1));
+        khachHang.setMa("KH"+String.valueOf(khachHangDao.getMaMax()+1));
         khachHang.setTrangthai(1);
         khachHang.setMatkhau(passwordEncoder.encode(khachHang.getMatkhau()));
         khachHangDao.save(khachHang);

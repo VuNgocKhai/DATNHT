@@ -13,6 +13,7 @@ import com.example.demo.service.NhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +28,10 @@ public class NhanVienController {
 
     @Autowired
     private NhanVienService nhanVienService;
-    @Autowired
-    private NhanVienDAO nhanVienDAO;
+
     @Autowired
     private HoaDonDAO hoaDonDAO;
 
-    @Autowired
-    private NhanVienRepository nhanVienRepository;
     @Autowired
     private ChucVuRepository chucVuRepository;
 
@@ -45,10 +43,9 @@ public class NhanVienController {
     public String page(@ModelAttribute NhanVien nhanVien,
                        @RequestParam(defaultValue = "0") String number,
                        Model model) {
-//        page = nhanVienRepository.getPage(number);
         nhanVien.setTrangThai(1);
         numberCurrent=Integer.valueOf(number);
-        page=new PageDTO<>(nhanVienService.getAllByTrangThai(1,Integer.valueOf(number)));
+        page=new PageDTO<>(nhanVienService.getPageByTrangThai(1,Integer.valueOf(number)));
         model.addAttribute("page", page);
         return "nhan_vien/nhan_vien/nhan_vien";
     }
@@ -74,7 +71,7 @@ public class NhanVienController {
         Pageable pageable = PageRequest.of(Integer.valueOf(number), 5);
         PageDTO<HoaDon> pageDTO = new PageDTO<>(hoaDonDAO.findHdByMaNv(maNv, pageable));
         model.addAttribute("pageHdNv", pageDTO);
-        model.addAttribute("nv", nhanVienDAO.findNvByMaNv(maNv));
+        model.addAttribute("nv", nhanVienService.findNvByMaNv(maNv));
         return "nhan_vien/nhan_vien/nhan_vien_hoa_don";
     }
 
@@ -83,42 +80,33 @@ public class NhanVienController {
         return "nhan_vien/nhan_vien/nhan_vien_view_create";
     }
 
-    @GetMapping("/detail/{ma}")
-    public String detail(@PathVariable String ma, Model model) {
-        if (page == null) {
-            page = nhanVienRepository.getPage("0");
-        }
-        model.addAttribute("nhanVien", nhanVienRepository.getByMa(ma));
-        return "nhan_vien/nhan_vien/nhan_vien_view_update";
-    }
-
     @PostMapping("/create")
     public String create(@ModelAttribute NhanVien nhanVien) {
-        nhanVienRepository.create(nhanVien);
+        nhanVienService.create(nhanVien);
         return "redirect:/admin/nhan-vien";
     }
 
     @PostMapping("/update")
     public String update(@ModelAttribute NhanVien nhanVien) {
-        nhanVienRepository.update(nhanVien);
+        nhanVienService.update(nhanVien);
         return "redirect:/admin/nhan-vien?number="+numberCurrent;
     }
 
     @GetMapping("/delete/{ma}")
     public String delete(@PathVariable String ma) {
-        nhanVienRepository.delete(ma);
+        nhanVienService.deleteByMa(ma);
         return "redirect:/admin/nhan-vien?number="+numberCurrent;
 
     }
 
     @ModelAttribute("listNhanVien")
     public List<NhanVien> getListNhanVien() {
-        return nhanVienRepository.getList();
+        return nhanVienService.getAll();
     }
 
     @ModelAttribute("nhanVienDto")
     public NhanVienDto getNhanVienView() {
-        return nhanVienDAO.getNhanVienDto();
+        return nhanVienService.getNhanVienView();
     }
 
     @ModelAttribute("listChucVu")
