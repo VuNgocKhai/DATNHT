@@ -77,7 +77,7 @@ public class Giay implements Serializable {
 
     private String mota;
 
-    private BigDecimal gianhap;
+    private BigDecimal gianhap; 
 
     private BigDecimal giaban;
 

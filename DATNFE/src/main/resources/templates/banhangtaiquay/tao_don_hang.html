@@ -243,7 +243,7 @@
                                     </span>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary mb-2" id="searchButton">Tìm Kiếm</button>
+                            <button type="sVoucherubmit" class="btn btn-primary mb-2" id="searchButton">Tìm Kiếm</button>
                         </form>
                         <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-to-cart}" method="post">
 
@@ -710,8 +710,8 @@
                                  <div class="col-4" style="margin-top: 10px">
                                      <label>Thành Phố:</label>
                                      <select class="form-control" name="province" id="province">
-                                              <option th:if="${diachiHoaDon != null}"
-                                                      th:selected="${province == diachiHoaDon.thanhpho ? 'selected' : ''}"></option>
+                                                <option th:if="${diachiHoaDon == null}" value=""></option>
+                                              <option th:if="${diachiHoaDon != null}" th:value="${diachiHoaDon.thanhpho}">[[${diachiHoaDon.thanhpho}]]</option>
                                      </select>
                                  </div>
                                  <br>
@@ -719,7 +719,7 @@
                                      <label>Huyện:</label>
                                      <select class="form-control" name="district" id="district">
                                          <option th:if="${diachiHoaDon != null}"
-                                                 th:selected="${district == diachiHoaDon.huyen ? 'selected' : ''}"></option>
+                                                 th:value="${diachiHoaDon.huyen}">[[${diachiHoaDon.huyen}]]</option>
                                       </select>
                                  </div>
                                  <br>
@@ -727,7 +727,7 @@
                                     <label>Xã:</label>
                                     <select class="form-control" name="ward" id="ward">
                                           <option th:if="${diachiHoaDon != null}"
-                                                  th:selected="${ward == diachiHoaDon.xa ? 'selected' : ''}"></option>
+                                                  th:value="${diachiHoaDon.xa}">[[${diachiHoaDon.xa}]]</option>
                                     </select>
                                  </div>
                                  <br>
@@ -763,7 +763,8 @@
                         </button>
                     </div>
                     <br>
-                    <form action="" class="row">
+                    <form action="/admin/ban-hang-tai-quay/xac-nhan-don-hang" class="row" method="post">
+                        <input type="text" hidden th:value="${maHD}" name="maHD">
                         <div class="col-6">
                             <label>Phương thức mua hàng:</label>
                             <select class="form-control" name="phuongThucMuaHang" id="phuongThucMuaHang">
@@ -790,7 +791,6 @@
                                 <img style="width: 100px" src="/assets/images/ghtklogo.jpg" alt="">
                             </div>
                         </span>
-                    </form>
                     <div class="row" style="margin-top: 35px">
                         <div class="col-12">
                             <h5>
@@ -811,18 +811,17 @@
                             </h4>
                         </div>
                     </div>
-                </div>
-                <form style="width: 400px; text-align: right; margin-left: auto; margin-top: auto; margin-bottom: auto;">
+                <div style="width: 400px; text-align: right; margin-left: auto; margin-top: auto; margin-bottom: auto;">
                     <button type="submit" class="btn btn-success waves-effect waves-light">
-                        <a style="color:white;" th:href="@{|/admin/ban-hang-tai-quay/xac-nhan-don-hang/${maHD}|}">
                             Xác Nhận
-                        </a>
                     </button>
                     <a href="/admin/ban-hang" type="submit"
                        class="btn btn-danger waves-effect waves-light">
                         Cancel
                     </a>
+                </div>
                 </form>
+
                 <!--                    phần modal danh sách voucher-->
                 <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
@@ -942,7 +941,7 @@
     }
 
     var renderData = (array, select) => {
-        let row = '<option disable value="">chọn</option>';
+        let row = '<option value="">chọn</option>';
         array.forEach(element => {
             row += `<option value="${element.name}" data-code="${element.code}">${element.name}</option>`;
         });

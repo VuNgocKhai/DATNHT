@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @Controller
@@ -48,8 +49,10 @@ public class DiaChiController {
     @PostMapping("/admin/diachi/save")
     public String save(@ModelAttribute("diachi") DiaChi diaChi) {
         System.out.println(diaChi);
-          diachiDao.save(diaChi);
-          String ma = diachiDao.findById(diaChi.getId()).get().getKhachHang().getMa(); // lấy mã từ khách hàng để chuyển vào return
+        String madc = diachiDao.generateNextDiaChi();
+        diaChi.setMadc(madc);
+        diachiDao.save(diaChi);
+        String ma = diachiDao.findById(diaChi.getId()).get().getKhachHang().getMa(); // lấy mã từ khách hàng để chuyển vào return
         return "redirect:/admin/khachhang/detail/" + ma;
     }
 
@@ -76,6 +79,8 @@ public class DiaChiController {
     @PostMapping("/admin/diachi/update/{ma}")
     public String update(@PathVariable("ma") String ma,@ModelAttribute("diachi") DiaChi dc) {
         DiaChi dc1 = diachiDao.getDiachiByma(ma);
+        dc1.setTen_nguoi_nhan(dc.getTen_nguoi_nhan());
+        dc1.setSdt_nguoi_nhan(dc.getSdt_nguoi_nhan());
         dc1.setHuyen(dc.getHuyen());
         dc1.setXa(dc.getXa());
         dc1.setThanhpho(dc.getThanhpho());

@@ -22,4 +22,20 @@ public interface KhachHangDao extends JpaRepository<KhachHang, UUID> {
             "FROM khach_hang " +
             "WHERE ma LIKE 'KH%' ORDER BY CAST(SUBSTRING(ma, 3, LEN(ma) - 2) AS INT) DESC",nativeQuery = true)
     Integer getMaMax();
+
+    @Query("SELECT MAX(CAST(SUBSTRING(kh.ma, 3, LENGTH(kh.ma) - 2) AS int)) FROM  KhachHang kh")
+    Integer findMaxMaHoaDonNumber();
+
+    default String generateNextMaKhachHang() {
+        Integer maxMaNumber = findMaxMaHoaDonNumber();
+        int nextNumber;
+
+        if (maxMaNumber != null) {
+            nextNumber = maxMaNumber + 1;
+        } else {
+            nextNumber = 1;
+        }
+
+        return "KH" + nextNumber;
+    }
 }

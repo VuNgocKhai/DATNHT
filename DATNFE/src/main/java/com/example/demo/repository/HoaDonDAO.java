@@ -48,4 +48,14 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
         return "HD" + nextNumber;
     }
 
+
+    @Query("SELECT SUM(tong_tien) " +
+            "FROM HoaDon " +
+            "WHERE trangthai = 4 AND ngay_thanh_toan = :ngayHienTai")
+    BigDecimal tongSoTienHomNay(@Param("ngayHienTai") LocalDate ngayHienTai);
+
+    @Query("SELECT COUNT(*) AS TongSoLuongTrangThai1\n" +
+            "FROM HoaDon\n" +
+            "WHERE trangthai = 1\n")
+    Integer tongsohoadondangchoxanhan();
 }

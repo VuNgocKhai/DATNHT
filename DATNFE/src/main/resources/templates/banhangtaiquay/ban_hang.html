@@ -228,14 +228,14 @@
                                     <div class="col-12">
                                         <div class="form-inline mt-3" style="display: flex;">
                                             <form th:action="@{/admin/ban-hang/tim-kiem-hoa-don}" method="get">
-                                                <select class="form-control" name="timTheo">
-                                                    <option value="HD">Mã hóa đơn</option>
-                                                    <option value="KH">Khách hàng</option>
-                                                    <option value="NV">Nhân viên</option>
-                                                    <option value="4">Tổng tiền(VNĐ)</option>
+                                                <select class="form-control" name="timTheo" >
+                                                    <option value="HD" th:selected="${timTheo == 'HD'}">Mã hóa đơn</option>
+                                                    <option value="KH" th:selected="${timTheo == 'KH'}">Khách hàng</option>
+                                                    <option value="NV" th:selected="${timTheo == 'NV'}">Nhân viên</option>
+                                                    <option value="4" th:selected="${timTheo == '4'}">Tổng tiền(VNĐ)</option>
                                                 </select>
                                                 <input type="hidden" name="trangThai" value="1">
-                                                <input type="text" name="keyword" placeholder="Tìm kiếm hóa đơn"
+                                                <input type="text" name="keyword" th:value="${keyword}"  placeholder="Tìm kiếm hóa đơn"
                                                        class="form-control form-control-lg"
                                                        style="width: 300px; height: 40px; margin-right: 10px;margin-left: 5px"/>
                                                 <button type="submit" class="btn btn-primary">
@@ -360,21 +360,21 @@
                                     <div class="col-xl-10">
                                         <form th:action="@{/admin/ban-hang/tim-kiem-hoa-don2}" method="get">
                                             <div class="form-inline mt-3" style="display: flex">
-                                                <select class="form-control" id="timTheo" name="timTheo">
-                                                    <option value="HD">Mã hóa đơn</option>
-                                                    <option value="KH">Khách hàng</option>
-                                                    <option value="NV">Nhân viên</option>
-                                                    <option value="4">Tổng tiền(VNĐ)</option>
+                                                <select class="form-control" name="timTheo" >
+                                                    <option value="HD" th:selected="${timTheo1 == 'HD'}">Mã hóa đơn</option>
+                                                    <option value="KH" th:selected="${timTheo1 == 'KH'}">Khách hàng</option>
+                                                    <option value="NV" th:selected="${timTheo1 == 'NV'}">Nhân viên</option>
+                                                    <option value="4" th:selected="${timTheo1 == '4'}">Tổng tiền(VNĐ)</option>
                                                 </select>
-                                                <input type="hidden" name="trangThai" value="2">
-                                                <input type="text" name="keyword" placeholder="Tìm kiếm hóa đơn"
+                                                <input type="hidden" name="trangThai" value="2" >
+                                                <input type="text" name="keyword" th:value="${keyword1}"  placeholder="Tìm kiếm hóa đơn"
                                                        class="form-control form-control-lg"
-                                                       style="width: 500px; height: 40px; margin-right: 10px;"/>
+                                                       style="width: 300px; height: 40px; margin-right: 10px;margin-left: 5px"/>
                                                 <button type="submit" class="btn btn-primary">
                                                     <span class="btn-label"><i class="bi bi-search"></i></span>
                                                 </button>
-                                                <button class="btn btn-primary" type="submit" style="margin-left: 10px">
-                                                    <a href="/admin/ban-hang-tai-quay"
+                                                <button class="btn btn-primary" type="button" style="margin-left: 10px">
+                                                    <a href="/admin/ban-hang"
                                                        style="text-decoration: none;color: white"><i
                                                             class="bi bi-arrow-clockwise"></i></a>
                                                 </button>
@@ -496,21 +496,21 @@
                                     <div class="col-xl-10">
                                         <form th:action="@{/admin/ban-hang/tim-kiem-hoa-don3}" method="get">
                                             <div class="form-inline mt-3" style="display: flex">
-                                                <select class="form-control" id="timTheo" name="timTheo">
-                                                    <option value="HD">Mã hóa đơn</option>
-                                                    <option value="KH">Khách hàng</option>
-                                                    <option value="NV">Nhân viên</option>
-                                                    <option value="4">Tổng tiền(VNĐ)</option>
+                                                <select class="form-control" name="timTheo" >
+                                                    <option value="HD" th:selected="${timTheo2 == 'HD'}">Mã hóa đơn</option>
+                                                    <option value="KH" th:selected="${timTheo2 == 'KH'}">Khách hàng</option>
+                                                    <option value="NV" th:selected="${timTheo2 == 'NV'}">Nhân viên</option>
+                                                    <option value="4" th:selected="${timTheo2 == '4'}">Tổng tiền(VNĐ)</option>
                                                 </select>
                                                 <input type="hidden" name="trangThai" value="3">
-                                                <input type="text" name="keyword" placeholder="Tìm kiếm hóa đơn"
+                                                <input type="text" name="keyword" th:value="${keyword2}"  placeholder="Tìm kiếm hóa đơn"
                                                        class="form-control form-control-lg"
-                                                       style="width: 500px; height: 40px; margin-right: 10px;"/>
+                                                       style="width: 300px; height: 40px; margin-right: 10px;margin-left: 5px"/>
                                                 <button type="submit" class="btn btn-primary">
                                                     <span class="btn-label"><i class="bi bi-search"></i></span>
                                                 </button>
-                                                <button class="btn btn-primary" type="submit" style="margin-left: 10px">
-                                                    <a href="/admin/ban-hang-tai-quay"
+                                                <button class="btn btn-primary" type="button" style="margin-left: 10px">
+                                                    <a href="/admin/ban-hang"
                                                        style="text-decoration: none;color: white"><i
                                                             class="bi bi-arrow-clockwise"></i></a>
                                                 </button>
@@ -632,21 +632,21 @@
                                     <div class="col-xl-10">
                                         <form th:action="@{/admin/ban-hang/tim-kiem-hoa-don4}" method="get">
                                             <div class="form-inline mt-3" style="display: flex">
-                                                <select class="form-control" id="timTheo" name="timTheo">
-                                                    <option value="HD">Mã hóa đơn</option>
-                                                    <option value="KH">Khách hàng</option>
-                                                    <option value="NV">Nhân viên</option>
-                                                    <option value="4">Tổng tiền(VNĐ)</option>
+                                                <select class="form-control" name="timTheo" >
+                                                    <option value="HD" th:selected="${timTheo3 == 'HD'}">Mã hóa đơn</option>
+                                                    <option value="KH" th:selected="${timTheo3 == 'KH'}">Khách hàng</option>
+                                                    <option value="NV" th:selected="${timTheo3 == 'NV'}">Nhân viên</option>
+                                                    <option value="4" th:selected="${timTheo3 == '4'}">Tổng tiền(VNĐ)</option>
                                                 </select>
                                                 <input type="hidden" name="trangThai" value="4">
-                                                <input type="text" name="keyword" placeholder="Tìm kiếm hóa đơn"
+                                                <input type="text" name="keyword" th:value="${keyword3}"  placeholder="Tìm kiếm hóa đơn"
                                                        class="form-control form-control-lg"
-                                                       style="width: 500px; height: 40px; margin-right: 10px;"/>
+                                                       style="width: 300px; height: 40px; margin-right: 10px;margin-left: 5px"/>
                                                 <button type="submit" class="btn btn-primary">
                                                     <span class="btn-label"><i class="bi bi-search"></i></span>
                                                 </button>
-                                                <button class="btn btn-primary" type="submit" style="margin-left: 10px">
-                                                    <a href="/admin/ban-hang-tai-quay"
+                                                <button class="btn btn-primary" type="button" style="margin-left: 10px">
+                                                    <a href="/admin/ban-hang"
                                                        style="text-decoration: none;color: white"><i
                                                             class="bi bi-arrow-clockwise"></i></a>
                                                 </button>
@@ -745,21 +745,21 @@
                                     <div class="col-xl-10">
                                         <form th:action="@{/admin/ban-hang/tim-kiem-hoa-don5}" method="get">
                                             <div class="form-inline mt-3" style="display: flex">
-                                                <select class="form-control" id="timTheo" name="timTheo">
-                                                    <option value="HD">Mã hóa đơn</option>
-                                                    <option value="KH">Khách hàng</option>
-                                                    <option value="NV">Nhân viên</option>
-                                                    <option value="4">Tổng tiền(VNĐ)</option>
+                                                <select class="form-control" name="timTheo" >
+                                                    <option value="HD" th:selected="${timTheo4 == 'HD'}">Mã hóa đơn</option>
+                                                    <option value="KH" th:selected="${timTheo4 == 'KH'}">Khách hàng</option>
+                                                    <option value="NV" th:selected="${timTheo4 == 'NV'}">Nhân viên</option>
+                                                    <option value="4" th:selected="${timTheo4 == '4'}">Tổng tiền(VNĐ)</option>
                                                 </select>
                                                 <input type="hidden" name="trangThai" value="5">
-                                                <input type="text" name="keyword" placeholder="Tìm kiếm hóa đơn"
+                                                <input type="text" name="keyword" th:value="${keyword}"  placeholder="Tìm kiếm hóa đơn"
                                                        class="form-control form-control-lg"
-                                                       style="width: 500px; height: 40px; margin-right: 10px;"/>
+                                                       style="width: 300px; height: 40px; margin-right: 10px;margin-left: 5px"/>
                                                 <button type="submit" class="btn btn-primary">
                                                     <span class="btn-label"><i class="bi bi-search"></i></span>
                                                 </button>
-                                                <button class="btn btn-primary" type="submit" style="margin-left: 10px">
-                                                    <a href="/admin/ban-hang-tai-quay"
+                                                <button class="btn btn-primary" type="button" style="margin-left: 10px">
+                                                    <a href="/admin/ban-hang"
                                                        style="text-decoration: none;color: white"><i
                                                             class="bi bi-arrow-clockwise"></i></a>
                                                 </button>
@@ -858,21 +858,21 @@
                                     <div class="col-xl-10">
                                         <form th:action="@{/admin/ban-hang/tim-kiem-hoa-don6}" method="get">
                                             <div class="form-inline mt-3" style="display: flex">
-                                                <select class="form-control" id="timTheo" name="timTheo">
-                                                    <option value="HD">Mã hóa đơn</option>
-                                                    <option value="KH">Khách hàng</option>
-                                                    <option value="NV">Nhân viên</option>
-                                                    <option value="4">Tổng tiền(VNĐ)</option>
+                                                <select class="form-control" name="timTheo" >
+                                                    <option value="HD" th:selected="${timTheo5 == 'HD'}">Mã hóa đơn</option>
+                                                    <option value="KH" th:selected="${timTheo5 == 'KH'}">Khách hàng</option>
+                                                    <option value="NV" th:selected="${timTheo5 == 'NV'}">Nhân viên</option>
+                                                    <option value="4" th:selected="${timTheo5 == '4'}">Tổng tiền(VNĐ)</option>
                                                 </select>
                                                 <input type="hidden" name="trangThai" value="6">
-                                                <input type="text" name="keyword" placeholder="Tìm kiếm hóa đơn"
+                                                <input type="text" name="keyword" th:value="${keyword5}"  placeholder="Tìm kiếm hóa đơn"
                                                        class="form-control form-control-lg"
-                                                       style="width: 500px; height: 40px; margin-right: 10px;"/>
+                                                       style="width: 300px; height: 40px; margin-right: 10px;margin-left: 5px"/>
                                                 <button type="submit" class="btn btn-primary">
                                                     <span class="btn-label"><i class="bi bi-search"></i></span>
                                                 </button>
-                                                <button class="btn btn-primary" type="submit" style="margin-left: 10px">
-                                                    <a href="/admin/ban-hang-tai-quay"
+                                                <button class="btn btn-primary" type="button" style="margin-left: 10px">
+                                                    <a href="/admin/ban-hang"
                                                        style="text-decoration: none;color: white"><i
                                                             class="bi bi-arrow-clockwise"></i></a>
                                                 </button>

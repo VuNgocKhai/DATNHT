@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.UUID;
@@ -27,9 +28,11 @@ public class KhachHang implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(name = "ma")
     private String ma;
 
     @Column(name = "ho_ten")
+    @NotBlank(message = "Không được để trống họ tên")
     private String hoten;
 
     @Column(name = "ngay_sinh")

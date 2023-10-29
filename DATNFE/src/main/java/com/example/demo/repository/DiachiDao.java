@@ -36,6 +36,7 @@ public interface DiachiDao extends JpaRepository<DiaChi, UUID> {
     @Transactional
     @Query("update DiaChi set trangthai=?1 where madc=?2")
     void updateTtDiaChiByMaDc(Integer tt,String madc);
+
     @Query("select p from DiaChi p where p.khachHang.ma = ?1 and p.trangthai = 1")
     DiaChi getDiaChiByKhachHangMaAndTrangthai(String maKH);
 
@@ -45,5 +46,21 @@ public interface DiachiDao extends JpaRepository<DiaChi, UUID> {
             "WHERE ma LIKE 'DC%' ORDER BY CAST(SUBSTRING(ma, 3, LEN(ma) - 2) AS INT) DESC",nativeQuery = true)
     Integer getMaMax();
 
+
+    @Query("SELECT MAX(CAST(SUBSTRING(dc.madc, 3, LENGTH(dc.madc) - 2) AS int)) FROM DiaChi dc")
+    Integer findMaxMaHoaDonNumber();
+
+    default String generateNextDiaChi() {
+        Integer maxMaNumber = findMaxMaHoaDonNumber();
+        int nextNumber;
+
+        if (maxMaNumber != null) {
+            nextNumber = maxMaNumber + 1;
+        } else {
+            nextNumber = 1;
+        }
+
+        return "DC" + nextNumber;
+    }
 
 }
