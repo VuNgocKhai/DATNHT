@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.email.service.EmailService;
 import com.example.demo.entity.DiaChi;
 import com.example.demo.entity.HoaDon;
 import com.example.demo.entity.KhachHang;
@@ -188,14 +189,28 @@ public class QuanLyTaiKhoanKhController {
     }
 
     @PostMapping("/dang-ky-khach-hang")
-    public String dangKyKhachHangPost(Model model,@ModelAttribute KhachHang khachHang){
-        khachHang.setMa("KH"+String.valueOf(khachHangDao.getMaMax()+1));
-        khachHang.setTrangthai(1);
-        khachHang.setMatkhau(passwordEncoder.encode(khachHang.getMatkhau()));
-        khachHangDao.save(khachHang);
+    public String dangKyKhachHangPost(Model model,
+                                      @ModelAttribute KhachHang khachHang,
+                                      @RequestParam String OTP){
+        if(emailService.isValidOtp(khachHang.getEmail(),OTP)){
+            khachHang.setMa("KH"+String.valueOf(khachHangDao.getMaMax()+1));
+            khachHang.setTrangthai(1);
+            khachHang.setMatkhau(passwordEncoder.encode(khachHang.getMatkhau()));
+            khachHangDao.save(khachHang);
+        }
+        else {
+            return "qltk_kh/dang_ky";
+        }
         return "redirect:/login";
     }
 
+    @Autowired
+    private EmailService emailService;
 
-
+    @ResponseBody
+    @GetMapping("/gui-otp/{email}")
+    public Boolean guiOtp(@PathVariable String email){
+        emailService.sendOtp(email);
+        return true;
+    }
 }
