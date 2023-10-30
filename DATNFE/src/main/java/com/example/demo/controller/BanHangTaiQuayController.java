@@ -183,7 +183,7 @@ public class BanHangTaiQuayController {
                 model.addAttribute("tenDcDetail",tenDiaChi);
                 model.addAttribute("xaDetail",xa);
                 model.addAttribute("huyenDetail",huyen);
-                model.addAttribute("thanhPhoDetail",thanhPho);
+                    model.addAttribute("thanhPhoDetail",thanhPho);
                 model.addAttribute("moTaDetail",hoaDon.getMo_ta());
             }
         }

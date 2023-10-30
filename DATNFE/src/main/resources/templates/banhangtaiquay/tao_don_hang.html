@@ -686,63 +686,54 @@
                               <input type="hidden" class="form-control" th:name="maHD" th:value="${maHD}">
                             <div class="row">
                                   <div class="col-6">
-                                      <input type="hidden" class="form-control" th:if="${diachiHoaDon == null}"
-                                                     name="maDC">
-                                      <input type="hidden" class="form-control" th:if="${diachiHoaDon != null}"
+                                      <input type="hidden" class="form-control"
                                            name="maDC"
-                                           th:value="${diachiHoaDon.madc}">
+                                           th:value="${maHD}">
                                       <label>Tên Người Nhận:</label>
-                                      <input type="text" class="form-control" th:if="${diachiHoaDon == null}"
-                                               name="ten_nguoi_nhan">
-                                      <input type="text" class="form-control" th:if="${diachiHoaDon != null}"
+                                      <input type="text" class="form-control"
                                                name="ten_nguoi_nhan"
-                                               th:value="${diachiHoaDon.ten_nguoi_nhan}">
+                                               th:value="${tenNNDetail}">
                                      </div>
                                  <div class="col-6">
                                     <label>Số Điện Thoại:</label>
-                                    <input type="text" class="form-control" th:if="${diachiHoaDon == null}"
-                                           name="sdt_nguoi_nhan">
-                                    <input type="text" class="form-control" th:if="${diachiHoaDon != null}"
+                                    <input type="text" class="form-control"
                                            name="sdt_nguoi_nhan"
-                                           th:value="${diachiHoaDon.sdt_nguoi_nhan}">
+                                           th:value="${sdtDetail}">
                                  </div>
                                  <br>
                                  <div class="col-4" style="margin-top: 10px">
                                      <label>Thành Phố:</label>
                                      <select class="form-control" name="province" id="province">
-                                                <option th:if="${diachiHoaDon == null}" value=""></option>
-                                              <option th:if="${diachiHoaDon != null}" th:value="${diachiHoaDon.thanhpho}">[[${diachiHoaDon.thanhpho}]]</option>
+                                              <option th:value="${thanhPhoDetail}">[[${thanhPhoDetail}]]</option>
                                      </select>
                                  </div>
                                  <br>
                                  <div class="col-4" style="margin-top: 10px">
                                      <label>Huyện:</label>
                                      <select class="form-control" name="district" id="district">
-                                         <option th:if="${diachiHoaDon != null}"
-                                                 th:value="${diachiHoaDon.huyen}">[[${diachiHoaDon.huyen}]]</option>
+                                         <option
+                                                 th:value="${huyenDetail}">[[${huyenDetail}]]</option>
                                       </select>
                                  </div>
                                  <br>
                                  <div class="col-4" style="margin-top: 10px">
                                     <label>Xã:</label>
                                     <select class="form-control" name="ward" id="ward">
-                                          <option th:if="${diachiHoaDon != null}"
-                                                  th:value="${diachiHoaDon.xa}">[[${diachiHoaDon.xa}]]</option>
+                                          <option
+                                                  th:value="${xaDetail}">[[${xaDetail}]]</option>
                                     </select>
                                  </div>
                                  <br>
                                  <div class="col-12" style="margin-top: 10px">
                                     <label>Tên Địa Chỉ:</label>
-                                    <input type="text" class="form-control" th:if="${diachiHoaDon == null}"
-                                           name="dia_chi">
-                                    <input type="text" class="form-control" th:if="${diachiHoaDon != null}"
+                                    <input type="text" class="form-control"
                                            name="dia_chi"
-                                           th:value="${diachiHoaDon.tendiachi}">
+                                           th:value="${tenDcDetail}">
                                  </div>
                                  <div class="col-12" style="margin-top: 10px">
                                     <label>Ghi chú:</label>
                                     <br>
-                                    <textarea name="mota" cols="72" rows="10"></textarea>
+                                    <textarea name="mota" cols="72" rows="10" th:value="${moTaDetail}">[[${moTaDetail}]]</textarea>
                                  </div>
                             </div>
                         </form>
@@ -918,61 +909,74 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!--Lọc địa chỉ-->
+
 <script>
-    const host = "https://provinces.open-api.vn/api/";
-    var callAPI = (api) => {
-        return axios.get(api)
-            .then((response) => {
-                renderData(response.data, "province");
-            });
-    }
-    callAPI('https://provinces.open-api.vn/api/?depth=1');
-    var callApiDistrict = (api) => {
-        return axios.get(api)
-            .then((response) => {
-                renderData(response.data.districts, "district");
-            });
-    }
-    var callApiWard = (api) => {
-        return axios.get(api)
-            .then((response) => {
-                renderData(response.data.wards, "ward");
-            });
-    }
 
-    var renderData = (array, select) => {
-        let row = '<option value="">chọn</option>';
-        array.forEach(element => {
-            row += `<option value="${element.name}" data-code="${element.code}">${element.name}</option>`;
-        });
-        document.querySelector("#" + select).innerHTML = row;
-
-    }
-
-    $("#province").change(() => {
-        const selectedCode = $("#province option:selected").data("code");
-        callApiDistrict(host + "p/" + selectedCode + "?depth=2");
-        printResult();
-    });
-    $("#district").change(() => {
-        const selectedCode = $("#district option:selected").data("code");
-        callApiWard(host + "d/" + selectedCode + "?depth=2");
-        printResult();
-    });
-    $("#ward").change(() => {
-        printResult();
-    })
-
-    var printResult = () => {
-        if ($("#district").val() != "" && $("#province").val() != "" && $("#ward").val() != "") {
-            let result = $("#province option:selected").text() +
-                ", " + $("#district option:selected").text() + ", " +
-                $("#ward option:selected").text();
-            $("#result").text(result);
-        } else {
-            $("#result").text("");
+    document.addEventListener("DOMContentLoaded", function() {
+        const host = "https://provinces.open-api.vn/api/";
+        var callAPI = (api) => {
+            return axios.get(api)
+                .then((response) => {
+                    renderData(response.data, "province", "Thành Phố");
+                });
         }
-    }
+        callAPI('https://provinces.open-api.vn/api/?depth=1');
+        var callApiDistrict = (api) => {
+            return axios.get(api)
+                .then((response) => {
+                    renderData(response.data.districts, "district" , "Huyện");
+                });
+        }
+        var callApiWard = (api) => {
+            return axios.get(api)
+                .then((response) => {
+                    renderData(response.data.wards, "ward", "Xã");
+                });
+        }
+
+        var renderData = (array, select, type) => {
+            let selectedOption = document.querySelector("#" + select).querySelector("option:checked");
+            let selectedValue = selectedOption ? selectedOption.value : "";
+
+            let row = '<option disable value="" selected>Chọn ' + type + '</option>';
+            array.forEach(element => {
+                if (element.name == selectedValue) {
+                    row += `<option value="${element.name}" data-code="${element.code}" selected>${element.name}</option>`;
+                } else {
+                    row += `<option value="${element.name}" data-code="${element.code}">${element.name}</option>`;
+                }
+            });
+            document.querySelector("#" + select).innerHTML = row;
+        };
+
+
+        $("#province").change(() => {
+            const selectedCode = $("#province option:selected").data("code");
+            callApiDistrict(host + "p/" + selectedCode + "?depth=2");
+            printResult();
+        });
+        $("#district").change(() => {
+            const selectedCode = $("#district option:selected").data("code");
+            callApiWard(host + "d/" + selectedCode + "?depth=2");
+            printResult();
+        });
+        $("#ward").change(() => {
+            printResult();
+        })
+
+        var printResult = () => {
+            if ($("#district").val() != "" && $("#province").val() != "" && $("#ward").val() != "") {
+                let result = $("#province option:selected").text() +
+                    ", " + $("#district option:selected").text() + ", " +
+                    $("#ward option:selected").text();
+                $("#result").text(result);
+            } else {
+                $("#result").text("");
+            }
+        }
+
+    });
+
 </script>
 <!--End lọc địa chỉ-->
 
