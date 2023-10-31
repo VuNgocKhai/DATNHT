@@ -270,7 +270,8 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"
                                                                 style="background-color: white;border: 0px;">
-                                                            <i class="fa-solid fa-xmark fa-2xl" style="color: #ff0000;"></i>
+                                                            <i class="fa-solid fa-xmark fa-2xl"
+                                                               style="color: #ff0000;"></i>
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
@@ -279,15 +280,13 @@
                                                             <div class="row">
                                                                 <input th:field="*{khachHang.id}" hidden>
                                                                 <input th:field="*{id}" hidden>
-                                                                <div class="form-group col-6">
-                                                                    <label for="formGroupExampleInput2">Mã</label>
-                                                                    <input type="text" th:field="*{madc}"
-                                                                           class="form-control"
-                                                                           id="formGroupExampleInput2"
-                                                                           placeholder="Mã" readonly>
-                                                                </div>
+                                                                <input type="text" th:field="*{madc}"
+                                                                       class="form-control"
+                                                                       id="formGroupExampleInput2"
+                                                                       placeholder="Mã" hidden>
 
-                                                                <div class="form-group col-6">
+
+                                                                <div class="form-group col-4">
                                                                     <label>Tên người nhận</label>
                                                                     <input type="text" th:field="*{ten_nguoi_nhan}"
                                                                            class="form-control"
@@ -295,7 +294,7 @@
                                                                            placeholder="Tên người nhận">
                                                                 </div>
 
-                                                                <div class="form-group col-6">
+                                                                <div class="form-group col-4">
                                                                     <label>Địa chỉ cụ thể</label>
                                                                     <input type="text" th:field="*{tendiachi}"
                                                                            class="form-control"
@@ -303,7 +302,7 @@
                                                                            placeholder="Địa chỉ cụ thể">
                                                                 </div>
 
-                                                                <div class="form-group col-6">
+                                                                <div class="form-group col-4">
                                                                     <label>Số điện thoại người nhận</label>
                                                                     <input type="text" th:field="*{sdt_nguoi_nhan}"
                                                                            class="form-control"
@@ -341,7 +340,7 @@
                                                                            id="flexCheckChecked" checked>
 
                                                                     <label class="form-check-label"
-                                                                           for="flexCheckChecked">
+                                                                           for="flexCheckChecked" >
                                                                         Đặt địa chỉ làm mặc định
                                                                     </label>
 
@@ -376,7 +375,7 @@
                                         </div>
                                     </div>
                                     <div class="col-3" style="margin-top: 10px">
-                                        <a th:href="@{|/qltk-kh/dat-dc-mac-dinh/${item.madc}|}" >
+                                        <a th:href="@{|/qltk-kh/dat-dc-mac-dinh/${item.madc}|}">
                                             <button class="btn btn-primary"
                                                     th:disabled="${item.trangthai==1}">
                                                 Thiết lập mặc định
@@ -384,7 +383,7 @@
                                         </a>
                                     </div>
                                     <div class="col-2" th:if="${item.trangthai==1}">
-                                        <p style="border: 1px solid #FFD333;color: #FFD333;" class="text-center">
+                                        <p style="border: 1px solid #FFD333;color: #FFD333;font-size: 20px" class="text-center">
                                             Mặc định
                                         </p>
                                     </div>
@@ -538,8 +537,7 @@
                             if ($(this).val() == data.trangthai) {
                                 $(this).prop('checked', true);
                                 $(this).attr('disable', true);
-                            }
-                            else {
+                            } else {
                                 $(this).prop('checked', false);
                                 $(this).attr('disable', false);
                             }
