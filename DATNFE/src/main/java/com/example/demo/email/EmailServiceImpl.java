@@ -5,28 +5,48 @@ import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
 @Service
 public class EmailServiceImpl implements EmailService {
 
     @Autowired
     private JavaMailSender emailSender;
 
+    MimeMessage mimeMessage(String emailNhan, String tieuDe, String noiDung) {
+        MimeMessage message = emailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setTo(emailNhan);
+            helper.setSubject(tieuDe);
+            helper.setText(noiDung,true);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        return message;
+    }
+
     @Override
     public void sendOtp(String emailNhan) {
-        SimpleMailMessage message = new SimpleMailMessage();
         String tieuDe = "OTP";
         String otp = genOtp();
-        String noiDung = "OTP của bạn là " + otp;
-        message.setTo(emailNhan);
-        message.setSubject(tieuDe);
-        message.setText(noiDung);
+        String noiDung = "<html><body style='font-family: Arial, sans-serif;'>" +
+                "<p>Xin chào,</p>" +
+                "<p>Quý khách đang đăng ký tài khoản tại <a href='http://localhost:8080/trangchu'>http://localhost:8080/trangchu</a></p>" +
+                "<p><strong style='font-size: 18px;'>OTP của bạn là " + otp + "</strong></p>" +
+                "<p><em>Mã xác thực này sẽ hết hiệu lực trong 5 phút.</em></p>" +
+                "<p>Để đảm bảo an toàn, vui lòng không chia sẻ mã này cho bất cứ ai.</p>" +
+                "</body></html>";
+        MimeMessage mimeMessage = mimeMessage(emailNhan, tieuDe, noiDung);
         otpMap.put(emailNhan, new OTP(emailNhan, otp, System.currentTimeMillis()));
-        emailSender.send(message);
+        emailSender.send(mimeMessage);
     }
 
     Map<String, OTP> otpMap = new HashMap<>();

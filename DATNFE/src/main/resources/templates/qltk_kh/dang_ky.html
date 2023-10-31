@@ -68,15 +68,31 @@
                     <span class="focus-input100" data-symbol="&#xf190;"></span>
                 </div>
 
-                <div class="wrap-input100 validate-input" data-validate="OTP không được để trống">
-                    <span class="label-input100">OTP</span>
-                    <input class="input100" type="text" name="OTP" placeholder="Nhập OTP">
-                    <span class="focus-input100" data-symbol="&#xf190;"></span>
-                    <buton class="float-right" id="btn-otp">
-                        <a href="#">
-                            Gửi OTP
-                        </a>
-                    </buton>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="wrap-input100 validate-input " data-validate="OTP không được để trống">
+                            <span class="label-input100">OTP</span>
+                            <input class="input100 " type="text" name="OTP" placeholder="Nhập OTP">
+                            <span class="focus-input100" data-symbol="&#xf190;"></span>
+                        </div>
+                    </div>
+                    <div class="col-4 row">
+                        <div class="col-12">
+                        </div>
+                        <div class="col-12">
+                        </div><div class="col-12">
+                        </div><div class="col-12">
+                        </div>
+                        <div class="col-12">
+                        </div>
+                        <div class="col-12">
+                            <button id="btn-otp">
+                                <a href="#">
+                                    Gửi OTP
+                                </a>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="text-right p-t-8 p-b-31">
@@ -153,8 +169,8 @@
 
     $(document).ready(function () {
         var btnOtp = $("#btn-otp");
-        btnOtp.click(function (){
-            var email=$("#email").val();
+        btnOtp.click(function () {
+            var email = $("#email").val();
             $.ajax({
                 type: "GET",
                 url: "/gui-otp/" + email,
