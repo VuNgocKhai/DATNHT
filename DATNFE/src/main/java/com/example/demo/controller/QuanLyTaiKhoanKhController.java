@@ -190,6 +190,20 @@ public class QuanLyTaiKhoanKhController {
 
     @PostMapping("/dang-ky-khach-hang")
     public String dangKyKhachHangPost(Model model,
+                                      @ModelAttribute KhachHang khachHang){
+        if(khachHangDao.getKhByEmail(khachHang.getEmail())==null){
+            model.addAttribute("khachHang",khachHang);
+            return "qltk_kh/otp";
+        }
+        else {
+            model.addAttribute("email","Email đã tồn tại");
+            model.addAttribute("khachHang",khachHang);
+            return "qltk_kh/dang_ky";
+        }
+    }
+
+    @PostMapping("/otp")
+    public String otpPost(Model model,
                                       @ModelAttribute KhachHang khachHang,
                                       @RequestParam String OTP){
         if(emailService.isValidOtp(khachHang.getEmail(),OTP)){
@@ -199,7 +213,9 @@ public class QuanLyTaiKhoanKhController {
             khachHangDao.save(khachHang);
         }
         else {
-            return "qltk_kh/dang_ky";
+            model.addAttribute("khachHang",khachHang);
+            model.addAttribute("otp","OTP không đúng hoặc hết hiệu lực");
+            return "qltk_kh/otp";
         }
         return "redirect:/login";
     }

@@ -16,8 +16,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -75,13 +77,18 @@ public class NhanVienController {
         return "nhan_vien/nhan_vien/nhan_vien_hoa_don";
     }
 
-    @GetMapping("/view-create")
-    public String viewCreate(@ModelAttribute NhanVien nhanVien) {
-        return "nhan_vien/nhan_vien/nhan_vien_view_create";
-    }
+//    @GetMapping("/view-create")
+//    public String viewCreate(@ModelAttribute NhanVien nhanVien) {
+//        return "nhan_vien/nhan_vien/nhan_vien_view_create";
+//    }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute NhanVien nhanVien) {
+    public String create(@Valid @ModelAttribute NhanVien nhanVien, BindingResult result,Model model) {
+        if(result.hasErrors()){
+            page=new PageDTO<>(nhanVienService.getPageByTrangThai(1,numberCurrent));
+            model.addAttribute("page", page);
+            return "nhan_vien/nhan_vien/nhan_vien";
+        }
         nhanVienService.create(nhanVien);
         return "redirect:/admin/nhan-vien";
     }

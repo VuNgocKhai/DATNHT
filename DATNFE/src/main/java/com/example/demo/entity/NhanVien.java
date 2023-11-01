@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 @Table(name = "nhan_vien")
@@ -20,9 +21,10 @@ public class NhanVien {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "ma")
+    @Column(name = "ma",unique = true)
     private String ma;
 
+    @NotBlank
     @Column(name = "ho_ten")
     private String hoTen;
 
@@ -44,7 +46,7 @@ public class NhanVien {
     @Column(name = "sdt")
     private String sdt;
 
-    @Column(name = "email")
+    @Column(name = "email",unique = true)
     private String email;
 
     @Column(name = "mat_khau")
