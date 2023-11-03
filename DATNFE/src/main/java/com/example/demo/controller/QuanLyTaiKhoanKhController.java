@@ -193,6 +193,7 @@ public class QuanLyTaiKhoanKhController {
                                       @ModelAttribute KhachHang khachHang){
         if(khachHangDao.getKhByEmail(khachHang.getEmail())==null){
             model.addAttribute("khachHang",khachHang);
+            emailService.sendOtp(khachHang.getEmail());
             return "qltk_kh/otp";
         }
         else {
