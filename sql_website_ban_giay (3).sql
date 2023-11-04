@@ -217,6 +217,10 @@ create table hoa_don (
 	sdt_nguoi_nhan nvarchar(255) null,
 	dia_chi nvarchar(255) null,
 	tong_tien decimal,
+	hinh_thuc_mua int
+	hinh_thuc_thanh_toan int,
+	so_tien_giam money,
+	phi_ship money,
 	trangthai int null,
 	foreign key (id_nhan_vien) references nhan_vien(id),
 	foreign key (id_khach_hang) references khach_hang(id)
@@ -290,9 +294,6 @@ INSERT INTO website_ban_giay.dbo.cam_giac (id,ma,ten,trangthai) VALUES
 INSERT INTO website_ban_giay.dbo.chat_lieu (id,ma,ten,trangthai) VALUES
 	 (N'A23FA17B-5682-48E5-A98B-4034B97799DE',N'CL01',N'Vải Thiều',1),
 	 (N'B7CDAA3D-2A1E-4511-ACE6-EEF38BEA82BC',N'CL02',N'Vải Tơ',1);
-INSERT INTO website_ban_giay.dbo.giay (id,ma,ten,id_thuong_hieu,id_gioi_tinh,id_danh_muc,id_chat_lieu,id_cam_giac,id_dia_hinh,id_thoi_tiet_thich_hop,id_de_giay,id_do_cao_giay,id_mau_sac,mota,gianhap,giaban,trangthai,ngay_nhap,do_hot) VALUES
-	 (N'BC03F312-454A-48DA-A318-80D1E3979AD1',N'SP01',N'Giày Balenciaga 01',N'56DA1831-7647-446A-A150-0CF3DF82A9F2',N'B83FE3A0-AF91-49F1-87DD-E6E374A4E183',N'17E562BE-B3C9-42C3-84A6-C8F47A393A71',N'A23FA17B-5682-48E5-A98B-4034B97799DE',N'E0DBC8F8-B2AA-4E25-A73B-0A80E8CE5720',N'ED504C4E-664F-46C1-9B2B-ADE4082C0D47',N'5D58E9E4-3808-48A3-90F2-6AA39936B1A7',N'6F6FF5BA-764A-4F74-B05F-80220497F165',N'173D9356-A26B-498E-9D03-3F4A4C5239F6',N'9E682E28-8958-40F8-AE41-3E5D0E298276',N'Giày Đẹp Lắm',10000,20000,1,N'2023-12-23',1),
-	 (N'144262A4-C9BF-4764-A288-8C66D9A3C2F7',N'SP02',N'Giày Balenciaga 02',N'68546213-C563-4273-A10B-762A9C8A1BD1',N'F3F0FAF5-E1E4-4401-8F0D-1933EA634024',N'393C9E5A-2EFF-4A06-8FC8-CF269FBFA4A2',N'B7CDAA3D-2A1E-4511-ACE6-EEF38BEA82BC',N'226DE612-CF86-4A0A-9432-57B6375D9FFF',N'87603097-6CC3-4EF7-BB14-814F1B1AA564',N'91A0C9F9-DD97-4F2E-A8C7-BEF58E70E2E0',N'CE93E2F3-1008-40FA-83FE-8721E66DA4E6',N'9AA29BE5-FB6C-4922-BBEB-68358D3D4692',N'2903C8AD-D127-4BBF-B737-47867834EFE0',N'Giày Mới Lắm',20000,30000,1,N'2023-12-23',1);
 	 /* thêm cột insert giá tiền sau giảm*/
 INSERT INTO website_ban_giay.dbo.giay (id,ma,ten,id_thuong_hieu,id_gioi_tinh,id_danh_muc,id_chat_lieu,id_cam_giac,id_dia_hinh,id_thoi_tiet_thich_hop,id_de_giay,id_do_cao_giay,id_mau_sac,mota,gianhap,giaban,trangthai,gia_sau_khuyen_mai,ngay_nhap,do_hot) VALUES
 	 (N'BC03F312-454A-48DA-A318-80D1E3979AD1',N'SP01',N'Giày Balenciaga 01',N'56DA1831-7647-446A-A150-0CF3DF82A9F2',N'B83FE3A0-AF91-49F1-87DD-E6E374A4E183',N'17E562BE-B3C9-42C3-84A6-C8F47A393A71',N'A23FA17B-5682-48E5-A98B-4034B97799DE',N'E0DBC8F8-B2AA-4E25-A73B-0A80E8CE5720',N'ED504C4E-664F-46C1-9B2B-ADE4082C0D47',N'5D58E9E4-3808-48A3-90F2-6AA39936B1A7',N'6F6FF5BA-764A-4F74-B05F-80220497F165',N'173D9356-A26B-498E-9D03-3F4A4C5239F6',N'9E682E28-8958-40F8-AE41-3E5D0E298276',N'Giày Đẹp Lắm',10000,20000,1,20000,N'2023-12-23',1),
@@ -321,7 +322,7 @@ INSERT INTO website_ban_giay.dbo.nhan_vien (id,ma,ho_ten,ngay_sinh,dia_chi,xa,hu
 	 (N'5D89F310-6D41-41EE-B5B8-57F5B6DB7A9A',N'nv02',N'Hoàng Đại Ka','2003-09-09',N'Cấn Hữu-Quốc Oai 2-Hà Nội',NULL,NULL,NULL,N'0385090080',N'danhnt2@gmail.com',N'F09E9132-7F9E-48BD-A30C-E58C9E16717E',N'1234567','2023-09-12',NULL,1);
 INSERT INTO website_ban_giay.dbo.khach_hang (id,ma,ho_ten,ngay_sinh,sdt,email,mat_khau,trangthai) VALUES
 	 (N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'KH01',N'Nguyễn Danh','2003-09-09',N'0385090080',N'danhnt@gmail.com',N'123456',1),
-	 (N'019427F5-1E52-402F-B5DC-EC17AD5F139A',N'KH02',N'Nguyễn Đại','2003-08-08',N'0387090080',N'danhng@gmail.com',N'123457',1);
+	 (N'019427F5-1E52-402F-B5DC-EC17AD5F139A',N'KH02',N'Nguyễn Đại','2003-08-08',N'0387090080',N'danhng@gmail.com',N'123457',1),
 	 (N'22B427F5-1E52-402F-B5DC-EC17AD5F139A',N'KH03',N'Đào Gia Phong','2003-09-16',N'0385370656',N'phong@gmail.com',N'1',1)
 	-- địa chỉ khách hàng chỉ có 1 trạng thái mặc định là trạng thái = 1 , các trạng thái còn lại phải = 0
 INSERT INTO website_ban_giay.dbo.dia_chi (id,ma,id_khach_hang,ten_dia_chi,ten_nguoi_nhan,sdt_nguoi_nhan,xa,huyen,thanh_pho,trangthai) VALUES
