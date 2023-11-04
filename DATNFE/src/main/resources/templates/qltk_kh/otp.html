@@ -32,43 +32,50 @@
 <div class="limiter">
     <div class="container-login100" style="background-image: url('/assets/images/bg-01.jpg');">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <form action="/dang-ky-khach-hang" class="login100-form validate-form" method="post"
+            <form action="/otp" class="login100-form validate-form" method="post"
                   th:object="${khachHang}">
 					<span class="login100-form-title p-b-49">
 						Đăng ký
 					</span>
 
-                <div class="wrap-input100 validate-input m-b-23" data-validate="Họ và tên không được để trống">
-                    <span class="label-input100">Họ Và Tên</span>
-                    <input class="input100" th:field="*{hoten}" type="text" placeholder="Nhập họ và tên">
-                    <span class="focus-input100" data-symbol="&#xf206;"></span>
-                </div>
 
-                <div class="wrap-input100 validate-input m-b-23"  data-validate="Ngày sinh không được để trống">
-                    <span class="label-input100">Ngày Sinh</span>
-                    <input class="input100" th:field="*{ngaysinh}" type="date" placeholder="Chọn ngày sinh">
-                    <span class="focus-input100"></span>
-                </div>
+                    <input class="input100" th:field="*{hoten}"  hidden type="text" placeholder="Nhập họ và tên">
 
-                <div class="wrap-input100 validate-input m-b-23" data-validate="Email không được để trống">
-                    <span class="label-input100">Email</span>
-                    <input class="input100" th:field="*{email}" id="email" type="text" placeholder="Nhập email">
-                    <span class="focus-input100" data-symbol="&#xf206;"></span>
-                </div>
+                    <input class="input100" th:field="*{ngaysinh}" hidden type="date" placeholder="Chọn ngày sinh">
 
-                <p style="color: red;padding-left: 10px;font-size: 20px;font-family: Consolas">[[${email}]]</p>
+                    <input class="input100" th:field="*{email}" hidden id="email" type="text" placeholder="Nhập email">
+
+                    <input class="input100" th:field="*{matkhau}" hidden type="text" placeholder="Nhập mật khẩu">
+
+                    <input class="input100" type="text" hidden th:field="*{sdt}" placeholder="Nhập số điện thoại">
 
 
-                <div class="wrap-input100 validate-input" data-validate="Mật khẩu không được để trống">
-                    <span class="label-input100">Mật khẩu</span>
-                    <input class="input100" th:field="*{matkhau}" type="password" placeholder="Nhập mật khẩu">
-                    <span class="focus-input100" data-symbol="&#xf190;"></span>
-                </div>
-
-                <div class="wrap-input100 validate-input" data-validate="Số điện thoại không được để trống">
-                    <span class="label-input100">Số điện thoại</span>
-                    <input class="input100" type="text" th:field="*{sdt}" placeholder="Nhập số điện thoại">
-                    <span class="focus-input100" data-symbol="&#xf190;"></span>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="wrap-input100 validate-input " data-validate="OTP không được để trống">
+                            <span class="label-input100">OTP</span>
+                            <input class="input100 " type="text" name="OTP" placeholder="Nhập OTP">
+                            <span class="focus-input100" data-symbol="&#xf190;"></span>
+                        </div>
+                    </div>
+                    <div class="col-4 row">
+                        <div class="col-12">
+                        </div>
+                        <div class="col-12">
+                        </div><div class="col-12">
+                        </div><div class="col-12">
+                        </div>
+                        <div class="col-12">
+                        </div>
+                        <div class="col-12">
+                            <button id="btn-otp">
+                                <a href="#">
+                                    Gửi OTP
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                    <p style="color: red;padding-left: 10px;font-size: 20px;font-family: Consolas">[[${otp}]]</p>
                 </div>
 
                 <div class="text-right p-t-8 p-b-31">
@@ -140,5 +147,26 @@
 <!--===============================================================================================-->
 <script src="/assets/js/main3.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        var btnOtp = $("#btn-otp");
+        btnOtp.click(function () {
+            var email = $("#email").val();
+            $.ajax({
+                type: "GET",
+                url: "/gui-otp/" + email,
+                success: function (response) {
+                },
+                error: function () {
+                    console.log("An error occurred.");
+                }
+            });
+        });
+    });
+
+
+</script>
 </body>
 </html>

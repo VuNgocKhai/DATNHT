@@ -31,13 +31,19 @@ public interface NhanVienDAO extends JpaRepository<NhanVien, UUID> {
             "(:data IS NULL OR nv.email LIKE %:data%) OR " +
             "(:data IS NULL OR nv.hoTen LIKE %:data%)) AND " +
             "(:maCv IS NULL OR nv.chucVu.ma = :maCv)")
-    Page<NhanVien> findNhanVien(String ma,String data, String maCv,
+    Page<NhanVien> findNhanVien(String ma, String data, String maCv,
                                 Pageable pageable);
 
 
     Page<NhanVien> getAllByTrangThai(Integer tt,
-                                Pageable pageable);
+                                     Pageable pageable);
 
     @Query("select p from NhanVien p where p.email=?1")
     NhanVien getNVByEmail(String email);
+
+    //lay ra so cua manv co so lon nhat
+    @Query(value = "SELECT TOP 1 SUBSTRING(ma, 3, LEN(ma) - 2) " +
+            "FROM nhan_vien " +
+            "WHERE ma LIKE 'NV%' ORDER BY CAST(SUBSTRING(ma, 3, LEN(ma) - 2) AS INT) DESC",nativeQuery = true)
+    Integer getMaMax();
 }
