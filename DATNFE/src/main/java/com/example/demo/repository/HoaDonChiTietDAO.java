@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -16,5 +17,6 @@ public interface HoaDonChiTietDAO extends JpaRepository<HoaDonChiTiet, UUID> {
 
     @Query("SELECT h FROM HoaDonChiTiet h WHERE h.hoaDon.ma = :hoaDonMa")
     Page<HoaDonChiTiet> findByHoaDonMaPage(@Param("hoaDonMa") String hoaDonMa, Pageable pageable);
+
 
 }

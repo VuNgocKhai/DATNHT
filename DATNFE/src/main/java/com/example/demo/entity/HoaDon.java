@@ -74,6 +74,7 @@ public class HoaDon implements Serializable {
 
     private BigDecimal phi_ship;
 
+
     @OneToMany(mappedBy = "hd", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<GiamGiaChiTietHoaDon> list1;
