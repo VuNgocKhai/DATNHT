@@ -191,7 +191,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
     @Query(value = "SELECT TOP 10\n" +
             "    kh.id AS khach_hang_id,\n" +
             "    kh.ho_ten AS ten_khach_hang,\n" +
-            "    SUM(hdct.don_gia) AS tong_tien_mua\n" +
+            "    SUM(hd.tong_tien) AS tong_tien_mua\n" +
             "FROM\n" +
             "    khach_hang kh\n" +
             "JOIN\n" +
@@ -211,7 +211,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
     @Query(value = "\tSELECT TOP 10\n" +
             "    kh.id AS khach_hang_id,\n" +
             "    kh.ho_ten AS ten_khach_hang,\n" +
-            "    SUM(hdct.don_gia) AS tong_tien_mua\n" +
+            "    SUM(hd.tong_tien) AS tong_tien_mua\n" +
             "FROM\n" +
             "    khach_hang kh\n" +
             "JOIN\n" +
@@ -232,7 +232,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "\tSELECT TOP 10\n" +
             "    kh.id AS khach_hang_id,\n" +
             "    kh.ho_ten AS ten_khach_hang,\n" +
-            "    SUM(hdct.don_gia) AS tong_tien_mua\n" +
+            "    SUM(hd.tong_tien) AS tong_tien_mua\n" +
             "FROM\n" +
             "    khach_hang kh\n" +
             "JOIN\n" +
@@ -251,7 +251,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
     @Query(value = "SELECT TOP 10\n" +
             "    kh.id AS khach_hang_id,\n" +
             "    kh.ho_ten AS ten_khach_hang,\n" +
-            "    SUM(hdct.don_gia) AS tong_tien_mua\n" +
+            "    SUM(hd.tong_tien) AS tong_tien_mua\n" +
             "FROM\n" +
             "    khach_hang kh\n" +
             "JOIN\n" +
@@ -271,7 +271,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
     @Query(value = "SELECT TOP 10\n" +
             "    kh.id AS khach_hang_id,\n" +
             "    kh.ho_ten AS ten_khach_hang,\n" +
-            "    SUM(hdct.don_gia) AS tong_tien_mua\n" +
+            "    SUM(hd.tong_tien) AS tong_tien_mua\n" +
             "FROM\n" +
             "    khach_hang kh\n" +
             "JOIN\n" +
