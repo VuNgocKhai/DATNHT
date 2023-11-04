@@ -120,9 +120,7 @@ public class BanHangTaiQuayController {
     public String taoHoaDonTaiQuay(RedirectAttributes redirectAttributes) {
         NhanVien nhanVien = nhanVienRepository.getByMa("NV02");
         HoaDon hoaDon = new HoaDon();
-
         String maHoaDonMoi = hoaDonDAO.generateNextMaHoaDon(); // Sử dụng phương thức tạo mã hóa đơn mới
-
         hoaDon.setMa(maHoaDonMoi);
         hoaDon.setNhanVien(nhanVien);
         LocalDate currentDate = LocalDate.now();
@@ -237,6 +235,7 @@ public class BanHangTaiQuayController {
                         hdct.setHoaDon(hoaDon);
                         hdct.setGiayChiTiet(giayChiTiet);
                         hdct.setSo_luong(soLuong);
+                        hdct.setGia_nhap(giayChiTiet.getGiay().getGianhap());
                         hdct.setDon_gia(giayChiTiet.getGiay().getGia_sau_khuyen_mai());
                         hdct.setTrangthai(1);
                         foundExistingChiTiet = true;
@@ -244,6 +243,7 @@ public class BanHangTaiQuayController {
                     } else if (hdct.getGiayChiTiet().getId().equals(idctsp)) {
                         hdct.setSo_luong(hdct.getSo_luong() + soLuong);
                         hdct.setDon_gia(giayChiTiet.getGiay().getGia_sau_khuyen_mai());
+                        hdct.setGia_nhap(giayChiTiet.getGiay().getGianhap());
                         foundExistingChiTiet = true;
                         break;
                     }
@@ -254,6 +254,7 @@ public class BanHangTaiQuayController {
                     newHoaDonChiTiet.setGiayChiTiet(giayChiTiet);
                     newHoaDonChiTiet.setHoaDon(hoaDon);
                     newHoaDonChiTiet.setSo_luong(soLuong);
+                    newHoaDonChiTiet.setGia_nhap(giayChiTiet.getGiay().getGianhap());
                     newHoaDonChiTiet.setDon_gia(giayChiTiet.getGiay().getGia_sau_khuyen_mai());
                     newHoaDonChiTiet.setTrangthai(1);
                     hoaDonChiTietRepo.createHDCT(newHoaDonChiTiet);
@@ -281,7 +282,6 @@ public class BanHangTaiQuayController {
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
         GiayChiTiet giayChiTiet = giayChiTietRepo.getGiayChiTietById(idctsp);
         Integer soLuongTon = giayChiTiet.getSo_luong_ton(); // Số lượng tồn của sản phẩm
-
         if (giayChiTiet.getSo_luong_ton() <= soLuongTon) {
             List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietRepo.getListHDCTbyMaHD(hoaDon.getMa());
             for (HoaDonChiTiet hdct : hoaDonChiTietList) {

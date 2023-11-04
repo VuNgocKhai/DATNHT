@@ -290,23 +290,17 @@ INSERT INTO website_ban_giay.dbo.cam_giac (id,ma,ten,trangthai) VALUES
 INSERT INTO website_ban_giay.dbo.chat_lieu (id,ma,ten,trangthai) VALUES
 	 (N'A23FA17B-5682-48E5-A98B-4034B97799DE',N'CL01',N'Vải Thiều',1),
 	 (N'B7CDAA3D-2A1E-4511-ACE6-EEF38BEA82BC',N'CL02',N'Vải Tơ',1);
-<<<<<<< HEAD
-<<<<<<< HEAD
 INSERT INTO website_ban_giay.dbo.giay (id,ma,ten,id_thuong_hieu,id_gioi_tinh,id_danh_muc,id_chat_lieu,id_cam_giac,id_dia_hinh,id_thoi_tiet_thich_hop,id_de_giay,id_do_cao_giay,id_mau_sac,mota,gianhap,giaban,trangthai,ngay_nhap,do_hot) VALUES
 	 (N'BC03F312-454A-48DA-A318-80D1E3979AD1',N'SP01',N'Giày Balenciaga 01',N'56DA1831-7647-446A-A150-0CF3DF82A9F2',N'B83FE3A0-AF91-49F1-87DD-E6E374A4E183',N'17E562BE-B3C9-42C3-84A6-C8F47A393A71',N'A23FA17B-5682-48E5-A98B-4034B97799DE',N'E0DBC8F8-B2AA-4E25-A73B-0A80E8CE5720',N'ED504C4E-664F-46C1-9B2B-ADE4082C0D47',N'5D58E9E4-3808-48A3-90F2-6AA39936B1A7',N'6F6FF5BA-764A-4F74-B05F-80220497F165',N'173D9356-A26B-498E-9D03-3F4A4C5239F6',N'9E682E28-8958-40F8-AE41-3E5D0E298276',N'Giày Đẹp Lắm',10000,20000,1,N'2023-12-23',1),
 	 (N'144262A4-C9BF-4764-A288-8C66D9A3C2F7',N'SP02',N'Giày Balenciaga 02',N'68546213-C563-4273-A10B-762A9C8A1BD1',N'F3F0FAF5-E1E4-4401-8F0D-1933EA634024',N'393C9E5A-2EFF-4A06-8FC8-CF269FBFA4A2',N'B7CDAA3D-2A1E-4511-ACE6-EEF38BEA82BC',N'226DE612-CF86-4A0A-9432-57B6375D9FFF',N'87603097-6CC3-4EF7-BB14-814F1B1AA564',N'91A0C9F9-DD97-4F2E-A8C7-BEF58E70E2E0',N'CE93E2F3-1008-40FA-83FE-8721E66DA4E6',N'9AA29BE5-FB6C-4922-BBEB-68358D3D4692',N'2903C8AD-D127-4BBF-B737-47867834EFE0',N'Giày Mới Lắm',20000,30000,1,N'2023-12-23',1);
-=======
-
 	 /* thêm cột insert giá tiền sau giảm*/
 INSERT INTO website_ban_giay.dbo.giay (id,ma,ten,id_thuong_hieu,id_gioi_tinh,id_danh_muc,id_chat_lieu,id_cam_giac,id_dia_hinh,id_thoi_tiet_thich_hop,id_de_giay,id_do_cao_giay,id_mau_sac,mota,gianhap,giaban,trangthai,gia_sau_khuyen_mai,ngay_nhap,do_hot) VALUES
 	 (N'BC03F312-454A-48DA-A318-80D1E3979AD1',N'SP01',N'Giày Balenciaga 01',N'56DA1831-7647-446A-A150-0CF3DF82A9F2',N'B83FE3A0-AF91-49F1-87DD-E6E374A4E183',N'17E562BE-B3C9-42C3-84A6-C8F47A393A71',N'A23FA17B-5682-48E5-A98B-4034B97799DE',N'E0DBC8F8-B2AA-4E25-A73B-0A80E8CE5720',N'ED504C4E-664F-46C1-9B2B-ADE4082C0D47',N'5D58E9E4-3808-48A3-90F2-6AA39936B1A7',N'6F6FF5BA-764A-4F74-B05F-80220497F165',N'173D9356-A26B-498E-9D03-3F4A4C5239F6',N'9E682E28-8958-40F8-AE41-3E5D0E298276',N'Giày Đẹp Lắm',10000,20000,1,20000,N'2023-12-23',1),
 	 (N'144262A4-C9BF-4764-A288-8C66D9A3C2F7',N'SP02',N'Giày Balenciaga 02',N'68546213-C563-4273-A10B-762A9C8A1BD1',N'F3F0FAF5-E1E4-4401-8F0D-1933EA634024',N'393C9E5A-2EFF-4A06-8FC8-CF269FBFA4A2',N'B7CDAA3D-2A1E-4511-ACE6-EEF38BEA82BC',N'226DE612-CF86-4A0A-9432-57B6375D9FFF',N'87603097-6CC3-4EF7-BB14-814F1B1AA564',N'91A0C9F9-DD97-4F2E-A8C7-BEF58E70E2E0',N'CE93E2F3-1008-40FA-83FE-8721E66DA4E6',N'9AA29BE5-FB6C-4922-BBEB-68358D3D4692',N'2903C8AD-D127-4BBF-B737-47867834EFE0',N'Giày Mới Lắm',20000,30000,1,20000,N'2023-12-23',1);
->>>>>>> origin/ban-hang-tai-quay
-=======
+
 INSERT INTO website_ban_giay.dbo.giay (id,ma,ten,id_thuong_hieu,id_gioi_tinh,id_danh_muc,id_chat_lieu,id_cam_giac,id_dia_hinh,id_thoi_tiet_thich_hop,id_de_giay,id_do_cao_giay,id_mau_sac,mota,gianhap,giaban,trangthai,ngay_nhap,do_hot) VALUES
 	 (N'BC03F312-454A-48DA-A318-80D1E3979AD1',N'SP01',N'Giày Balenciaga 01',N'56DA1831-7647-446A-A150-0CF3DF82A9F2',N'B83FE3A0-AF91-49F1-87DD-E6E374A4E183',N'17E562BE-B3C9-42C3-84A6-C8F47A393A71',N'A23FA17B-5682-48E5-A98B-4034B97799DE',N'E0DBC8F8-B2AA-4E25-A73B-0A80E8CE5720',N'ED504C4E-664F-46C1-9B2B-ADE4082C0D47',N'5D58E9E4-3808-48A3-90F2-6AA39936B1A7',N'6F6FF5BA-764A-4F74-B05F-80220497F165',N'173D9356-A26B-498E-9D03-3F4A4C5239F6',N'9E682E28-8958-40F8-AE41-3E5D0E298276',N'Giày Đẹp Lắm',10000,20000,1,N'2023-12-23',1),
 	 (N'144262A4-C9BF-4764-A288-8C66D9A3C2F7',N'SP02',N'Giày Balenciaga 02',N'68546213-C563-4273-A10B-762A9C8A1BD1',N'F3F0FAF5-E1E4-4401-8F0D-1933EA634024',N'393C9E5A-2EFF-4A06-8FC8-CF269FBFA4A2',N'B7CDAA3D-2A1E-4511-ACE6-EEF38BEA82BC',N'226DE612-CF86-4A0A-9432-57B6375D9FFF',N'87603097-6CC3-4EF7-BB14-814F1B1AA564',N'91A0C9F9-DD97-4F2E-A8C7-BEF58E70E2E0',N'CE93E2F3-1008-40FA-83FE-8721E66DA4E6',N'9AA29BE5-FB6C-4922-BBEB-68358D3D4692',N'2903C8AD-D127-4BBF-B737-47867834EFE0',N'Giày Mới Lắm',20000,30000,1,N'2023-12-23',1);
->>>>>>> origin/giamgiasanpham
 INSERT INTO website_ban_giay.dbo.kich_co (id,ma,ten,trangthai) VALUES
 	 (N'F575F6DE-14B2-4F24-A159-E71280C3F033',N'KC01',N'38',1),
 	 (N'A97F40B0-AFCE-4C0A-BF45-F1B45FD6B472',N'KC02',N'39',1);
@@ -328,7 +322,7 @@ INSERT INTO website_ban_giay.dbo.nhan_vien (id,ma,ho_ten,ngay_sinh,dia_chi,xa,hu
 INSERT INTO website_ban_giay.dbo.khach_hang (id,ma,ho_ten,ngay_sinh,sdt,email,mat_khau,trangthai) VALUES
 	 (N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'KH01',N'Nguyễn Danh','2003-09-09',N'0385090080',N'danhnt@gmail.com',N'123456',1),
 	 (N'019427F5-1E52-402F-B5DC-EC17AD5F139A',N'KH02',N'Nguyễn Đại','2003-08-08',N'0387090080',N'danhng@gmail.com',N'123457',1);
-	 (N'22B427F5-1E52-402F-B5DC-EC17AD5F139A',N'KH03',N'Đào Gia Phong','2003-09-16',N'0385370656',N'phong@gmail.com',N'1',1);
+	 (N'22B427F5-1E52-402F-B5DC-EC17AD5F139A',N'KH03',N'Đào Gia Phong','2003-09-16',N'0385370656',N'phong@gmail.com',N'1',1)
 	-- địa chỉ khách hàng chỉ có 1 trạng thái mặc định là trạng thái = 1 , các trạng thái còn lại phải = 0
 INSERT INTO website_ban_giay.dbo.dia_chi (id,ma,id_khach_hang,ten_dia_chi,ten_nguoi_nhan,sdt_nguoi_nhan,xa,huyen,thanh_pho,trangthai) VALUES
 	 ('1096266E-2B53-4987-8945-3DE015BB737E',N'DC01',N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'Xóm 1 Triều Đông',N'Nguyễn Thành Danh',N'0385090080',N'Tân Minh',N'Thường Tín',N'Hà Nội',1),
@@ -343,12 +337,9 @@ INSERT INTO website_ban_giay.dbo.gio_hang (id,ma,id_khach_hang,ngay_tao,ngay_cap
 INSERT INTO website_ban_giay.dbo.gio_hang_chi_tiet (id,id_gio_hang,id_giay_chi_tiet,so_luong,ghi_chu,trangthai) VALUES
 	 (N'092052B5-324D-4DB4-94FE-46C8A159236C',N'CE792713-9983-4E45-9D9B-532A003CC015',N'E22DEB74-ECA4-41BB-AB18-55A8CD2B9CB9',1,NULL,1),
 	 (N'93A2B0C6-19E4-4403-B33A-4D6BDF05AE32',N'5E83CE5E-CEEF-484F-BE89-021B0464CC8B',N'396ED021-F577-4BA5-B5D3-353E40F6FA4E',1,NULL,1);
-<<<<<<< HEAD
-=======
 
 /* Tạm thời chưa cần insert hóa đơn , tự tạo trên project*/
 /*
->>>>>>> origin/ban-hang-tai-quay
 INSERT INTO website_ban_giay.dbo.hoa_don (id,ma,ngay_tao,ngay_thanh_toan,id_nhan_vien,id_khach_hang,mo_ta,tong_tien,ten_nguoi_nhan,sdt_nguoi_nhan,trangthai) VALUES
 	 (N'3CAD650A-4B71-41FB-8FA4-6682B25F6541',N'HD01','2023-09-09','2023-09-09',N'9D8372B8-AAA4-464A-A938-3C6927210010',N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'Đã Thanh Toán',111111,N'Nguyễn Thành Danh',N'0385090080',1),
 	 (N'DEC073F7-5FBB-4E5F-9766-AFAC0B275AEB',N'HD02','2023-09-09','2023-09-09',N'5D89F310-6D41-41EE-B5B8-57F5B6DB7A9A',N'019427F5-1E52-402F-B5DC-EC17AD5F139A',N'Đã Thanh Toán',111111,N'Nguyễn Thành Danh1',N'0385090081',1);
@@ -369,10 +360,6 @@ INSERT INTO website_ban_giay.dbo.chuong_trinh_giam_gia_chi_tiet_san_pham (id,id_
 	 (N'2D2A2541-2D46-425A-835D-578E7F92EA26',N'BC03F312-454A-48DA-A318-80D1E3979AD1',N'13090853-794B-4746-BA0D-006172DD4976',100,1),
 	 (N'A70E75F8-2662-41F3-96EE-8F4D4A1CA41E',N'144262A4-C9BF-4764-A288-8C66D9A3C2F7',N'5A9AFEF6-1ADC-43AE-A5DD-E160754913CA',200,1);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> origin/giamgiasanpham
 	 /*
 	 select*from giay where id = 'BC03F312-454A-48DA-A318-80D1E3979AD1'
 
@@ -394,7 +381,7 @@ INSERT INTO website_ban_giay.dbo.chuong_trinh_giam_gia_chi_tiet_san_pham (id,id_
 
 	update hoa_don set trangthai = 2 where ma ='HD7'
 	update hoa_don set trangthai = 2 where ma ='HD8'
-	update hoa_don set trangthai = 2 where ma ='HD9'
+	update hoa_don set trangthai = 1 where ma ='HD9'
 	update hoa_don set trangthai = 2 where ma ='HD10'
 	update hoa_don set trangthai = 2 where ma ='HD11'
 	update hoa_don set trangthai = 2 where ma ='HD6'
@@ -403,13 +390,13 @@ INSERT INTO website_ban_giay.dbo.chuong_trinh_giam_gia_chi_tiet_san_pham (id,id_
 		update hoa_don set ngay_thanh_toan = null where ma ='HD000001'
 
 	select * from hoa_don
+	select * from hoa_don_chi_tiet
+	select * from giay
+	select * from giay_chi_tiet
 	select * from hoa_don where ma ='HD000001'
 	delete from hoa_don where ma ='HD000001'
 	update hoa_don set ma ='HD6' where id ='046D6C46-6621-0246-9A02-CA8BAD5C9646'
-<<<<<<< HEAD
-*/
-=======
->>>>>>> origin/ban-hang-tai-quay
-=======
-*/
->>>>>>> origin/giamgiasanpham
+	delete from hoa_don_chi_tiet
+	delete from hoa_don
+
+	*/
