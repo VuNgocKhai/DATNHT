@@ -1,15 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.config.Config;
-import com.example.demo.entity.DiaChi;
-import com.example.demo.entity.GiamGiaChiTietHoaDon;
-import com.example.demo.entity.GiamGiaHoaDon;
-import com.example.demo.entity.GiayChiTiet;
-import com.example.demo.entity.HoaDon;
-import com.example.demo.entity.HoaDonChiTiet;
-import com.example.demo.entity.KhachHang;
-import com.example.demo.entity.NhanVien;
-import com.example.demo.entity.PageDTO;
+import com.example.demo.entity.*;
 import com.example.demo.repository.DiaChiRepo;
 import com.example.demo.repository.DiachiDao;
 import com.example.demo.repository.GiamGiaChiTietHoaDonRepo;
@@ -24,6 +16,7 @@ import com.example.demo.repository.HoaDonRepo;
 import com.example.demo.repository.KhachHangRepo;
 import com.example.demo.repository.KichCoRepo;
 import com.example.demo.repository.NhanVienRepository;
+import com.example.demo.service.CallAPIGHN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -93,6 +86,9 @@ public class BanHangTaiQuayController {
     @Autowired
     private KichCoRepo kichCoRepo;
 
+    @Autowired
+    CallAPIGHN callAPIGHN;
+
     // Hiển thị danh sách hóa đơn đang chờ
     @RequestMapping("/admin/ban-hang-tai-quay")
     public String giamGiaHoaDon(@RequestParam("page") Optional<Integer> page,
@@ -130,6 +126,12 @@ public class BanHangTaiQuayController {
         hoaDon.setNhanVien(nhanVien);
         LocalDate currentDate = LocalDate.now();
         hoaDon.setNgay_tao(currentDate);
+        hoaDon.setNgay_tao(currentDate);
+        hoaDon.setHinh_thuc_mua(0);
+        hoaDon.setTong_tien(BigDecimal.ZERO);
+        hoaDon.setHinh_thuc_thanh_toan(0);
+        hoaDon.setSo_tien_giam(BigDecimal.ZERO);
+        hoaDon.setPhi_ship(BigDecimal.ZERO);
         hoaDon.setTrangthai(1);
         hoaDonRepo.createHoaDon(hoaDon);
         redirectAttributes.addAttribute("maHD", maHoaDonMoi);
@@ -144,6 +146,7 @@ public class BanHangTaiQuayController {
                               @RequestParam("size") Optional<String> size,
                               @RequestParam("page1") Optional<Integer> page1,
                               @RequestParam("page2") Optional<Integer> page2,
+
                               Model model) {
 
         Pageable pageable1 = PageRequest.of(page2.orElse(0), 5);
@@ -162,6 +165,8 @@ public class BanHangTaiQuayController {
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(ma);
         model.addAttribute("trangthaicheck",hoaDon.getTrangthai());
         model.addAttribute("KhachHangcheck", hoaDon.getKhachHang());
+        model.addAttribute("htm",hoaDon.getHinh_thuc_mua());
+        model.addAttribute("httt",hoaDon.getHinh_thuc_thanh_toan());
         if (hoaDon.getKhachHang() != null) {
             model.addAttribute("KhachHangDetail", hoaDon.getKhachHang());
             List<DiaChi> diaChiList = diachiDao.getdiachibyma(hoaDon.getKhachHang().getMa());
@@ -169,41 +174,77 @@ public class BanHangTaiQuayController {
         }
 
         String diaChiGop = hoaDon.getDia_chi();
+        String xa = "";
+        String huyen = "";
+        String thanhPho = "";
         if(diaChiGop != null)
         {
             String[] diaChiDetails = diaChiGop.split(",");
             if (diaChiDetails.length >= 4) {
                 String tenDiaChi = diaChiDetails[0].trim();
-                String xa = diaChiDetails[1].trim();
-                String huyen = diaChiDetails[2].trim();
-                String thanhPho = diaChiDetails[3].trim();
+                 xa = diaChiDetails[1].trim();
+                 huyen = diaChiDetails[2].trim();
+                 thanhPho = diaChiDetails[3].trim();
 
                 model.addAttribute("tenNNDetail",hoaDon.getTen_nguoi_nhan());
                 model.addAttribute("sdtDetail",hoaDon.getSdt_nguoi_nhan());
                 model.addAttribute("tenDcDetail",tenDiaChi);
                 model.addAttribute("xaDetail",xa);
                 model.addAttribute("huyenDetail",huyen);
-                    model.addAttribute("thanhPhoDetail",thanhPho);
+                model.addAttribute("thanhPhoDetail",thanhPho);
                 model.addAttribute("moTaDetail",hoaDon.getMo_ta());
             }
         }
 
+//        String phiShip= "0";
         BigDecimal tongTienTruocGiam = calculateTotal(hoaDon);
+//        if (!xa.equals("") && !huyen.equals("") && !thanhPho.equals("") && hoaDon.getHinh_thuc_mua()==1){
+//            GiaoHangNhanh giaoHangNhanh = new GiaoHangNhanh();
+//            giaoHangNhanh.setTo_district_name(huyen); //huyện
+//            giaoHangNhanh.setTo_province_name(thanhPho); //thành phố
+//            giaoHangNhanh.setTo_ward_name(xa); //xã
+//            phiShip = callAPIGHN.getAPIGHN(giaoHangNhanh);
+//            model.addAttribute("phiShip",phiShip);
+//        }
+            model.addAttribute("phiShip",hoaDon.getPhi_ship());
+
+        tongTienTruocGiam = tongTienTruocGiam;
         model.addAttribute("TongTienTruocGiam", tongTienTruocGiam);
-
-        // Kiểm tra nếu hóa đơn có giá trị tổng tiền, nếu không thì gán giá trị là BigDecimal.ZERO
-        BigDecimal tongTienHoaDon = hoaDon.getTong_tien() != null ? hoaDon.getTong_tien() : BigDecimal.ZERO;
-
-        model.addAttribute("TongTienSauGiam", tongTienHoaDon);
-
-        // Kiểm tra nếu tổng tiền trước giảm lớn hơn tổng tiền hóa đơn
-        if (tongTienTruocGiam.compareTo(tongTienHoaDon) > 0) {
-            BigDecimal soTienGiam = tongTienTruocGiam.subtract(tongTienHoaDon);
-            model.addAttribute("soTienGiam", soTienGiam);
-        } else {
-            // Nếu không giảm giá thì giá trị soTienGiam là BigDecimal.ZERO
-            model.addAttribute("soTienGiam", BigDecimal.ZERO);
-        }
+//        if (hoaDon.getHinh_thuc_mua() == 1){
+//            BigDecimal tongTienHoaDon = hoaDon.getTong_tien() != null ? hoaDon.getTong_tien().add(BigDecimal.valueOf(Double.parseDouble(phiShip))) : BigDecimal.ZERO;
+//
+//            model.addAttribute("TongTienSauGiam", tongTienHoaDon);
+//
+//            // Kiểm tra nếu tổng tiền trước giảm lớn hơn tổng tiền hóa đơn
+//            if ((tongTienTruocGiam.add(BigDecimal.valueOf(Double.parseDouble(phiShip)))).compareTo(tongTienHoaDon) < 0) {
+//                BigDecimal soTienGiam = tongTienHoaDon.subtract(tongTienTruocGiam.add(BigDecimal.valueOf(Double.parseDouble(phiShip))));
+//                model.addAttribute("soTienGiam", soTienGiam);
+//            }
+//            else if ((tongTienTruocGiam.add(BigDecimal.valueOf(Double.parseDouble(phiShip)))).compareTo(tongTienHoaDon) > 0) {
+//                BigDecimal soTienGiam = tongTienTruocGiam.add(BigDecimal.valueOf(Double.parseDouble(phiShip))).subtract(tongTienHoaDon);
+//                model.addAttribute("soTienGiam", soTienGiam);
+//            }else {
+//                // Nếu không giảm giá thì giá trị soTienGiam là BigDecimal.ZERO
+//                model.addAttribute("soTienGiam", BigDecimal.ZERO);
+//            }
+//        }else
+//            {
+//        // Kiểm tra nếu hóa đơn có giá trị tổng tiền, nếu không thì gán giá trị là BigDecimal.ZERO
+//        BigDecimal tongTienHoaDon = hoaDon.getTong_tien() != null ? hoaDon.getTong_tien() : BigDecimal.ZERO;
+//
+//        model.addAttribute("TongTienSauGiam", tongTienHoaDon);
+//
+//        // Kiểm tra nếu tổng tiền trước giảm lớn hơn tổng tiền hóa đơn
+//        if (tongTienTruocGiam.compareTo(tongTienHoaDon) > 0 ) {
+//            BigDecimal soTienGiam = tongTienTruocGiam.subtract(tongTienHoaDon);
+//            model.addAttribute("soTienGiam", soTienGiam);
+//        } else {
+//            // Nếu không giảm giá thì giá trị soTienGiam là BigDecimal.ZERO
+//            model.addAttribute("soTienGiam", BigDecimal.ZERO);
+//        }
+//        }
+        model.addAttribute("soTienGiam", hoaDon.getSo_tien_giam());
+        model.addAttribute("TongTienSauGiam", hoaDon.getTong_tien());
 
         GiamGiaChiTietHoaDon giamGiaChiTietHoaDon = giamGiaChiTietHoaDonRepo.getGiamGiaCTHoaDonByHD(hoaDon.getId());
         if (giamGiaChiTietHoaDon != null) {
@@ -364,6 +405,10 @@ public class BanHangTaiQuayController {
                 tongTien = tongTien.add(giaTienSanPham);
             }
         }
+        System.out.println("Tong tien"+tongTien);
+        if (hoaDonChiTietList!=null){
+            tongTien = tongTien.subtract(hoaDonChiTietList.get(0).getHoaDon().getSo_tien_giam()).add(hoaDonChiTietList.get(0).getHoaDon().getPhi_ship());
+        }
         return tongTien;
     }
 
@@ -430,7 +475,19 @@ public class BanHangTaiQuayController {
         if (maDC != null || maDC != null) {
             HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
             DiaChi diaChi = diachiDao.getDiachiByma(maDC);
+            GiaoHangNhanh giaoHangNhanh = new GiaoHangNhanh();
+            giaoHangNhanh.setTo_district_name(diaChi.getHuyen()); //huyện
+            giaoHangNhanh.setTo_province_name(diaChi.getThanhpho()); //thành phố
+            giaoHangNhanh.setTo_ward_name(diaChi.getXa()); //xã
+            String phiShip = callAPIGHN.getAPIGHN(giaoHangNhanh);
             String diaChiGop = diaChi.getTendiachi() + ", " + diaChi.getXa() + ", " + diaChi.getHuyen() + ", " + diaChi.getThanhpho();
+            BigDecimal phiShipBig = BigDecimal.valueOf(Double.parseDouble(phiShip));
+            if (phiShipBig.compareTo(hoaDon.getPhi_ship())<0){
+                hoaDon.setTong_tien(hoaDon.getTong_tien().subtract(hoaDon.getPhi_ship().subtract(phiShipBig)));
+            }else {
+                hoaDon.setTong_tien(hoaDon.getTong_tien().add(phiShipBig.subtract(hoaDon.getPhi_ship())));
+            }
+            hoaDon.setPhi_ship(phiShipBig);
             hoaDon.setDia_chi(diaChiGop);
             hoaDon.setTen_nguoi_nhan(diaChi.getTen_nguoi_nhan());
             hoaDon.setSdt_nguoi_nhan(diaChi.getSdt_nguoi_nhan());
@@ -443,7 +500,8 @@ public class BanHangTaiQuayController {
 
 
     @PostMapping("/admin/ban-hang-tai-quay/tao-don-hang/add-dia-chi1")
-    public String themDiaChiKhachHangVaoHoaDon1(@RequestParam("maHD") String maHD,
+    public String themDiaChiKhachHangVaoHoaDon1(
+            @RequestParam("maHD") String maHD,
                                                 @RequestParam("ten_nguoi_nhan") String tennguoinhan,
                                                 @RequestParam("sdt_nguoi_nhan") String sdtnguoinhan,
                                                 @RequestParam("dia_chi") String diaChi1,
@@ -451,13 +509,24 @@ public class BanHangTaiQuayController {
                                                 @RequestParam("district") String huyen1,
                                                 @RequestParam("province") String thanhPho1,
                                                 @RequestParam("mota") String moTa,
+                                                @RequestParam("tongTienSauGiam") String tongTienSauGiam,
+                                                @RequestParam("phiShip") String phiShip,
+                                                @RequestParam("soTienGiam") String soTienGiam,
+                                                HttpServletRequest request,
                                                 RedirectAttributes redirectAttributes) {
-
+        System.out.println("in tien ra"+tongTienSauGiam+phiShip+soTienGiam);;
+        Integer phuongThucMuaHang =Integer.parseInt(request.getParameter("phuongThucMuaHang"));
+        Integer phuongThucThanhToan = Integer.parseInt(request.getParameter("phuongThucThanhToan"));
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
         String diaChiGop = diaChi1 + ", " + xa1 + ", " + huyen1 + ", " + thanhPho1;
         hoaDon.setDia_chi(diaChiGop);
+        hoaDon.setHinh_thuc_thanh_toan(phuongThucThanhToan);
+        hoaDon.setHinh_thuc_mua(phuongThucMuaHang);
         hoaDon.setTen_nguoi_nhan(tennguoinhan);
         hoaDon.setSdt_nguoi_nhan(sdtnguoinhan);
+        hoaDon.setSo_tien_giam(BigDecimal.valueOf(Double.parseDouble(soTienGiam)));
+        hoaDon.setTong_tien(BigDecimal.valueOf(Double.parseDouble(tongTienSauGiam)));
+        hoaDon.setPhi_ship(BigDecimal.valueOf(Double.parseDouble(phiShip)));
         hoaDon.setMo_ta(moTa);
         hoaDonRepo.createHoaDon(hoaDon);
         redirectAttributes.addAttribute("maHD", maHD);
@@ -491,6 +560,7 @@ public class BanHangTaiQuayController {
             BigDecimal tongTienSauGiam = tongTienHoaDon.subtract(soTienGiam);
 
             // Cập nhật tổng tiền của hóa đơn
+            hoaDon.setSo_tien_giam(soTienGiam);
             hoaDon.setTong_tien(tongTienSauGiam);
             hoaDonRepo.createHoaDon(hoaDon);
 
@@ -526,6 +596,7 @@ public class BanHangTaiQuayController {
 
         // Tính lại tổng tiền của hóa đơn từ đầu
         BigDecimal newTotal = calculateTotal(hoaDon);
+
         hoaDon.setTong_tien(newTotal);
 
         // Tăng số lượng voucher còn lại
@@ -558,7 +629,7 @@ public class BanHangTaiQuayController {
     }
 
     @PostMapping("/admin/ban-hang-tai-quay/xac-nhan-don-hang")
-    public void xacNhan(HttpServletRequest request, HttpServletResponse resp, @RequestParam("maHD") String maHD, @RequestParam("phuongThucMuaHang") Integer phuongThucMuaHang,
+    public String xacNhan(HttpServletRequest request, HttpServletResponse resp, @RequestParam("maHD") String maHD, @RequestParam("phuongThucMuaHang") Integer phuongThucMuaHang,
                           @RequestParam("phuongThucThanhToan") Integer phuongThucThanhToan, RedirectAttributes redirectAttributes) throws IOException {
         if (phuongThucMuaHang==0 && phuongThucThanhToan ==0){
             HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
@@ -566,7 +637,9 @@ public class BanHangTaiQuayController {
             hoaDon.setNgay_thanh_toan(currentDate);
             hoaDon.setTrangthai(2);
             hoaDonRepo.createHoaDon(hoaDon);
-        } else {
+            return "redirect:/admin/ban-hang";
+        } else
+            {
             HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
             BigDecimal newTotal = calculateTotal(hoaDon);
             String vnp_Version = "2.1.0";
@@ -595,7 +668,7 @@ public class BanHangTaiQuayController {
 
 //
             vnp_Params.put("vnp_Locale", "vn");
-            vnp_Params.put("vnp_ReturnUrl", "http://localhost:8080/admin/ban-hang");
+//            vnp_Params.put("vnp_ReturnUrl", "http://localhost:8080/admin/ban-hang");
 //            vnp_Params.put("vnp_ReturnUrl", "http://localhost:8080/hoadon/"+StringListGCT);
             vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
@@ -639,6 +712,7 @@ public class BanHangTaiQuayController {
             hoaDon.setNgay_thanh_toan(currentDate);
             hoaDon.setTrangthai(2);
             hoaDonRepo.createHoaDon(hoaDon);
-        }
+            return "redirect:/admin/ban-hang";
+            }
     }
 }
