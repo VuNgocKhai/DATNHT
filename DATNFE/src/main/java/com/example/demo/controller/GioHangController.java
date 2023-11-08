@@ -47,10 +47,27 @@ public class GioHangController {
     CallAPIGHN callAPIGHN;
     @Autowired
     UntityService untityService;
+    @Autowired
+    sanphamyeuthichchitietdao sanPhamYeuThichDAo;
+
+    private Authentication authentication;
+
+
     @RequestMapping("/ctsp/{x}")
     public String ctsp(Model model, @PathVariable("x") String ma) {
-        Giay giay = giayDAO.getGiayByMa(ma);
-        model.addAttribute("item", giay);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
+        if (khachHang == null) {
+            Giay giay = giayDAO.getGiayByMa(ma);
+            model.addAttribute("item", giay);
+            model.addAttribute("Tongsothichsanpham",sanPhamYeuThichDAo.countYeuThichByGiayId(ma));
+        }else {
+            Giay giay = giayDAO.getGiayByMa(ma);
+            model.addAttribute("item", giay);
+            model.addAttribute("Tongsothichsanpham",sanPhamYeuThichDAo.countYeuThichByGiayId(ma));
+            model.addAttribute("taikhoan",khachHang.getId());
+        }
+
         return "home/chitietsanpham";
     }
 

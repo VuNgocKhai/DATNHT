@@ -124,99 +124,73 @@
                                     <i class="fa-regular fa-heart"></i>
                                 </div>
                                 <div class="col-9">
-                                    Yêu Thích
+                                  Yêu Thích
                                 </div>
                             </div>
                         </a>
                     </li>
                 </ul>
             </div>
-            <div class="col-9">
+            <div class="col-9" style="background-color: #F5F5F5">
                 <ul class="nav flex-column">
                     <li class="nav-item" style="border-bottom: .0625rem solid #efefef;padding-bottom: 10px;padding-top: 15px">
-                        <h5 style="margin-bottom: 0px">Hồ Sơ Của Tôi</h5>
-                        <span >Quản lý thông tin hồ sơ để bảo mật tài khoản
-                        </span>
+                        <h5 style="margin-bottom: 0px">Sản Phẩm Yêu Thích</h5>
                     </li>
                 </ul>
-                <form th:object="${khachHang}" method="post"
-                      th:action="@{|/qltk-kh/cap-nhat-thong-tin/${khachHang.id}|}">
-                    <div class="row" style="margin-top: 20px">
-                        <input type="text" hidden th:field="*{id}">
-                        <div class="col-6 row">
-                            <div class="col-4 ">
-                                <p class="float-right">
-                                    Mã
-                                </p>
+                <div class="row px-xl-5">
+                <div th:each="item:${dssanphamyeuthich}" class="col-lg-4 col-md-5 col-sm-6 pb-1">
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" th:src="@{|/images/${item.giay.getAnhDau(item.giay.anhs)}|}" alt="">
+                            <div class="discount-badge">20%</div>
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                             </div>
-                            <div class="col-8">
-                                <input type="text" th:field="*{ma}" class="form-control" id="formGroupExampleInput"
-                                       placeholder="Mã">
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate" href="">[[${item.giay.ten}]]</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5 style="color: #ee4d2d" class="giaBan">[[${item.giay.gia_sau_khuyen_mai}]]
+                                    VND</h5>
+                                <h6 class="text-muted ml-2"  class="giaBan">
+                                    <del style="color: #ee4d2d" class="giaBan">[[${item.giay.giaban}]]VND
+                                    </del>
+                                </h6>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small>(99)</small>
                             </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-6 row">
-                            <div class="col-4 ">
-                                <p class="float-right">
-                                    Họ Và Tên
-                                </p>
-                            </div>
-                            <div class="col-8">
-                                <input type="text" th:field="*{hoten}" class="form-control" id="formGroupExampleInput"
-                                       placeholder="Họ và tên">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6 row">
-                            <div class="col-4 ">
-                                <p class="float-right">
-                                    Ngày Sinh </p>
-                            </div>
-                            <div class="col-8">
-                                <input type="date" th:field="*{ngaysinh}" class="form-control"
-                                       id="formGroupExampleInput"
-                                       placeholder="Ngày Sinh">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6 row">
-                            <div class="col-4 ">
-                                <p class="float-right">
-                                    Số điện thoại </p>
-                            </div>
-                            <div class="col-8">
-                                <input type="text" th:field="*{sdt}" class="form-control" id="formGroupExampleInput"
-                                       placeholder="Số điện thoại">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6 row">
-                            <div class="col-4 ">
-
-                            </div>
-                            <div class="col-8">
-                                <button type="submit" class="btn-primary btn">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                    Cập nhật
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                </div>
+            </div>
             </div>
         </div>
     </div>
 
-
 </main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var giaBanElements = document.querySelectorAll('.giaBan');
+        giaBanElements.forEach(function (element) {
+            var giaBanText = element.textContent.trim();
+            var giaBan = parseFloat(giaBanText.replace('Giá Bán:', '').trim());
+            var giaBanFormatted = giaBan.toLocaleString('vi-VN'); // Định dạng giá
+
+            // Cập nhật lại văn bản đã định dạng trong phần tử
+            element.textContent = giaBanFormatted ;
+        });
+    });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

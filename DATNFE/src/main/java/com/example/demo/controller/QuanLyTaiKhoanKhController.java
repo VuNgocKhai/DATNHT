@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.DiaChi;
-import com.example.demo.entity.HoaDon;
-import com.example.demo.entity.KhachHang;
-import com.example.demo.entity.PageDTO;
+import com.example.demo.entity.*;
 import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,6 +37,9 @@ public class QuanLyTaiKhoanKhController {
 
     @Autowired
     private KhachHangDao khachHangDao;
+
+    @Autowired
+    SanPhamYeuThichDAo sanPhamYeuThichDAo;
 
     private Authentication authentication;
 
@@ -174,7 +174,6 @@ public class QuanLyTaiKhoanKhController {
         model.addAttribute("khachHang", khachHang);
         return "qltk_kh/don_hang";
     }
-
 
 
 }
