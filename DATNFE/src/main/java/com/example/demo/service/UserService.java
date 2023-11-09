@@ -42,7 +42,8 @@ public class UserService implements UserDetailsService {
                 }else {
                     password = accounts.getMatkhau();
                     roles="USER";
-                    System.out.println(password);
+
+                    System.out.println("MK:Mã Hóa là :"+ pe.encode(password));
                 }
             }
             if (kq==false){
@@ -51,7 +52,7 @@ public class UserService implements UserDetailsService {
                 password = accounts.getMatKhau();
                 roles = accounts.getChucVu().getTen();
             }
-            return User.withUsername(email).password(pe.encode(password)).roles(roles).build();
+            return User.withUsername(email).password(password).roles(roles).build();
         }catch (Exception exception){
             exception.printStackTrace();
             throw new UsernameNotFoundException(email+"not found");

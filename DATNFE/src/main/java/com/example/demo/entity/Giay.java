@@ -101,15 +101,19 @@ public class Giay implements Serializable {
         return tongTien;
     };
    public ChuongTrinhGiamGiaChiTietSP getCHGTHD(){
-       List<ChuongTrinhGiamGiaChiTietSP> list = new ArrayList<ChuongTrinhGiamGiaChiTietSP>(chuongTrinhGiamGiaChiTietSP);
-       for (ChuongTrinhGiamGiaChiTietSP x:list
-            ) {
-           if (x.getTrangThai()==1){
-               return x;
+       if (chuongTrinhGiamGiaChiTietSP!=null){
+           List<ChuongTrinhGiamGiaChiTietSP> list = new ArrayList<ChuongTrinhGiamGiaChiTietSP>(chuongTrinhGiamGiaChiTietSP);
+           for (ChuongTrinhGiamGiaChiTietSP x:list
+           ) {
+               if (x.getTrangThai()==1){
+                   return x;
+               }
            }
+           return null;
        }
        return null;
    }
+
    public boolean getNewGiay(){
        boolean isNewItem = ngay_nhap.isAfter(LocalDate.now().minusDays(7));
        return isNewItem;

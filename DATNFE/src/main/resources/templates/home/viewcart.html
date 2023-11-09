@@ -56,8 +56,8 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="align-middle">[[${x.giay_chi_tiet.giay.gia_sau_khuyen_mai}]]</td>
-                        <td class="align-middle">[[${x.giay_chi_tiet.giay.tinhTong(x.giay_chi_tiet.giay.gia_sau_khuyen_mai,x.so_luong)}]]</td>
+                        <td class="align-middle">[[${#numbers.formatDecimal(x.giay_chi_tiet.giay.gia_sau_khuyen_mai, 0, 'COMMA', 0, 'POINT')}]]₫</td>
+                        <td class="align-middle">[[${#numbers.formatDecimal(x.giay_chi_tiet.giay.tinhTong(x.giay_chi_tiet.giay.gia_sau_khuyen_mai,x.so_luong), 0, 'COMMA', 0, 'POINT')}]]₫</td>
                         <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
                     </tr>
                     </tbody>
@@ -75,19 +75,19 @@
                 <div class="border-bottom pb-2">
                     <div class="d-flex justify-content-between mb-3">
                         <h6>Thành tiền:</h6>
-                        <h6>[[${tongTien}]]</h6>
+                        <h6>[[${#numbers.formatDecimal(tongTien, 0, 'COMMA', 0, 'POINT')}]]₫</h6>
                     </div>
                     <div th:if="${maGGHD != ''}">
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Mã giảm giá ([[${maGGHD}]]):</h6>
-                            <h6 class="font-weight-medium">-[[${tienGGHD}]]</h6>
+                            <h6 class="font-weight-medium">-[[${#numbers.formatDecimal(tienGGHD, 0, 'COMMA', 0, 'POINT')}]]₫</h6>
                         </div>
                     </div>
                 </div>
                 <div class="pt-2">
                     <div class="d-flex justify-content-between mt-2">
                         <h5>Tổng:</h5>
-                        <h5>[[${tienThanhToan}]]</h5>
+                        <h5>[[${#numbers.formatDecimal(tienThanhToan, 0, 'COMMA', 0, 'POINT')}]] ₫</h5>
                     </div>
                     <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" formaction="/checkout">Proceed To Checkout</button>
                 </div>

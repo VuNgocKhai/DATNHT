@@ -22,7 +22,10 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
-
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 @Controller
 public class GioHangController {
     @Autowired
@@ -53,6 +56,27 @@ public class GioHangController {
         model.addAttribute("item", giay);
         return "home/chitietsanpham";
     }
+    @RequestMapping("/createBill")
+    public void createBill() {
+                try (PDDocument doc = new PDDocument()) {
+                    PDPage page = new PDPage();
+                    doc.addPage(page);
+
+                    PDPageContentStream content = new PDPageContentStream(doc, page);
+                    content.setFont(PDType1Font.HELVETICA_BOLD, 12);
+                    content.beginText();
+                    content.newLineAtOffset(100, 700);
+                    content.showText("Hello, World!");
+                    content.endText();
+
+                    content.close();
+
+                    doc.save("output.pdf");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+    }
 
     @PostMapping("/cart/add")
     public String addcart(@RequestParam("ma_giay") String ma_giay, @RequestParam("size_giay") String size_giay, @RequestParam("so_luong") Integer so_luong) {
@@ -63,9 +87,6 @@ public class GioHangController {
         GioHang gioHang = khachHang.getGio_hang();
         GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
         boolean kq = true;
-        System.out.println(giayChiTiet.getId());
-        System.out.println(ma_giay);
-        System.out.println(size_giay);
         for (GioHangChiTiet x : gioHang.getListGHCT(gioHang.getGioHangChiTiets())
         ) {
             if (x.getGiay_chi_tiet().getId().equals(giayChiTiet.getId())) {
@@ -214,7 +235,7 @@ public class GioHangController {
 
     @PostMapping("/checkout")
 
-    public String checkout1(Model model, HttpServletRequest request, @RequestParam("maVC") String maVC) {
+    public String checkout1(Model model, HttpServletRequest request, @RequestParam(value = "maVC",defaultValue = "") String maVC,@RequestParam(value = "ma_giay",defaultValue = "") String ma_giay, @RequestParam(value = "size_giay",defaultValue = "") String size_giay, @RequestParam(value = "so_luong",defaultValue = "") Integer so_luong) {
         String maGGHD = "";
         Integer phan_tramGGHD = 0;
         BigDecimal so_tienGGHD = BigDecimal.valueOf(0);
@@ -229,36 +250,54 @@ public class GioHangController {
                 model.addAttribute("phan_tramGGHD", x.getPhan_tram_giam());
             }
         }
-        String[] listvalue = request.getParameterValues("listGiay");
+        String[] listvalue = null;
+        listvalue = request.getParameterValues("listGiay");
+
         List<UUID> listvalue1 = new ArrayList<>();
         List<GiayChiTiet> giayChiTietList = new ArrayList<>();
         List<GioHangChiTiet> gioHangChiTietList1 = new ArrayList<>();
-        for (String x : listvalue
-        ) {
-            listvalue1.add(UUID.fromString(x));
-            GiayChiTiet giayChiTiet = giayChiTietDAO.findById(UUID.fromString(x)).get();
-            System.out.println("gct" + giayChiTiet.getId());
-            giayChiTietList.add(giayChiTiet);
-        }
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        KhachHang khachHang = khachHangDao.getKhByEmail(username);
-        List<GioHangChiTiet> gioHangChiTietList = khachHang.getGio_hang().
-                getListGHCT(khachHang.getGio_hang().getGioHangChiTiets());
         BigDecimal tongTien = BigDecimal.valueOf(0);
-        for (String x : listvalue
-        ) {
-            for (GioHangChiTiet x1 : gioHangChiTietList
+        if (listvalue!=null){
+            for (String x : listvalue
             ) {
-                if (x1.getGiay_chi_tiet().getId().equals(UUID.fromString(x))){
-                    gioHangChiTietList1.add(x1);
+                listvalue1.add(UUID.fromString(x));
+                GiayChiTiet giayChiTiet = giayChiTietDAO.findById(UUID.fromString(x)).get();
+                System.out.println("gct" + giayChiTiet.getId());
+                giayChiTietList.add(giayChiTiet);
+            }
+            KhachHang khachHang = khachHangDao.getKhByEmail(username);
+            List<GioHangChiTiet> gioHangChiTietList = khachHang.getGio_hang().
+            getListGHCT(khachHang.getGio_hang().getGioHangChiTiets());
+            for (String x : listvalue
+            ) {
+                for (GioHangChiTiet x1 : gioHangChiTietList
+                ) {
+                    if (x1.getGiay_chi_tiet().getId().equals(UUID.fromString(x))){
+                        gioHangChiTietList1.add(x1);
+                    }
                 }
             }
+            for (GiayChiTiet x : giayChiTietList
+            ) {
+                tongTien = tongTien.add(x.getGiay().tinhTong(x.getGiay().getGia_sau_khuyen_mai(), Integer.parseInt(request.getParameter(x.getId() + "soluong"))));
+            }
+        }else {
+            GiayChiTiet giayChiTietMN = giayChiTietDAO.getAllByMaGiayAndSize(ma_giay, size_giay);
+            listvalue1.add(giayChiTietMN.getId());
+            giayChiTietList.add(giayChiTietMN);
+            GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
+            gioHangChiTiet.setSo_luong(so_luong);
+            gioHangChiTiet.setGiay_chi_tiet(giayChiTietMN);
+            gioHangChiTietList1.add(gioHangChiTiet);
+            for (GiayChiTiet x : giayChiTietList
+            ) {
+                tongTien = tongTien.add(x.getGiay().tinhTong(x.getGiay().getGia_sau_khuyen_mai(),so_luong));
+            }
+            System.out.println("Chạy vào đây");
         }
-        for (GiayChiTiet x : giayChiTietList
-        ) {
-            tongTien = tongTien.add(x.getGiay().tinhTong(x.getGiay().getGia_sau_khuyen_mai(), Integer.parseInt(request.getParameter(x.getId() + "soluong"))));
-        }
+
         BigDecimal tienGGHD = tongTien.multiply(BigDecimal.valueOf(phan_tramGGHD)).divide(BigDecimal.valueOf(100));
         if (tienGGHD.compareTo(so_tienGGHD) > 0) {
             tienGGHD = so_tienGGHD;
@@ -307,20 +346,6 @@ public class GioHangController {
             sdt_nguoi_nhan = request.getParameter("sdt");
         }
         if (pttt.equals("vnpay_payment")){
-//            String[] listvalue = request.getParameterValues("listGiay");
-//            List<String> listvalue1 = new ArrayList<>();
-//            for (String x:listvalue
-//            ) {
-//               listvalue1.add(x);
-//            }
-//            StringBuilder sb = new StringBuilder();
-//            for (int i = 0; i < listvalue1.size(); i++) {
-//                sb.append(listvalue1.get(i));
-//                if (i < listvalue1.size() - 1) { // Nếu không phải phần tử cuối cùng
-//                    sb.append("_");
-//                }
-//            }
-//            String StringListGCT = sb.toString();
             String vnp_Version = "2.1.0";
             String vnp_Command = "pay";
             String orderType = "other";

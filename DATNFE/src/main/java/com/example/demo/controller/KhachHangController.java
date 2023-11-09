@@ -10,10 +10,13 @@ import com.example.demo.repository.KhachHangRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 @Controller
@@ -67,11 +70,21 @@ public class KhachHangController {
     }
 
 
-//    Thêm mới  khách hàng
+    //    Thêm mới  khách hàng
     @PostMapping("admin/khachhang/save")
-    public String save(@ModelAttribute("khachhang") KhachHang kh) {
-        String ma = khachHangDao.save(kh).getMa();
-        return "redirect:/admin/khachhang/detail/" + ma;
+    public String save(@Valid @ModelAttribute("khachhang") KhachHang kh,
+                       BindingResult result,
+                       Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("messga", "Không được để trống thông tin");
+            return "redirect:/admin/khachhang";
+        }else {
+            String maKH = khachHangDao.generateNextMaKhachHang();
+            kh.setMa(maKH);
+            String ma =  khachHangDao.save(kh).getMa();
+            return "redirect:/admin/khachhang/detail/" + ma;
+        }
+
     }
 
     //    Xóa khách hàng

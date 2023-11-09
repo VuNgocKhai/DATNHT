@@ -1,7 +1,10 @@
 package com.example.demo.interceptor;
 
+import com.example.demo.entity.KhachHang;
 import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,7 +38,10 @@ public class GlobalInterceptor
     ThoiTietThichHopRepo thoiTietThichHopRepo;
     @Autowired
     ThuongHieuRepo thuongHieuRepo;
-
+    @Autowired
+    GioHangChiTietDAO gioHangChiTietDAO;
+    @Autowired
+    KhachHangDao khachHangDao;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // TODO
@@ -55,5 +61,16 @@ public class GlobalInterceptor
         request.setAttribute("listMauSac", mauSacRepo.getListMauSac());
         request.setAttribute("listThoiTietThichHop", thoiTietThichHopRepo.getListThoiTietThichHop());
         request.setAttribute("listThuongHieu", thuongHieuRepo.getListThuongHieu());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        System.out.println("Name là"+username);
+        if (!username.equals("anonymousUser")){
+            KhachHang khachHang = khachHangDao.getKhByEmail(username);
+            if (khachHang!=null){
+                request.setAttribute("countGHCTByKH", gioHangChiTietDAO.countGH(khachHang.getMa()));
+            }
+        }else {
+            request.setAttribute("countGHCTByKH", 0);
+        }
     }
 }

@@ -41,6 +41,10 @@ public class TrangChuController {
     public String loginfail() {
         return "layout/login";
     }
+    @RequestMapping(value = "/login",params = "logout")
+    public String logout() {
+        return "layout/logout";
+    }
     @RequestMapping("/trangchu")
     public String trangchu(Model model) {
         model.addAttribute("items",giayDAO.findAll());

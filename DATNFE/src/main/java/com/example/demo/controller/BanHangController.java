@@ -80,18 +80,24 @@ public class BanHangController {
             } else if ("xac-nhan".equals(huyxacnhan1)) {
                 for (String maHD : selectedMa1) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
-                    LocalDate currentDate = LocalDate.now();
-                    hoaDon.setNgay_thanh_toan(currentDate);
-                    hoaDon.setTrangthai(2);
-                    hoaDonRepo.createHoaDon(hoaDon);
+                    if (hoaDon.getTong_tien() != null && hoaDon.getTong_tien().compareTo(BigDecimal.ZERO) != 0)
+                    {
+                        LocalDate currentDate = LocalDate.now();
+                        hoaDon.setNgay_thanh_toan(currentDate);
+                        hoaDon.setTrangthai(2);
+                        hoaDonRepo.createHoaDon(hoaDon);
+                    }
                 }
             }
         } else if (selectedMa2 != null) {
             if ("giaohang".equals(giaohang)) {
                 for (String maHD : selectedMa2) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
-                    hoaDon.setTrangthai(3);
-                    hoaDonRepo.createHoaDon(hoaDon);
+                    if (hoaDon.getTong_tien() != null && hoaDon.getTong_tien().compareTo(BigDecimal.ZERO) != 0)
+                    {
+                        hoaDon.setTrangthai(3);
+                        hoaDonRepo.createHoaDon(hoaDon);
+                    }
                 }
             } else if ("huy".equals(huyxacnhan2)) {
                 for (String maHD : selectedMa2) {
@@ -145,6 +151,9 @@ public class BanHangController {
         model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5); // Page hóa đơn đã hủy
         model.addAttribute("PageHoaDonTT6", hoaDonTrangThai6); // Page hóa đơn trả hàng
         // Đặt các thuộc tính khác cần thiết và trả về view tìm kiếm
+
+        model.addAttribute("timTheo", timTheo);
+        model.addAttribute("keyword", keyword);
         return "banhangtaiquay/ban_hang";
     }
 
@@ -173,6 +182,9 @@ public class BanHangController {
         model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5); // Page hóa đơn đã hủy
         model.addAttribute("PageHoaDonTT6", hoaDonTrangThai6); // Page hóa đơn trả hàng
         // Đặt các thuộc tính khác cần thiết và trả về view tìm kiếm
+
+        model.addAttribute("timTheo1", timTheo);
+        model.addAttribute("keyword1", keyword);
         return "banhangtaiquay/ban_hang";
     }
 
@@ -201,6 +213,9 @@ public class BanHangController {
         model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5); // Page hóa đơn đã hủy
         model.addAttribute("PageHoaDonTT6", hoaDonTrangThai6); // Page hóa đơn trả hàng
         // Đặt các thuộc tính khác cần thiết và trả về view tìm kiếm
+
+        model.addAttribute("timTheo2", timTheo);
+        model.addAttribute("keyword2", keyword);
         return "banhangtaiquay/ban_hang";
     }
 
@@ -229,6 +244,10 @@ public class BanHangController {
         model.addAttribute("PageHoaDonTT3", hoaDonTrangThai3); // Page hóa đơn đang giao
         model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5); // Page hóa đơn đã hủy
         model.addAttribute("PageHoaDonTT6", hoaDonTrangThai6); // Page hóa đơn trả hàng
+
+        // Đặt các giá trị đã tìm kiếm vào Model
+        model.addAttribute("timTheo3", timTheo);
+        model.addAttribute("keyword3", keyword);
         return "banhangtaiquay/ban_hang";
     }
 
@@ -259,6 +278,10 @@ public class BanHangController {
         model.addAttribute("PageHoaDonTT4", hoaDonTrangThai4); // Page hóa đơn hoàn thành
         model.addAttribute("PageHoaDonTT6", hoaDonTrangThai6); // Page hóa đơn trả hàng
         // Đặt các thuộc tính khác cần thiết và trả về view tìm kiếm
+
+        // Đặt các giá trị đã tìm kiếm vào Model
+        model.addAttribute("timTheo4", timTheo);
+        model.addAttribute("keyword4", keyword);
         return "banhangtaiquay/ban_hang";
     }
 
@@ -287,6 +310,10 @@ public class BanHangController {
         model.addAttribute("PageHoaDonTT4", hoaDonTrangThai4); // Page hóa đơn hoàn thành
         model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5); // Page hóa đơn đã hủy
         // Đặt các thuộc tính khác cần thiết và trả về view tìm kiếm
+
+        // Đặt các giá trị đã tìm kiếm vào Model
+        model.addAttribute("timTheo5", timTheo);
+        model.addAttribute("keyword5", keyword);
         return "banhangtaiquay/ban_hang";
     }
 }

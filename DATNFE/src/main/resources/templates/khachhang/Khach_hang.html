@@ -18,6 +18,16 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
+    <style>
+        .error-border {
+            border: 1px solid red;
+        }
+
+        .custom-error-bg {
+            border: 1px solid red; /* Định nghĩa màu viền là màu đỏ */
+        }
+    </style>
+
 </head>
 <body>
 
@@ -163,75 +173,80 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="/admin/khachhang/save" method="post" th:object="${khachhang}">
-                        <div class="modal-body" >
-                            <div class="modal-body">
-                                <div class="container-fluid">
-                                    <div class="row">
+                        <form id="khachHangForm" action="/admin/khachhang/save" method="post" th:object="${khachhang}">
+                            <div class="modal-body" >
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
                                             <input type="text" hidden  th:field="*{id}">
+                                            <div class="col-md-12">
+                                                <label for="formGroupExampleInputHoten">Họ Và Tên</label>
+                                                <input type="text" th:field="*{hoten}" class="form-control" id="formGroupExampleInputHoten" placeholder="Họ và tên">
+                                                <div id="hotenError" class="text-danger"></div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
                                             <div class="col-md-6">
-                                                <label for="formGroupExampleInput">Mã</label>
-                                                <input type="text" th:field="*{ma}" class="form-control" id="formGroupExampleInput" placeholder="Mã">
+                                                <label for="formGroupExampleInputNgaySinh">Ngày Sinh</label>
+                                                <input type="date" th:field="*{ngaysinh}" class="form-control" id="formGroupExampleInputNgaySinh" placeholder="Ngày Sinh">
+                                                <div id="ngaysinhError" class="text-danger"></div>
+                                                <div id="ngaysinh1Error1" class="text-danger"></div>
                                             </div>
 
                                             <div class="col-md-6">
-                                                <label for="formGroupExampleInput">Họ Và Tên</label>
-                                                <input type="text" th:field="*{hoten}" class="form-control" id="formGroupExampleInput" placeholder="Họ và tên">
+                                                <label for="formGroupExampleInputSdt">Số điện thoại</label>
+                                                <input type="text" th:field="*{sdt}" class="form-control" id="formGroupExampleInputSdt" placeholder="Số điện thoại">
+                                                <div id="sdtError" class="text-danger"></div>
+                                                <div id="sdt1Error1" class="text-danger"></div>
                                             </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
+                                        </div>
+                                        <br>
+                                        <div class="row">
+
+
                                             <div class="col-md-6">
-                                                <label for="formGroupExampleInput">Ngày Sinh</label>
-                                                <input type="date" th:field="*{ngaysinh}" class="form-control" id="formGroupExampleInput" placeholder="Ngày Sinh">
+                                                <label for="formGroupExampleInputEmail">Email</label>
+                                                <input type="email" th:field="*{email}" class="form-control" id="formGroupExampleInputEmail" placeholder="Email">
+                                                <div id="emailError" class="text-danger"></div>
+                                                <div id="email1Error1" class="text-danger"></div>
                                             </div>
 
                                             <div class="col-md-6">
-                                                <label for="formGroupExampleInput">Số điện thoại</label>
-                                                <input type="text" th:field="*{sdt}" class="form-control" id="formGroupExampleInput" placeholder="Số điện thoại">
-                                            </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-
-                                            <div class="col-md-6">
-                                                <label for="formGroupExampleInput">Email</label>
-                                                <input type="text" th:field="*{email}" class="form-control" id="formGroupExampleInput" placeholder="Email">
+                                                <label for="formGroupExampleInputMatKhau">Mật Khẩu</label>
+                                                <input type="text" th:field="*{matkhau}" class="form-control" id="formGroupExampleInputMatKhau" placeholder="Mật Khẩu">
+                                                <div id="matkhauError" class="text-danger"></div>
                                             </div>
 
-                                            <div class="col-md-6">
-                                                <label for="formGroupExampleInput">Mật Khẩu</label>
-                                                <input type="text" th:field="*{matkhau}" class="form-control" id="formGroupExampleInput" placeholder="Mật Khẩu">
-                                            </div>
-
-                                    </div>
-                                    <br>
-                                    <div class="row">
+                                        </div>
+                                        <br>
+                                        <div class="row">
                                             <legend class="col-form-label col-sm-2 pt-0">Trạng Thái : </legend>
                                             <div class="col-sm-10">
-                                                <div class="form-check">
+                                                <div class="custom-control custom-radio">
                                                     <input class="form-check-input" type="radio" th:field="*{trangthai}" id="gridRadios1" th:value="1">
-                                                    <label class="form-check-label" for="gridRadios1">
+                                                    <label class="form-check-label " for="gridRadios1" >
                                                         Hoạt Động
                                                     </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" th:field="*{trangthai}" id="gridRadios2" th:value="0" >
-                                                    <label class="form-check-label" for="gridRadios2">
+                                                <div class="custom-control custom-radio">
+                                                    <input class="form-check-input" type="radio" th:field="*{trangthai}"  id="gridRadios2" th:value="0" >
+                                                    <label class="form-check-label" for="gridRadios2" >
                                                         Không Hoạt Động
                                                     </label>
                                                 </div>
+                                                <div id="trangthaiError" class="text-danger"></div>
                                             </div>
-                                    </div>
+                                        </div>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="modal-footer"  >
-                            <button type="submit" class="btn btn-primary">Thêm</button>
-                            <a th:href="@{|/admin/khachhang|}"> <button  type="button" class="btn btn-secondary" >Close</button></a>
-                        </div>
+                            <div class="modal-footer"  >
+                                <button type="submit" id="submitBtn" class="btn btn-primary">Thêm</button>
+                                <a th:href="@{|/admin/khachhang|}"> <button  type="button" class="btn btn-secondary" >Close</button></a>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -265,22 +280,18 @@
                 <center><h1>Danh Sách Khách Hàng</h1></center>
                 <table class="table">
                     <tr>
-                        <th>Mã</th>
                         <th>Họ và Tên</th>
                         <th>Ngày Sinh</th>
                         <th>Số Điện Thoại</th>
                         <th>Email</th>
-                        <th>Mật Khẩu</th>
                         <th>Trạng Thái</th>
                         <th>Action</th>
                     </tr>
                     <tr th:each="item,state:${listPKhachhang.content}">
-                        <td>[[${item.ma}]]</td>
                         <td>[[${item.hoten}]]</td>
                         <td>[[${item.ngaysinh}]]</td>
                         <td>[[${item.sdt}]]</td>
                         <td>[[${item.email}]]</td>
-                        <td>[[${item.matkhau}]]</td>
                         <td th:text="${item.trangthai == 1 ? 'Đang Hoạt Động' : 'Không Hoạt Động'}"></td>
                         <td>
                             <a th:href="@{|/admin/khachhang/detail/${item.ma}|}"><i class="bi bi-eye"></i></a>
@@ -313,6 +324,197 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#submitBtn').click(function(e) {
+            clearErrorMessages(); // Xóa thông báo lỗi trước khi kiểm tra lại
+
+            var hoten = $('#formGroupExampleInputHoten').val();
+            var ngaysinh = $('#formGroupExampleInputNgaySinh').val();
+            var sdt = $('#formGroupExampleInputSdt').val();
+            var email = $('#formGroupExampleInputEmail').val();
+            var matkhau = $('#formGroupExampleInputMatKhau').val();
+            var trangthai = $('input[name="trangthai"]:checked').val();
+
+            var errors = validateInput(hoten, ngaysinh, sdt, email, matkhau, trangthai);
+
+            if (errors.length > 0) {
+                displayErrorMessages(errors);
+                // displayErrorMessages1(errors);
+                e.preventDefault();
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/khachhang/save',
+                    data: $('#khachHangForm').serialize(),
+                    success: function(response) {
+                        $('#exampleModal').modal('show');
+                    },
+                    error: function(error) {
+                        // Xử lý lỗi nếu cần
+                    }
+                });
+            }
+        });
+    });
+
+    function validateInput(hoten, ngaysinh, sdt, email, matkhau, trangthai) {
+        var errors = [];
+
+        // Kiểm tra ngày sinh
+        if (!ngaysinh) {
+            errors.push('ngaysinh');
+        } else if (!isValidDate(ngaysinh)) {
+            errors.push('ngaysinh1');
+        }
+
+        // Kiểm tra số điện thoại
+        if (!sdt) {
+            errors.push('sdt');
+        } else if (!isValidPhoneNumber(sdt)) {
+            errors.push('sdt1');
+        }
+
+        // Kiểm tra email
+        if (!email) {
+            errors.push('email');
+        } else if (!isValidEmail(email)) {
+            errors.push('email1');
+        }
+
+        if (!hoten) {
+            errors.push('hoten');
+        }
+
+        if (!matkhau) {
+            errors.push('matkhau');
+        }
+
+        if (!trangthai) {
+            errors.push('trangthai');
+        }
+
+        return errors;
+    }
+
+    function isValidDate(date) {
+        var selectedDate = new Date(date);
+        var currentDate = new Date();
+        return selectedDate < currentDate;
+    }
+
+    function isValidPhoneNumber(phoneNumber) {
+        // Sử dụng biểu thức chính quy để kiểm tra số điện thoại
+        var phonePattern = /^[0-9]{10}$/;
+        return phonePattern.test(phoneNumber);
+    }
+
+    function isValidEmail(email) {
+        // Sử dụng biểu thức chính quy để kiểm tra định dạng email
+        var emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+        return emailPattern.test(email);
+    }
+
+    function clearErrorMessages() {
+
+        var hoten = $('#formGroupExampleInputHoten').val();
+        var ngaysinh = $('#formGroupExampleInputNgaySinh').val();
+        var sdt = $('#formGroupExampleInputSdt').val();
+        var email = $('#formGroupExampleInputEmail').val();
+        var matkhau = $('#formGroupExampleInputMatKhau').val();
+        var trangthai = $('input[name="trangthai"]:checked').val();
+
+        if (hoten.trim() !== '') {
+            $('#formGroupExampleInputHoten').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+        if (ngaysinh.trim() !== '') {
+            $('#formGroupExampleInputNgaySinh').removeClass('error-border');
+            $('.text-danger').text('');
+        }else if (isValidDate(ngaysinh)){
+            $('#formGroupExampleInputNgaySinh').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (sdt.trim() !== '') {
+            $('#formGroupExampleInputSdt').removeClass('error-border');
+            $('.text-danger').text('');
+        }else if (isValidPhoneNumber(sdt)){
+            $('#formGroupExampleInputSdt').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (email.trim() !== '') {
+            $('#formGroupExampleInputEmail').removeClass('error-border');
+            $('.text-danger').text('');
+        }else if (isValidEmail(email)){
+            $('#formGroupExampleInputEmail').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+        if (matkhau.trim() !== '') {
+            $('#formGroupExampleInputMatKhau').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        $('#gridRadios1').removeClass('error-border');
+        $('#gridRadios2').removeClass('error-border');
+        $('#trangthaiError').text('');
+    }
+
+    function displayErrorMessages(errors) {
+        for (var i = 0; i < errors.length; i++) {
+            var hoten = $('#formGroupExampleInputHoten').val();
+            var ngaysinh = $('#formGroupExampleInputNgaySinh').val();
+            var sdt = $('#formGroupExampleInputSdt').val();
+            var email = $('#formGroupExampleInputEmail').val();
+            var matkhau = $('#formGroupExampleInputMatKhau').val();
+            var trangthai = $('input[name="trangthai"]:checked').val();
+
+            if (hoten.trim() === '') {
+                $('#formGroupExampleInputHoten').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            }
+
+            if (ngaysinh.trim() === '') {
+                $('#formGroupExampleInputNgaySinh').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            }else if (!isValidDate(ngaysinh)){
+                $('#formGroupExampleInputNgaySinh').addClass('error-border');
+                $('#' + errors[i] + 'Error1').text('Thông Tin Không Hợp Lệ');
+            }
+
+            if (sdt.trim() === '') {
+                $('#formGroupExampleInputSdt').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            }else if (!isValidPhoneNumber(sdt)){
+                $('#formGroupExampleInputSdt').addClass('error-border');
+                $('#' + errors[i] + 'Error1').text('Thông Tin Không Hợp Lệ');
+            }
+
+            if (email.trim() === '') {
+                $('#formGroupExampleInputEmail').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            }else if (!isValidEmail(email)){
+                $('#formGroupExampleInputEmail').addClass('error-border');
+                $('#' + errors[i] + 'Error1').text('Thông Tin Không Hợp Lệ');
+            }
+            if (matkhau.trim() === '') {
+                $('#formGroupExampleInputMatKhau').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            }
+            if (errors[i] === 'trangthai') {
+                $('#gridRadios1').addClass('error-border');
+                $('#gridRadios2').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            }
+        }
+    }
+
+
+</script>
+
+
 
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/popper.js"></script>

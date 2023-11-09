@@ -19,4 +19,5 @@ public interface GiayDAO extends JpaRepository<Giay, UUID> {
 
     @Query("select p from Giay p where p.ten like ?1 and (?2 is null or p.giaban > ?2) and p.giayChiTiets.size = ?3")
     Page<Giay> getSearchsanpham(String tensp, BigDecimal giabn, String size, Pageable pageable);
+
 }
