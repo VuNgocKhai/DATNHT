@@ -23,6 +23,7 @@ public class UserService implements UserDetailsService {
     KhachHangDao khachHangDao;
     @Autowired
     NhanVienDAO nhanVienDAO;
+
     @Autowired
     BCryptPasswordEncoder pe;
 
@@ -42,7 +43,6 @@ public class UserService implements UserDetailsService {
                 }else {
                     password = accounts.getMatkhau();
                     roles="USER";
-
                     System.out.println("MK:Mã Hóa là :"+ pe.encode(password));
                 }
             }

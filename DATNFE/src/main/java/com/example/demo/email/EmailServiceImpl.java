@@ -62,12 +62,13 @@ public class EmailServiceImpl implements EmailService {
         return otp.toString();
     }
 
+
+    private final long fiveMinutesInMillis = 5 * 60 * 1000; // 5 phút trong mili giây
     @Override
     public Boolean isValidOtp(String email, String otp) {
         OTP Otp = otpMap.get(email);
         if (otp.equals(Otp.getOtp())) {
             long currentTime = System.currentTimeMillis();
-            long fiveMinutesInMillis = 5 * 60 * 1000; // 5 phút trong mili giây
             if (Otp.getCreationTime() + fiveMinutesInMillis >= currentTime) {
                 return true;
             }
