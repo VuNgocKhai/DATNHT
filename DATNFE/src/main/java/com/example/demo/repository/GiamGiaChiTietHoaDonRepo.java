@@ -53,10 +53,10 @@ public class GiamGiaChiTietHoaDonRepo {
 
     // find giảm giá CT hóa đơn theo id hóa đơn và id giảm giá hóa đơn
     public GiamGiaChiTietHoaDon getGiamGiaCTHoaDonByHDandGGHD(UUID hdid, UUID gghdid) {
-        return restTemplate.getForObject(getUrl1("/getGGCTHDbyHDandGGHD/" + hdid + "/" + gghdid), GiamGiaChiTietHoaDon.class);
+        return restTemplate.getForObject(getUrl1("getGGCTHDbyHDandGGHD/" + hdid + "/" + gghdid), GiamGiaChiTietHoaDon.class);
     }
 
-    // find giảm giá CT hóa đơn theo id hóa đơn v
+    // find giảm giá CT hóa đơn theo id hóa đơn
     public GiamGiaChiTietHoaDon getGiamGiaCTHoaDonByHD(UUID hdid) {
         return restTemplate.getForObject(getUrl1("getGGCTHDbyHD/" + hdid), GiamGiaChiTietHoaDon.class);
     }

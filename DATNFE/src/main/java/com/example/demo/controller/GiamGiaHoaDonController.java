@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,7 +43,6 @@ public class GiamGiaHoaDonController {
                                 @RequestParam("page") Optional<Integer> page,
                                 Model model) {
         PageDTO<GiamGiaHoaDon> pageGGHD = giamGiaHoaDonRepo.getPageGGHD(page.orElse(0));
-        model.addAttribute("i", 0);
         model.addAttribute("listPGiamGiaHoaDon", pageGGHD);
         return "giamgiahoadon/giam_gia_hoa_don";
     }
@@ -55,13 +57,11 @@ public class GiamGiaHoaDonController {
         GiamGiaHoaDon checkma = giamGiaHoaDonRepo.getGiamGiaHoaDonByMa(giamGiaHoaDon.getMa());
         if (result.hasErrors()) {
             PageDTO<GiamGiaHoaDon> pageGGHD = giamGiaHoaDonRepo.getPageGGHD(page.orElse(0));
-            model.addAttribute("i", 0);
             model.addAttribute("listPGiamGiaHoaDon", pageGGHD);
             return "giamgiahoadon/giam_gia_hoa_don";
         } else if (checkma != null) {
             result.rejectValue("ma", "error.giamGiaHoaDon", "Mã đã tồn tại");
             PageDTO<GiamGiaHoaDon> pageGGHD = giamGiaHoaDonRepo.getPageGGHD(page.orElse(0));
-            model.addAttribute("i", 0);
             model.addAttribute("listPGiamGiaHoaDon", pageGGHD);
             return "giamgiahoadon/giam_gia_hoa_don";
         }
@@ -86,20 +86,20 @@ public class GiamGiaHoaDonController {
     // view detail Giảm Giá Hóa Đơn
     @RequestMapping("/admin/giamgiahoadon/detail/{ma}")
     public String detailGGHD(@PathVariable("ma") String ma,
+                             @RequestParam(value = "keyword", required = false) String keyword,
                              @RequestParam("page") Optional<Integer> page,
-                             @RequestParam("page1") Optional<Integer> page1,
                              Model model) {
         // tìm giảm giá hóa đơn tương ứng theo mã
         model.addAttribute("giamgiahoadon", giamGiaHoaDonRepo.getGiamGiaHoaDonByMa(ma));
 
+        // Danh sách hóa đơn chưa áp mã
+        PageDTO<HoaDon> hoaDonPageDTOchuaGG = hoaDonRepo.getAllHDchuaGGPage(page.orElse(0));
+        model.addAttribute("listHoaDon", hoaDonPageDTOchuaGG);
         // Tìm danh sách hóa đơn đã được áp mã
         PageDTO<HoaDon> hoaDonPageDTOdaGG = giamGiaHoaDonRepo.getHoaDonByChuongTrinhGiamGiaPage(ma, page.orElse(0));
         model.addAttribute("hoaDonListdaGG", hoaDonPageDTOdaGG); // Page hóa đơn đã giảm giá
 
-        PageDTO<HoaDon> hoaDonPageDTOchuaGG = hoaDonRepo.getAllHDchuaGGPage(page1.orElse(0));
-        model.addAttribute("listHoaDon", hoaDonPageDTOchuaGG); // Page hóa đơn chưa giảm giá và có trạng thái = 1
 
-        model.addAttribute("i", 0);
         return "giamgiahoadon/detail_giam_gia_hoa_don";
     }
 
@@ -112,44 +112,49 @@ public class GiamGiaHoaDonController {
 
     // Lọc Giảm Giá Hóa Đơn theo ngày
     @RequestMapping("/admin/giamgiahoadon/loc-theo-ngay")
-    public String locGiamGiaHoaDonTheoNgay(
-            @RequestParam(value = "ngay_bat_dau", required = false) Date startDate,
-            @RequestParam(value = "ngay_ket_thuc", required = false) Date endDate,
-            @RequestParam("page") Optional<Integer> page,
-            @ModelAttribute("giamgiahoadon") GiamGiaHoaDon giamGiaHoaDon,
-            Model model) {
+    public String locGiamGiaHoaDonTheoNgay(@RequestParam(value = "ngay_bat_dau", required = false) Date startDate,
+                                           @RequestParam(value = "ngay_ket_thuc", required = false) Date endDate,
+                                           @RequestParam("page") Optional<Integer> page,
+                                           @ModelAttribute("giamgiahoadon") GiamGiaHoaDon giamGiaHoaDon,
+                                           Model model) {
 
         PageDTO<GiamGiaHoaDon> pageResult = giamGiaHoaDonRepo.getPageGGHDByDateRange(startDate, endDate, page.orElse(0));
-        model.addAttribute("i", 0);
         model.addAttribute("listPGiamGiaHoaDon", pageResult);
         model.addAttribute("ngayBatDauDetail", startDate);
         model.addAttribute("ngayKetThucDetail", endDate);
         return "giamgiahoadon/giam_gia_hoa_don";
     }
 
-    // Lọc Giảm Giá Hóa Đơn theo tên
+//    @RequestMapping("/admin/giam-gia-hoa-don/tim-kiem-hoa-don-chua-ap-ma")
+//    public String timHoaDonChuaApMa(@RequestParam("keyword") String keyword,
+//                                    @RequestParam("timTheo") String timTheo,
+//                                    @RequestParam("page") Optional<Integer> page,
+//                                    @RequestParam("maGGHD") String maGGHD,
+//                                    Model model) {
+//
+//        PageDTO<HoaDon> hoaDonPageDTOchuaGGFind = hoaDonRepo.getPageHDByTrangThai1chuaApMa(keyword,timTheo,page.orElse(0));
+//        model.addAttribute("listHoaDon", hoaDonPageDTOchuaGGFind);
+//        return "redirect:/admin/giamgiahoadon/detail/" + maGGHD;
+//    }
+
     @RequestMapping("/admin/giamgiahoadon/loc-theo-ten")
-    public String locGiamGiaHoaDonTheoTen(
-            @RequestParam(value = "ten", required = false) String ten,
-            @RequestParam("page") Optional<Integer> page,
-            @ModelAttribute("giamgiahoadon") GiamGiaHoaDon giamGiaHoaDon,
-            Model model) {
+    public String locGiamGiaHoaDonTheoTen(@RequestParam(value = "ten", required = false) String ten,
+                                          @RequestParam("page") Optional<Integer> page,
+                                          @ModelAttribute("giamgiahoadon") GiamGiaHoaDon giamGiaHoaDon,
+                                          Model model) {
 
         PageDTO<GiamGiaHoaDon> pageResult = giamGiaHoaDonRepo.getPageGGHDByTen(ten, page.orElse(0));
-        model.addAttribute("i", 0);
         model.addAttribute("listPGiamGiaHoaDon", pageResult);
         return "giamgiahoadon/giam_gia_hoa_don";
     }
 
     // Lọc GGHD theo trạng thái
     @RequestMapping("/admin/giamgiahoadon/loc-theo-trangthai")
-    public String locGiamGiaHoaDonTheoTrangThai(
-            @RequestParam(value = "trangthai", required = false) Integer trangthai,
-            @RequestParam("page") Optional<Integer> page,
-            @ModelAttribute("giamgiahoadon") GiamGiaHoaDon giamGiaHoaDon,
-            Model model) {
+    public String locGiamGiaHoaDonTheoTrangThai(@RequestParam(value = "trangthai", required = false) Integer trangthai,
+                                                @RequestParam("page") Optional<Integer> page,
+                                                @ModelAttribute("giamgiahoadon") GiamGiaHoaDon giamGiaHoaDon,
+                                                Model model) {
         PageDTO<GiamGiaHoaDon> pageResult = giamGiaHoaDonRepo.getPageGGHDByTrangThai(trangthai, page.orElse(0));
-        model.addAttribute("i", 0);
         model.addAttribute("listPGiamGiaHoaDon", pageResult);
         model.addAttribute("trangthaidetail", trangthai);
         return "giamgiahoadon/giam_gia_hoa_don";
@@ -157,21 +162,64 @@ public class GiamGiaHoaDonController {
 
     // Áp mã chương trình giảm giá cho Hóa đơn
     @PostMapping("/admin/giamgiachitiethoadon/createGGCTHD")
-    public String createGiamGiaChiTietHoaDon(@RequestParam("HoaDonMa") String HDma, @RequestParam("GiamGiaHoaDonMa") String GGHDma) {
-        GiamGiaHoaDon giamGiaHoaDon = giamGiaHoaDonRepo.getGiamGiaHoaDonByMa(GGHDma);
-        HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(HDma);
-        GiamGiaChiTietHoaDon giamGiaChiTietHoaDon = new GiamGiaChiTietHoaDon();
-        giamGiaChiTietHoaDon.setHd(hoaDon);
-        giamGiaChiTietHoaDon.setGghd(giamGiaHoaDon);
-        giamGiaChiTietHoaDon.setTrangthai(1);
-        giamGiaChiTietHoaDonRepo.createGGCTHD2(giamGiaChiTietHoaDon);
+    public String createGiamGiaChiTietHoaDon(@RequestParam("HoaDonMa") List<String> HDmas,
+                                             @RequestParam("GiamGiaHoaDonMa") String GGHDma) {
+        for (String hdma : HDmas) {
+            HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(hdma); // tìm hóa đơn theo mã
+            GiamGiaHoaDon giamGiaHoaDon = giamGiaHoaDonRepo.getGiamGiaHoaDonByMa(GGHDma); // tìm giảm giá hóa đơn theo mã
+            if (giamGiaHoaDon != null && hoaDon != null) {
+                GiamGiaChiTietHoaDon giamGiaChiTietHoaDon = new GiamGiaChiTietHoaDon(); // tạo mới giảm giá chi tiết hóa đơn
+                giamGiaChiTietHoaDon.setHd(hoaDon); // set hóa đơn vào giảm giá chi tiết hóa đơn
+                giamGiaChiTietHoaDon.setGghd(giamGiaHoaDon); // set giảm giá hóa đơn vào giảm giá chi tiết hóa đơn
+                BigDecimal tongTienHoaDon = hoaDon.getTong_tien();  // Lấy tổng tiền của hóa đơn
+                int phanTramGiam = giamGiaHoaDon.getPhan_tram_giam();// Lấy phần trăm giảm
+                BigDecimal soTienGiamMax = giamGiaHoaDon.getSo_tien_giam_max(); // Lấy số tiền giảm tối đa
+                BigDecimal soTienGiam = tongTienHoaDon.multiply(new BigDecimal(phanTramGiam)).divide(new BigDecimal(100)); // Tính số tiền giảm dựa trên phần trăm
+
+                // Nếu số tiền giảm vượt quá số tiền giảm tối đa, sử dụng số tiền giảm tối đa
+                if (soTienGiam.compareTo(soTienGiamMax) > 0) {
+                    soTienGiam = soTienGiamMax;
+                }
+                tongTienHoaDon = tongTienHoaDon.subtract(soTienGiam); // Trừ số tiền giảm khỏi tổng tiền hóa đơn
+                hoaDon.setTong_tien(tongTienHoaDon); // Cập nhật tổng tiền của hóa đơn
+                hoaDon.setSo_tien_giam(soTienGiam); // cập nhật số tiền giảm của hóa đơn
+                giamGiaHoaDon.setSo_luong(giamGiaHoaDon.getSo_luong() - 1); // Giảm số lượng giảm giá hóa đơn đi 1
+                giamGiaChiTietHoaDon.setTrangthai(1);// Set trạng thái của chi tiết giảm giá trên hóa đơn
+                giamGiaChiTietHoaDon.setTong_tien(tongTienHoaDon.add(soTienGiam)); // set tổng tiền ban đầu vào giảm giá chi tiết hóa đơn
+                giamGiaChiTietHoaDon.setSo_tien_da_giam(soTienGiam); // set số tiền giảm vào giảm giá chi tiết hóa đơn
+                giamGiaChiTietHoaDon.setTong_tien_thanh_toan(tongTienHoaDon); // set tổng tiền thanh toán
+
+                // Lưu cập nhật vào cơ sở dữ liệu
+                giamGiaChiTietHoaDonRepo.createGGCTHD2(giamGiaChiTietHoaDon);
+                giamGiaHoaDonRepo.createGGHD(giamGiaHoaDon);
+                hoaDonRepo.createHoaDon(hoaDon);
+            }
+        }
         return "redirect:/admin/giamgiahoadon/detail/" + GGHDma;
     }
 
+
     // Hủy áp mã chương trình giảm giá cho hóa đơn
-    @RequestMapping("/admin/giamgiachitiethoadon/delete/{hdid}/{gghdid}/{gghdma}")
-    public String deleteGGCTHD(@PathVariable("hdid") UUID hdid, @PathVariable("gghdid") UUID gghdid, @PathVariable("gghdma") String gghdma) {
-        giamGiaChiTietHoaDonRepo.deleteGGCTHD(hdid, gghdid);
+    @PostMapping("/admin/giamgiachitiethoadon/huy-ap-ma")
+    public String deleteGGCTHD(@RequestParam("HoaDonID") List<UUID> idHoaDon,
+                               @RequestParam("GiamGiaHoaDonId") UUID gghdid,
+                               @RequestParam("GiamGiaHoaDonMa") String gghdma) {
+
+        if (idHoaDon != null) {
+            for (UUID hdid : idHoaDon) {
+                GiamGiaChiTietHoaDon giamGiaChiTietHoaDon = giamGiaChiTietHoaDonRepo.getGiamGiaCTHoaDonByHDandGGHD(hdid, gghdid); // tìm giảm giá chi tiết hóa đơn theo 2 id phụ
+                HoaDon hoaDon = hoaDonRepo.getHoaDonByID(hdid); // tìm hóa đơn theo id
+                GiamGiaHoaDon giamGiaHoaDon = giamGiaHoaDonRepo.getGiamGiaHoaDonById(gghdid); // tìm giảm giá hóa đơn theo id
+                hoaDon.setTong_tien(giamGiaChiTietHoaDon.getTong_tien()); // tính lại tổng tiền hóa đơn về ban đầu
+                hoaDon.setSo_tien_giam(BigDecimal.ZERO); // set số tiền giảm về 0
+                giamGiaHoaDon.setSo_luong(giamGiaHoaDon.getSo_luong() + 1); // tăng lại số lượng lên 1 đơn vị
+
+                hoaDonRepo.createHoaDon(hoaDon); // cập nhật hóa đơn
+                giamGiaHoaDonRepo.createGGHD(giamGiaHoaDon); // cập nhật giảm giá hóa đơn
+
+                giamGiaChiTietHoaDonRepo.deleteGGCTHD(hdid, gghdid); // xóa giảm giá chi tiết hóa đơn
+            }
+        }
         return "redirect:/admin/giamgiahoadon/detail/" + gghdma;
     }
 

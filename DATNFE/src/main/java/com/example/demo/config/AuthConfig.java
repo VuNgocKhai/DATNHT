@@ -50,7 +50,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter  {
         http.csrf().disable().cors().disable();
         http.authorizeRequests()
                 .antMatchers("/assets/**").permitAll()
-//                .antMatchers("/**").hasRole("USER")
+                .antMatchers("/**").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/cart/view").hasRole("USER")
                 .antMatchers("/checkout").hasRole("USER")

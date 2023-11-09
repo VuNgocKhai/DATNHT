@@ -116,7 +116,7 @@ public class GioHangController {
             if (x.getMa().equals(maVC)) {
                 maGGHD = x.getMa();
                 phan_tramGGHD = x.getPhan_tram_giam();
-                so_tienGGHD = x.getSo_tien_giam();
+                so_tienGGHD = x.getSo_tien_giam_max();
                 model.addAttribute("maGGHD", x.getMa());
                 model.addAttribute("phan_tramGGHD", x.getPhan_tram_giam());
             }
@@ -200,7 +200,7 @@ public class GioHangController {
             if (x.getMa().equals(maVC)) {
                 maGGHD = x.getMa();
                 phan_tramGGHD = x.getPhan_tram_giam();
-                so_tienGGHD = x.getSo_tien_giam();
+                so_tienGGHD = x.getSo_tien_giam_max();
                 model.addAttribute("maGGHD", x.getMa());
                 model.addAttribute("phan_tramGGHD", x.getPhan_tram_giam());
             }
@@ -245,7 +245,7 @@ public class GioHangController {
             if (x.getMa().equals(maVC)) {
                 maGGHD = x.getMa();
                 phan_tramGGHD = x.getPhan_tram_giam();
-                so_tienGGHD = x.getSo_tien_giam();
+                so_tienGGHD = x.getSo_tien_giam_max();
                 model.addAttribute("maGGHD", x.getMa());
                 model.addAttribute("phan_tramGGHD", x.getPhan_tram_giam());
             }

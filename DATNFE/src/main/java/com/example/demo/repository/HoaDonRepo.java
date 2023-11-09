@@ -44,6 +44,10 @@ public class HoaDonRepo {
                 });
         return response.getBody();
     }
+    // find HD by id
+    public HoaDon getHoaDonByID(UUID id) {
+        return restTemplate.getForObject(getUrl("getbyid/" + id), HoaDon.class);
+    }
 
     // find HD by mã
     public HoaDon getHoaDonByMa(String ma) {
@@ -87,6 +91,16 @@ public class HoaDonRepo {
     public PageDTO<HoaDon> getPageHDByTrangThai1(Integer trangthai, String keyword, String timtheo, Integer page) {
         ResponseEntity<PageDTO<HoaDon>> response = restTemplate.exchange(
                 getUrl("tim-hd-theo-trang-thai?trangthai=" + trangthai + "&keyword=" + keyword  + "&timTheo=" + timtheo + "&page=" + page),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<PageDTO<HoaDon>>() {
+                }
+        );
+        return response.getBody();
+    }
+    public PageDTO<HoaDon> getPageHDByTrangThai1chuaApMa(String keyword, String timtheo, Integer page) {
+        ResponseEntity<PageDTO<HoaDon>> response = restTemplate.exchange(
+                getUrl("tim-kiem-hoa-don-chua-ap-ma?keyword=" + keyword  + "&timTheo=" + timtheo + "&page=" + page),
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<PageDTO<HoaDon>>() {
