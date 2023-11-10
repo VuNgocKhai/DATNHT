@@ -71,6 +71,18 @@ create table giay (
 	foreign key (id_kieu_dang) references kieu_dang(id),
 	foreign key (id_mau_sac) references mau_sac(id)
 )
+
+create table danh_gia(
+	id uniqueidentifier primary key default newid(),
+	id_khach_hang uniqueidentifier not null,
+	id_giay uniqueidentifier not null,
+	sao int,
+	noi_dung nvarchar(max),
+	trang_thai int,
+	foreign key (id_khach_hang) references khach_hang(id),
+	foreign key (id_giay) references giay(id)
+)
+
 create table anh_giay (
 	id uniqueidentifier primary key default newid(),
 	ten_url varchar(20) unique,
