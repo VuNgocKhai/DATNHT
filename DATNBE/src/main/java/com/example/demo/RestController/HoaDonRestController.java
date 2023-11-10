@@ -82,18 +82,18 @@ public class HoaDonRestController {
     // lọc giảm giá hóa đơn theo tên
     @GetMapping("/tim-kiem-hoa-don")
     public PageDTO<HoaDon> findHoaDonByMaOrTenKH(
-            @RequestParam("keyword") String keyword,
+            @RequestParam("keyword") String keytimHDTheoTrangThai1word,
             @RequestParam("page") Optional<Integer> page) {
 
         Pageable pageable = PageRequest.of(page.orElse(0), 5);
-        return new PageDTO<>(hoaDonDAO.searchHoaDonByKeyword(keyword, pageable));
+        return new PageDTO<>(hoaDonDAO.searchHoaDonByKeyword(keytimHDTheoTrangThai1word, pageable));
     }
     @GetMapping("/tim-kiem-hoa-don-chua-ap-ma")
     public PageDTO<HoaDon> findHoaDonChuaApMa(
             @RequestParam("TuKhoa") String keyword,
             @RequestParam("page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.orElse(0), 5);
-        return new PageDTO<>(hoaDonDAO.searchHoaDonChuaApMaByKeyword(keyword, pageable));
+        return new PageDTO<>(hoaDonDAO.searchHoaDonByKeyword(keyword, pageable));
     }
 
     //Tìm hóa đơn theo trạng thái
@@ -106,15 +106,6 @@ public class HoaDonRestController {
         return new PageDTO<>(hoaDonDAO.findHoaDonbyTrangThai(trangthai, pageable));
     }
 
-    //Tìm hóa đơn theo trạng thái
-    @GetMapping("/tim-hd-theo-trang-thai")
-    public PageDTO<HoaDon> timHDTheoTrangThai1(
-            @RequestParam("trangthai") Integer trangthai,
-            @RequestParam("page") Optional<Integer> page) {
-
-        Pageable pageable = PageRequest.of(page.orElse(0), 5);
-        return new PageDTO<>(hoaDonDAO.findHoaDonbyTrangThai(trangthai, pageable));
-    }
 
     //Tìm hóa đơn theo trạng thái
     @GetMapping("/tim-hd-theo-trang-thai")

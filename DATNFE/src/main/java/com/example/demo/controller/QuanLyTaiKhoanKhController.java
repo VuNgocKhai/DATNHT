@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.email.service.EmailService;
 import com.example.demo.entity.*;
 import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
