@@ -110,6 +110,16 @@ public class HoaDonRestController {
     @GetMapping("/tim-hd-theo-trang-thai")
     public PageDTO<HoaDon> timHDTheoTrangThai1(
             @RequestParam("trangthai") Integer trangthai,
+            @RequestParam("page") Optional<Integer> page) {
+
+        Pageable pageable = PageRequest.of(page.orElse(0), 5);
+        return new PageDTO<>(hoaDonDAO.findHoaDonbyTrangThai(trangthai, pageable));
+    }
+
+    //Tìm hóa đơn theo trạng thái
+    @GetMapping("/tim-hd-theo-trang-thai")
+    public PageDTO<HoaDon> timHDTheoTrangThai1(
+            @RequestParam("trangthai") Integer trangthai,
             @RequestParam("page") Optional<Integer> page,
             @RequestParam("timTheo") String timTheo,
             @RequestParam("keyword") String keyword) {
