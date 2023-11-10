@@ -21,7 +21,7 @@
 
 
 <!-- Shop Start -->
-<div class="container-fluid">
+<div style="width: 88%;margin: auto;">
     <div class="row px-xl-5">
         <!-- Shop Sidebar Start -->
         <div class="col-lg-3 col-md-4">
@@ -187,8 +187,14 @@
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                             </div>
                         </div>
+                        <a href="" style="position: absolute;
+    bottom: 166px;
+    left: 145px;">[[${item.thuong_hieu.ten}]]</a>
                         <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" th:href="@{|/ctsp/*{ma}|}">[[*{ten}]]</a>
+                            <a class="h6 text-decoration-none text-truncate" th:href="@{|/ctsp/*{ma}|}"><p style="margin: auto;
+    text-align: center;
+    max-width: 226px;
+    white-space: break-spaces;">[[*{ten}]]</p></a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
                                 <h5 th:if="*{gia_sau_khuyen_mai.compareTo(giaban)==0}" style="color: #ee4d2d">[[*{#numbers.formatDecimal(gia_sau_khuyen_mai, 0, 'COMMA', 0, 'POINT')}]] ₫</h5>
                                 <div th:if="*{gia_sau_khuyen_mai.compareTo(giaban)<0}">

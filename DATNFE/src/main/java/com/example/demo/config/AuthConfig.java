@@ -66,6 +66,12 @@ public class AuthConfig extends WebSecurityConfigurerAdapter  {
         http.logout()
                 .logoutUrl("/logout")
                 .permitAll();
+        http.oauth2Login().loginPage("/login")
+                .defaultSuccessUrl("/oauth2/login/success",true)
+                .failureUrl("/login?error=true")
+                .authorizationEndpoint()
+//
+                .baseUri("/oauth2/authorization");
     }
 
 }

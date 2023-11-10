@@ -4,29 +4,12 @@ create database website_ban_giay
 use website_ban_giay
 create table thuong_hieu (
 	id uniqueidentifier primary key default newid(),
-	ma varchar(20) unique,
-	ten nvarchar(50) default null,
-	trangthai int null
-)
-create table dia_hinh (
-	id uniqueidentifier primary key default newid(),
+	ten_url varchar(20) default null,
 	ma varchar(20) unique,
 	ten nvarchar(50) default null,
 	trangthai int null
 )
 create table gioi_tinh (
-	id uniqueidentifier primary key default newid(),
-	ma varchar(20) unique,
-	ten nvarchar(50) default null,
-	trangthai int null
-)
-create table thoi_tiet_thich_hop (
-	id uniqueidentifier primary key default newid(),
-	ma varchar(20) unique,
-	ten nvarchar(50) default null,
-	trangthai int null
-)
-create table danh_muc (
 	id uniqueidentifier primary key default newid(),
 	ma varchar(20) unique,
 	ten nvarchar(50) default null,
@@ -38,19 +21,19 @@ create table de_giay (
 	ten nvarchar(50) default null,
 	trangthai int null
 )
+create table xuat_xu (
+	id uniqueidentifier primary key default newid(),
+	ma varchar(20) unique,
+	ten nvarchar(50) default null,
+	trangthai int null
+)
+create table kieu_dang (
+	id uniqueidentifier primary key default newid(),
+	ma varchar(20) unique,
+	ten nvarchar(50) default null,
+	trangthai int null
+)
 create table chat_lieu (
-	id uniqueidentifier primary key default newid(),
-	ma varchar(20) unique,
-	ten nvarchar(50) default null,
-	trangthai int null
-)
-create table cam_giac (
-	id uniqueidentifier primary key default newid(),
-	ma varchar(20) unique,
-	ten nvarchar(50) default null,
-	trangthai int null
-)
-create table do_cao_giay (
 	id uniqueidentifier primary key default newid(),
 	ma varchar(20) unique,
 	ten nvarchar(50) default null,
@@ -68,14 +51,11 @@ create table giay (
 	ten nvarchar(50) default null,
 	id_thuong_hieu uniqueidentifier,
 	id_gioi_tinh uniqueidentifier,
-	id_danh_muc uniqueidentifier,
 	id_chat_lieu uniqueidentifier,
-	id_cam_giac uniqueidentifier,
-	id_dia_hinh uniqueidentifier,
-	id_thoi_tiet_thich_hop uniqueidentifier,
 	id_de_giay uniqueidentifier,
-	id_do_cao_giay uniqueidentifier,
 	id_mau_sac uniqueidentifier,
+	id_xuat_xu uniqueidentifier,
+	id_kieu_dang uniqueidentifier,
 	mota nvarchar(255) null,
 	gianhap decimal,
 	giaban decimal,
@@ -85,13 +65,10 @@ create table giay (
 	do_hot int null,
 	foreign key (id_thuong_hieu) references thuong_hieu(id),
 	foreign key (id_gioi_tinh) references gioi_tinh(id),
-	foreign key (id_danh_muc) references danh_muc(id),
 	foreign key (id_chat_lieu) references chat_lieu(id),
-	foreign key (id_cam_giac) references cam_giac(id),
-	foreign key (id_dia_hinh) references dia_hinh(id),
-	foreign key (id_thoi_tiet_thich_hop) references thoi_tiet_thich_hop(id),
 	foreign key (id_de_giay) references de_giay(id),
-	foreign key (id_do_cao_giay) references do_cao_giay(id),
+	foreign key (id_xuat_xu) references xuat_xu(id),
+	foreign key (id_kieu_dang) references kieu_dang(id),
 	foreign key (id_mau_sac) references mau_sac(id)
 )
 create table anh_giay (
@@ -217,7 +194,7 @@ create table hoa_don (
 	sdt_nguoi_nhan nvarchar(255) null,
 	dia_chi nvarchar(255) null,
 	tong_tien decimal,
-	hinh_thuc_mua int
+	hinh_thuc_mua int,
 	hinh_thuc_thanh_toan int,
 	so_tien_giam money,
 	phi_ship money,
@@ -259,35 +236,56 @@ create table chuong_trinh_giam_gia_chi_tiet_hoa_don (
 	foreign key (id_hoa_don) references hoa_don(id),
 	foreign key (id_chuong_trinh_giam_gia_hoa_don) references chuong_trinh_giam_gia_hoa_don(id)
 )
+select * from khach_hang
 INSERT INTO website_ban_giay.dbo.thuong_hieu (id,ma,ten,trangthai) VALUES
-	 (N'56DA1831-7647-446A-A150-0CF3DF82A9F2',N'TH01',N'Adidas',1),
-	 (N'68546213-C563-4273-A10B-762A9C8A1BD1',N'TH04',N'YSL',1),
-	 (N'CE37EF88-5AE4-43E0-AC6C-AB88EEB227CD',N'TH03',N'Luiviton',1),
-	 (N'723C3006-215B-49F9-A0D5-E5525CBB4F3E',N'TH02',N'Blenciaga',1);
-INSERT INTO website_ban_giay.dbo.dia_hinh (id,ma,ten,trangthai) VALUES
-	 (N'0CB15488-6B50-455D-8D50-61AC7A060960',N'DH03',N'Đồng Bằng 1',1),
-	 (N'AD7BA4E3-9DA9-49D8-A5B5-8063A6C3C0B8',N'DH04',N'Đồng Bằng 2',1),
-	 (N'87603097-6CC3-4EF7-BB14-814F1B1AA564',N'DH02',N'Đồng Bằng',1),
-	 (N'ED504C4E-664F-46C1-9B2B-ADE4082C0D47',N'DH01',N'Đồi Núi',1);
+	 (N'56DA1831-7647-446A-A150-0CF3DF82A9F2',N'TH01',N'Dior',1),
+	 (N'68546213-C563-4273-A10B-762A9C8A1BD1',N'TH02',N'Versace',1),
+	 (N'CE37EF88-5AE4-43E0-AC6C-AB88EEB227CD',N'TH03',N'MLB',1),
+	 (N'723C3006-215B-49F9-A0D5-E5525CBB4F3E',N'TH04',N'Adidas',1),
+	 (N'723C3006-215B-49F9-A0D5-E5525CBB4F3E',N'TH05',N'Chanel',1),
+	 (N'723C3006-215B-49F9-A0D5-E5525CBB4F3E',N'TH06',N'Gucci',1),
+	 (N'723C3006-215B-49F9-A0D5-E5525CBB4F3E',N'TH07',N'Calvin Klein',1),
+	 (N'723C3006-215B-49F9-A0D5-E5525CBB4F3E',N'TH08',N'YSL',1),
+	 (N'723C3006-215B-49F9-A0D5-E5525CBB4F3E',N'TH09',N'Charles & Keith',1),
+	 (N'723C3006-215B-49F9-A0D5-E5525CBB4F3E',N'TH10',N'Louis Vuitton',1),
+	 (N'723C3006-215B-49F9-A0D5-E5525CBB4F3E',N'TH11',N'Balenciaga',1),
+	 (N'723C3006-215B-49F9-A0D5-E5525CBB4F3E',N'TH12',N'Supreme',1),
+INSERT INTO website_ban_giay.dbo.xuat_xu (id,ma,ten,trangthai) VALUES
+	 (N'0CB15488-6B50-455D-8D50-61AC7A060960',N'DH03',N'Mỹ',1),
+	 (N'AD7BA4E3-9DA9-49D8-A5B5-8063A6C3C0B8',N'DH04',N'Pháp',1),
+	 (N'87603097-6CC3-4EF7-BB14-814F1B1AA564',N'DH02',N'Hàn Quốc',1),
+	 (N'87603097-6CC3-4EF7-BB14-814F1B1AA564',N'DH02',N'Đức',1),
+	 (N'87603097-6CC3-4EF7-BB14-814F1B1AA564',N'DH02',N'Singapore',1),
+	 (N'87603097-6CC3-4EF7-BB14-814F1B1AA564',N'DH02',N'Anh',1),
+	 (N'87603097-6CC3-4EF7-BB14-814F1B1AA564',N'DH02',N'Nhật Bản',1),
+	 (N'87603097-6CC3-4EF7-BB14-814F1B1AA564',N'DH02',N'Việt Nam',1),
+	 (N'87603097-6CC3-4EF7-BB14-814F1B1AA564',N'DH02',N'Tây Ban Nha',1),
+	 (N'ED504C4E-664F-46C1-9B2B-ADE4082C0D47',N'DH01',N'Thụy Sỹ',1);
+INSERT INTO website_ban_giay.dbo.chat_lieu (id,ma,ten,trangthai) VALUES
+	 (N'5A6F129E-A597-4A23-8967-030A746FDB56',N'GT03',N'Da Cao Cấp',1),
+	 (N'F3F0FAF5-E1E4-4401-8F0D-1933EA634024',N'GT02',N'100% Cotton',1),
+	 (N'F3F0FAF5-E1E4-4401-8F0D-1933EA634024',N'GT02',N'Da Nhân Tạo',1),
+	 (N'F3F0FAF5-E1E4-4401-8F0D-1933EA634024',N'GT02',N'Cao Su',1),
+	 (N'F3F0FAF5-E1E4-4401-8F0D-1933EA634024',N'GT02',N'Canvas',1),
+	 (N'F3F0FAF5-E1E4-4401-8F0D-1933EA634024',N'GT02',N'Da PU',1),
+	 (N'F3F0FAF5-E1E4-4401-8F0D-1933EA634024',N'GT02',N'Da bê',1),
+	 (N'B83FE3A0-AF91-49F1-87DD-E6E374A4E183',N'GT01',N'Polyester',1);
 INSERT INTO website_ban_giay.dbo.gioi_tinh (id,ma,ten,trangthai) VALUES
-	 (N'5A6F129E-A597-4A23-8967-030A746FDB56',N'GT03',N'Lưỡng Tính',1),
-	 (N'F3F0FAF5-E1E4-4401-8F0D-1933EA634024',N'GT02',N'Nữ',1),
-	 (N'B83FE3A0-AF91-49F1-87DD-E6E374A4E183',N'GT01',N'Nam',1);
-INSERT INTO website_ban_giay.dbo.thoi_tiet_thich_hop (id,ma,ten,trangthai) VALUES
-	 (N'5D58E9E4-3808-48A3-90F2-6AA39936B1A7',N'TTTH02',N'Trời Mưa Trời Tối',1),
-	 (N'91A0C9F9-DD97-4F2E-A8C7-BEF58E70E2E0',N'TTTH01',N'Trời Quang Mây Tạnh',1);
-INSERT INTO website_ban_giay.dbo.danh_muc (id,ma,ten,trangthai) VALUES
-	 (N'17E562BE-B3C9-42C3-84A6-C8F47A393A71',N'DM02',N'Giayf Thời Trang',1),
-	 (N'393C9E5A-2EFF-4A06-8FC8-CF269FBFA4A2',N'DM01',N'Giày Thể Thao',1);
-INSERT INTO website_ban_giay.dbo.do_cao_giay (id,ma,ten,trangthai) VALUES
-	 (N'173D9356-A26B-498E-9D03-3F4A4C5239F6',N'DCG01',N'Cổ Cao',1),
-	 (N'9AA29BE5-FB6C-4922-BBEB-68358D3D4692',N'DCG02',N'Cổ Thấp',1);
-INSERT INTO website_ban_giay.dbo.de_giay (id,ma,ten,trangthai) VALUES
-	 (N'6F6FF5BA-764A-4F74-B05F-80220497F165',N'DG02',N'Silicon',1),
-	 (N'CE93E2F3-1008-40FA-83FE-8721E66DA4E6',N'DG01',N'Cao Su',1);
+	 (N'6F6FF5BA-764A-4F74-B05F-80220497F165',N'DG02',N'Nam',1),
+	 (N'6F6FF5BA-764A-4F74-B05F-80220497F165',N'DG02',N'Trẻ Em',1),
+	 (N'6F6FF5BA-764A-4F74-B05F-80220497F165',N'DG02',N'Unisex',1),
+	 (N'CE93E2F3-1008-40FA-83FE-8721E66DA4E6',N'DG01',N'Nữ',1);
 INSERT INTO website_ban_giay.dbo.mau_sac (id,ma,ten,trangthai) VALUES
-	 (N'9E682E28-8958-40F8-AE41-3E5D0E298276',N'MS02',N'Màu Tím',1),
-	 (N'2903C8AD-D127-4BBF-B737-47867834EFE0',N'MS01',N'Màu Hồng',1);
+	 (N'9E682E28-8958-40F8-AE41-3E5D0E298276',N'MS02',N'Đen',1),
+	 (N'9E682E28-8958-40F8-AE41-3E5D0E298276',N'MS02',N'Trắng',1),
+	 (N'9E682E28-8958-40F8-AE41-3E5D0E298276',N'MS02',N'Nâu',1),
+	 (N'9E682E28-8958-40F8-AE41-3E5D0E298276',N'MS02',N'Xanh navy',1),
+	 (N'9E682E28-8958-40F8-AE41-3E5D0E298276',N'MS02',N'Bạc',1),
+	 (N'9E682E28-8958-40F8-AE41-3E5D0E298276',N'MS02',N'Xám',1),
+	 (N'9E682E28-8958-40F8-AE41-3E5D0E298276',N'MS02',N'Hồng',1),
+	 (N'9E682E28-8958-40F8-AE41-3E5D0E298276',N'MS02',N'Hồng Nhạt',1),
+	 (N'9E682E28-8958-40F8-AE41-3E5D0E298276',N'MS02',N'Xanh Blue',1),
+	 (N'2903C8AD-D127-4BBF-B737-47867834EFE0',N'MS01',N'Đỏ Gạch',1);
 INSERT INTO website_ban_giay.dbo.cam_giac (id,ma,ten,trangthai) VALUES
 	 (N'E0DBC8F8-B2AA-4E25-A73B-0A80E8CE5720',N'CG01',N'Thoải Mái',1),
 	 (N'226DE612-CF86-4A0A-9432-57B6375D9FFF',N'CG02',N'Ôm chân',1);
@@ -314,6 +312,7 @@ INSERT INTO website_ban_giay.dbo.giay_chi_tiet (id,id_giay,id_kich_co,so_luong_t
 	 (N'396ED021-F577-4BA5-B5D3-353E40F6FA4E',N'144262A4-C9BF-4764-A288-8C66D9A3C2F7',N'F575F6DE-14B2-4F24-A159-E71280C3F033',10,1),
 	 (N'E22DEB74-ECA4-41BB-AB18-55A8CD2B9CB9',N'BC03F312-454A-48DA-A318-80D1E3979AD1',N'F575F6DE-14B2-4F24-A159-E71280C3F033',10,1),
 	 (N'CD1D3426-38E1-4BE3-BF90-8B83EEEE5676',N'BC03F312-454A-48DA-A318-80D1E3979AD1',N'A97F40B0-AFCE-4C0A-BF45-F1B45FD6B472',10,1);
+select * from giay
 INSERT INTO website_ban_giay.dbo.chuc_vu (id,ma,ten,trangthai) VALUES
 	 (N'7B52F69D-5508-4745-926F-A22F9907E523',N'CV02',N'USER',1),
 	 (N'F09E9132-7F9E-48BD-A30C-E58C9E16717E',N'CV01',N'ADMIN',1);
@@ -325,6 +324,7 @@ INSERT INTO website_ban_giay.dbo.khach_hang (id,ma,ho_ten,ngay_sinh,sdt,email,ma
 	 (N'019427F5-1E52-402F-B5DC-EC17AD5F139A',N'KH02',N'Nguyễn Đại','2003-08-08',N'0387090080',N'danhng@gmail.com',N'123457',1),
 	 (N'22B427F5-1E52-402F-B5DC-EC17AD5F139A',N'KH03',N'Đào Gia Phong','2003-09-16',N'0385370656',N'phong@gmail.com',N'1',1)
 	-- địa chỉ khách hàng chỉ có 1 trạng thái mặc định là trạng thái = 1 , các trạng thái còn lại phải = 0
+update khach_hang set mat_khau=N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq'
 INSERT INTO website_ban_giay.dbo.dia_chi (id,ma,id_khach_hang,ten_dia_chi,ten_nguoi_nhan,sdt_nguoi_nhan,xa,huyen,thanh_pho,trangthai) VALUES
 	 ('1096266E-2B53-4987-8945-3DE015BB737E',N'DC01',N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'Xóm 1 Triều Đông',N'Nguyễn Thành Danh',N'0385090080',N'Tân Minh',N'Thường Tín',N'Hà Nội',1),
 	 ('8B214DA0-AB58-4113-B9F8-359C501253CC',N'DC02',N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'Xóm 2 Triều Đông',N'Nguyễn Thành Danh',N'0385090081',N'Nhị Khê',N'Thường Tín',N'Hà Nội',0),

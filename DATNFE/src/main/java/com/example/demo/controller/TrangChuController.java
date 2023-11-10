@@ -3,9 +3,11 @@ package com.example.demo.controller;
 import com.example.demo.config.Config;
 import com.example.demo.entity.*;
 import com.example.demo.repository.*;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,8 @@ public class TrangChuController {
     GioHangChiTietDAO gioHangChiTietDAO;
     @Autowired
     KhachHangDao khachHangDao;
+    @Autowired
+    UserService userService;
     @RequestMapping("/login")
     public String login() {
         return "layout/login";
@@ -44,6 +48,11 @@ public class TrangChuController {
     @RequestMapping(value = "/login",params = "logout")
     public String logout() {
         return "layout/logout";
+    }
+    @RequestMapping("/oauth2/login/success")
+    public String oauth2(OAuth2AuthenticationToken oauth2){
+        userService.loginFromOAuth2(oauth2);
+        return "home/index";
     }
     @RequestMapping("/trangchu")
     public String trangchu(Model model) {
