@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
 </head>
 <body >
 <!-- Breadcrumb Start -->
@@ -104,6 +107,29 @@
                             <a class="text-dark px-2" href="">
                                 <i class="fab fa-pinterest"></i>
                             </a>
+                        </div>
+                        <span style="margin-left: 20px; margin-right: 20px; border-left: 1px solid rgba(0,0,0,.09)"></span>
+                        <div class="d-inline-flex product-detail">
+                            <form th:action="@{/add-san-pham-yeu-thich}" method="post" id="like-form">
+                                <input type="hidden" class="form-control" th:name="Magiay" th:value="${x}" id="magiay">
+                                <input type="hidden" class="form-control" th:value="${taikhoan}" id="taikhoan">
+
+                                <!-- Thêm điều kiện kiểm tra trạng thái đăng nhập -->
+                                <div th:if="${#authorization.expression('isAuthenticated()')}">
+                                    <!-- Hiển thị nút yêu thích nếu đã đăng nhập -->
+                                    <button type="submit" id="like-button" style="border: #FFFFFF; background: #FFFFFF">
+                                        <svg width="24" height="20" class="heart">
+                                            <path d="M19.469 1.262c-5.284-1.53-7.47 4.142-7.47 4.142S9.815-.269 4.532 1.262C-1.937 3.138.44 13.832 12 19.333c11.559-5.501 13.938-16.195 7.469-18.07z" stroke="#FF424F" stroke-width="1.5" fill="#FFFFFF" fill-rule="evenodd" stroke-linejoin="round" class="like-active"></path>
+                                        </svg>
+                                        <span style="margin-left: 10px" id="like-count">Đã Thích ()</span>
+                                    </button>
+                                </div>
+
+                                <div th:if="${not #authorization.expression('isAuthenticated()')}">
+                                    <!-- Hiển thị thông báo hoặc nút đăng nhập nếu chưa đăng nhập -->
+                                    <a th:href="@{/login}">Đăng nhập để yêu thích sản phẩm</a>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -355,6 +381,89 @@
     </div>
 </div>
 
+<script th:inline="javascript">
+    var countyeuthichsanpham = [[${Tongsothichsanpham}]];
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        var isLiked = false; // Biến kiểm tra xem người dùng đã thích hay chưa
+        var likeCount = [[${Tongsothichsanpham}]]; // Số lượt thích ban đầu
+
+        var currentProductId = $('#magiay').val()
+        var currentProductId1 = $('#taikhoan').val()
+        // Kiểm tra trạng thái yêu thích từ Local Storage hoặc Cookies
+        var isLikedInStorage = localStorage.getItem('isLiked' + currentProductId + 'isLikeds' + currentProductId1);
+        if (isLikedInStorage === 'true') {
+            isLiked = true;
+        }
+
+        updateLikeUI();
+
+        $('#like-button').click(function(e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
+
+            if (isLiked) {
+                // Nếu người dùng đã thích, thực hiện hành động bỏ thích
+                $.ajax({
+                    type: 'POST',
+                    url: '/remove-san-pham-yeu-thich',
+                    data: $('#like-form').serialize(),
+                    success: function(response) {
+                        console.log(response);
+                        isLiked = false;
+                        localStorage.removeItem('isLiked'  + currentProductId +'isLikeds'  + currentProductId1); // Lưu trạng thái vào Local Storage hoặc Cookies
+                        likeCount--;
+                        updateLikeUI();
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            } else {
+                // Nếu người dùng chưa thích, thực hiện hành động thích
+                $.ajax({
+                    type: 'POST',
+                    url: '/add-san-pham-yeu-thich',
+                    data: $('#like-form').serialize(),
+                    success: function(response) {
+                        console.log(response);
+                        isLiked = true;
+                        localStorage.setItem('isLiked'  + currentProductId +'isLikeds'  + currentProductId1, 'true');
+                        likeCount++;
+                        updateLikeUI();
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+
+        // Hàm cập nhật giao diện người dùng
+        function updateLikeUI() {
+            if (isLiked) {
+                $('#like-button .heart path.like-active').attr('fill', '#FF424F');
+            } else {
+                $('#like-button .heart path.like-active').attr('fill', '#FFFFFF');
+            }
+            $('#like-count').text('Đã Thích (' + likeCount + ')');
+        }
+    });
+</script>
+
+
+
+
+<style>
+    #like-button:active,
+    #like-button:focus {
+        border: none; /* Loại bỏ border khi nút được nhấp hoặc focus */
+        outline: none; /* Loại bỏ outline khi nút được nhấp hoặc focus */
+    }
+</style>
 <!-- Products End -->
 </body>
 </html>

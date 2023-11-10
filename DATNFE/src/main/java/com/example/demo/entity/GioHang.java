@@ -27,6 +27,7 @@ public class GioHang {
     private Integer trangthai;
     @OneToMany(mappedBy = "gio_hang",fetch = FetchType.EAGER)
     Set<GioHangChiTiet> gioHangChiTiets;
+
     public List<GioHangChiTiet> getListGHCT(Set<GioHangChiTiet> gioHangChiTiets){
         List<GioHangChiTiet> list = new ArrayList<GioHangChiTiet>(gioHangChiTiets);
         list.sort(Comparator.comparing(GioHangChiTiet::getId));
