@@ -39,7 +39,7 @@ public class GiamGiaHoaDonRestController {
     public List<GiamGiaHoaDon> getListGiamGiaHoaDon() {
         return giamGiaHoaDonDAO.findAll();
     }
-    //Lấy list danh sách hóa đơn trạng thái = 1
+    //Lấy list danh sách gg hóa đơn trạng thái = 1
     @GetMapping("/trang-thai-1")
     public List<GiamGiaHoaDon> getListGiamGiaHoaDonHoatDong() {
         return giamGiaHoaDonDAO.getAllGiamGiaHoaDonHoatDong();
@@ -48,7 +48,7 @@ public class GiamGiaHoaDonRestController {
     // Phân trang giảm giá hóa đơn
     @GetMapping("/phantrang")
     public PageDTO<GiamGiaHoaDon> getPageGGHD(@RequestParam("page") Optional<Integer> page) {
-        Pageable pageable = PageRequest.of(page.orElse(0), 5);
+        Pageable pageable = PageRequest.of(page.orElse(0), 10);
         return new PageDTO<>(giamGiaHoaDonDAO.findAll(pageable));
     }
 
@@ -63,6 +63,11 @@ public class GiamGiaHoaDonRestController {
     public GiamGiaHoaDon getGiamGiaHoaDonByMa(@PathVariable("ma") String ma) {
         return giamGiaHoaDonDAO.findGiamGiaHoaDonByMa(ma);
     }
+    // Tìm giảm giá hóa đơn theo id
+    @GetMapping("/getbyid/{id}")
+    public GiamGiaHoaDon getGiamGiaHoaDonByID(@PathVariable("id") UUID id) {
+        return giamGiaHoaDonDAO.findById(id).get();
+    }
 
     //update giảm giá hóa đơn theo mã
     @PostMapping("/{ma}")
@@ -74,7 +79,7 @@ public class GiamGiaHoaDonRestController {
             // Cập nhật các thuộc tính của đối tượng đã có từ updatedGiamGiaHoaDon
             existingGiamGiaHoaDon.setTen(updatedGiamGiaHoaDon.getTen());
             existingGiamGiaHoaDon.setDieu_kien(updatedGiamGiaHoaDon.getDieu_kien());
-            existingGiamGiaHoaDon.setSo_tien_giam(updatedGiamGiaHoaDon.getSo_tien_giam());
+            existingGiamGiaHoaDon.setSo_tien_giam_max(updatedGiamGiaHoaDon.getSo_tien_giam_max());
             existingGiamGiaHoaDon.setNgay_bat_dau(updatedGiamGiaHoaDon.getNgay_bat_dau());
             existingGiamGiaHoaDon.setNgay_ket_thuc(updatedGiamGiaHoaDon.getNgay_ket_thuc());
             existingGiamGiaHoaDon.setSo_luong(updatedGiamGiaHoaDon.getSo_luong());

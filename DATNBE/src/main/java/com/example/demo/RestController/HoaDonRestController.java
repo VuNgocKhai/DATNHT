@@ -38,15 +38,21 @@ public class HoaDonRestController {
     // phân trang hóa đơn chưa được áp mã
     @GetMapping("/phantrang")
     public PageDTO<HoaDon> getPageHD(@RequestParam("page1") Optional<Integer> page) {
-        Pageable pageable = PageRequest.of(page.orElse(0), 5);
+        Pageable pageable = PageRequest.of(page.orElse(0), 10);
         return new PageDTO<>(hoaDonDAO.findHoaDonChuaApDungChuongTrinhGiamGiaPage(pageable));
     }
 
-    // phân trang hóa đơn chưa thanh toán
+    // phân trang hóa đơn trạng thái = 1
     @GetMapping("/pagehdctt")
     public PageDTO<HoaDon> getPageHDchuaThanhToan(@RequestParam("page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.orElse(0), 5);
         return new PageDTO<>(hoaDonDAO.findHoaDonChuaThanhToan(pageable));
+    }
+
+    // tìm hóa đơn theo id
+    @GetMapping("/getbyid/{id}")
+    public HoaDon getHoaDonByID(@PathVariable("id") UUID id) {
+        return hoaDonDAO.findById(id).get();
     }
 
     // tìm hóa đơn theo mã
@@ -82,7 +88,13 @@ public class HoaDonRestController {
         Pageable pageable = PageRequest.of(page.orElse(0), 5);
         return new PageDTO<>(hoaDonDAO.searchHoaDonByKeyword(keyword, pageable));
     }
-
+    @GetMapping("/tim-kiem-hoa-don-chua-ap-ma")
+    public PageDTO<HoaDon> findHoaDonChuaApMa(
+            @RequestParam("TuKhoa") String keyword,
+            @RequestParam("page") Optional<Integer> page) {
+        Pageable pageable = PageRequest.of(page.orElse(0), 5);
+        return new PageDTO<>(hoaDonDAO.searchHoaDonChuaApMaByKeyword(keyword, pageable));
+    }
 
     //Tìm hóa đơn theo trạng thái
     @GetMapping("/phan-trang")
@@ -105,10 +117,11 @@ public class HoaDonRestController {
         Pageable pageable = PageRequest.of(page.orElse(0), 5);
         Page<HoaDon> hoaDonPage;
         if (keyword != null) {
-            hoaDonPage = hoaDonDAO.searchHoaDon(keyword,"%" + timTheo + "%" ,trangthai, PageRequest.of(0, 5));
+            hoaDonPage = hoaDonDAO.searchHoaDon(keyword, "%" + timTheo + "%", trangthai, PageRequest.of(0, 5));
         } else {
-            hoaDonPage = hoaDonDAO.searchHoaDon(keyword,"%" + timTheo + "%" ,trangthai, PageRequest.of(0, 5));
+            hoaDonPage = hoaDonDAO.searchHoaDon(keyword, "%" + timTheo + "%", trangthai, PageRequest.of(0, 5));
         }
         return new PageDTO<>(hoaDonPage);
     }
+
 }
