@@ -6,6 +6,10 @@ import com.example.demo.repository.*;
 import com.example.demo.service.CallAPIGHN;
 import com.example.demo.service.UntityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -50,12 +54,32 @@ public class GioHangController {
     CallAPIGHN callAPIGHN;
     @Autowired
     UntityService untityService;
+    @Autowired
+    DanhGiaDAO danhGiaDAO;
+
+
     @RequestMapping("/ctsp/{x}")
-    public String ctsp(Model model, @PathVariable("x") String ma) {
+    public String ctsp(Model model, @PathVariable("x") String ma,
+                       @RequestParam(defaultValue = "0") String numberDg) {
         Giay giay = giayDAO.getGiayByMa(ma);
         model.addAttribute("item", giay);
+
+        //load danh gia
+        Pageable pageable= PageRequest.of(Integer.valueOf(numberDg),3);
+        model.addAttribute("pageDg", new PageDTO<>(danhGiaDAO.findDanhGiasByMaSpAndTt(ma,pageable)));
+        model.addAttribute("totalDg",danhGiaDAO.countGiayByMaGiayAndTt(ma));
+        model.addAttribute("x",ma);
+        model.addAttribute("dg",DanhGia.builder().giay(giay).trangThai(0).build());
         return "home/chitietsanpham";
     }
+
+    @ResponseBody
+    @PostMapping("/danh-gia")
+    public ResponseEntity<?> danhGiaPost(@RequestBody DanhGia danhGia) {
+        danhGiaDAO.save(danhGia);
+        return ResponseEntity.ok(true);
+    }
+
     @RequestMapping("/createBill")
     public void createBill() {
                 try (PDDocument doc = new PDDocument()) {
@@ -75,7 +99,6 @@ public class GioHangController {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
     }
 
     @PostMapping("/cart/add")

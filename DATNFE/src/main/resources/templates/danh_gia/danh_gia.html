@@ -152,15 +152,7 @@
         </nav>
         <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px;margin: 20px">
             <div>
-                <a th:href="@{|/admin/danh-gia/duyet-tat-ca|}">
-                    <button class="btn btn-primary">Duyệt tất cả đánh giá</button>
-                </a>
-                <a href="#">
-                    <button class="btn btn-primary" id="duyet-nhieu">Duyệt tất cả đánh giá đã chọn</button>
-                </a>
-                <a href="#">
-                    <button class="btn btn-primary" id="xoa-nhieu">Xóa tất cả đánh giá đã chọn</button>
-                </a>
+
                 <h1 style="text-transform: uppercase;
     color: #000000;font-family: 'Lora';text-align: center;">Danh sách đánh giá</h1>
                 <table class="table" style="margin: 20px 0;">
@@ -168,7 +160,7 @@
                     <tr>
                         <th><input type="checkbox" id="cb-all"/></th>
                         <th scope="col">Sản phẩm</th>
-                        <th scope="col">Khách hàng</th>
+                        <th scope="col">Tên người đánh giá</th>
                         <th scope="col">Sao</th>
                         <th scope="col">Nội dung</th>
                         <th scope="col">Trạng thái</th>
@@ -185,7 +177,7 @@
                             [[${item.giay.ten}]]
                         </th>
                         <th>
-                            [[${item.khachHang.hoten}]]
+                            [[${item.tenNguoiDanhGia}]]
                         </th>
                         <th>
                             [[${item.sao}]]
@@ -209,11 +201,25 @@
                     </tbody>
                 </table>
 
-                <span th:if="${page.totalPages>0}">
-                    <span th:each="i : ${#numbers.sequence(0, page.totalPages-1)}">
-                    <a th:text="${i+1}" th:href="@{|/admin/danh-gia?number=${i}|}" class="btn btn-primary"></a>
+                <div class="float-right">
+                    <a th:href="@{|/admin/danh-gia/duyet-tat-ca|}">
+                        <button class="btn btn-primary">Duyệt tất cả đánh giá</button>
+                    </a>
+                    <a href="#">
+                        <button class="btn btn-primary" id="duyet-nhieu">Duyệt tất cả đánh giá đã chọn</button>
+                    </a>
+                    <a href="#">
+                        <button class="btn btn-primary" id="xoa-nhieu">Xóa tất cả đánh giá đã chọn</button>
+                    </a>
+                </div>
+
+                <div style="clear: both">
+                    <span th:if="${page.totalPages>0}">
+                        <span th:each="i : ${#numbers.sequence(0, page.totalPages-1)}">
+                            <a th:text="${i+1}" th:href="@{|/admin/danh-gia?number=${i}|}" class="btn btn-primary"></a>
+                        </span>
                     </span>
-                </span>
+                </div>
 
             </div>
         </div>

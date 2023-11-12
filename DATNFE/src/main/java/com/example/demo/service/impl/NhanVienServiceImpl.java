@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -42,7 +44,14 @@ public class NhanVienServiceImpl implements NhanVienService {
 
     @Override
     public Boolean update(NhanVien nhanVien) {
-        nhanVien.setMatKhau(passwordEncoder.encode(nhanVien.getMatKhau()));
+        if(nhanVien.getNgayNghiViec()!=null){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate ngayNghiViecDate = LocalDate.parse(nhanVien.getNgayNghiViec(), formatter);
+            LocalDate currentDate = LocalDate.now();
+            if(ngayNghiViecDate.isBefore(currentDate)){
+                nhanVien.setTrangThai(0);
+            }
+        }
         return nhanVienRepository.update(nhanVien);
     }
 
