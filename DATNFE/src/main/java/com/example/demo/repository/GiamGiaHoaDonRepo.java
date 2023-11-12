@@ -68,6 +68,10 @@ public class GiamGiaHoaDonRepo {
         return restTemplate.getForObject(getUrl(ma), GiamGiaHoaDon.class);
     }
 
+    // findGGHD by id
+    public GiamGiaHoaDon getGiamGiaHoaDonById(UUID id) {
+        return restTemplate.getForObject(getUrl( "getbyid/" + id), GiamGiaHoaDon.class);
+    }
 
     // tạo mới GGHD
     public String createGGHD(GiamGiaHoaDon giamGiaHoaDon) {

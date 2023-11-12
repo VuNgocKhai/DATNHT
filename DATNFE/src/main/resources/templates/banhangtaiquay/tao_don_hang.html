@@ -14,6 +14,7 @@
     <style>
         #listGCTTable {
             table-layout: fixed;
+            table-layout: fixed;
         }
 
         #listGCTTable thead th {
@@ -247,7 +248,6 @@
                             </button>
                         </form>
                         <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-to-cart}" method="post">
-
                             <div class="modal-body" id="ListGiayChiTiettable">
                                 <div th:if="${ListGiayChiTiet.content.isEmpty()}">
                                     <h4 style="text-align: center">Danh Sách Giày Trống !</h4>
@@ -846,7 +846,7 @@
                                                 <div>
                                                     Đơn Hàng Tối Thiểu: <span style="color: #e3e308" class="giaBan">[[${item.dieu_kien}]]</span>
                                                     <br>
-                                                    Giảm Tối Đa: <span style="color: #e3e308" class="giaBan">[[${item.so_tien_giam}]]</span>
+                                                    Giảm Tối Đa: <span style="color: #e3e308" class="giaBan">[[${item.so_tien_giam_max}]]</span>
                                                 </div>
                                                 <div style="color: red">
                                                     Hạn sử dụng: [[${item.ngay_ket_thuc}]]
@@ -894,6 +894,7 @@
             </div>
             <!--        End Chọn Địa chỉ và Voucher-->
         </div>
+        <!--        End Địa chỉ và Voucher-->
         <!--    End Page Content-->
     </div>
 </div>

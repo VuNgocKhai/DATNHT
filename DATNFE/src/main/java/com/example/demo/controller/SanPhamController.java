@@ -23,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -70,12 +71,15 @@ public class    SanPhamController {
         return "product/update_sp";
     }
     @PostMapping("/admin/sanpham/update/{x}")
-    public String productUpdate2(Model model,@ModelAttribute("item") Giay ao){
-        giayDAO.save(ao);
-        return "redirect:/admin/sanpham/update/"+ao.getMa();
+    public String productUpdate2(Model model,@ModelAttribute("sanpham") Giay giay){
+        giay.setId(giayDAO.getGiayByMa(giay.getMa()).getId());
+        giayDAO.save(giay);
+        return "redirect:/admin/sanpham/update/"+giay.getMa();
     }
     @PostMapping("/admin/sanpham/create")
     public String productCreate2(Model model,@ModelAttribute("sanpham") Giay giay){
+        giay.setNgay_nhap(LocalDate.now());
+        giay.setGia_sau_khuyen_mai(giay.getGiaban());
         String ma= giayDAO.save(giay).getMa();
         model.addAttribute("items",giayDAO.findAll());
         return "redirect:/admin/sanpham/update/"+ma;

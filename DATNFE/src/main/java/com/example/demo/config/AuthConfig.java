@@ -44,7 +44,6 @@ public class AuthConfig extends WebSecurityConfigurerAdapter  {
         http.csrf().disable().cors().disable();
         http.authorizeRequests()
                 .antMatchers("/assets/**").permitAll()
-//                .antMatchers("/**").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/cart/view").hasRole("USER")
                 .antMatchers("/checkout").hasRole("USER")
@@ -60,6 +59,12 @@ public class AuthConfig extends WebSecurityConfigurerAdapter  {
         http.logout()
                 .logoutUrl("/logout")
                 .permitAll();
+        http.oauth2Login().loginPage("/login")
+                .defaultSuccessUrl("/oauth2/login/success",true)
+                .failureUrl("/login?error=true")
+                .authorizationEndpoint()
+//
+                .baseUri("/oauth2/authorization");
     }
 
 }

@@ -20,9 +20,9 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
     @Query("SELECT hd FROM HoaDon hd WHERE hd.trangthai = 0 AND hd.id NOT IN (SELECT ct.hd.id FROM GiamGiaChiTietHoaDon ct WHERE ct.hd.trangthai = 0)")
     List<HoaDon> findHoaDonChuaApDungChuongTrinhGiamGia();
 
-    // Query tìm hóa đơn với điều kiện hóa đơn chưa được áp mã ,trạng thái phải là chưa thanh toán và khách hàng không được null
-    @Query("SELECT hd FROM HoaDon hd WHERE hd.trangthai = 1 " +
-            "AND hd.khachHang IS NOT NULL " +
+    @Query("SELECT hd FROM HoaDon hd " +
+            "WHERE (hd.trangthai = 1 OR hd.trangthai = 2) " +
+            "AND hd.tong_tien >= (SELECT MIN(gghd.dieu_kien) FROM GiamGiaHoaDon gghd WHERE gghd.trangthai = 1) " +
             "AND hd.id NOT IN (SELECT ct.hd.id FROM GiamGiaChiTietHoaDon ct WHERE ct.hd.trangthai = 1)")
     Page<HoaDon> findHoaDonChuaApDungChuongTrinhGiamGiaPage(Pageable pageable);
 
@@ -34,10 +34,9 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
     @Query("SELECT hd FROM HoaDon hd WHERE hd.trangthai = ?1")
     Page<HoaDon> findHoaDonbyTrangThai(Integer trangthai, Pageable pageable);
 
-    //Query tìm kiếm hóa đơn theo mã hóa đơn hoặc tên khách hàng
-    @Query("SELECT hd FROM HoaDon hd WHERE hd.trangthai = 0 " +
-            "AND (hd.ma LIKE %:keyword% OR hd.khachHang.hoten LIKE %:keyword%)" +
-            "and hd.trangthai = 0")
+    //Query tìm kiếm hóa đơn theo mã hóa đơn hoặc tên khách hàng hoặc tổng tiền
+    @Query("SELECT hd FROM HoaDon hd WHERE hd.trangthai = 1 or hd.trangthai = 2 " +
+            "AND (hd.ma LIKE %:keyword% OR hd.khachHang.hoten LIKE %:keyword%)")
     Page<HoaDon> searchHoaDonByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
     @Query("SELECT hd FROM HoaDon hd WHERE ((hd.ma LIKE %:keyword% and hd.ma like :timTheo ) " +
@@ -45,4 +44,5 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "or (hd.nhanVien.hoTen LIKE %:keyword% and hd.nhanVien.ma like :timTheo) or (hd.tong_tien LIKE %:keyword%)) " +
             "AND hd.trangthai = :trangThai")
     Page<HoaDon> searchHoaDon(@Param("keyword") String keyword, @Param("timTheo") String timtheo, @Param("trangThai") Integer trangThai, Pageable pageable);
+
 }
