@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.*;
 
 @Table(name = "gio_hang")
@@ -21,8 +22,8 @@ public class GioHang {
     @OneToOne
     @JoinColumn(name = "id_khach_hang")
     private KhachHang khach_hang;
-    private Date ngay_tao;
-    private Date ngay_cap_nhap;
+    private LocalDate ngay_tao;
+    private LocalDate ngay_cap_nhap;
     private String ghi_chu;
     private Integer trangthai;
     @OneToMany(mappedBy = "gio_hang",fetch = FetchType.EAGER)

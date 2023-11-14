@@ -101,6 +101,13 @@ public class GioHangController {
         String username = authentication.getName();
         KhachHang khachHang = khachHangDao.getKhByEmail(username);
         GiayChiTiet giayChiTiet = giayChiTietDAO.getAllByMaGiayAndSize(ma_giay, size_giay);
+        if (khachHang.getGio_hang()==null){
+            GioHang gioHang1 = new GioHang();
+            gioHang1.setKhach_hang(khachHang);
+            gioHang1.setNgay_tao(LocalDate.now());
+            gioHang1.setMa(gioHangDAO.generateNextMaGioHang());
+            gioHangDAO.save(gioHang1);
+        }
         GioHang gioHang = khachHang.getGio_hang();
         GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
         boolean kq = true;

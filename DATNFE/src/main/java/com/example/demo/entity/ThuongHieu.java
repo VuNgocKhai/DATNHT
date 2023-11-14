@@ -27,6 +27,10 @@ public class ThuongHieu implements Serializable {
     @OneToMany(mappedBy = "thuong_hieu",fetch = FetchType.EAGER)
     List<Giay> giayList;
     public Integer getSumSP(){
-        return giayList.size();
+        if (giayList==null){
+            return 0;
+        }else {
+            return giayList.size();
+        }
     }
 }
