@@ -49,7 +49,7 @@ public class GiamGiaHoaDon implements Serializable {
 
     @NotNull(message = "Không được để trống số tiền giảm !")
     @DecimalMin(value = "0", message = "Số tiền giảm không được là số âm!")
-    private BigDecimal so_tien_giam;
+    private BigDecimal so_tien_giam_max;
 
     @NotNull(message = "Không được để trống ngày bắt đầu !")
     private Date ngay_bat_dau;

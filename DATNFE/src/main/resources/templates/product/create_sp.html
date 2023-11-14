@@ -25,7 +25,7 @@
             </button>
         </div>
         <div class="p-4">
-            <h1><a href="danh_muc.html" class="logo">DLFV</a></h1>
+            <h1><a href="kieu_dang.html" class="logo">DLFV</a></h1>
             <ul class="list-unstyled components mb-5">
                 <li class="active">
                     <a href="#homeSubmenu"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-home mr-3"></span>Thống Kê</a>
@@ -190,9 +190,9 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label >Cảm Giác :</label>
-                        <select class="form-control" th:field="*{cam_giac.id}">
-                                <option th:each="cg:${listCamGiac}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                        <label >Xuất Xứ :</label>
+                        <select class="form-control" th:field="*{xuat_xu.id}">
+                                <option th:each="cg:${listXuatXu}" th:value="${cg.id}">[[${cg.ten}]]</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
@@ -204,9 +204,9 @@
                 </div>
                     <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label >Danh Mục :</label>
-                        <select class="form-control" th:field="*{danh_muc.id}">
-                            <option th:each="cg:${listDanhMuc}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                        <label >Kiểu Dáng :</label>
+                        <select class="form-control" th:field="*{kieu_dang.id}">
+                            <option th:each="cg:${listKieuDang}" th:value="${cg.id}">[[${cg.ten}]]</option>
                         </select>
                     </div>
                     <div class="form-group col-md-4">
@@ -215,20 +215,9 @@
                             <option th:each="cg:${listDeGiay}" th:value="${cg.id}">[[${cg.ten}]]</option>
                         </select>
                     </div>
-                    <div class="form-group col-md-4">
-                        <label >Địa Hình :</label>
-                        <select class="form-control" th:field="*{dia_hinh.id}">
-                            <option th:each="cg:${listDiaHinh}" th:value="${cg.id}">[[${cg.ten}]]</option>
-                        </select>
-                    </div>
+                    
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label >Độ Cao Giày :</label>
-                            <select class="form-control" th:field="*{do_cao_giay.id}">
-                                <option th:each="cg:${listDoCaoGiay}" th:value="${cg.id}">[[${cg.ten}]]</option>
-                            </select>
-                        </div>
                         <div class="form-group col-md-6">
                             <label >Gioi Tinh :</label>
                             <select class="form-control" th:field="*{gioi_tinh.id}">
@@ -241,12 +230,6 @@
                         <label >Màu Sắc :</label>
                         <select class="form-control" th:field="*{mau_sac.id}">
                             <option th:each="cg:${listMauSac}" th:value="${cg.id}">[[${cg.ten}]]</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label >Thời Tiết Thích Hợp :</label>
-                        <select class="form-control" th:field="*{thoi_tiet_thich_hop.id}">
-                            <option th:each="cg:${listThoiTietThichHop}" th:value="${cg.id}">[[${cg.ten}]]</option>
                         </select>
                     </div>
                     <div class="form-group col-md-4">

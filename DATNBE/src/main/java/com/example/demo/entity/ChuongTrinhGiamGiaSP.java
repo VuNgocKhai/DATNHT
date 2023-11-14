@@ -15,6 +15,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
@@ -37,17 +41,24 @@ public class ChuongTrinhGiamGiaSP implements Serializable {
     private String maKhuyenMai;
 
     @Column(name = "ten")
+    @NotBlank(message = "Không được để trống!")
     private String tenKhuyenMai;
 
     @Column(name = "phan_tram_giam")
+    @NotNull(message = "Không được để trống!")
+    @Min(value = 0, message = "Phần trăm giảm không được âm!")
+    @Max(value = 100, message = "Phần trăm giảm phải bé hơn 100!")
     private Integer phanTramGiam;
 
     @Temporal(TemporalType.DATE)
+    @NotNull(message = "Không được để trống!")
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     @Column(name = "ngay_bat_dau")
+
     private Date ngayBatDau;
 
     @Temporal(TemporalType.DATE)
+    @NotNull(message = "Không được để trống!")
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     @Column(name = "ngay_ket_thuc")
     private Date ngayKetThuc;

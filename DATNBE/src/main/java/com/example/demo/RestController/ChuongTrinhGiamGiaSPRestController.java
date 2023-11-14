@@ -1,6 +1,7 @@
 package com.example.demo.RestController;
 
 import com.example.demo.entity.ChuongTrinhGiamGiaSP;
+import com.example.demo.entity.GiamGiaHoaDon;
 import com.example.demo.entity.PageDTO;
 import com.example.demo.repository.ChuongTrinhGiamGiaSPRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,22 +67,8 @@ public class ChuongTrinhGiamGiaSPRestController {
 
     }
 
-//    @GetMapping("/search-trangthai")
-//    public PageDTO<ChuongTrinhGiamGiaSP> searchByTrangThai(@RequestParam("page") Optional<Integer> page,
-//                                                           @RequestParam("searchTrangThai") Optional<Integer> trangThai) {
-//        Pageable pageable = PageRequest.of(page.orElse(0), 5);
-//        Page<ChuongTrinhGiamGiaSP> giamGiaSPPage;
-//        if (trangThai != null) {
-//            giamGiaSPPage = (Page<ChuongTrinhGiamGiaSP>) chuongTrinhGiamGiaSPRepository.searchByTrangThai("%" +trangThai.get() + "%", pageable);
-//        } else {
-//            giamGiaSPPage = chuongTrinhGiamGiaSPRepository.findAll(pageable);
-//        }
-//
-//        return new PageDTO<>(giamGiaSPPage);
-//
-//    }
 
-    @PostMapping()        // http://localhost:2020/rest/chuong-trinh-giam-gia-sp/hien-thi
+    @PostMapping()        // http://localhost:2020/rest/chuong-trinh-giam-gia-sp
     public ResponseEntity<?> createVoucher(@RequestBody ChuongTrinhGiamGiaSP chuongTrinhGiamGiaSP) {
         return ResponseEntity.ok(chuongTrinhGiamGiaSPRepository.save(chuongTrinhGiamGiaSP));
     }
@@ -106,16 +93,41 @@ public class ChuongTrinhGiamGiaSPRestController {
         return ResponseEntity.ok(chuongTrinhGiamGiaSPRepository.findById(id));
     }
 
-    @GetMapping("/{ma}")        // http://localhost:2020/rest/chuong-trinh-giam-gia-sp/detail
-    public ResponseEntity<?> getOneByMa(@PathVariable String ma) {
-        return ResponseEntity.ok(chuongTrinhGiamGiaSPRepository.findChuongTrinhGiamGiaSPByMaKhuyenMai(ma));
+//    @GetMapping("/{ma}")        // http://localhost:2020/rest/chuong-trinh-giam-gia-sp/detail
+//    public ResponseEntity<?> getOneByMa(@PathVariable("ma") String ma) {
+//        return ResponseEntity.ok(chuongTrinhGiamGiaSPRepository.findChuongTrinhGiamGiaSPByMaKhuyenMai(ma));
+//    }
+
+//    //Tìm kiếm theo mã:
+    @GetMapping("/{ma}")        // http://localhost:2020/rest/chuong-trinh-giam-gia-sp/GGSP01
+    public ChuongTrinhGiamGiaSP getOneByMa(@PathVariable("ma") String ma) {
+        return chuongTrinhGiamGiaSPRepository.findByMa(ma);
     }
 
+    //update giảm giá hóa đơn theo mã
+    @PostMapping("/{ma}")
+    public ChuongTrinhGiamGiaSP updateVoucher(@PathVariable("ma") String ma, @RequestBody ChuongTrinhGiamGiaSP updatedGGSP) {
+        // Truy vấn đối tượng GiamGiaHoaDon từ cơ sở dữ liệu dựa trên ma
+        ChuongTrinhGiamGiaSP ggspUpdate= chuongTrinhGiamGiaSPRepository.findByMa(ma);
+
+        if (ggspUpdate != null) {
+            // Cập nhật các thuộc tính của đối tượng đã có từ updatedGiamGiaHoaDon
+            ggspUpdate.setTenKhuyenMai(updatedGGSP.getTenKhuyenMai());
+            ggspUpdate.setPhanTramGiam(updatedGGSP.getPhanTramGiam());
+            ggspUpdate.setNgayBatDau(updatedGGSP.getNgayBatDau());
+            ggspUpdate.setNgayKetThuc(updatedGGSP.getNgayKetThuc());
+            ggspUpdate.setTrangThai(updatedGGSP.getTrangThai());
+        }
+        return  chuongTrinhGiamGiaSPRepository.save(ggspUpdate);
+    }
+
+    //Tìm kiếm bằng id
     @GetMapping("/{idKM}")        // http://localhost:2020/rest/chuong-trinh-giam-gia-sp/detail
     public ResponseEntity<?> getOneById(@PathVariable UUID idKM) {
         return ResponseEntity.ok(chuongTrinhGiamGiaSPRepository.findChuongTrinhGiamGiaSPByIdKhuyenMai(idKM));
     }
 
+    //Update theo mã (method Put)
     @PutMapping("/{ma}")
     public ResponseEntity<?> update(@RequestBody ChuongTrinhGiamGiaSP ctggsp, @PathVariable("ma") String ma) {
         ChuongTrinhGiamGiaSP getOneCTGG = chuongTrinhGiamGiaSPRepository.findByMa(ma);

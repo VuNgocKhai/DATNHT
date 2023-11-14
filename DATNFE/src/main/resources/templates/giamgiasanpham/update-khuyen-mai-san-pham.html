@@ -157,70 +157,8 @@
         </nav>
         <!--        End Page Content    -->
 
-<!--        &lt;!&ndash;        START FORM UPDATE      &ndash;&gt;-->
-<!--        <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px">-->
-<!--            <form th:action="@{|/admin/chuong-trinh-giam-gia-sp/add|}" method="post" th:object="${voucherForm}">-->
-<!--&lt;!&ndash;                                <input type="text"  th:field="*{idKhuyenMai}">&ndash;&gt;-->
-<!--                <div class="form-group">-->
-<!--                    <label for="formGroupExampleInput">Mã khuyến mại</label>-->
-<!--                    <input type="text" th:field="*{maKhuyenMai}" class="form-control" id="formGroupExampleInput"-->
-<!--                           placeholder="Nhập mã">-->
-<!--                </div>-->
-<!--                <div class="form-group">-->
-<!--                    <label for="formGroupExampleInput2">Tên khuyến mại</label>-->
-<!--                    <input type="text" th:field="*{tenKhuyenMai}" class="form-control" id="formGroupExampleInput2"-->
-<!--                           placeholder="Nhập tên">-->
-<!--                </div>-->
-<!--                <div class="form-group">-->
-<!--                    <label for="formGroupExampleInput2">Phần trăm giảm</label>-->
-<!--                    <input type="number" th:field="*{phanTramGiam}" class="form-control" id="formGroupExampleInput2"-->
-<!--                           placeholder="Nhập số %">-->
-<!--                </div>-->
-<!--                <div class="form-group">-->
-<!--                    <label for="formGroupExampleInput2">Ngày bắt đầu</label>-->
-<!--                    <input type="date" th:field="*{ngayBatDau}" class="form-control" id="formGroupExampleInput2"-->
-<!--                           placeholder="Nhập ngày bắt đầu">-->
-<!--                </div>-->
-<!--                <div class="form-group">-->
-<!--                    <label for="formGroupExampleInput2">Ngày kết thúc</label>-->
-<!--                    <input type="date" th:field="*{ngayKetThuc}" class="form-control" id="formGroupExampleInput2"-->
-<!--                           placeholder="Nhập ngày kết thúc">-->
-<!--                </div>-->
-<!--                <fieldset class="form-group">-->
-<!--                    <div class="row">-->
-<!--                        <legend class="col-form-label col-sm-2 pt-0">Trạng Thái :</legend>-->
-<!--                        <div class="col-sm-10">-->
-<!--                            <div class="form-check">-->
-<!--                                <input class="form-check-input" type="radio" th:field="*{trangThai}" id="gridRadios1"-->
-<!--                                       th:value="1">-->
-<!--                                <label class="form-check-label" for="gridRadios1">-->
-<!--                                    Đang hoạt động-->
-<!--                                </label>-->
-<!--                            </div>-->
-<!--                            <div class="form-check">-->
-<!--                                <input class="form-check-input" type="radio" th:field="*{trangThai}" id="gridRadios2"-->
-<!--                                       th:value="0">-->
-<!--                                <label class="form-check-label" for="gridRadios2">-->
-<!--                                    Ngừng hoạt động-->
-<!--                                </label>-->
-<!--                            </div>-->
-<!--&lt;!&ndash;                            <div class="form-check">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <input class="form-check-input" type="radio" th:field="*{trangThai}" id="gridRadios2"&ndash;&gt;-->
-<!--&lt;!&ndash;                                       th:value="2">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <label class="form-check-label" for="gridRadios2">&ndash;&gt;-->
-<!--&lt;!&ndash;                                    Sắp diễn ra&ndash;&gt;-->
-<!--&lt;!&ndash;                                </label>&ndash;&gt;-->
-<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </fieldset>-->
-<!--                <button class="btn btn-primary" type="submit">Cập nhật</button>-->
-<!--            </form>-->
-<!--        </div>-->
-<!--        &lt;!&ndash;        END FORM UPDATE      &ndash;&gt;-->
 
-
-        <!--        START FORM ADD      -->
+        <!--        START FORM UPDATE      -->
         <div class="container"
              style="border: 1px solid black;border-radius: 10px;padding: 20px; background-color: #E4F4F7">
             <form th:action="@{|/admin/chuong-trinh-giam-gia-sp/update/*{maKhuyenMai}|}" method="post"
@@ -286,7 +224,7 @@
                 </button>
             </form>
         </div>
-        <!--        END FORM ADD      -->
+        <!--        END FORM UPDATE      -->
     </div>
 </div>
 

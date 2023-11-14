@@ -50,10 +50,27 @@ public class GioHangController {
     CallAPIGHN callAPIGHN;
     @Autowired
     UntityService untityService;
+    @Autowired
+    sanphamyeuthichchitietdao sanPhamYeuThichDAo;
+
+    private Authentication authentication;
+
+
     @RequestMapping("/ctsp/{x}")
     public String ctsp(Model model, @PathVariable("x") String ma) {
-        Giay giay = giayDAO.getGiayByMa(ma);
-        model.addAttribute("item", giay);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
+        if (khachHang == null) {
+            Giay giay = giayDAO.getGiayByMa(ma);
+            model.addAttribute("item", giay);
+            model.addAttribute("Tongsothichsanpham",sanPhamYeuThichDAo.countYeuThichByGiayId(ma));
+        }else {
+            Giay giay = giayDAO.getGiayByMa(ma);
+            model.addAttribute("item", giay);
+            model.addAttribute("Tongsothichsanpham",sanPhamYeuThichDAo.countYeuThichByGiayId(ma));
+            model.addAttribute("taikhoan",khachHang.getId());
+        }
+
         return "home/chitietsanpham";
     }
     @RequestMapping("/createBill")
@@ -116,7 +133,7 @@ public class GioHangController {
             if (x.getMa().equals(maVC)) {
                 maGGHD = x.getMa();
                 phan_tramGGHD = x.getPhan_tram_giam();
-                so_tienGGHD = x.getSo_tien_giam();
+                so_tienGGHD = x.getSo_tien_giam_max();
                 model.addAttribute("maGGHD", x.getMa());
                 model.addAttribute("phan_tramGGHD", x.getPhan_tram_giam());
             }
@@ -200,7 +217,7 @@ public class GioHangController {
             if (x.getMa().equals(maVC)) {
                 maGGHD = x.getMa();
                 phan_tramGGHD = x.getPhan_tram_giam();
-                so_tienGGHD = x.getSo_tien_giam();
+                so_tienGGHD = x.getSo_tien_giam_max();
                 model.addAttribute("maGGHD", x.getMa());
                 model.addAttribute("phan_tramGGHD", x.getPhan_tram_giam());
             }
@@ -245,7 +262,7 @@ public class GioHangController {
             if (x.getMa().equals(maVC)) {
                 maGGHD = x.getMa();
                 phan_tramGGHD = x.getPhan_tram_giam();
-                so_tienGGHD = x.getSo_tien_giam();
+                so_tienGGHD = x.getSo_tien_giam_max();
                 model.addAttribute("maGGHD", x.getMa());
                 model.addAttribute("phan_tramGGHD", x.getPhan_tram_giam());
             }

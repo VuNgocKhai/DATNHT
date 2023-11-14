@@ -6,11 +6,15 @@ import com.example.demo.repository.KhachHangDao;
 import com.example.demo.repository.NhanVienDAO;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -23,6 +27,7 @@ public class UserService implements UserDetailsService {
     KhachHangDao khachHangDao;
     @Autowired
     NhanVienDAO nhanVienDAO;
+
     @Autowired
     BCryptPasswordEncoder pe;
 
@@ -42,7 +47,6 @@ public class UserService implements UserDetailsService {
                 }else {
                     password = accounts.getMatkhau();
                     roles="USER";
-
                     System.out.println("MK:Mã Hóa là :"+ pe.encode(password));
                 }
             }
@@ -59,12 +63,12 @@ public class UserService implements UserDetailsService {
         }
     }
 
-//    public void loginFromOAuth2(OAuth2AuthenticationToken oauth2){
-//        String email = oauth2.getPrincipal().getAttribute("email");
-//        String password = Long.toHexString(System.currentTimeMillis());
-//        UserDetails user= User.withUsername(email)
-//                .password(pe.encode(password)).roles("ADMIN").build();
-//        Authentication auth = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
-//        SecurityContextHolder.getContext().setAuthentication(auth);
-//    }
+    public void loginFromOAuth2(OAuth2AuthenticationToken oauth2){
+        String email = oauth2.getPrincipal().getAttribute("email");
+        String password = Long.toHexString(System.currentTimeMillis());
+        UserDetails user= User.withUsername(email)
+                .password(pe.encode(password)).roles("ADMIN").build();
+        Authentication auth = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(auth);
+    }
 }
