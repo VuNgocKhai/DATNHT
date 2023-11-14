@@ -43,7 +43,11 @@ public class GiamGiaChiTietHoaDonRestController {
     }
 
     @RequestMapping("getGGCTHDbyHD/{hdid}")
-    public GiamGiaChiTietHoaDon getGGCTHDbyHDandGGHD(@PathVariable("hdid") UUID HoaDonID) {
+    public GiamGiaChiTietHoaDon getGGCTHDbyHD(@PathVariable("hdid") UUID HoaDonID) {
         return giamGiaChiTietHoaDonDAO.getGGCTHDByHoaDonId(HoaDonID);
+    }
+    @RequestMapping("getGGCTHDbyHDandGGHD/{hdid}/{gghdid}")
+    public GiamGiaChiTietHoaDon getGGCTHDbyHDandGGHD(@PathVariable("hdid") UUID hdid, @PathVariable("gghdid") UUID gghdid) {
+        return giamGiaChiTietHoaDonDAO.getGGCTHDByHoaDonIdAndGiamGiaHoaDonId(hdid, gghdid);
     }
 }

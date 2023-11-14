@@ -67,7 +67,9 @@ public class ChuongTrinhGiamGiaSPController {
     }
 
     @PostMapping("/admin/chuong-trinh-giam-gia-sp/create")
-    public String createVoucher(@ModelAttribute("voucherForm") ChuongTrinhGiamGiaSP voucherForm) {
+    public String createVoucher(@ModelAttribute("voucherForm") ChuongTrinhGiamGiaSP voucherForm, Model model) {
+        voucherForm.setMaKhuyenMai(kmDTO.generateNextMaKM());
+        model.addAttribute("valMaKM", kmDTO.generateNextMaKM());
         repo.saveVoucher(voucherForm);
         return "redirect:/admin/chuong-trinh-giam-gia-sp";
     }
@@ -84,7 +86,17 @@ public class ChuongTrinhGiamGiaSPController {
     @GetMapping("/admin/chuong-trinh-giam-gia-sp/viewadd")
     public String viewAdd(@ModelAttribute("voucherForm") ChuongTrinhGiamGiaSP chuongTrinhGiamGiaSP, Model model) {
         model.addAttribute("voucherForm", new ChuongTrinhGiamGiaSP());
+        model.addAttribute("valMaKM", kmDTO.generateNextMaKM());
+
         return "giamgiasanpham/add-khuyen-mai-san-pham";
+    }
+
+    @GetMapping("/admin/chuong-trinh-giam-gia-sp/test")
+    public String T(@ModelAttribute("voucherForm") ChuongTrinhGiamGiaSP chuongTrinhGiamGiaSP, Model model) {
+        model.addAttribute("voucherForm", new ChuongTrinhGiamGiaSP());
+        model.addAttribute("valMaKM", kmDTO.generateNextMaKM());
+        System.out.println(kmDTO.generateNextMaKM());
+        return "giamgiasanpham/test";
     }
 
     @PostMapping("/admin/chuong-trinh-giam-gia-sp/update/{ma}")

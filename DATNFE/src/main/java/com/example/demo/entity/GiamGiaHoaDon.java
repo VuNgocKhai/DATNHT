@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -45,10 +48,12 @@ public class GiamGiaHoaDon implements Serializable {
     private String ten;
 
     @NotNull(message = "Không được để trống số tiền điều kiện !")
+    @Min(value = 0, message = "Điều kiện giảm không được âm!")
     private BigDecimal dieu_kien;
 
     @NotNull(message = "Không được để trống số tiền giảm !")
-    private BigDecimal so_tien_giam;
+    @Min(value = 0, message = "Số tiền giảm max không được âm!")
+    private BigDecimal so_tien_giam_max;
 
     @NotNull(message = "Không được để trống ngày bắt đầu !")
     private Date ngay_bat_dau;
@@ -61,6 +66,7 @@ public class GiamGiaHoaDon implements Serializable {
     private Integer phan_tram_giam;
 
     @NotNull(message = "Không được để trống số lượng !")
+    @Min(value = 0, message = "Số lượng không được âm!")
     private Integer so_luong;
 
     @NotNull(message = "Không được để trống trạng thái !")

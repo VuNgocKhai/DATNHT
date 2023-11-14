@@ -17,17 +17,13 @@ public class GlobalInterceptor
         implements HandlerInterceptor {
 
     @Autowired
-    CamGiacRepo camGiacRepo;
+    XuatXuRepo xuatXuRepo;
     @Autowired
     ChatLieuRepo chatLieuRepo;
     @Autowired
-    DanhMucRepo danhMucRepo;
+    KieuDangRepo kieuDangRepo;
     @Autowired
     DeGiayRepo deGiayRepo;
-    @Autowired
-    DiaHinhRepo diaHinhRepo;
-    @Autowired
-    DoCaoGiayRepo doCaoGiayRepo;
     @Autowired
     GioiTinhRepo gioiTinhRepo;
     @Autowired
@@ -35,9 +31,9 @@ public class GlobalInterceptor
     @Autowired
     MauSacRepo mauSacRepo;
     @Autowired
-    ThoiTietThichHopRepo thoiTietThichHopRepo;
-    @Autowired
     ThuongHieuRepo thuongHieuRepo;
+    @Autowired
+    ThuongHieuDAO thuongHieuDAO;
     @Autowired
     GioHangChiTietDAO gioHangChiTietDAO;
     @Autowired
@@ -50,17 +46,14 @@ public class GlobalInterceptor
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        request.setAttribute("listCamGiac", camGiacRepo.getListCamGiac());
+        request.setAttribute("listXuatXu", xuatXuRepo.getListXuatXu());
         request.setAttribute("listChatLieu", chatLieuRepo.getListChatLieu());
-        request.setAttribute("listDanhMuc", danhMucRepo.getListDanhMuc());
+        request.setAttribute("listKieuDang", kieuDangRepo.getListKieuDang());
         request.setAttribute("listDeGiay", deGiayRepo.getListDeGiay());
-        request.setAttribute("listDiaHinh", diaHinhRepo.getListDiaHinh());
-        request.setAttribute("listDoCaoGiay", doCaoGiayRepo.getListDoCaoGiay());
         request.setAttribute("listGioiTinh", gioiTinhRepo.getListGioiTinh());
         request.setAttribute("listKichCo", kichCoRepo.getListKichCo());
         request.setAttribute("listMauSac", mauSacRepo.getListMauSac());
-        request.setAttribute("listThoiTietThichHop", thoiTietThichHopRepo.getListThoiTietThichHop());
-        request.setAttribute("listThuongHieu", thuongHieuRepo.getListThuongHieu());
+        request.setAttribute("listThuongHieu", thuongHieuDAO.findAll());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         System.out.println("Name là"+username);

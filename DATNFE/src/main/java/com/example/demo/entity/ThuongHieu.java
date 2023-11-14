@@ -1,9 +1,11 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @Table(name = "thuong_hieu")
@@ -18,6 +20,13 @@ public class ThuongHieu implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String ma;
+    private String ten_url;
     private String ten;
     private Integer trangthai;
+    @JsonIgnore
+    @OneToMany(mappedBy = "thuong_hieu",fetch = FetchType.EAGER)
+    List<Giay> giayList;
+    public Integer getSumSP(){
+        return giayList.size();
+    }
 }

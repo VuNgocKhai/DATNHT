@@ -189,7 +189,7 @@
                             <div class="row" style="margin-top: 10px">
                                 <div class="col-7">
                                     <h5>Mã đơn hàng : [[${hd.ma}]]</h5>
-                                    <h5>Ngày tạo : [[${#dates.format(hd.ngay_tao, 'dd/MM/yyyy')}]]</h5>
+                                    <h5>Ngày tạo : [[${#temporals.format(hd.ngay_tao, 'dd/MM/yyyy')}]]</h5>
                                 </div>
                                 <div class="col-5">
                                     <h4 style="text-transform: uppercase">đơn hàng [[${hd.convertTrangThai()}]]</h4>
@@ -220,6 +220,71 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div style="margin: 0 auto;text-align: center">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" style="display: inline-block;">
+                                <li class="page-item" style="display: inline-block;"
+                                    >
+                                    <a class="page-link"
+                                       th:if="${pageHd.number!=0}"
+                                       th:href="@{|/qltk-kh/don-hang?trangThaiDon=${trangThaiDon}&number=0|}">
+                                        <i class="fa-solid fa-backward-step"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item" style="display: inline-block;">
+                                    <a class="page-link"
+                                       th:href="@{|/qltk-kh/don-hang?trangThaiDon=${trangThaiDon}&number=${pageHd.number-2}|}"
+                                       th:text="${pageHd.number-1}"
+                                       th:if="${pageHd.number-2>=0}"
+
+                                    >
+                                    </a>
+                                </li>
+                                <li class="page-item" style="display: inline-block;">
+                                    <a class="page-link"
+                                       th:href="@{|/qltk-kh/don-hang?trangThaiDon=${trangThaiDon}&number=${pageHd.number-1}|}"
+                                       th:text="${pageHd.number}"
+                                       th:if="${pageHd.number-1>=0}"
+
+                                    >
+                                    </a>
+                                </li>
+                                <li class="page-item" style="display: inline-block;">
+                                    <a class="page-link"
+                                       th:href="@{|/qltk-kh/don-hang?trangThaiDon=${trangThaiDon}&number=${pageHd.number}|}"
+                                       th:text="${pageHd.number+1}"
+                                    >
+                                    </a>
+                                </li>
+                                <li class="page-item" style="display: inline-block;">
+                                    <a class="page-link"
+                                       th:href="@{|/qltk-kh/don-hang?trangThaiDon=${trangThaiDon}&number=${pageHd.number+1}|}"
+                                       th:text="${pageHd.number+2}"
+                                       th:if="${pageHd.number+1<=pageHd.totalPages-1}"
+                                    >
+                                    </a>
+                                </li>
+                                <li class="page-item" style="display: inline-block;">
+                                    <a class="page-link"
+                                       th:href="@{|/qltk-kh/don-hang?trangThaiDon=${trangThaiDon}&number=${pageHd.number+2}|}"
+                                       th:text="${pageHd.number+3}"
+
+                                       th:if="${pageHd.number+2<=pageHd.totalPages-1}"
+                                    >
+                                    </a>
+                                </li>
+                                <li class="page-item" style="display: inline-block;"
+                                    >
+                                    <a class="page-link"
+                                       th:href="@{|/qltk-kh/don-hang?trangThaiDon=${trangThaiDon}&number=${pageHd.totalPages-1}|}"
+                                       th:if="${pageHd.number<pageHd.totalPages-1}"
+                                    >
+                                        <i class="fa-solid fa-forward-step"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>

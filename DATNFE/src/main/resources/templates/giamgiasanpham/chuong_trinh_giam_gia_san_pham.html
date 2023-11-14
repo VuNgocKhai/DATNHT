@@ -187,12 +187,8 @@
                                         <!--                <input type="text" hidden th:field="*{id}">-->
                                         <table class="table table-borderless">
                                             <tr>
-                                                <td><label for="formGroupExampleInput">Mã khuyến mại</label></td>
-                                                <td>
-                                                    <input  disabled type="text" th:field="*{maKhuyenMai}" class="form-control"
-                                                           id="formGroupExampleInput"
-                                                           placeholder="Nhập mã" >
-                                                </td>
+                                                    <input hidden type="text" th:field="*{maKhuyenMai}" class="form-control"
+                                                           id="formGroupExampleInput" th:text="${valMaKM}">
                                                 <td><label for="formGroupExampleInput2">Tên khuyến mại</label></td>
                                                 <td>
                                                     <input type="text" th:field="*{tenKhuyenMai}" class="form-control"

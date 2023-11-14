@@ -27,7 +27,6 @@
             border: 1px solid red; /* Định nghĩa màu viền là màu đỏ */
         }
     </style>
-
 </head>
 <body>
 
@@ -141,7 +140,7 @@
 
     <!-- Page Content  -->
 
-    <div id="content" class="p-4 p-md-5 pt-5">
+    <div id="content" class="p-4 p-md-5 pt-5 bg-secondary">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: -50px;">
             <div class="container-fluid" style="display: flex;justify-content: end;">
                 <ul class="navbar-nav">
@@ -161,132 +160,148 @@
             </div>
         </nav>
 
-        <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px">
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content" style="background-color: #d4d4d4">
-                        <div class="modal-header" >
-                            <h5 class="modal-title" id="exampleModalLabel">Thêm Khách Hàng Mới</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+        <div class="container-lg bg-light border" >
+            <div style="padding: 15px">
+                <div style="margin: 20px">
+                    <div class="row">
+                        <div class="col-8">
+                            <h3 style="text-transform: uppercase; color: black; font-family: 'Lora'; text-align: left;">
+                                Danh Sách Khách Hàng
+                            </h3>
+                        </div>
+                        <!--                    NÚT THÊM MỚI HÓA ĐƠN-->
+                        <div class="col-4 text-right">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                <i class="bi bi-plus-square"></i> Thêm mới
                             </button>
                         </div>
-                        <form id="khachHangForm" action="/admin/khachhang/save" method="post" th:object="${khachhang}">
-                            <div class="modal-body" >
-                                <div class="modal-body">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <input type="text" hidden  th:field="*{id}">
-                                            <div class="col-md-12">
-                                                <label for="formGroupExampleInputHoten">Họ Và Tên</label>
-                                                <input type="text" th:field="*{hoten}" class="form-control" id="formGroupExampleInputHoten" placeholder="Họ và tên">
-                                                <div id="hotenError" class="text-danger"></div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="formGroupExampleInputNgaySinh">Ngày Sinh</label>
-                                                <input type="date" th:field="*{ngaysinh}" class="form-control" id="formGroupExampleInputNgaySinh" placeholder="Ngày Sinh">
-                                                <div id="ngaysinhError" class="text-danger"></div>
-                                                <div id="ngaysinh1Error1" class="text-danger"></div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <label for="formGroupExampleInputSdt">Số điện thoại</label>
-                                                <input type="text" th:field="*{sdt}" class="form-control" id="formGroupExampleInputSdt" placeholder="Số điện thoại">
-                                                <div id="sdtError" class="text-danger"></div>
-                                                <div id="sdt1Error1" class="text-danger"></div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-
-
-                                            <div class="col-md-6">
-                                                <label for="formGroupExampleInputEmail">Email</label>
-                                                <input type="email" th:field="*{email}" class="form-control" id="formGroupExampleInputEmail" placeholder="Email">
-                                                <div id="emailError" class="text-danger"></div>
-                                                <div id="email1Error1" class="text-danger"></div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <label for="formGroupExampleInputMatKhau">Mật Khẩu</label>
-                                                <input type="text" th:field="*{matkhau}" class="form-control" id="formGroupExampleInputMatKhau" placeholder="Mật Khẩu">
-                                                <div id="matkhauError" class="text-danger"></div>
-                                            </div>
-
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <legend class="col-form-label col-sm-2 pt-0">Trạng Thái : </legend>
-                                            <div class="col-sm-10">
-                                                <div class="custom-control custom-radio">
-                                                    <input class="form-check-input" type="radio" th:field="*{trangthai}" id="gridRadios1" th:value="1">
-                                                    <label class="form-check-label " for="gridRadios1" >
-                                                        Hoạt Động
-                                                    </label>
-                                                </div>
-                                                <div class="custom-control custom-radio">
-                                                    <input class="form-check-input" type="radio" th:field="*{trangthai}"  id="gridRadios2" th:value="0" >
-                                                    <label class="form-check-label" for="gridRadios2" >
-                                                        Không Hoạt Động
-                                                    </label>
-                                                </div>
-                                                <div id="trangthaiError" class="text-danger"></div>
-                                            </div>
-                                        </div>
-
-                                    </div>
+                        <!--                    End  NÚT THÊM MỚI HÓA ĐƠN-->
+                    </div>
+                    <hr style="color: black">
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content" style="background-color: #d4d4d4">
+                                <div class="modal-header" >
+                                    <h5 class="modal-title" id="exampleModalLabel">Thêm Khách Hàng Mới</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-                            </div>
+                                <form id="khachHangForm" action="/admin/khachhang/save" method="post" th:object="${khachhang}">
+                                    <div class="modal-body" >
+                                        <div class="modal-body">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <input type="text" hidden  th:field="*{id}">
+                                                    <div class="col-md-12">
+                                                        <label for="formGroupExampleInputHoten">Họ Và Tên</label>
+                                                        <input type="text" th:field="*{hoten}" class="form-control" id="formGroupExampleInputHoten" placeholder="Họ và tên">
+                                                        <div id="hotenError" class="text-danger"></div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="formGroupExampleInputNgaySinh">Ngày Sinh</label>
+                                                        <input type="date" th:field="*{ngaysinh}" class="form-control" id="formGroupExampleInputNgaySinh" placeholder="Ngày Sinh">
+                                                        <div id="ngaysinhError" class="text-danger"></div>
+                                                        <div id="ngaysinh1Error1" class="text-danger"></div>
+                                                    </div>
 
-                            <div class="modal-footer"  >
-                                <button type="submit" id="submitBtn" class="btn btn-primary">Thêm</button>
-                                <a th:href="@{|/admin/khachhang|}"> <button  type="button" class="btn btn-secondary" >Close</button></a>
+                                                    <div class="col-md-6">
+                                                        <label for="formGroupExampleInputSdt">Số điện thoại</label>
+                                                        <input type="text" th:field="*{sdt}" class="form-control" id="formGroupExampleInputSdt" placeholder="Số điện thoại">
+                                                        <div id="sdtError" class="text-danger"></div>
+                                                        <div id="sdt1Error1" class="text-danger"></div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+
+
+                                                    <div class="col-md-6">
+                                                        <label for="formGroupExampleInputEmail">Email</label>
+                                                        <input type="email" th:field="*{email}" class="form-control" id="formGroupExampleInputEmail" placeholder="Email">
+                                                        <div id="emailError" class="text-danger"></div>
+                                                        <div id="email1Error1" class="text-danger"></div>
+                                                        <div id="email2Error2" class="text-danger"></div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label for="formGroupExampleInputMatKhau">Mật Khẩu</label>
+                                                        <input type="text" th:field="*{matkhau}" class="form-control" id="formGroupExampleInputMatKhau" placeholder="Mật Khẩu">
+                                                        <div id="matkhauError" class="text-danger"></div>
+                                                    </div>
+
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <legend class="col-form-label col-sm-2 pt-0">Trạng Thái : </legend>
+                                                    <div class="col-sm-10">
+                                                        <div class="custom-control custom-radio">
+                                                            <input class="form-check-input" type="radio" th:field="*{trangthai}" id="gridRadios1" th:value="1">
+                                                            <label class="form-check-label " for="gridRadios1" >
+                                                                Hoạt Động
+                                                            </label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio">
+                                                            <input class="form-check-input" type="radio" th:field="*{trangthai}"  id="gridRadios2" th:value="0" >
+                                                            <label class="form-check-label" for="gridRadios2" >
+                                                                Không Hoạt Động
+                                                            </label>
+                                                        </div>
+                                                        <div id="trangthaiError" class="text-danger"></div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer"  >
+                                        <button type="submit" id="submitBtn" class="btn btn-primary">Thêm</button>
+                                        <a th:href="@{|/admin/khachhang|}"> <button  type="button" class="btn btn-secondary" >Close</button></a>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
+
+            <div class="row">
+                <form class="form-inline" action="/admin/khachhang"  method="get"  style="margin-bottom: 20px;">
+                    <div class="form-group row">
+                        <div class="col-md-6 p-1" style="margin-left: 25px">
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="keyword" name="keyword"
+                                       placeholder="Nhập tên cần tìm kiếm">
+                            </div>
+                        </div>
+                      <div class="col-md-5">
+                          <div class="col-sm-3" style="display: flex; align-items: flex-end;">
+                              <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+                              <button class="btn btn-primary" type="button" style="margin-left: 10px">
+                                  <a href="/admin/khachhang" style="text-decoration: none;color: white"><i
+                                          class="bi bi-arrow-clockwise"></i></a>
+                              </button>
+                          </div>
+                      </div>
+                    </div>
+                </form>
             </div>
 
-
-            <form class="form-inline" action="/admin/khachhang"  method="get">
-                <div class="form-group mx-sm-3">
-                    <input type="text" name="keyword"  class="form-control"  placeholder="Tìm Kiếm ">
-                </div>
-                <div class="form-group mx-sm-3 ">
-                    <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
-                </div>
-
-                <div class="form-group mx-sm-3">
-                 <a th:href="@{|/admin/khachhang|}"><button type="button" class=" btn btn-warning">Làm Mới</button></a>
-                </div>
-
-
-                <div class="form-group mx-sm-3">
-                    <!-- Button trigger modal -->
-                    <button style="margin-left: 450px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        <i class="bi bi-plus"></i> Tạo Khách Hàng
-                    </button>
-                </div>
-            </form>
-
-
-
-            <div style="margin: 20px">
-                <center><h1>Danh Sách Khách Hàng</h1></center>
-                <table class="table">
+                <table class="table table-hover" style="margin: 20px 0;">
+                    <thead class="thead-light">
                     <tr>
-                        <th>Họ và Tên</th>
-                        <th>Ngày Sinh</th>
-                        <th>Số Điện Thoại</th>
-                        <th>Email</th>
-                        <th>Trạng Thái</th>
-                        <th>Action</th>
+                        <th scope="col">Họ và Tên</th>
+                        <th scope="col">Ngày Sinh</th>
+                        <th scope="col">Số Điện Thoại</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Trạng Thái</th>
+                        <th scope="col">Action</th>
                     </tr>
+                    </thead>
                     <tr th:each="item,state:${listPKhachhang.content}">
                         <td>[[${item.hoten}]]</td>
                         <td>[[${item.ngaysinh}]]</td>
@@ -295,12 +310,10 @@
                         <td th:text="${item.trangthai == 1 ? 'Đang Hoạt Động' : 'Không Hoạt Động'}"></td>
                         <td>
                             <a th:href="@{|/admin/khachhang/detail/${item.ma}|}"><i class="bi bi-eye"></i></a>
-                            <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')" th:href="@{|/admin/khachhang/delete/${item.id}|}"><i class="bi bi-trash3"></i></a>
+                            <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')" th:href="@{|/admin/khachhang/delete/${item.id}|}"><i style="color: red" class="bi bi-trash"></i></a>
                         </td>
                     </tr>
                 </table>
-
-            </div>
 
             <nav aria-label="Page navigation example" style="display: flex;justify-content: space-between;">
                 <div style="margin-left: 20px">
@@ -321,12 +334,23 @@
                     </li>
                 </ul>
             </nav>
+            </div>
         </div>
     </div>
 </div>
 
+<script th:inline="javascript">
+    // Chuyển đổi danh sách thành mảng JavaScript
+    var emailList = [[${emaikkhachhang}]] ;
+
+    // In ra console để kiểm tra
+    console.log(emailList);
+</script>
+
 <script>
     $(document).ready(function() {
+
+
         $('#submitBtn').click(function(e) {
             clearErrorMessages(); // Xóa thông báo lỗi trước khi kiểm tra lại
 
@@ -381,6 +405,8 @@
             errors.push('email');
         } else if (!isValidEmail(email)) {
             errors.push('email1');
+        }else if (isDuplicateEmail(email)){
+            errors.push('email2');
         }
 
         if (!hoten) {
@@ -416,6 +442,11 @@
         return emailPattern.test(email);
     }
 
+    function isDuplicateEmail(email) {
+        var existingEmails = emailList; // Lấy danh sách các địa chỉ email từ model
+        return existingEmails.includes(email);
+    }
+
     function clearErrorMessages() {
 
         var hoten = $('#formGroupExampleInputHoten').val();
@@ -449,6 +480,9 @@
             $('#formGroupExampleInputEmail').removeClass('error-border');
             $('.text-danger').text('');
         }else if (isValidEmail(email)){
+            $('#formGroupExampleInputEmail').removeClass('error-border');
+            $('.text-danger').text('');
+        }else if (!isDuplicateEmail(email)){
             $('#formGroupExampleInputEmail').removeClass('error-border');
             $('.text-danger').text('');
         }
@@ -498,6 +532,9 @@
             }else if (!isValidEmail(email)){
                 $('#formGroupExampleInputEmail').addClass('error-border');
                 $('#' + errors[i] + 'Error1').text('Thông Tin Không Hợp Lệ');
+            }else if (isDuplicateEmail(email)){
+                $('#formGroupExampleInputEmail').addClass('error-border');
+                $('#' + errors[i] + 'Error2').text('Email này đã tồn tại');
             }
             if (matkhau.trim() === '') {
                 $('#formGroupExampleInputMatKhau').addClass('error-border');

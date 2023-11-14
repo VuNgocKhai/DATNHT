@@ -66,6 +66,12 @@ public class HoaDon implements Serializable {
 
     private Integer hinh_thuc_mua;
 
+    private Integer hinh_thuc_thanh_toan;
+
+    private BigDecimal so_tien_giam;
+
+    private BigDecimal phi_ship;
+
     @OneToMany(mappedBy = "hd", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<GiamGiaChiTietHoaDon> list1;

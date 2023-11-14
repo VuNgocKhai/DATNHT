@@ -39,7 +39,7 @@ public class GiaoHangNhanh {
     private Integer cod_failed_amount = 2000;
     private Integer pick_station_id = 1444;
     private Integer deliver_station_id = null;
-    private Integer insurance_value = 10000000;
+    private Integer insurance_value = 100000;
     private Integer service_id = 0;
     private Integer service_type_id = 2;
     private String coupon = null;

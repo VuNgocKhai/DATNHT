@@ -28,28 +28,12 @@ public class Giay implements Serializable {
     private String ten;
 
     @ManyToOne
-    @JoinColumn(name = "id_cam_giac")
-    private CamGiac cam_giac;
-
-    @ManyToOne
     @JoinColumn(name = "id_chat_lieu")
     private ChatLieu chat_lieu;
 
     @ManyToOne
-    @JoinColumn(name = "id_danh_muc")
-    private DanhMuc danh_muc;
-
-    @ManyToOne
     @JoinColumn(name = "id_de_giay")
     private DeGiay de_giay;
-
-    @ManyToOne
-    @JoinColumn(name = "id_dia_hinh")
-    private DiaHinh dia_hinh;
-
-    @ManyToOne
-    @JoinColumn(name = "id_do_cao_giay")
-    private DoCaoGiay do_cao_giay;
 
     @ManyToOne
     @JoinColumn(name = "id_gioi_tinh")
@@ -58,14 +42,17 @@ public class Giay implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_mau_sac")
     private MauSac mau_sac;
-
     @ManyToOne
-    @JoinColumn(name = "id_thoi_tiet_thich_hop")
-    private ThoiTietThichHop thoi_tiet_thich_hop;
+    @JoinColumn(name = "id_xuat_xu")
+    private XuatXu xuat_xu;
+    @ManyToOne
+    @JoinColumn(name = "id_kieu_dang")
+    private KieuDang kieu_dang;
 
     @ManyToOne
     @JoinColumn(name = "id_thuong_hieu")
     private ThuongHieu thuong_hieu;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "giay", fetch = FetchType.EAGER) // lấy hết các thông tin
@@ -77,7 +64,7 @@ public class Giay implements Serializable {
 
     private String mota;
 
-    private BigDecimal gianhap;
+    private BigDecimal gianhap; 
 
     private BigDecimal giaban;
 

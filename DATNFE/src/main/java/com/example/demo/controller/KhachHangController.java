@@ -35,6 +35,7 @@ public class KhachHangController {
 
 // Phần khách hàng
 
+
 //    List khách hàng và phân trang và tìm kiếm
     @RequestMapping("/admin/khachhang")
     public String index(@ModelAttribute("khachhang") KhachHang khachHang
@@ -44,6 +45,7 @@ public class KhachHangController {
         model.addAttribute("i", 0);
         model.addAttribute("listPKhachhang", page1);
         model.addAttribute("keyword", keyword.orElse(""));
+        model.addAttribute("emaikkhachhang",khachHangDao.findEmailByMa());
         return "khachhang/Khach_hang";
     }
 
@@ -64,7 +66,7 @@ public class KhachHangController {
     public String getBykhachhangma(@PathVariable("ma") String ma,
                                    Model model,
                                    @ModelAttribute("diachi") DiaChi diaChi) {
-        model.addAttribute("listdiachi", diachiDao.getAllByMaDiaChi(ma));
+            model.addAttribute("listdiachi", diachiDao.getAllByMaDiaChi(ma));
         model.addAttribute("khachhang", khachHangDao.GetKhachhangByma(ma));
         return "khachhang/detail";
     }
