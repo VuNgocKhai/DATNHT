@@ -58,7 +58,7 @@ public class GioHangController {
     UntityService untityService;
     @Autowired
     DanhGiaDAO danhGiaDAO;
-
+    @Autowired
     sanphamyeuthichchitietdao sanPhamYeuThichDAo;
 
     private Authentication authentication;
