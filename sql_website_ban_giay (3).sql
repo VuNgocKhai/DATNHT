@@ -70,6 +70,9 @@ create table giay (
 	foreign key (id_kieu_dang) references kieu_dang(id),
 	foreign key (id_mau_sac) references mau_sac(id)
 )
+
+
+
 create table anh_giay (
 	id uniqueidentifier primary key default newid(),
 	ten_url varchar(20) unique,
@@ -150,11 +153,20 @@ create table khach_hang (
 )
 create table danh_gia(
 	id uniqueidentifier primary key default newid(),
+<<<<<<< HEAD
 	id_giay uniqueidentifier not null,
 	sao int,
 	ten_nguoi_danh_gia nvarchar(50),
 	noi_dung nvarchar(max),
 	trang_thai int,
+=======
+	id_khach_hang uniqueidentifier not null,
+	id_giay uniqueidentifier not null,
+	sao int,
+	noi_dung nvarchar(max),
+	trang_thai int,
+	foreign key (id_khach_hang) references khach_hang(id),
+>>>>>>> origin/giamgiasanpham
 	foreign key (id_giay) references giay(id)
 )
 create table dia_chi (
@@ -278,14 +290,28 @@ INSERT INTO website_ban_giay.dbo.chat_lieu (id,ma,ten,trangthai) VALUES
 	 (N'35130268-9650-4FAB-9D9E-A28158D5BCE7',N'CL10',N'Da lộn',1);
 INSERT INTO website_ban_giay.dbo.de_giay (id,ma,ten,trangthai) VALUES
 	 (N'4B9E5750-A2CF-4A8F-AE41-027E0FDF88EF',N'DG5',N'Đế kếp',1),
+<<<<<<< HEAD
 	 (N'265BD4E5-0F66-491C-80A3-27C4514F481F',N'DG7',N'Đế giày Christy Wedge',1),
+=======
+	 (N'265BD4E5-0F66-491C-80A3-27C4514F481F',N'DG7',N'Đế giày Christy Wedge
+',1),
+>>>>>>> origin/giamgiasanpham
 	 (N'D2732979-A06B-4CB0-9061-329B411586F3',N'DG4',N'Đế phíp',1),
 	 (N'D0767B24-FA85-4D04-BEA6-3562B9997EF2',N'DG3',N'Đế da',1),
 	 (N'8C8121CB-DA54-47AD-AE66-81295B27E40E',N'DG2',N'Đế Pu',1),
 	 (N'075DE902-E04D-4495-9ACA-A8C237BEA5D7',N'DG6',N'Đế Commando',1),
+<<<<<<< HEAD
 	 (N'6C26B653-B861-439F-AEEE-AD31E40EAE7D',N'DG9',N'Đế giày Cork Nitrile',1),
 	 (N'061EC5B1-B1BF-433D-B0CA-CE800DFAF3E9',N'DG8',N'Đế giày Rubber',1),
 	 (N'6DF06D0D-5366-420E-ABEE-E06B16E193DD',N'DG10',N'Đế giày Crepe',1),
+=======
+	 (N'6C26B653-B861-439F-AEEE-AD31E40EAE7D',N'DG9',N'Đế giày Cork Nitrile
+',1),
+	 (N'061EC5B1-B1BF-433D-B0CA-CE800DFAF3E9',N'DG8',N'Đế giày Rubber
+',1),
+	 (N'6DF06D0D-5366-420E-ABEE-E06B16E193DD',N'DG10',N'Đế giày Crepe
+',1),
+>>>>>>> origin/giamgiasanpham
 	 (N'67EB0BD0-732B-4882-9913-FC86F05F733D',N'DG1',N'Đế cao su',1);
 INSERT INTO website_ban_giay.dbo.kich_co (id,ma,ten,trangthai) VALUES
 	 (N'09FD4A50-B9F7-4292-8A89-0DB59C0936A3',N'KC4',N'35',1),
@@ -326,7 +352,11 @@ INSERT INTO website_ban_giay.dbo.kich_co (id,ma,ten,trangthai) VALUES
 	 (N'79E20A76-3E91-4C53-BD41-ECFEF4245FAD',N'MS4',N'Xanh navy',1);
 	 INSERT INTO website_ban_giay.dbo.nhan_vien (id,ma,ho_ten,ngay_sinh,dia_chi,xa,huyen,thanh_pho,sdt,email,id_chuc_vu,mat_khau,ngay_vao_lam,ngay_nghi_viec,trangthai) VALUES
 	 (N'9D8372B8-AAA4-464A-A938-3C6927210010',N'NV01',N'Nguyễn Văn Đạt','2003-12-12',N'Cấn Hữu-Quốc Oai-Hà Nội',NULL,NULL,NULL,N'0385090080',N'danhntnv1@gmail.com',N'7B52F69D-5508-4745-926F-A22F9907E523',N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq','2020-12-12',NULL,1),
+<<<<<<< HEAD
 	 (N'5D89F310-6D41-41EE-B5B8-57F5B6DB7A9A',N'NV02',N'Hoàng Đại Ka','2003-09-09',N'Cấn Hữu-Quốc Oai-Hà Nội',NULL,NULL,NULL,N'0385090080',N'danhntnv2@gmail.com',N'F09E9132-7F9E-48BD-A30C-E58C9E16717E',N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq','2023-09-12',NULL,1);
+=======
+	 (N'5D89F310-6D41-41EE-B5B8-57F5B6DB7A9A',N'nv02',N'Hoàng Đại Ka','2003-09-09',N'Cấn Hữu-Quốc Oai-Hà Nội',NULL,NULL,NULL,N'0385090080',N'danhntnv2@gmail.com',N'F09E9132-7F9E-48BD-A30C-E58C9E16717E',N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq','2023-09-12',NULL,1);
+>>>>>>> origin/giamgiasanpham
 	 INSERT INTO website_ban_giay.dbo.thuong_hieu (id,ma,ten,trangthai,ten_url) VALUES
 	 (N'F6F425A0-AD73-421F-B76B-09787A50808F',N'TH07',N'Gucci',1,N'logo1.png'),
 	 (N'C41E486F-1EB2-40FD-9D2A-1F8F12298488',N'TH08',N'Calvin Klein',1,N'logo2.png'),

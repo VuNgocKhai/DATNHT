@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.ChuongTrinhGiamGiaChiTietSP;
 import com.example.demo.entity.ChuongTrinhGiamGiaSP;
+import com.example.demo.entity.GiamGiaHoaDon;
 import com.example.demo.entity.Giay;
 import com.example.demo.entity.PageDTO;
 import com.example.demo.repository.CTrinhKMSPDTO;
@@ -116,6 +117,13 @@ public class ChuongTrinhGiamGiaSPController {
         voucherForm.setNgayKetThuc(Date.valueOf(ngayKT));
         kmDTO.save(voucherForm);
 
+        return "redirect:/admin/chuong-trinh-giam-gia-sp";
+    }
+
+    // update Giảm Giá Hóa Đơn
+    @PostMapping("/admin/chuong-trinh-giam-gia-sp/update")
+    public String updateGGSP(@ModelAttribute("giamgiaSP") ChuongTrinhGiamGiaSP giamGiaSP) {
+        repo.saveVoucher(giamGiaSP);
         return "redirect:/admin/chuong-trinh-giam-gia-sp";
     }
 

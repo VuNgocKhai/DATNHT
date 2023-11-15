@@ -53,12 +53,11 @@ public class ChuongTrinhGiamGiaSPRepo {
         return resp.get("tenKhuyenMai").asText();
     }
 
-    public ChuongTrinhGiamGiaSP update(UUID id, ChuongTrinhGiamGiaSP ctggsp) {
+    public ChuongTrinhGiamGiaSP update(String ma, ChuongTrinhGiamGiaSP ctggsp) {
         HttpEntity<ChuongTrinhGiamGiaSP> entity = new HttpEntity<>(ctggsp);
-        restTemplate.put(getUrlUpdate(id), entity);
+        restTemplate.put(getUrl(ma), ctggsp);
         return ctggsp;
     }
-
 
 //    public ChuongTrinhGiamGiaSP updateVoucher(String ma, ChuongTrinhGiamGiaSP chuongTrinhGiamGiaSP) {
 //        HttpEntity<ChuongTrinhGiamGiaSP> entity = new HttpEntity<>(chuongTrinhGiamGiaSP);
@@ -74,17 +73,6 @@ public class ChuongTrinhGiamGiaSPRepo {
         return responseEntity.getBody();
     }
 
-//    public PageDTO<ChuongTrinhGiamGiaSP> searchAndPaginate(Integer page, String keyword) {
-//        ResponseEntity<PageDTO<ChuongTrinhGiamGiaSP>> responseEntity = restTemplate.exchange(
-//                getUrl("phantrang?page=" + page + "&keyword=" + keyword),
-//                HttpMethod.GET,
-//                null,
-//                new ParameterizedTypeReference<PageDTO<ChuongTrinhGiamGiaSP>>() {}
-//        );
-//
-//        return responseEntity.getBody();
-//    }
-
     public PageDTO<ChuongTrinhGiamGiaSP> searchTrangThaiAndKeyword(Integer page, String keyword) {
         ResponseEntity<PageDTO<ChuongTrinhGiamGiaSP>> responseEntity = restTemplate.exchange(
                 getUrl("phantrang?page=" + page + "&keyword=" + keyword),
@@ -95,17 +83,6 @@ public class ChuongTrinhGiamGiaSPRepo {
 
         return responseEntity.getBody();
     }
-
-//    public PageDTO<ChuongTrinhGiamGiaSP> searchTrangThai(Integer page, String searchTrangThai) {
-//        ResponseEntity<PageDTO<ChuongTrinhGiamGiaSP>> responseEntity = restTemplate.exchange(
-//                getUrl("phantrang?page=" + page + "&searchTrangThai=" + searchTrangThai),
-//                HttpMethod.GET,
-//                null,
-//                new ParameterizedTypeReference<PageDTO<ChuongTrinhGiamGiaSP>>() {}
-//        );
-//
-//        return responseEntity.getBody();
-//    }
 
 
 }
