@@ -43,9 +43,6 @@ public class QuanLyTaiKhoanKhController {
     @Autowired
     SanPhamYeuThichDAo sanPhamYeuThichDAo;
 
-    @Autowired
-    SanPhamYeuThichDAo sanPhamYeuThichDAo;
-
     private Authentication authentication;
 
     @Autowired
