@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.GiamGiaChiTietHoaDon;
 import com.example.demo.entity.GiamGiaHoaDon;
 import com.example.demo.entity.HoaDon;
+import com.example.demo.entity.KhachHang;
 import com.example.demo.entity.PageDTO;
 import com.example.demo.repository.GiamGiaChiTietHoaDonRepo;
 import com.example.demo.repository.GiamGiaHoaDonRepo;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,17 +58,22 @@ public class GiamGiaHoaDonController {
 
         GiamGiaHoaDon checkma = giamGiaHoaDonRepo.getGiamGiaHoaDonByMa(giamGiaHoaDon.getMa());
         if (result.hasErrors()) {
-            PageDTO<GiamGiaHoaDon> pageGGHD = giamGiaHoaDonRepo.getPageGGHD(page.orElse(0));
-            model.addAttribute("listPGiamGiaHoaDon", pageGGHD);
-            return "giamgiahoadon/giam_gia_hoa_don";
-        } else if (checkma != null) {
+            model.addAttribute("message", "Không được để trống thông tin");
+            return "redirect:/admin/giamgiahoadon";
+        }
+        else if (checkma != null) {
             result.rejectValue("ma", "error.giamGiaHoaDon", "Mã đã tồn tại");
-            PageDTO<GiamGiaHoaDon> pageGGHD = giamGiaHoaDonRepo.getPageGGHD(page.orElse(0));
-            model.addAttribute("listPGiamGiaHoaDon", pageGGHD);
-            return "giamgiahoadon/giam_gia_hoa_don";
+            return "redirect:/admin/giamgiahoadon";
         }
         giamGiaHoaDonRepo.createGGHD(giamGiaHoaDon);
         return "redirect:/admin/giamgiahoadon";
+    }
+
+    @GetMapping("/admin/giamgiahoadon/checkMaTrung")
+    @ResponseBody
+    public boolean checkMaTrung(@RequestParam String ma) {
+        GiamGiaHoaDon existingGiamGia = giamGiaHoaDonRepo.getGiamGiaHoaDonByMa(ma);
+        return existingGiamGia != null;
     }
 
     // view update Giảm Giá Hóa Đơn
@@ -78,7 +85,14 @@ public class GiamGiaHoaDonController {
 
     // update Giảm Giá Hóa Đơn
     @PostMapping("/admin/giamgiahoadon/update")
-    public String updateGiamGiaHoaDon(@ModelAttribute("giamgiahoadon") GiamGiaHoaDon giamGiaHoaDon) {
+    public String updateGiamGiaHoaDon(@Valid @ModelAttribute("giamgiahoadon") GiamGiaHoaDon giamGiaHoaDon,
+                                      BindingResult result,
+                                      Model model) {
+        if(result.hasErrors())
+        {
+            model.addAttribute("message", "Không được để trống thông tin");
+            return "redirect:/admin/giamgiahoadon";
+        }
         giamGiaHoaDonRepo.createGGHD(giamGiaHoaDon);
         return "redirect:/admin/giamgiahoadon";
     }
