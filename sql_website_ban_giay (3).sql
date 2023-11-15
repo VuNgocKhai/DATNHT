@@ -153,12 +153,11 @@ create table khach_hang (
 )
 create table danh_gia(
 	id uniqueidentifier primary key default newid(),
-	id_khach_hang uniqueidentifier not null,
 	id_giay uniqueidentifier not null,
 	sao int,
+	ten_nguoi_danh_gia nvarchar(50),
 	noi_dung nvarchar(max),
 	trang_thai int,
-	foreign key (id_khach_hang) references khach_hang(id),
 	foreign key (id_giay) references giay(id)
 )
 create table dia_chi (

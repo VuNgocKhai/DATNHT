@@ -83,12 +83,7 @@ public class NhanVienController {
 //    }
 
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute NhanVien nhanVien, BindingResult result,Model model) {
-        if(result.hasErrors()){
-            page=new PageDTO<>(nhanVienService.getPageByTrangThai(1,numberCurrent));
-            model.addAttribute("page", page);
-            return "nhan_vien/nhan_vien/nhan_vien";
-        }
+    public String create(@ModelAttribute NhanVien nhanVien,Model model) {
         nhanVienService.create(nhanVien);
         return "redirect:/admin/nhan-vien";
     }
