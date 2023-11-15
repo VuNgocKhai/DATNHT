@@ -293,4 +293,101 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "ORDER BY\n" +
             "    tong_tien_mua DESC", nativeQuery = true)
     List<Object[]> top10khachhangmuanhieunhatthangnay();
+
+
+
+    @Query(value = "SELECT TOP 10\n" +
+            "    NV.id AS NhanVienID,\n" +
+            "    NV.ho_ten AS HoTen,\n" +
+            "    COUNT(HD.id) AS SoHoaDonBanDuoc\n" +
+            "FROM\n" +
+            "    nhan_vien NV\n" +
+            "INNER JOIN\n" +
+            "    hoa_don HD ON NV.id = HD.id_nhan_vien\n" +
+            "WHERE\n" +
+            "    HD.trangthai = 4\n" +
+            "    AND YEAR(HD.ngay_tao) = YEAR(GETDATE()) -- Filter for the current year\n" +
+            "GROUP BY\n" +
+            "    NV.id, NV.ho_ten\n" +
+            "ORDER BY\n" +
+            "    SoHoaDonBanDuoc DESC\n", nativeQuery = true)
+    List<Object[]> top10nhanvienbannhieunhattrongnam();
+
+
+
+    @Query(value = "SELECT TOP 10\n" +
+            "    NV.id AS NhanVienID,\n" +
+            "    NV.ho_ten AS HoTen,\n" +
+            "    COUNT(HD.id) AS SoHoaDonBanDuoc\n" +
+            "FROM\n" +
+            "    nhan_vien NV\n" +
+            "INNER JOIN\n" +
+            "    hoa_don HD ON NV.id = HD.id_nhan_vien\n" +
+            "WHERE\n" +
+            "    HD.trangthai = 4\n" +
+            "    AND YEAR(HD.ngay_tao) = YEAR(GETDATE()) -- Filter for the current year\n" +
+            "    AND MONTH(HD.ngay_tao) = MONTH(GETDATE()) -- Filter for the current month\n" +
+            "GROUP BY\n" +
+            "    NV.id, NV.ho_ten\n" +
+            "ORDER BY\n" +
+            "    SoHoaDonBanDuoc DESC\n", nativeQuery = true)
+    List<Object[]> top10nhanvienbannhieunhatthangnay();
+
+
+    @Query(value = "SELECT TOP 10\n" +
+            "    NV.id AS NhanVienID,\n" +
+            "    NV.ho_ten AS HoTen,\n" +
+            "    COUNT(HD.id) AS SoHoaDonBanDuoc\n" +
+            "FROM\n" +
+            "    nhan_vien NV\n" +
+            "INNER JOIN\n" +
+            "    hoa_don HD ON NV.id = HD.id_nhan_vien\n" +
+            "WHERE\n" +
+            "    HD.trangthai = 4\n" +
+            "    AND YEAR(HD.ngay_tao) = YEAR(DATEADD(MONTH, -1, GETDATE())) -- Filter for the previous year\n" +
+            "    AND MONTH(HD.ngay_tao) = MONTH(DATEADD(MONTH, -1, GETDATE())) -- Filter for the previous month\n" +
+            "GROUP BY\n" +
+            "    NV.id, NV.ho_ten\n" +
+            "ORDER BY\n" +
+            "    SoHoaDonBanDuoc DESC\n", nativeQuery = true)
+    List<Object[]> top10nhanvienbannhieunhatthangtruoc();
+
+    @Query(value = "SELECT TOP 10\n" +
+            "    NV.id AS NhanVienID,\n" +
+            "    NV.ho_ten AS HoTen,\n" +
+            "    COUNT(HD.id) AS SoHoaDonBanDuoc\n" +
+            "FROM\n" +
+            "    nhan_vien NV\n" +
+            "INNER JOIN\n" +
+            "    hoa_don HD ON NV.id = HD.id_nhan_vien\n" +
+            "WHERE\n" +
+            "    HD.trangthai = 4\n" +
+            "    AND CAST(HD.ngay_tao AS DATE) = CAST(GETDATE() - 1 AS DATE) -- Filter for yesterday\n" +
+            "GROUP BY\n" +
+            "    NV.id, NV.ho_ten\n" +
+            "ORDER BY\n" +
+            "    SoHoaDonBanDuoc DESC\n", nativeQuery = true)
+    List<Object[]> top10nhanvienbannhieunhathomqua();
+
+
+    @Query(value = "SELECT TOP 10\n" +
+            "    NV.id AS NhanVienID,\n" +
+            "    NV.ho_ten AS HoTen,\n" +
+            "    COUNT(HD.id) AS SoHoaDonBanDuoc\n" +
+            "FROM\n" +
+            "    nhan_vien NV\n" +
+            "INNER JOIN\n" +
+            "    hoa_don HD ON NV.id = HD.id_nhan_vien\n" +
+            "WHERE\n" +
+            "    HD.trangthai = 4\n" +
+            "    AND HD.ngay_tao >= DATEADD(DAY, -6, GETDATE()) -- Filter for the last 7 days\n" +
+            "GROUP BY\n" +
+            "    NV.id, NV.ho_ten\n" +
+            "ORDER BY\n" +
+            "    SoHoaDonBanDuoc DESC\n", nativeQuery = true)
+    List<Object[]> top10nhanvienbannhieunhat7ngayqua();
+
+
+
 }
+

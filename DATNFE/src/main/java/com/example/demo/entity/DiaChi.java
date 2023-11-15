@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 @Getter
@@ -31,21 +32,27 @@ public class DiaChi {
     @Column(name = "ma")
     private String madc;
 
+    @NotBlank(message = "Không được để trống")
     @Column(name = "ten_dia_chi")
     private String tendiachi;
 
+    @NotBlank(message = "Không được để trống")
     @Column(name = "xa")
     private String xa;
 
+    @NotBlank(message = "Không được để trống")
     @Column(name = "huyen")
     private String huyen;
 
+    @NotBlank(message = "Không được để trống")
     @Column(name = "thanh_pho")
     private String thanhpho;
 
+    @NotBlank(message = "Không được để trống")
     @Column(name = "ten_nguoi_nhan")
     private String ten_nguoi_nhan;
 
+    @NotBlank(message = "Không được để trống")
     @Column(name = "sdt_nguoi_nhan")
     private String sdt_nguoi_nhan;
 

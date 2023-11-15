@@ -210,6 +210,11 @@ public class ThongKeController {
         model.addAttribute("top10khachhangmuanhieunhat",top10khachhangmuanhieunhat);
         String thoiGian1 = "Năm";
         model.addAttribute("hienthithoigian1", thoiGian1);
+
+        List<Object[]> top10nhanvienbannhieunhat = hoaDonDAO.top10nhanvienbannhieunhattrongnam();
+        model.addAttribute("top10nhanvienbannhieunhat",top10nhanvienbannhieunhat);
+        String thoiGian2 = "Năm";
+        model.addAttribute("hienthithoigian2", thoiGian2);
     }
 
     @GetMapping("/admin/thong-ke-top-ban-chay")
@@ -295,6 +300,47 @@ public class ThongKeController {
                 break;
         }
         model.addAttribute("top10khachhangmuanhieunhat", bieudosanphambanchay);
+        return "thongke/thongketopbanchay";
+
+    }
+
+
+    @RequestMapping("/admin/chon-thoi-gian-thong-ke-top-ban-chay-nhan-vien")
+    public String hienthibieudochonthoigiantop10nhanvien(@RequestParam("thoiGian") String thoiGian, Model model){
+        index1(model);
+        String thoiGian2 = "Năm";
+        model.addAttribute("hienthithoigian2", thoiGian2);
+        List<Object[]> bieudosanphambanchay = null;
+        switch (thoiGian) {
+            case "Năm":
+                bieudosanphambanchay = hoaDonDAO.top10nhanvienbannhieunhattrongnam();
+                model.addAttribute("ngayDaChonDetailnhanvien", thoiGian);
+                model.addAttribute("hienthithoigian2", thoiGian);
+                break;
+            case "Tháng Trước":
+                bieudosanphambanchay = hoaDonDAO.top10nhanvienbannhieunhatthangtruoc();
+                model.addAttribute("ngayDaChonDetailnhanvien", thoiGian);
+                model.addAttribute("hienthithoigian2", thoiGian);
+                break;
+            case "Tháng này":
+                bieudosanphambanchay = hoaDonDAO.top10nhanvienbannhieunhatthangnay();
+                model.addAttribute("ngayDaChonDetailnhanvien", thoiGian);
+                model.addAttribute("hienthithoigian2", thoiGian);
+                break;
+            case "7 Ngày qua":
+                bieudosanphambanchay = hoaDonDAO.top10nhanvienbannhieunhat7ngayqua();
+                model.addAttribute("ngayDaChonDetailnhanvien", thoiGian);
+                model.addAttribute("hienthithoigian2", thoiGian);
+                break;
+            case "Hôm Qua":
+                bieudosanphambanchay = hoaDonDAO.top10nhanvienbannhieunhathomqua();
+                model.addAttribute("ngayDaChonDetailnhanvien", thoiGian);
+                model.addAttribute("hienthithoigian2", thoiGian);
+                break;
+            default:
+                break;
+        }
+        model.addAttribute("top10nhanvienbannhieunhat", bieudosanphambanchay);
         return "thongke/thongketopbanchay";
 
     }

@@ -205,6 +205,35 @@
                     </div>
                 </div>
             </div>
+
+            <br>
+            <div th:class="row">
+                <div class="col-md-12">
+                    <div class="card card-chart">
+                        <div class="card-header col-md-12">
+                            <div class="row">
+                                <h5 class="card-title col-md-8">Top 10 Nhân Viên Bán Nhiều Nhất Trong
+                                    [[${hienthithoigian2}]]
+                                </h5>
+                                <h5 class="col-md-4">
+                                    <form th:action="@{/admin/chon-thoi-gian-thong-ke-top-ban-chay-nhan-vien}" method="get">
+                                        <select class="form-control" id="thoi-gian-select3" name="thoiGian">
+                                            <option th:selected="${ngayDaChonDetailnhanvien == 'Năm'}"  value="Năm">Trong Năm</option>
+                                            <option th:selected="${ngayDaChonDetailnhanvien == 'Tháng Trước'}"  value="Tháng Trước">Tháng Trước</option>
+                                            <option th:selected="${ngayDaChonDetailnhanvien == 'Tháng này'}"  value="Tháng này">Tháng Này</option>
+                                            <option th:selected="${ngayDaChonDetailnhanvien == '7 Ngày qua'}"  value="7 Ngày qua">7 Ngày qua</option>
+                                            <option th:selected="${ngayDaChonDetailnhanvien == 'Hôm Qua'}"  value="Hôm Qua">Hôm qua</option>
+                                        </select>
+                                    </form>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="myChartnhanvien" width="400" height="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -223,9 +252,9 @@
     new Chart(ctx, {
         type: 'bar',
         data: {
-            label: 'Sản Phẩm',
             labels: vitri_x,
             datasets: [{
+                label: 'Sản Phẩm',
                 data: vitri_y,
                 borderWidth: 1
             }]
@@ -256,9 +285,42 @@
     new Chart(ctx1, {
         type: 'bar',
         data: {
-            label: 'Sản Phẩm',
+
             labels: vitri_x,
             datasets: [{
+                label: 'Khách Hàng',
+                data: vitri_y,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+<script th:inline="javascript">
+    var top10nhanvienbannhieunhat = [[${top10nhanvienbannhieunhat}]];
+</script>
+
+<script>
+    console.log(top10nhanvienbannhieunhat)
+
+    var vitri_x = top10nhanvienbannhieunhat.map(x => x[1])
+    var vitri_y = top10nhanvienbannhieunhat.map(x => x[2])
+
+    const ctx2 = document.getElementById('myChartnhanvien');
+
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: vitri_x,
+            datasets: [{
+                label: 'Nhân Viên', // Fix: Move label here
                 data: vitri_y,
                 borderWidth: 1
             }]
@@ -278,8 +340,15 @@
         this.form.submit();
     });
 </script>
+
 <script>
     document.getElementById('thoi-gian-select2').addEventListener('change', function () {
+        this.form.submit();
+    });
+</script>
+
+<script>
+    document.getElementById('thoi-gian-select3').addEventListener('change', function () {
         this.form.submit();
     });
 </script>
