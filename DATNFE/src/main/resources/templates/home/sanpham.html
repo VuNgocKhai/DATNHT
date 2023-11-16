@@ -24,121 +24,123 @@
 <div style="width: 88%;margin: auto;">
     <div class="row px-xl-5">
         <!-- Shop Sidebar Start -->
-        <div class="col-lg-3 col-md-4">
-            <!-- Price Start -->
-            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by price</span></h5>
-            <div class="bg-light p-4 mb-30">
-                <form>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" checked id="price-all">
-                        <label class="custom-control-label" for="price-all">All Price</label>
-                        <span class="badge border font-weight-normal">1000</span>
+            <div class="col-lg-3 col-md-4">
+                <!-- Price Start -->
+                <form action="/sanpham" method="post" th:object="${searchform}">
+                    <button type="submit" class="btn btn-primary mb-2">Tìm Kiếm</button>
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Khoảng Giá</span></h5>
+                    <div style="display: flex;justify-content: space-between" class="bg-light p-4 mb-30">
+                        <input type="text" class="col-md-5" placeholder="đ Từ" th:field="*{tien_min}">
+                        <input type="text" class="col-md-6" placeholder="đ Đến" th:field="*{tien_max}">
                     </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-1">
-                        <label class="custom-control-label" for="price-1">$0 - $100</label>
-                        <span class="badge border font-weight-normal">150</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-2">
-                        <label class="custom-control-label" for="price-2">$100 - $200</label>
-                        <span class="badge border font-weight-normal">295</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-3">
-                        <label class="custom-control-label" for="price-3">$200 - $300</label>
-                        <span class="badge border font-weight-normal">246</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-4">
-                        <label class="custom-control-label" for="price-4">$300 - $400</label>
-                        <span class="badge border font-weight-normal">145</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                        <input type="checkbox" class="custom-control-input" id="price-5">
-                        <label class="custom-control-label" for="price-5">$400 - $500</label>
-                        <span class="badge border font-weight-normal">168</span>
-                    </div>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Thương Hiệu</span></h5>
+                <div class="bg-light p-4 mb-30">
+                    <form>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" th:field="*{thuong_hieu}" value="" checked id="price-all" onclick="handleCheckbox(this)">
+                            <label class="custom-control-label" for="price-all">Tất Cả</label>
+                            <!--                        <span class="badge border font-weig ht-normal">1000</span>-->
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3" th:each="x:${listThuongHieu}">
+                            <input type="checkbox" class="custom-control-input" th:field="*{thuong_hieu}" th:id="${x.ten}" th:value="${x.ten}" onclick="handleCheckbox(this)">
+                            <label class="custom-control-label" th:for="${x.ten}" th:value="${x.ten}">[[${x.ten}]]</label>
+                        </div>
+                    </form>
+                </div>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Kích Cỡ</span></h5>
+                <div class="bg-light p-4 mb-30">
+                    <form>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input1" th:field="*{kich_co}" value="" checked id="kich_co" onclick="handleCheckbox1(this)">
+                            <label class="custom-control-label" for="kich_co">Tất Cả</label>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3" th:each="x:${listKichCo}">
+                            <input type="checkbox" class="custom-control-input1" th:id="${x.ten}" th:field="*{kich_co}" th:value="${x.ten}" onclick="handleCheckbox1(this)">
+                            <label class="custom-control-label" th:for="${x.ten}"  th:value="${x.ten}">[[${x.ten}]]</label>
+                        </div>
+                    </form>
+                </div>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Chất Liệu</span></h5>
+                <div class="bg-light p-4 mb-30">
+                    <form>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input2" value="" th:field="*{chat_lieu}" checked id="chat_lieu" onclick="handleCheckbox2(this)">
+                            <label class="custom-control-label" for="chat_lieu">Tất Cả</label>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3" th:each="x:${listChatLieu}">
+                            <input type="checkbox" class="custom-control-input2" th:id="${x.ten}" th:field="*{chat_lieu}" th:value="${x.ten}" onclick="handleCheckbox2(this)">
+                            <label class="custom-control-label" th:for="${x.ten}" th:value="${x.ten}">[[${x.ten}]]</label>
+                        </div>
+                    </form>
+                </div>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Xuất Xứ</span></h5>
+                <div class="bg-light p-4 mb-30">
+                    <form>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input3" value="" th:field="*{xuat_xu}" checked id="xuat_xu" onclick="handleCheckbox3(this)">
+                            <label class="custom-control-label" for="xuat_xu">Tất Cả</label>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3" th:each="x:${listXuatXu}">
+                            <input type="checkbox" class="custom-control-input3" value="" th:id="${x.ten}" th:field="*{xuat_xu}" th:value="${x.ten}" onclick="handleCheckbox3(this)">
+                            <label class="custom-control-label" th:for="${x.ten}" th:value="${x.ten}">[[${x.ten}]]</label>
+                        </div>
+                    </form>
+                </div>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Màu Sắc</span></h5>
+                <div class="bg-light p-4 mb-30">
+                    <form>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input4" value="" th:field="*{mau_sac}" checked id="mau_sac" onclick="handleCheckbox4(this)">
+                            <label class="custom-control-label" for="mau_sac">Tất Cả</label>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3" th:each="x:${listMauSac}">
+                            <input type="checkbox" class="custom-control-input4" th:id="${x.ten}" th:field="*{mau_sac}" th:value="${x.ten}" onclick="handleCheckbox4(this)">
+                            <label class="custom-control-label" th:for="${x.ten}" th:value="${x.ten}">[[${x.ten}]]</label>
+                        </div>
+                    </form>
+                </div>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Giới Tính</span></h5>
+                <div class="bg-light p-4 mb-30">
+                    <form>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input5" value="" th:field="*{gioi_tinh}" checked id="gioi_tinh" onclick="handleCheckbox5(this)">
+                            <label class="custom-control-label" for="gioi_tinh">Tất Cả</label>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3" th:each="x:${listGioiTinh}">
+                            <input type="checkbox" class="custom-control-input5" th:id="${x.ten}" th:field="*{gioi_tinh}" th:value="${x.ten}" onclick="handleCheckbox5(this)">
+                            <label class="custom-control-label" th:for="${x.ten}" th:value="${x.ten}">[[${x.ten}]]</label>
+                        </div>
+                    </form>
+                </div>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Đế Giày</span></h5>
+                <div class="bg-light p-4 mb-30">
+                    <form>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input6" value="" th:field="*{de_giay}" checked id="de_giay" onclick="handleCheckbox6(this)">
+                            <label class="custom-control-label" for="de_giay">Tất Cả</label>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3" th:each="x:${listDeGiay}">
+                            <input type="checkbox" class="custom-control-input6" th:id="${x.ten}" th:field="*{de_giay}" th:value="${x.ten}" onclick="handleCheckbox6(this)">
+                            <label class="custom-control-label" th:for="${x.ten}" th:value="${x.ten}">[[${x.ten}]]</label>
+                        </div>
+                    </form>
+                </div>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Kiểu Dáng</span></h5>
+                <div class="bg-light p-4 mb-30">
+                    <form>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input7" value="" th:field="*{kieu_dang}" checked id="kieu_dang" onclick="handleCheckbox7(this)">
+                            <label class="custom-control-label" for="kich_co">Tất Cả</label>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3" th:each="x:${listKieuDang}">
+                            <input type="checkbox" class="custom-control-input7" th:id="${x.ten}" th:field="*{kieu_dang}" th:value="${x.ten}" onclick="handleCheckbox7(this)">
+                            <label class="custom-control-label" th:for="${x.ten}" th:value="${x.ten}">[[${x.ten}]]</label>
+                        </div>
+                    </form>
+                </div>
                 </form>
             </div>
-            <!-- Price End -->
 
-            <!-- Color Start -->
-            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by color</span></h5>
-            <div class="bg-light p-4 mb-30">
-                <form>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" checked id="color-all">
-                        <label class="custom-control-label" for="price-all">All Color</label>
-                        <span class="badge border font-weight-normal">1000</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="color-1">
-                        <label class="custom-control-label" for="color-1">Black</label>
-                        <span class="badge border font-weight-normal">150</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="color-2">
-                        <label class="custom-control-label" for="color-2">White</label>
-                        <span class="badge border font-weight-normal">295</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="color-3">
-                        <label class="custom-control-label" for="color-3">Red</label>
-                        <span class="badge border font-weight-normal">246</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="color-4">
-                        <label class="custom-control-label" for="color-4">Blue</label>
-                        <span class="badge border font-weight-normal">145</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                        <input type="checkbox" class="custom-control-input" id="color-5">
-                        <label class="custom-control-label" for="color-5">Green</label>
-                        <span class="badge border font-weight-normal">168</span>
-                    </div>
-                </form>
-            </div>
-            <!-- Color End -->
-
-            <!-- Size Start -->
-            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by size</span></h5>
-            <div class="bg-light p-4 mb-30">
-                <form>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" checked id="size-all">
-                        <label class="custom-control-label" for="size-all">All Size</label>
-                        <span class="badge border font-weight-normal">1000</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="size-1">
-                        <label class="custom-control-label" for="size-1">XS</label>
-                        <span class="badge border font-weight-normal">150</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="size-2">
-                        <label class="custom-control-label" for="size-2">S</label>
-                        <span class="badge border font-weight-normal">295</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="size-3">
-                        <label class="custom-control-label" for="size-3">M</label>
-                        <span class="badge border font-weight-normal">246</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="size-4">
-                        <label class="custom-control-label" for="size-4">L</label>
-                        <span class="badge border font-weight-normal">145</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                        <input type="checkbox" class="custom-control-input" id="size-5">
-                        <label class="custom-control-label" for="size-5">XL</label>
-                        <span class="badge border font-weight-normal">168</span>
-                    </div>
-                </form>
-            </div>
-            <!-- Size End -->
-        </div>
         <!-- Shop Sidebar End -->
 
 
@@ -188,13 +190,13 @@
                             </div>
                         </div>
                         <a href="" style="position: absolute;
-    bottom: 166px;
-    left: 145px;">[[${item.thuong_hieu.ten}]]</a>
+    bottom: 197px;
+    left: 145px;    text-decoration: underline;">[[${item.thuong_hieu.ten}]]</a>
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate" th:href="@{|/ctsp/*{ma}|}"><p style="margin: auto;
     text-align: center;
     max-width: 226px;
-    white-space: break-spaces;">[[*{ten}]]</p></a>
+    white-space: break-spaces;color: #817d70;">[[*{ten}]]</p></a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
                                 <h5 th:if="*{gia_sau_khuyen_mai.compareTo(giaban)==0}" style="color: #ee4d2d">[[*{#numbers.formatDecimal(gia_sau_khuyen_mai, 0, 'COMMA', 0, 'POINT')}]] ₫</h5>
                                 <div th:if="*{gia_sau_khuyen_mai.compareTo(giaban)<0}">
@@ -228,6 +230,80 @@
         <!-- Shop Product End -->
     </div>
 </div>
+<script>
+    function handleCheckbox(checkbox) {
+        // Uncheck all checkboxes in the same group
+        var checkboxes = document.querySelectorAll('.custom-control-input');
+        checkboxes.forEach(function (element) {
+            if (element !== checkbox) {
+                element.checked = false;
+            }
+        });
+    }
+    function handleCheckbox1(checkbox) {
+        // Uncheck all checkboxes in the same group
+        var checkboxes = document.querySelectorAll('.custom-control-input1');
+        checkboxes.forEach(function (element) {
+            if (element !== checkbox) {
+                element.checked = false;
+            }
+        });
+    }
+    function handleCheckbox2(checkbox) {
+        // Uncheck all checkboxes in the same group
+        var checkboxes = document.querySelectorAll('.custom-control-input2');
+        checkboxes.forEach(function (element) {
+            if (element !== checkbox) {
+                element.checked = false;
+            }
+        });
+    }
+    function handleCheckbox3(checkbox) {
+        // Uncheck all checkboxes in the same group
+        var checkboxes = document.querySelectorAll('.custom-control-input3');
+        checkboxes.forEach(function (element) {
+            if (element !== checkbox) {
+                element.checked = false;
+            }
+        });
+    }
+    function handleCheckbox4(checkbox) {
+        // Uncheck all checkboxes in the same group
+        var checkboxes = document.querySelectorAll('.custom-control-input4');
+        checkboxes.forEach(function (element) {
+            if (element !== checkbox) {
+                element.checked = false;
+            }
+        });
+    }
+    function handleCheckbox5(checkbox) {
+        // Uncheck all checkboxes in the same group
+        var checkboxes = document.querySelectorAll('.custom-control-input5');
+        checkboxes.forEach(function (element) {
+            if (element !== checkbox) {
+                element.checked = false;
+            }
+        });
+    }
+    function handleCheckbox6(checkbox) {
+        // Uncheck all checkboxes in the same group
+        var checkboxes = document.querySelectorAll('.custom-control-input6');
+        checkboxes.forEach(function (element) {
+            if (element !== checkbox) {
+                element.checked = false;
+            }
+        });
+    }
+    function handleCheckbox7(checkbox) {
+        // Uncheck all checkboxes in the same group
+        var checkboxes = document.querySelectorAll('.custom-control-input7');
+        checkboxes.forEach(function (element) {
+            if (element !== checkbox) {
+                element.checked = false;
+            }
+        });
+    }
+</script>
 <!-- Shop End -->
 </body>
 </html>

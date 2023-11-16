@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +38,8 @@ public class QuanLyTaiKhoanKhController {
 
     @Autowired
     private KhachHangDao khachHangDao;
-
+    @Autowired
+    private GioHangDAO gioHangDAO;
     @Autowired
     SanPhamYeuThichDAo sanPhamYeuThichDAo;
 
@@ -211,7 +214,12 @@ public class QuanLyTaiKhoanKhController {
             khachHang.setMa("KH"+String.valueOf(khachHangDao.getMaMax()+1));
             khachHang.setTrangthai(1);
             khachHang.setMatkhau(passwordEncoder.encode(khachHang.getMatkhau()));
-            khachHangDao.save(khachHang);
+            KhachHang kh = khachHangDao.save(khachHang);
+                GioHang gioHang1 = new GioHang();
+                gioHang1.setKhach_hang(kh);
+                gioHang1.setNgay_tao(LocalDate.now());
+                gioHang1.setMa(gioHangDAO.generateNextMaGioHang());
+                gioHangDAO.save(gioHang1);
         }
         else {
             model.addAttribute("khachHang",khachHang);

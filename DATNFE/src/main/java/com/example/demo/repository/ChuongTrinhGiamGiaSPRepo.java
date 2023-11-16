@@ -43,6 +43,10 @@ public class ChuongTrinhGiamGiaSPRepo {
         return restTemplate.getForObject(getUrl(maKM), ChuongTrinhGiamGiaSP.class);
     }
 
+    public ChuongTrinhGiamGiaSP getOneByMaKM(String maKM) {
+        return restTemplate.getForObject(getUrl("findbyma/" + maKM), ChuongTrinhGiamGiaSP.class);
+    }
+
     public ChuongTrinhGiamGiaSP getOneById(UUID idKM) {
         return restTemplate.getForObject(getUrlId(idKM), ChuongTrinhGiamGiaSP.class);
     }

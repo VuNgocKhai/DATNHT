@@ -9,8 +9,11 @@ import com.example.demo.repository.KhachHangRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -45,14 +48,22 @@ public class DiaChiController {
         return diaChiRepo.getall();
     }
 
-//    thêm mới địa chỉ
     @PostMapping("/admin/diachi/save")
-    public String save(@ModelAttribute("diachi") DiaChi diaChi) {
-        System.out.println(diaChi);
+    public String save(@RequestParam("maKh") String makh,
+                       @Valid  DiaChi diaChi,
+                       BindingResult result,
+                       RedirectAttributes redirectAttributes) {
+        if (result.hasFieldErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.diachi", result);
+            redirectAttributes.addFlashAttribute("diachi", diaChi); // Giữ lại giá trị của đối tượng diaChi
+            return "redirect:/admin/khachhang/detail/" + makh;
+        }
+
+        // Xử lý khi không có lỗi
         String madc = diachiDao.generateNextDiaChi();
         diaChi.setMadc(madc);
         diachiDao.save(diaChi);
-        String ma = diachiDao.findById(diaChi.getId()).get().getKhachHang().getMa(); // lấy mã từ khách hàng để chuyển vào return
+        String ma = diachiDao.findById(diaChi.getId()).get().getKhachHang().getMa();
         return "redirect:/admin/khachhang/detail/" + ma;
     }
 

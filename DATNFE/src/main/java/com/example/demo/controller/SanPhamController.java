@@ -8,6 +8,8 @@ import com.example.demo.repository.GiayChiTietDAO;
 import com.example.demo.repository.GiayDAO;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -38,13 +41,46 @@ public class    SanPhamController {
     @Data
     public static class SearchForm {
        String tensp="";
-
-       BigDecimal giasp=BigDecimal.ZERO;
+       String thuong_hieu="";
+       String chat_lieu="";
+       String xuat_xu="";
+       String mau_sac="";
+       String gioi_tinh="";
+       String kieu_dang="";
+       String de_giay="";
+       Integer page = 0;
+       BigDecimal tien_min;
+       BigDecimal tien_max;
     }
     @RequestMapping("/admin/sanpham")
     public String product(Model model,@ModelAttribute("searchform") SearchForm searchForm){
-        model.addAttribute("items",giayDAO.getSearch("%"+searchForm.tensp+"%",searchForm.giasp));
-        return "product/hien_thi_sp";
+        Pageable pageable= PageRequest.of(searchForm.page,20);
+        if (searchForm.tien_min==null && searchForm.tien_max==null){
+            model.addAttribute("items",giayDAO.getSearchsanphamByTT("%"+searchForm.tensp+"%",
+                    BigDecimal.ZERO,BigDecimal.valueOf(999999999),
+                    "%"+searchForm.thuong_hieu+"%","%"+searchForm.chat_lieu+"%","%"+searchForm.xuat_xu+"%",
+                    "%"+searchForm.mau_sac+"%","%"+searchForm.gioi_tinh+"%","%"+searchForm.kieu_dang+"%","%"+searchForm.de_giay+"%",pageable));
+        }
+        if (searchForm.tien_min==null){
+            model.addAttribute("items",giayDAO.getSearchsanphamByTT("%"+searchForm.tensp+"%",
+                    BigDecimal.ZERO,searchForm.tien_max,
+                    "%"+searchForm.thuong_hieu+"%","%"+searchForm.chat_lieu+"%","%"+searchForm.xuat_xu+"%",
+                    "%"+searchForm.mau_sac+"%","%"+searchForm.gioi_tinh+"%","%"+searchForm.kieu_dang+"%","%"+searchForm.de_giay+"%",pageable));
+        }
+        if(searchForm.tien_max==null){
+            model.addAttribute("items",giayDAO.getSearchsanphamByTT("%"+searchForm.tensp+"%",
+                    searchForm.tien_min,BigDecimal.valueOf(999999999),
+                    "%"+searchForm.thuong_hieu+"%","%"+searchForm.chat_lieu+"%","%"+searchForm.xuat_xu+"%",
+                    "%"+searchForm.mau_sac+"%","%"+searchForm.gioi_tinh+"%","%"+searchForm.kieu_dang+"%","%"+searchForm.de_giay+"%",pageable));
+
+        }else {
+            model.addAttribute("items",giayDAO.getSearchsanphamByTT("%"+searchForm.tensp+"%",
+                    searchForm.tien_min,searchForm.tien_max,
+                    "%"+searchForm.thuong_hieu+"%","%"+searchForm.chat_lieu+"%","%"+searchForm.xuat_xu+"%",
+                    "%"+searchForm.mau_sac+"%","%"+searchForm.gioi_tinh+"%","%"+searchForm.kieu_dang+"%","%"+searchForm.de_giay+"%",pageable));
+
+        }
+       return "product/hien_thi_sp";
     }
     @RequestMapping("/admin/sanpham/{x}")
     public String productDetail(Model model, @PathVariable("x") String x){

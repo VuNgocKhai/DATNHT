@@ -4,7 +4,10 @@ import com.example.demo.config.Config;
 import com.example.demo.entity.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.UserService;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -62,12 +65,71 @@ public class TrangChuController {
         model.addAttribute("items", giayDAO.findAll());
         return "home/index";
     }
-
+    @Data
+    public static class SearchForm {
+        String tensp="";
+        String thuong_hieu="";
+        String chat_lieu="";
+        String xuat_xu="";
+        String mau_sac="";
+        String gioi_tinh="";
+        String kieu_dang="";
+        String de_giay="";
+        String kich_co="";
+        Integer page = 0;
+        BigDecimal tien_min;
+        BigDecimal tien_max;
+    }
     @RequestMapping("/sanpham")
-    public String sanpham(Model model) {
-        model.addAttribute("items", giayDAO.findAll());
-        LocalDate currentDateMinus7Days = LocalDate.now().minusDays(7);
-        model.addAttribute("sevenDaysAgo", currentDateMinus7Days);
+    public String sanpham(Model model,@ModelAttribute("searchform") SearchForm searchForm) {
+        System.out.println("Thuong hieu la"+searchForm.thuong_hieu);
+        List<GiayChiTiet> giayChiTietList;
+        if (searchForm.tien_min==null && searchForm.tien_max==null){
+            giayChiTietList = giayChiTietDAO.getSearchsanphamByTT("%"+searchForm.tensp+"%",
+                    BigDecimal.ZERO,BigDecimal.valueOf(999999999),
+                    "%"+searchForm.thuong_hieu+"%","%"+searchForm.kich_co+"%","%"+searchForm.chat_lieu+"%","%"+searchForm.xuat_xu+"%",
+                    "%"+searchForm.mau_sac+"%","%"+searchForm.gioi_tinh+"%","%"+searchForm.kieu_dang+"%","%"+searchForm.de_giay+"%");
+        }
+        if (searchForm.tien_min==null){
+            giayChiTietList = giayChiTietDAO.getSearchsanphamByTT("%"+searchForm.tensp+"%",
+                    BigDecimal.ZERO,searchForm.tien_max,
+                    "%"+searchForm.thuong_hieu+"%","%"+searchForm.kich_co+"%","%"+searchForm.chat_lieu+"%","%"+searchForm.xuat_xu+"%",
+                    "%"+searchForm.mau_sac+"%","%"+searchForm.gioi_tinh+"%","%"+searchForm.kieu_dang+"%","%"+searchForm.de_giay+"%");
+        }
+        if(searchForm.tien_max==null){
+            giayChiTietList = giayChiTietDAO.getSearchsanphamByTT("%"+searchForm.tensp+"%",
+                    searchForm.tien_min,BigDecimal.valueOf(999999999),
+                    "%"+searchForm.thuong_hieu+"%","%"+searchForm.kich_co+"%","%"+searchForm.chat_lieu+"%","%"+searchForm.xuat_xu+"%",
+                    "%"+searchForm.mau_sac+"%","%"+searchForm.gioi_tinh+"%","%"+searchForm.kieu_dang+"%","%"+searchForm.de_giay+"%");
+
+        }else {
+            giayChiTietList = giayChiTietDAO.getSearchsanphamByTT("%"+searchForm.tensp+"%",
+                    searchForm.tien_min,searchForm.tien_max,
+                    "%"+searchForm.thuong_hieu+"%","%"+searchForm.kich_co+"%","%"+searchForm.chat_lieu+"%","%"+searchForm.xuat_xu+"%",
+                    "%"+searchForm.mau_sac+"%","%"+searchForm.gioi_tinh+"%","%"+searchForm.kieu_dang+"%","%"+searchForm.de_giay+"%");
+        }
+        Pageable pageable= PageRequest.of(searchForm.page,20);
+        List<Giay> giayList = new ArrayList<>();
+        System.out.println("Mang là"+giayChiTietList.size());
+
+        for (GiayChiTiet x:giayChiTietList
+             ) {
+            if (giayList.isEmpty()){
+                giayList.add(x.getGiay());
+            }else {
+                boolean kq =true;
+                for (Giay a:giayList
+                     ) {
+                    if (x.getGiay().getMa().equals(a.getMa())){
+                        kq=false;
+                    }
+                }
+                if (kq==true){
+                    giayList.add(x.getGiay());
+                }
+            }
+        }
+        model.addAttribute("items", giayList);
         return "home/sanpham";
     }
 

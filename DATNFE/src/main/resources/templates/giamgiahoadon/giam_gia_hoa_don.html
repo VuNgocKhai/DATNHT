@@ -11,6 +11,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <style>
+        .error-border {
+            border: 1px solid red;
+        }
+
+        .custom-error-bg {
+            border: 1px solid red; /* Định nghĩa màu viền là màu đỏ */
+        }
+    </style>
+
 </head>
 <body>
 <div class="wrapper d-flex align-items-stretch">
@@ -155,7 +166,7 @@
                 <div style="margin: 20px">
                     <div class="row">
                         <div class="col-8">
-                            <h3 style="text-transform: uppercase; color: black; font-family: 'Lora'; text-align: left;">
+                            <h3 style="text-transform: uppercase; color: black; text-align: left;">
                                 Danh Sách Các CT Giảm Giá Hóa Đơn
                             </h3>
                         </div>
@@ -183,87 +194,80 @@
                                         <div class="row">
                                             <div class="col-4">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInput">Mã</label>
+                                                    <label for="formGroupExampleInputMa">Mã</label>
                                                     <input type="text" th:field="*{ma}" class="form-control"
-                                                           id="formGroupExampleInput"
-                                                           placeholder="Mã" required>
-                                                    <div th:if="${#fields.hasErrors('ma')}" class="text-danger"
-                                                         th:errors="*{ma}"></div>
+                                                           id="formGroupExampleInputMa">
+                                                    <div id="maError" class="text-danger"></div>
+                                                    <div id="ma1Error1" class="text-danger"></div>
                                                 </div>
                                             </div>
                                             <div class="col-4">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInput2">Tên</label>
+                                                    <label for="formGroupExampleInputTen">Tên</label>
                                                     <input type="text" th:field="*{ten}" class="form-control"
-                                                           id="formGroupExampleInput2"
-                                                           placeholder="Tên">
-                                                    <div th:if="${#fields.hasErrors('ten')}" class="text-danger"
-                                                         th:errors="*{ten}" required></div>
+                                                           id="formGroupExampleInputTen">
+                                                    <div id="tenError" class="text-danger"></div>
                                                 </div>
 
                                             </div>
                                             <div class="col-4">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInput2">Điều Kiện</label>
+                                                    <label for="formGroupExampleInputDieuKien">Điều Kiện</label>
                                                     <input type="number" th:field="*{dieu_kien}" class="form-control"
-                                                           id="formGroupExampleInput2"
-                                                           placeholder="Điều Kiện">
-                                                    <div th:if="${#fields.hasErrors('dieu_kien')}" class="text-danger"
-                                                         th:errors="*{dieu_kien}" required></div>
+                                                           id="formGroupExampleInputDieuKien">
+                                                    <div id="dieuKienError" class="text-danger"></div>
+                                                    <div id="dieuKien1Error1" class="text-danger"></div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInput2">Ngày Bắt Đầu</label>
+                                                    <label for="formGroupExampleInputNgayBatDau">Ngày Bắt Đầu</label>
                                                     <input type="date" th:field="*{ngay_bat_dau}" class="form-control"
-                                                           id="formGroupExampleInput2">
-                                                    <div th:if="${#fields.hasErrors('ngay_bat_dau')}"
-                                                         class="text-danger"
-                                                         th:errors="*{ngay_bat_dau}" required></div>
+                                                           id="formGroupExampleInputNgayBatDau">
+                                                    <div id="ngayBatDauError" class="text-danger"></div>
+                                                    <div id="ngayBatDau1Error1" class="text-danger"></div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInput2">Ngày Kết Thúc</label>
+                                                    <label for="formGroupExampleInputNgayKetThuc">Ngày Kết Thúc</label>
                                                     <input type="date" th:field="*{ngay_ket_thuc}" class="form-control"
-                                                           id="formGroupExampleInput2">
-                                                    <div th:if="${#fields.hasErrors('ngay_ket_thuc')}"
-                                                         class="text-danger"
-                                                         th:errors="*{ngay_ket_thuc}" required></div>
+                                                           id="formGroupExampleInputNgayKetThuc">
+                                                    <div id="ngayKetThucError" class="text-danger"></div>
+                                                    <div id="ngayKetThuc1Error1" class="text-danger"></div>
                                                 </div>
                                             </div>
                                             <div class="col-4">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInput2">Số Tiền Giảm Max</label>
+                                                    <label for="formGroupExampleInputSoTienGiamMax">Số Tiền Giảm
+                                                        Max</label>
                                                     <input type="number" th:field="*{so_tien_giam_max}"
                                                            class="form-control"
-                                                           id="formGroupExampleInput2"
+                                                           id="formGroupExampleInputSoTienGiamMax"
                                                            step="any">
-                                                    <div th:if="${#fields.hasErrors('so_tien_giam_max')}"
-                                                         class="text-danger"
-                                                         th:errors="*{so_tien_giam_max}" required></div>
+                                                    <div id="soTienGiamMaxError" class="text-danger"></div>
+                                                    <div id="soTienGiamMax1Error1" class="text-danger"></div>
                                                 </div>
                                             </div>
                                             <div class="col-4">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInput2">Phần Trăm Giảm</label>
+                                                    <label for="formGroupExampleInputPhanTramGiam">Phần Trăm
+                                                        Giảm</label>
                                                     <input type="number" th:field="*{phan_tram_giam}"
                                                            class="form-control"
-                                                           id="formGroupExampleInput2" placeholder="Phần trăm giảm"
+                                                           id="formGroupExampleInputPhanTramGiam"
                                                            step="any">
-                                                    <div th:if="${#fields.hasErrors('phan_tram_giam')}"
-                                                         class="text-danger"
-                                                         th:errors="*{phan_tram_giam}" required></div>
+                                                    <div id="phanTramGiamError" class="text-danger"></div>
+                                                    <div id="phanTramGiam1Error1" class="text-danger"></div>
                                                 </div>
                                             </div>
                                             <div class="col-4">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInput2">Số Lượng</label>
+                                                    <label for="formGroupExampleInputSoLuong">Số Lượng</label>
                                                     <input type="number" th:field="*{so_luong}" class="form-control"
-                                                           id="formGroupExampleInput2"
-                                                           placeholder="Số Lượng">
-                                                    <div th:if="${#fields.hasErrors('so_luong')}" class="text-danger"
-                                                         th:errors="*{so_luong}" required></div>
+                                                           id="formGroupExampleInputSoLuong">
+                                                    <div id="soLuongError" class="text-danger"></div>
+                                                    <div id="soLuong1Error1" class="text-danger"></div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
@@ -288,23 +292,21 @@
                                                                     Không Hoạt Động
                                                                 </label>
                                                             </div>
+                                                            <div id="trangthaiError" class="text-danger"></div>
                                                         </div>
-                                                        <div th:if="${#fields.hasErrors('trangthai')}"
-                                                             class="text-danger"
-                                                             th:errors="*{trangthai}"></div>
                                                     </div>
                                                 </fieldset>
                                             </div>
                                         </div>
-                                        <button class="btn btn-primary" type="submit"
-                                                onclick="return confirm('Bạn có muốn thêm mới ?')">
+                                        <button class="btn btn-primary" id="submitBtn" type="submit">
                                             Thêm Mới
                                         </button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                                    </button>
+                                    <a th:href="@{|/admin/giamgiahoadon|}">
+                                        <button type="button" class="btn btn-secondary">Close</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -323,27 +325,27 @@
                                 <div class="col-sm-5">
                                     <label for="ngay_bat_dau" style="margin-top: 0.5rem; margin-right: 0.5rem;">Ngày bắt
                                         đầu:</label>
-                                    <span th:if="${ngayBatDauDetail == null}">
-                                    <input type="date" class="form-control" id="ngay_bat_dau" name="ngay_bat_dau"
-                                           onchange="checkAndSubmitForm()" required>
-                                </span>
-                                    <span th:if="${ngayBatDauDetail != null}">
-                                    <input type="date" class="form-control" id="ngay_bat_dau" name="ngay_bat_dau"
-                                           th:value="${ngayBatDauDetail}" onchange="checkAndSubmitForm()" required>
-                                </span>
+                                    <div th:if="${ngayBatDauDetail == null}">
+                                        <input type="date" class="form-control" id="ngay_bat_dau" name="ngay_bat_dau"
+                                               onchange="checkAndSubmitForm()" required>
+                                    </div>
+                                    <div th:if="${ngayBatDauDetail != null}">
+                                        <input type="date" class="form-control" id="ngay_bat_dau" name="ngay_bat_dau"
+                                               th:value="${ngayBatDauDetail}" onchange="checkAndSubmitForm()" required>
+                                    </div>
                                 </div>
                                 <div class="col-sm-5">
                                     <label for="ngay_ket_thuc" style="margin-top: 0.5rem; margin-right: 0.5rem;">Ngày
                                         kết
                                         thúc:</label>
-                                    <span th:if="${ngayKetThucDetail == null}">
-                                     <input type="date" class="form-control" id="ngay_ket_thuc" name="ngay_ket_thuc"
-                                            onchange="checkAndSubmitForm()" required>
-                                </span>
-                                    <span th:if="${ngayKetThucDetail != null}">
-                                     <input type="date" class="form-control" id="ngay_ket_thuc" name="ngay_ket_thuc"
-                                            th:value="${ngayKetThucDetail}" onchange="checkAndSubmitForm()" required>
-                                </span>
+                                    <div th:if="${ngayKetThucDetail == null}">
+                                        <input type="date" class="form-control" id="ngay_ket_thuc" name="ngay_ket_thuc"
+                                               onchange="checkAndSubmitForm()" required>
+                                    </div>
+                                    <div th:if="${ngayKetThucDetail != null}">
+                                        <input type="date" class="form-control" id="ngay_ket_thuc" name="ngay_ket_thuc"
+                                               th:value="${ngayKetThucDetail}" onchange="checkAndSubmitForm()" required>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -419,7 +421,6 @@
                                th:ma="${item.ma}">
                                 <i style="color: #b1b108" class="bi bi-pencil-square"></i>
                             </a>
-
                             <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                                th:href="@{|/admin/giamgiahoadon/delete/${item.id}|}"><i style="color: red"
                                                                                         class="bi bi-trash"></i></a>
@@ -459,141 +460,137 @@
                 <!--            end nav-->
                 <!--         end table GGHD-->
             </div>
-        </div>
-        <!--    Phần modal update giảm giá hóa đơn:-->
-        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content" style="background-color: #e0e0e0">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Update Giảm Giá Hóa Đơn</h5>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/admin/giamgiahoadon/update" method="post" th:object="${giamgiahoadon}">
-                            <input type="text" hidden th:field="*{id}">
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="formGroupExampleInput">Mã</label>
-                                        <input type="text" th:field="*{ma}" class="form-control"
-                                               id="formGroupExampleInput"
-                                               placeholder="Mã" required>
-                                        <div th:if="${#fields.hasErrors('ma')}" class="text-danger"
-                                             th:errors="*{ma}"></div>
+            <!--    Phần modal update giảm giá hóa đơn:-->
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content" style="background-color: #e0e0e0">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Update Giảm Giá Hóa Đơn</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form id="myFormUpdate" action="/admin/giamgiahoadon/update" method="post"
+                                  th:object="${giamgiahoadon}">
+                                <input type="text" hidden th:field="*{id}">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInputMaUpdate">Mã</label>
+                                            <input type="text" th:field="*{ma}" class="form-control"
+                                                   id="formGroupExampleInputMaUpdate">
+                                            <div id="maUpdateError" class="text-danger"></div>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="formGroupExampleInput2">Tên</label>
-                                        <input type="text" th:field="*{ten}" class="form-control"
-                                               id="formGroupExampleInput2"
-                                               placeholder="Tên">
-                                        <div th:if="${#fields.hasErrors('ten')}" class="text-danger"
-                                             th:errors="*{ten}" required></div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInputTenUpdate">Tên</label>
+                                            <input type="text" th:field="*{ten}" class="form-control"
+                                                   id="formGroupExampleInputTenUpdate">
+                                            <div id="tenUpdateError" class="text-danger"></div>
+                                        </div>
                                     </div>
-
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="formGroupExampleInput2">Điều Kiện</label>
-                                        <input type="text" th:field="*{dieu_kien}" class="form-control"
-                                               id="formGroupExampleInput2"
-                                               placeholder="Điều Kiện">
-                                        <div th:if="${#fields.hasErrors('dieu_kien')}" class="text-danger"
-                                             th:errors="*{dieu_kien}" required></div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInputDieuKienUpdate">Điều Kiện</label>
+                                            <input type="text" th:field="*{dieu_kien}" class="form-control"
+                                                   id="formGroupExampleInputDieuKienUpdate">
+                                            <div id="dieuKienUpdateError" class="text-danger"></div>
+                                            <div id="dieuKienUpdate1Error1" class="text-danger"></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="formGroupExampleInput2">Ngày Bắt Đầu</label>
-                                        <input type="date" th:field="*{ngay_bat_dau}" class="form-control"
-                                               id="formGroupExampleInput2">
-                                        <div th:if="${#fields.hasErrors('ngay_bat_dau')}" class="text-danger"
-                                             th:errors="*{ngay_bat_dau}" required></div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInputNgayBatDauUpdate">Ngày Bắt Đầu</label>
+                                            <input type="date" th:field="*{ngay_bat_dau}" class="form-control"
+                                                   id="formGroupExampleInputNgayBatDauUpdate">
+                                            <div id="ngayBatDauUpdateError" class="text-danger"></div>
+                                            <div id="ngayBatDauUpdate1Error1" class="text-danger"></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="formGroupExampleInput2">Ngày Kết Thúc</label>
-                                        <input type="date" th:field="*{ngay_ket_thuc}" class="form-control"
-                                               id="formGroupExampleInput2">
-                                        <div th:if="${#fields.hasErrors('ngay_ket_thuc')}" class="text-danger"
-                                             th:errors="*{ngay_ket_thuc}" required></div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInputNgayKetThucUpdate">Ngày Kết Thúc</label>
+                                            <input type="date" th:field="*{ngay_ket_thuc}" class="form-control"
+                                                   id="formGroupExampleInputNgayKetThucUpdate">
+                                            <div id="ngayKetThucUpdateError" class="text-danger"></div>
+                                            <div id="ngayKetThucUpdate1Error1" class="text-danger"></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="formGroupExampleInput2">Số Tiền Giảm Max</label>
-                                        <input type="number" th:field="*{so_tien_giam_max}" class="form-control"
-                                               id="formGroupExampleInput2"
-                                               step="any">
-                                        <div th:if="${#fields.hasErrors('so_tien_giam_max')}" class="text-danger"
-                                             th:errors="*{so_tien_giam_max}" required></div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInputSoTienGiamMaxUpdate">Số Tiền Giảm
+                                                Max</label>
+                                            <input type="number" th:field="*{so_tien_giam_max}" class="form-control"
+                                                   id="formGroupExampleInputSoTienGiamMaxUpdate"
+                                                   step="any">
+                                            <div id="soTienGiamMaxUpdateError" class="text-danger"></div>
+                                            <div id="soTienGiamMaxUpdate1Error1" class="text-danger"></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="formGroupExampleInput2">Phần Trăm Giảm</label>
-                                        <input type="number" th:field="*{phan_tram_giam}" class="form-control"
-                                               id="formGroupExampleInput2" placeholder="Phần trăm giảm"
-                                               step="any">
-                                        <div th:if="${#fields.hasErrors('phan_tram_giam')}" class="text-danger"
-                                             th:errors="*{phan_tram_giam}" required></div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInputPhanTramGiamUpdate">Phần Trăm Giảm</label>
+                                            <input type="number" th:field="*{phan_tram_giam}" class="form-control"
+                                                   id="formGroupExampleInputPhanTramGiamUpdate"
+                                                   step="any">
+                                            <div id="phanTramGiamUpdateError" class="text-danger"></div>
+                                            <div id="phanTramGiamUpdate1Error1" class="text-danger"></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="formGroupExampleInput2">Số Lượng</label>
-                                        <input type="number" th:field="*{so_luong}" class="form-control"
-                                               id="formGroupExampleInput2"
-                                               placeholder="Số Lượng">
-                                        <div th:if="${#fields.hasErrors('so_luong')}" class="text-danger"
-                                             th:errors="*{so_luong}" required></div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInputSoLuongUpdate">Số Lượng</label>
+                                            <input type="number" th:field="*{so_luong}" class="form-control"
+                                                   id="formGroupExampleInputSoLuongUpdate">
+                                            <div id="soLuongUpdateError" class="text-danger"></div>
+                                            <div id="soLuongUpdate1Error1" class="text-danger"></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <fieldset class="form-group">
-                                        <div class="row">
-                                            <legend class="col-form-label col-sm-2 pt-0">Trạng Thái :</legend>
-                                            <div class="col-sm-10">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio"
-                                                           th:field="*{trangthai}" id="gridRadios1"
-                                                           th:value="1">
-                                                    <label class="form-check-label" for="gridRadios1">
-                                                        Hoạt Động
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio"
-                                                           th:field="*{trangthai}" id="gridRadios2"
-                                                           th:value="0">
-                                                    <label class="form-check-label" for="gridRadios2">
-                                                        Không Hoạt Động
-                                                    </label>
+                                    <div class="col-6">
+                                        <fieldset class="form-group">
+                                            <div class="row">
+                                                <legend class="col-form-label col-sm-2 pt-0">Trạng Thái :</legend>
+                                                <div class="col-sm-10">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                               th:field="*{trangthai}" id="gridRadios3"
+                                                               th:value="1">
+                                                        <label class="form-check-label" for="gridRadios3">
+                                                            Hoạt Động
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                               th:field="*{trangthai}" id="gridRadios4"
+                                                               th:value="0">
+                                                        <label class="form-check-label" for="gridRadios4">
+                                                            Không Hoạt Động
+                                                        </label>
+                                                    </div>
+                                                    <div id="trangThaiUpdateError" class="text-danger"></div>
                                                 </div>
                                             </div>
-                                            <div th:if="${#fields.hasErrors('trangthai')}" class="text-danger"
-                                                 th:errors="*{trangthai}"></div>
-                                        </div>
-                                    </fieldset>
-                                </div>
+                                        </fieldset>
+                                    </div>
 
-                            </div>
-                            <button class="btn btn-primary"
-                                    onclick="return confirm('Bạn có chắc chắn muốn sửa ?')"
-                                    type="submit">Sửa
-                            </button>
-                        </form>
+                                </div>
+                                <button class="btn btn-primary"
+                                        id="submitBtn2"
+                                        type="submit">Sửa
+                                </button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <a th:href="@{|/admin/giamgiahoadon|}">
+                                <button type="button" class="btn btn-secondary">Close</button>
+                            </a>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
+                    <!--            End modal thêm mới-->
                 </div>
             </div>
+            <!--    end modal update GGHD-->
         </div>
-        <!--    end modal update GGHD-->
         <!--    End phần Giảm Giá Hóa Đơn-->
     </div>
 </div>
@@ -619,11 +616,11 @@
     $(document).ready(function () {
         $(".btn-detail").click(function () {
             var ma = $(this).attr("ma");
-            var form = $("#exampleModal1"); // Chọn tất cả các thẻ <form> trên trang
+            var form = $("#exampleModal1");
             $.ajax({
                 url: "http://localhost:2020/rest/giamgiahoadon/" + ma,
                 method: "GET",
-                dataType: "json", // Kiểu dữ liệu trả về từ máy chủ (json, html, text, etc.)
+                dataType: "json",
                 success: function (data) {
                     form.find('[name="id"]').val(data.id);
                     form.find('[name="ma"]').val(data.ma);
@@ -666,6 +663,525 @@
     });
 </script>
 <!--End script cho phần lọc theo ngày-->
+
+<!--Begin validate create form-->
+<script>
+    function checkMaTrung(ma) {
+        var isMaTrung = false;
+
+        $.ajax({
+            type: 'GET',
+            url: '/admin/giamgiahoadon/checkMaTrung',
+            data: {ma: ma},
+            async: false,
+            success: function (response) {
+                isMaTrung = response;
+            },
+            error: function (error) {
+                // Xử lý lỗi nếu cần
+            }
+        });
+
+        return isMaTrung;
+    }
+
+    $(document).ready(function () {
+        $('#submitBtn').click(function (e) {
+            clearErrorMessages();
+
+            var ma = $('#formGroupExampleInputMa').val();
+            var ten = $('#formGroupExampleInputTen').val();
+            var dieuKien = $('#formGroupExampleInputDieuKien').val();
+            var ngayBatDau = $('#formGroupExampleInputNgayBatDau').val();
+            var ngayKetThuc = $('#formGroupExampleInputNgayKetThuc').val();
+            var soTienGiamMax = $('#formGroupExampleInputSoTienGiamMax').val();
+            var phanTramGiam = $('#formGroupExampleInputPhanTramGiam').val();
+            var soLuong = $('#formGroupExampleInputSoLuong').val();
+            var trangthai = $('input[name="trangthai"]:checked').val();
+
+            var errors = validateInput(ma, ten, dieuKien, ngayBatDau, ngayKetThuc, soTienGiamMax, phanTramGiam, soLuong, trangthai);
+
+            if (errors.length > 0) {
+                displayErrorMessages(errors);
+                e.preventDefault();
+            } else {
+                if (checkMaTrung(ma)) {
+                    $('#formGroupExampleInputMa').addClass('error-border');
+                    $('#maError').text('Mã đã tồn tại');
+                    e.preventDefault();
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/giamgiahoadon/create',
+                        data: $('#myForm').serialize(),
+                        success: function (response) {
+                            $('#exampleModal').modal('show');
+                        },
+                        error: function (error) {
+                            // Xử lý lỗi nếu cần
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+    function validateInput(ma, ten, dieuKien, ngayBatDau, ngayKetThuc, soTienGiamMax, phanTramGiam, soLuong, trangthai) {
+        var errors = [];
+
+        if (!ma) {
+            errors.push('ma');
+        } else if (checkMaTrung(ma)) {
+            errors.push('ma1');
+        }
+
+        if (!ten) {
+            errors.push('ten');
+        }
+
+        if (!dieuKien) {
+            errors.push('dieuKien');
+        } else if (dieuKien < 0) {
+            errors.push('dieuKien1');
+        }
+
+
+        if (!ngayBatDau) {
+            errors.push('ngayBatDau');
+        }
+
+        var startDate = new Date(ngayBatDau);
+        var endDate = new Date(ngayKetThuc);
+
+        if (startDate >= endDate) {
+            errors.push('ngayKetThuc1');
+        }
+
+        if (!ngayKetThuc) {
+            errors.push('ngayKetThuc');
+        }
+
+        if (!soTienGiamMax) {
+            errors.push('soTienGiamMax');
+        } else if (soTienGiamMax < 0) {
+            errors.push('soTienGiamMax1');
+        }
+
+        if (!phanTramGiam) {
+            errors.push('phanTramGiam');
+        } else if (phanTramGiam < 0) {
+            errors.push('phanTramGiam1');
+        }
+
+        if (!soLuong) {
+            errors.push('soLuong');
+        } else if (soLuong < 0) {
+            errors.push('soLuong1');
+        }
+
+        if (!trangthai) {
+            errors.push('trangthai');
+        }
+
+        return errors;
+    }
+
+    function clearErrorMessages() {
+        var ma = $('#formGroupExampleInputMa').val();
+        var ten = $('#formGroupExampleInputTen').val();
+        var dieuKien = $('#formGroupExampleInputDieuKien').val();
+        var ngayBatDau = $('#formGroupExampleInputNgayBatDau').val();
+        var ngayKetThuc = $('#formGroupExampleInputNgayKetThuc').val();
+        var soTienGiamMax = $('#formGroupExampleInputSoTienGiamMax').val();
+        var phanTramGiam = $('#formGroupExampleInputPhanTramGiam').val();
+        var soLuong = $('#formGroupExampleInputSoLuong').val();
+        var trangthai = $('input[name="trangthai"]:checked').val();
+
+        if (ma.trim() !== '') {
+            $('#formGroupExampleInputMa').removeClass('error-border');
+            $('.text-danger').text('');
+        } else if (checkMaTrung(ma)) {
+            $('#formGroupExampleInputMa').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (ten.trim() !== '') {
+            $('#formGroupExampleInputTen').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (dieuKien.trim() !== '') {
+            $('#formGroupExampleInputDieuKien').removeClass('error-border');
+            $('.text-danger').text('');
+        } else if (dieuKien < 0) {
+            $('#formGroupExampleInputDieuKien').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (ngayBatDau.trim() !== '') {
+            $('#formGroupExampleInputNgayBatDau').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (ngayKetThuc.trim() !== '') {
+            $('#formGroupExampleInputNgayKetThuc').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (soTienGiamMax.trim() !== '') {
+            $('#formGroupExampleInputMatKhau').removeClass('error-border');
+            $('.text-danger').text('');
+        } else if (soTienGiamMax < 0) {
+            $('#formGroupExampleInputSoTienGiamMax').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (phanTramGiam.trim() !== '') {
+            $('#formGroupExampleInputPhanTramGiam').removeClass('error-border');
+            $('.text-danger').text('');
+        } else if (phanTramGiam < 0) {
+            $('#formGroupExampleInputPhanTramGiam').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (soLuong.trim() !== '') {
+            $('#formGroupExampleInputSoLuong').removeClass('error-border');
+            $('.text-danger').text('');
+        } else if (soLuong < 0) {
+            $('#formGroupExampleInputSoLuong').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        $('#gridRadios1').removeClass('error-border');
+        $('#gridRadios2').removeClass('error-border');
+        $('#trangthaiError').text('');
+    }
+
+    function displayErrorMessages(errors) {
+        for (var i = 0; i < errors.length; i++) {
+            var ma = $('#formGroupExampleInputMa').val();
+            var ten = $('#formGroupExampleInputTen').val();
+            var dieuKien = $('#formGroupExampleInputDieuKien').val();
+            var ngayBatDau = $('#formGroupExampleInputNgayBatDau').val();
+            var ngayKetThuc = $('#formGroupExampleInputNgayKetThuc').val();
+            var soTienGiamMax = $('#formGroupExampleInputSoTienGiamMax').val();
+            var phanTramGiam = $('#formGroupExampleInputPhanTramGiam').val();
+            var soLuong = $('#formGroupExampleInputSoLuong').val();
+            var trangthai = $('input[name="trangthai"]:checked').val();
+
+            if (ma.trim() === '') {
+                $('#formGroupExampleInputMa').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            } else if (checkMaTrung(ma)) {
+                $('#formGroupExampleInputMa').addClass('error-border');
+                $('#' + errors[i] + 'Error1').text('Mã Giảm Giá đã tổn tại');
+            }
+
+            if (ten.trim() === '') {
+                $('#formGroupExampleInputTen').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            }
+
+            if (dieuKien.trim() === '') {
+                $('#formGroupExampleInputDieuKien').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            } else if (dieuKien < 0) {
+                $('#formGroupExampleInputDieuKien').addClass('error-border');
+                $('#' + errors[i] + 'Error1').text('Thông tin không hợp lệ');
+            }
+
+            if (ngayBatDau.trim() === '') {
+                $('#formGroupExampleInputNgayBatDau').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            }
+
+            if (ngayKetThuc.trim() === '') {
+                $('#formGroupExampleInputNgaySinh').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            }
+
+            if (ngayKetThuc.trim() === '') {
+                $('#formGroupExampleInputNgayKetThuc').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            } else if (errors[i] === 'ngayKetThuc1') {
+                $('#formGroupExampleInputNgayKetThuc').addClass('error-border');
+                $('#' + errors[i] + 'Error1').text('Ngày kết thúc phải sau ngày bắt đầu');
+            }
+
+            if (soTienGiamMax.trim() === '') {
+                $('#formGroupExampleInputSoTienGiamMax').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            } else if (soTienGiamMax < 0) {
+                $('#formGroupExampleInputSoTienGiamMax').addClass('error-border');
+                $('#' + errors[i] + 'Error1').text('Thông tin không hợp lệ');
+            }
+
+            if (phanTramGiam.trim() === '') {
+                $('#formGroupExampleInputPhanTramGiam').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            } else if (phanTramGiam < 0) {
+                $('#formGroupExampleInputPhanTramGiam').addClass('error-border');
+                $('#' + errors[i] + 'Error1').text('Thông tin không hợp lệ');
+            }
+            if (soLuong.trim() === '') {
+                $('#formGroupExampleInputSoLuong').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            } else if (soLuong < 0) {
+                $('#formGroupExampleInputSoLuong').addClass('error-border');
+                $('#' + errors[i] + 'Error1').text('Thông tin không hợp lệ');
+            }
+            if (errors[i] === 'trangthai') {
+                $('#gridRadios1').addClass('error-border');
+                $('#gridRadios2').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            }
+        }
+    }
+</script>
+<!--End validate create form-->
+
+<!--Begin validate update form-->
+<script>
+    $(document).ready(function () {
+        $('#submitBtn2').click(function (e) {
+            clearErrorMessages1();
+
+            var maUpdate = $('#formGroupExampleInputMaUpdate').val();
+            var tenUpdate = $('#formGroupExampleInputTenUpdate').val();
+            var dieuKienUpdate = $('#formGroupExampleInputDieuKienUpdate').val();
+            var ngayBatDauUpdate = $('#formGroupExampleInputNgayBatDauUpdate').val();
+            var ngayKetThucUpdate = $('#formGroupExampleInputNgayKetThucUpdate').val();
+            var soTienGiamMaxUpdate = $('#formGroupExampleInputSoTienGiamMaxUpdate').val();
+            var phanTramGiamUpdate = $('#formGroupExampleInputPhanTramGiamUpdate').val();
+            var soLuongUpdate = $('#formGroupExampleInputSoLuongUpdate').val();
+            var trangThaiUpdate = $('input[name="trangthai"]:checked').val();
+
+            var errors = validateInput1(maUpdate,tenUpdate, dieuKienUpdate, ngayBatDauUpdate, ngayKetThucUpdate, soTienGiamMaxUpdate, phanTramGiamUpdate, soLuongUpdate, trangThaiUpdate);
+
+            if (errors.length > 0) {
+                displayErrorMessages1(errors);
+                e.preventDefault();
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/giamgiahoadon/update',
+                    data: $('#myFormUpdate').serialize(),
+                    success: function (response) {
+                        $('#exampleModal1').modal('show');
+                    },
+                    error: function (error) {
+                        // Xử lý lỗi nếu cần
+                    }
+                });
+            }
+        });
+    });
+
+    function validateInput1(maUpdate,tenUpdate, dieuKienUpdate, ngayBatDauUpdate, ngayKetThucUpdate, soTienGiamMaxUpdate, phanTramGiamUpdate, soLuongUpdate, trangThaiUpdate) {
+        var errors = [];
+
+        if (!maUpdate) {
+            errors.push('maUpdate');
+        }
+
+        if (!tenUpdate) {
+            errors.push('tenUpdate');
+        }
+
+        if (!dieuKienUpdate) {
+            errors.push('dieuKienUpdate');
+        } else if (dieuKienUpdate < 0) {
+            errors.push('dieuKienUpdate1');
+        }
+
+        if (!ngayBatDauUpdate) {
+            errors.push('ngayBatDauUpdate');
+        }
+
+        var startDate = new Date(ngayBatDauUpdate);
+        var endDate = new Date(ngayKetThucUpdate);
+
+        if (startDate >= endDate) {
+            errors.push('ngayKetThucUpdate1');
+        }
+
+        if (!ngayKetThucUpdate) {
+            errors.push('ngayKetThucUpdate');
+        }
+
+        // Kiểm tra email
+        if (!soTienGiamMaxUpdate) {
+            errors.push('soTienGiamMaxUpdate');
+        } else if (soTienGiamMaxUpdate < 0) {
+            errors.push('soTienGiamMaxUpdate1');
+        }
+
+        if (!phanTramGiamUpdate) {
+            errors.push('phanTramGiamUpdate');
+        } else if (phanTramGiamUpdate < 0) {
+            errors.push('phanTramGiamUpdate1');
+        }
+
+        if (!soLuongUpdate) {
+            errors.push('soLuongUpdate');
+        } else if (soLuongUpdate < 0) {
+            errors.push('soLuongUpdate1');
+        }
+
+        if (!trangThaiUpdate) {
+            errors.push('trangThaiUpdate');
+        }
+
+        return errors;
+    }
+
+    function clearErrorMessages1() {
+        var maUpdate = $('#formGroupExampleInputMaUpdate').val();
+        var tenUpdate = $('#formGroupExampleInputTenUpdate').val();
+        var dieuKienUpdate = $('#formGroupExampleInputDieuKienUpdate').val();
+        var ngayBatDauUpdate = $('#formGroupExampleInputNgayBatDauUpdate').val();
+        var ngayKetThucUpdate = $('#formGroupExampleInputNgayKetThucUpdate').val();
+        var soTienGiamMaxUpdate = $('#formGroupExampleInputSoTienGiamMaxUpdate').val();
+        var phanTramGiamUpdate = $('#formGroupExampleInputPhanTramGiamUpdate').val();
+        var soLuongUpdate = $('#formGroupExampleInputSoLuongUpdate').val();
+        var trangthaiUpdate = $('input[name="trangthai"]:checked').val();
+
+        if (maUpdate.trim() !== '') {
+            $('#formGroupExampleInputMaUpdate').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (tenUpdate.trim() !== '') {
+            $('#formGroupExampleInputTenUpdate').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (dieuKienUpdate.trim() !== '') {
+            $('#formGroupExampleInputDieuKienUpdate').removeClass('error-border');
+            $('.text-danger').text('');
+        } else if (dieuKienUpdate < 0) {
+            $('#formGroupExampleInputDieuKienUpdate').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (ngayBatDauUpdate.trim() !== '') {
+            $('#formGroupExampleInputNgayBatDauUpdate').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (ngayKetThucUpdate.trim() !== '') {
+            $('#formGroupExampleInputNgayKetThucUpdate').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (soTienGiamMaxUpdate.trim() !== '') {
+            $('#formGroupExampleInputSoTienGiamMaxUpdate').removeClass('error-border');
+            $('.text-danger').text('');
+        } else if (soTienGiamMaxUpdate < 0) {
+            $('#formGroupExampleInputSoTienGiamMaxUpdate').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (phanTramGiamUpdate.trim() !== '') {
+            $('#formGroupExampleInputPhanTramGiamUpdate').removeClass('error-border');
+            $('.text-danger').text('');
+        } else if (phanTramGiamUpdate < 0) {
+            $('#formGroupExampleInputPhanTramGiamUpdate').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        if (soLuongUpdate.trim() !== '') {
+            $('#formGroupExampleInputSoLuongUpdate').removeClass('error-border');
+            $('.text-danger').text('');
+        } else if (soLuongUpdate < 0) {
+            $('#formGroupExampleInputSoLuongUpdate').removeClass('error-border');
+            $('.text-danger').text('');
+        }
+
+        $('#gridRadios3').removeClass('error-border');
+        $('#gridRadios4').removeClass('error-border');
+        $('#trangThaiError').text('');
+    }
+
+    function displayErrorMessages1(errors) {
+        for (var i = 0; i < errors.length; i++) {
+            var maUpdate = $('#formGroupExampleInputMaUpdate').val();
+            var tenUpdate = $('#formGroupExampleInputTenUpdate').val();
+            var dieuKienUpdate = $('#formGroupExampleInputDieuKienUpdate').val();
+            var ngayBatDauUpdate = $('#formGroupExampleInputNgayBatDauUpdate').val();
+            var ngayKetThucUpdate = $('#formGroupExampleInputNgayKetThucUpdate').val();
+            var soTienGiamMaxUpdate = $('#formGroupExampleInputSoTienGiamMaxUpdate').val();
+            var phanTramGiamUpdate = $('#formGroupExampleInputPhanTramGiamUpdate').val();
+            var soLuongUpdate = $('#formGroupExampleInputSoLuongUpdate').val();
+            var trangThaiUpdate = $('input[name="trangthai"]:checked').val();
+
+            if (maUpdate.trim() === '') {
+                $('#formGroupExampleInputMaUpdate').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            }
+
+            if (tenUpdate.trim() === '') {
+                $('#formGroupExampleInputTenUpdate').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            }
+
+            if (dieuKienUpdate.trim() === '') {
+                $('#formGroupExampleInputDieuKienUpdate').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            } else if (dieuKienUpdate < 0) {
+                $('#formGroupExampleInputDieuKienUpdate').addClass('error-border');
+                $('#' + errors[i] + 'Error1').text('Thông tin không hợp lệ');
+            }
+
+            if (ngayBatDauUpdate.trim() === '') {
+                $('#formGroupExampleInputNgayBatDauUpdate').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            }
+
+            if (ngayKetThucUpdate.trim() === '') {
+                $('#formGroupExampleInputNgayBatDauUpdate').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            }
+
+            if (ngayKetThucUpdate.trim() === '') {
+                $('#formGroupExampleInputNgayKetThucUpdate').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            } else if (errors[i] === 'ngayKetThucUpdate1') {
+                $('#formGroupExampleInputNgayKetThucUpdate').addClass('error-border');
+                $('#' + errors[i] + 'Error1').text('Ngày kết thúc phải sau ngày bắt đầu');
+            }
+
+            if (soTienGiamMaxUpdate.trim() === '') {
+                $('#formGroupExampleInputSoTienGiamMaxUpdate').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            } else if (soTienGiamMaxUpdate < 0) {
+                $('#formGroupExampleInputSoTienGiamMaxUpdate').addClass('error-border');
+                $('#' + errors[i] + 'Error1').text('Thông tin không hợp lệ');
+            }
+
+            if (phanTramGiamUpdate.trim() === '') {
+                $('#formGroupExampleInputPhanTramGiamUpdate').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            } else if (phanTramGiamUpdate < 0) {
+                $('#formGroupExampleInputPhanTramGiamUpdate').addClass('error-border');
+                $('#' + errors[i] + 'Error1').text('Thông tin không hợp lệ');
+            }
+            if (soLuongUpdate.trim() === '') {
+                $('#formGroupExampleInputSoLuongUpdate').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            } else if (soLuongUpdate < 0) {
+                $('#formGroupExampleInputSoLuongUpdate').addClass('error-border');
+                $('#' + errors[i] + 'Error1').text('Thông tin không hợp lệ');
+            }
+            if (errors[i] === 'trangThaiUpdate') {
+                $('#gridRadios3').addClass('error-border');
+                $('#gridRadios4').addClass('error-border');
+                $('#' + errors[i] + 'Error').text('Không được để trống thông tin');
+            }
+        }
+    }
+</script>
+<!--End validate update form-->
 
 </body>
 </html>

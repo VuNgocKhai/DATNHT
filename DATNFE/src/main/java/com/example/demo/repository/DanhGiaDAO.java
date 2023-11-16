@@ -16,6 +16,9 @@ public interface DanhGiaDAO extends JpaRepository<DanhGia, UUID> {
     @Query("select dg from DanhGia dg where dg.trangThai=0")
     Page<DanhGia> findDanhGiasByTrangThai0(Pageable pageable);
 
+    @Query("select dg from DanhGia dg where dg.giay.ma=?1 and dg.trangThai=1")
+    Page<DanhGia> findDanhGiasByMaSpAndTt(String masp,Pageable pageable);
+
     @Query("update DanhGia set trangThai=1")
     @Modifying
     @Transactional
@@ -25,4 +28,7 @@ public interface DanhGiaDAO extends JpaRepository<DanhGia, UUID> {
     @Modifying
     @Transactional
     void duyetOne(UUID id);
+
+    @Query("select count(dg) from DanhGia dg where dg.giay.ma=?1 and dg.trangThai=1")
+    Integer countGiayByMaGiayAndTt(String ma);
 }

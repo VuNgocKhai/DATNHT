@@ -23,12 +23,11 @@ public class DanhGia implements Serializable {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "id_khach_hang", referencedColumnName = "id")
-    private KhachHang khachHang;
-
-    @ManyToOne
     @JoinColumn(name = "id_giay", referencedColumnName = "id")
     private Giay giay;
+
+    @Column(name = "ten_nguoi_danh_gia")
+    private String tenNguoiDanhGia;
 
     @Column(name = "sao")
     private Integer sao;

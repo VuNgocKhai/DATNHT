@@ -58,7 +58,6 @@ public class ChuongTrinhGiamGiaSPController {
         model.addAttribute("i", 0);
         model.addAttribute("voucherTable", pageNo);
         model.addAttribute("keyword", keyword.orElse(""));
-        model.addAttribute("voucherForm", new ChuongTrinhGiamGiaSP());
         return "giamgiasanpham/chuong_trinh_giam_gia_san_pham";
     }
 
@@ -78,27 +77,16 @@ public class ChuongTrinhGiamGiaSPController {
     @GetMapping("/admin/chuong-trinh-giam-gia-sp/viewupdate/{ma}")
     public String viewUpdate(@ModelAttribute("voucherForm") ChuongTrinhGiamGiaSP chuongTrinhGiamGiaSP,
                              @PathVariable("ma") String ma, Model model) {
-        model.addAttribute("voucherForm", new ChuongTrinhGiamGiaSP());
         model.addAttribute("voucherForm", kmDTO.getOneByMa(ma));
-//        return "giamgiasanpham/chuong_trinh_giam_gia_san_pham";
         return "giamgiasanpham/update-khuyen-mai-san-pham";
     }
 
     @GetMapping("/admin/chuong-trinh-giam-gia-sp/viewadd")
     public String viewAdd(@ModelAttribute("voucherForm") ChuongTrinhGiamGiaSP chuongTrinhGiamGiaSP, Model model) {
-        model.addAttribute("voucherForm", new ChuongTrinhGiamGiaSP());
         model.addAttribute("valMaKM", kmDTO.generateNextMaKM());
-
         return "giamgiasanpham/add-khuyen-mai-san-pham";
     }
 
-    @GetMapping("/admin/chuong-trinh-giam-gia-sp/test")
-    public String T(@ModelAttribute("voucherForm") ChuongTrinhGiamGiaSP chuongTrinhGiamGiaSP, Model model) {
-        model.addAttribute("voucherForm", new ChuongTrinhGiamGiaSP());
-        model.addAttribute("valMaKM", kmDTO.generateNextMaKM());
-        System.out.println(kmDTO.generateNextMaKM());
-        return "giamgiasanpham/test";
-    }
 
     @PostMapping("/admin/chuong-trinh-giam-gia-sp/update/{ma}")
     public String update(HttpServletRequest req, @PathVariable("ma") String ma, @ModelAttribute("voucherForm") ChuongTrinhGiamGiaSP voucherForm) {
@@ -120,7 +108,7 @@ public class ChuongTrinhGiamGiaSPController {
         return "redirect:/admin/chuong-trinh-giam-gia-sp";
     }
 
-    // update Giảm Giá Hóa Đơn
+    // update Giảm Giá Sản phẩm
     @PostMapping("/admin/chuong-trinh-giam-gia-sp/update")
     public String updateGGSP(@ModelAttribute("giamgiaSP") ChuongTrinhGiamGiaSP giamGiaSP) {
         repo.saveVoucher(giamGiaSP);

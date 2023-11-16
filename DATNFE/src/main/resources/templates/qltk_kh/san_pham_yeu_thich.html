@@ -138,7 +138,7 @@
                     </li>
                 </ul>
                 <div class="row px-xl-5">
-                <div th:each="item:${dssanphamyeuthich}" class="col-lg-4 col-md-5 col-sm-6 pb-1">
+                <div th:each="item:${dssanphamyeuthich}" class="col-lg-4 col-md-7 col-sm-7 pb-1">
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
                             <img class="img-fluid w-100" th:src="@{|/images/${item.giay.getAnhDau(item.giay.anhs)}|}" alt="">
@@ -153,10 +153,10 @@
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate" href="">[[${item.giay.ten}]]</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5 style="color: #ee4d2d" class="giaBan">[[${item.giay.gia_sau_khuyen_mai}]]
+                                <h5 style="color: #ee4d2d" >[[${item.giay.gia_sau_khuyen_mai}]]
                                     VND</h5>
-                                <h6 class="text-muted ml-2"  class="giaBan">
-                                    <del style="color: #ee4d2d" class="giaBan">[[${item.giay.giaban}]]VND
+                                <h6 class="text-muted ml-2"  >
+                                    <del style="color: #ee4d2d" >[[${item.giay.giaban}]]VND
                                     </del>
                                 </h6>
                             </div>
