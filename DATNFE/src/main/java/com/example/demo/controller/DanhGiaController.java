@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin/danh-gia")
-public class DànhGiaController {
+public class DanhGiaController {
 
     @Autowired
     private DanhGiaDAO danhGiaDAO;

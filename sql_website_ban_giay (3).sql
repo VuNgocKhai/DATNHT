@@ -144,6 +144,7 @@ create table chuong_trinh_giam_gia_chi_tiet_san_pham (
 create table khach_hang (
 	id uniqueidentifier primary key default newid(),
 	ma varchar(20) unique,
+	avatar varchar(20) null,
 	ho_ten nvarchar(50) default null,
 	ngay_sinh date null,
 	sdt nvarchar(15) null,
@@ -382,10 +383,10 @@ INSERT INTO website_ban_giay.dbo.kich_co (id,ma,ten,trangthai) VALUES
 	 (N'DF231E0D-F81D-024F-86B5-3C7E689C294E',N'597A9673-6929-D342-96DC-0A4C47E3CC7B',N'6A438602-1AAD-4431-BE21-62BAFBC2D838',20,1),
 	 (N'88C34317-3049-8D4E-801C-48870B23F314',N'597A9673-6929-D342-96DC-0A4C47E3CC7B',N'F72D2327-32E8-4AE4-9E21-2C72F847FE50',20,1),
 	 (N'3144F5F3-9D37-0C43-8BD9-7897D58D3C38',N'6049B327-E697-D74D-A3AB-BB1F7543B139',N'9AE7954E-5C93-4DF6-A431-6786C0B2CED6',20,1);
-	 INSERT INTO website_ban_giay.dbo.khach_hang (id,ma,ho_ten,ngay_sinh,sdt,email,mat_khau,trangthai) VALUES
-	 (N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'KH01',N'Nguyễn Danh','2003-09-09',N'0385090080',N'danhnt@gmail.com',N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',1),
-	 (N'019427F5-1E52-402F-B5DC-EC17AD5F139A',N'KH02',N'Nguyễn Đại','2003-08-08',N'0387090080',N'danhng@gmail.com',N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',1),
-	 (N'22B427F5-1E52-402F-B5DC-EC17AD5F139A',N'KH03',N'Đào Gia Phong','2003-09-16',N'0385370656',N'phong@gmail.com',N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',1);
+	 INSERT INTO website_ban_giay.dbo.khach_hang (id,ma,avatar,ho_ten,ngay_sinh,sdt,email,mat_khau,trangthai) VALUES
+	 (N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'KH01','mlb1_1.jpg',N'Nguyễn Danh','2003-09-09',N'0385090080',N'danhnt@gmail.com',N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',1),
+	 (N'019427F5-1E52-402F-B5DC-EC17AD5F139A',N'KH02','mlb1_1.jpg',N'Nguyễn Đại','2003-08-08',N'0387090080',N'danhng@gmail.com',N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',1),
+	 (N'22B427F5-1E52-402F-B5DC-EC17AD5F139A',N'KH03','mlb1_1.jpg',N'Đào Gia Phong','2003-09-16',N'0385370656',N'phong@gmail.com',N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',1);
 	 INSERT INTO website_ban_giay.dbo.dia_chi (id,ma,id_khach_hang,ten_dia_chi,ten_nguoi_nhan,sdt_nguoi_nhan,xa,huyen,thanh_pho,trangthai) VALUES
 	 (N'FD4A021B-4231-419C-9ADE-3F4FB6E86DE1',N'DC05',N'019427F5-1E52-402F-B5DC-EC17AD5F139A',N'Xóm 1 Triều Đông',N'Nguyễn Thành Danh',N'0385090080',N'Tân Minh',N'Thường Tín',N'Hà Nội',1),
 	 (N'8B5AC57C-583E-4D62-88B4-558EF2FE3181',N'DC01',N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'Xóm 1 Triều Đông',N'Nguyễn Thành Danh',N'0385090080',N'Tân Minh',N'Thường Tín',N'Hà Nội',1),
@@ -442,4 +443,5 @@ INSERT INTO website_ban_giay.dbo.kich_co (id,ma,ten,trangthai) VALUES
 	 (N'482E73CC-0327-374C-AF21-F7DFE4F38F32',N'dior1_2.jpg',N'C00D80A0-1ADB-7845-9F3B-9AC42C2E2D1C',NULL),
 	 (N'845D57C3-0F44-BB47-982C-F7FBD8C5B0E7',N'mlb3.jpg',N'597A9673-6929-D342-96DC-0A4C47E3CC7B',NULL);
 
+	 select * from khach_hang
 

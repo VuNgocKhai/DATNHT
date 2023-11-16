@@ -75,7 +75,7 @@
                             class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu2">
                         <li>
-                            <a href="#">Sản Phẩm</a>
+                            <a href="/admin/sanpham">Sản Phẩm</a>
                         </li>
                         <li>
                             <a href="#">Thương Hiệu</a>
@@ -99,10 +99,10 @@
                             class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu3">
                         <li>
-                            <a href="#">Nhân Viên</a>
+                            <a href="/admin/nhan-vien">Nhân Viên</a>
                         </li>
                         <li>
-                            <a href="#">Khách Hàng</a>
+                            <a href="/admin/khachhang">Khách Hàng</a>
                         </li>
                     </ul>
                 </li>
@@ -114,7 +114,7 @@
                             <a href="/admin/chuong-trinh-giam-gia-sp">Sản Phẩm</a>
                         </li>
                         <li>
-                            <a href="#">Hóa Đơn</a>
+                            <a href="/admin/giamgiahoadon">Hóa Đơn</a>
                         </li>
                     </ul>
                 </li>
@@ -234,7 +234,11 @@
 
             <!--            END MODAL       -->
 
-
+            <button class="btn btn-primary">
+                <a href="/admin/chuong-trinh-giam-gia-sp" style="text-decoration: none; color: white">
+                    <i class="bi bi-arrow-bar-left"></i>
+                </a>
+            </button>
             <table class="table table-borderless">
                 <tr>
                     <td><label for="formGroupExampleInput">Mã khuyến mại</label></td>
@@ -290,9 +294,9 @@
                 <table class="table" style="margin: 20px 0;">
                     <thead class="thead-light">
                     <tr>
-                        <th scope="col">Mã khuyến mại</th>
                         <th scope="col">Mã sản phẩm áp dụng</th>
                         <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Giá bán</th>
                         <th scope="col">Số tiền giảm</th>
                         <th scope="col">Giá sau khuyến mại</th>
                         <th scope="col">Trạng Thái</th>
@@ -301,14 +305,14 @@
                     </thead>
                     <tbody>
                     <tr th:each="item,state:${dsSPTable}">
-                        <td scope="row">[[${item.chuongTrinhGiamGiaSP.maKhuyenMai}]]</td>
-                        <td>[[${item.giay.ma}]]</td>
+                        <td scope="row">[[${item.giay.ma}]]</td>
                         <td>[[${item.giay.ten}]]</td>
+                        <td>[[${item.giay.giaban}]]</td>
                         <td>[[${item.soTienDaGiam}]]</td>
                         <td>[[${item.giay.gia_sau_khuyen_mai}]]</td>
                         <td th:text="${item.trangThai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>
                         <td>
-                            <a th:href="@{|/admin/ctkm/delete/${voucherForm.idKhuyenMai}/${item.giay.id}|}"
+                            <a th:href="@{|/admin/ctkm/delete/${voucherForm.idKhuyenMai}/${item.giay.id}|}" style="color: red"
                                class="bi bi-trash"></a>
                         </td>
                     </tr>

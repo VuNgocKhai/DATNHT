@@ -1,6 +1,5 @@
 package com.example.demo.RestController;
 
-import com.example.demo.entity.GiamGiaChiTietHoaDon;
 import com.example.demo.entity.GiamGiaHoaDon;
 import com.example.demo.entity.HoaDon;
 import com.example.demo.entity.PageDTO;
@@ -88,7 +87,6 @@ public class GiamGiaHoaDonRestController {
         return  giamGiaHoaDonDAO.save(existingGiamGiaHoaDon);
     }
 
-
     // Xóa giảm giá hóa đơn theo id
     @RequestMapping("/{id}")
     public void delete(@PathVariable("id") UUID id) {
@@ -139,6 +137,5 @@ public class GiamGiaHoaDonRestController {
         Pageable pageable = PageRequest.of(page.orElse(0), 5);
         return new PageDTO<>(giamGiaChiTietHoaDonDAO.findHoaDonByChuongTrinhGiamGiaPagePage(GiamGiaHoaDonMa, pageable));
     }
-
 
 }

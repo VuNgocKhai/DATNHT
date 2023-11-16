@@ -166,12 +166,58 @@
                     <input type="text" class="form-control" th:field="*{tensp}"  placeholder="Tìm Kiếm ">
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
-                    <label >Gía Bán :</label>
-                    <select class="form-control" >
-                        <option  >Trên 100000VND</option>
-                        <option >Trên 200000VND</option>
-                        <option  >Trên 300000VND</option>
+                    <label >Thương Hiệu :</label>
+                    <select class="form-control" th:field="*{thuong_hieu}">
+                        <option   value="">Tất cả</option>
+                        <option  th:each="x:${listThuongHieu}" th:value="${x.ten}">[[${x.ten}]]</option>
                     </select>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label >Chất Liệu :</label>
+                    <select class="form-control" th:field="*{chat_lieu}">
+                        <option   value="">Tất cả</option>
+                        <option  th:each="x:${listChatLieu}" th:value="${x.ten}">[[${x.ten}]]</option>
+                    </select>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label >Xuất Xứ :</label>
+                    <select class="form-control" th:field="*{xuat_xu}">
+                        <option   value="">Tất cả</option>
+                        <option  th:each="x:${listXuatXu}" th:value="${x.ten}">[[${x.ten}]]</option>
+                    </select>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label >Màu Sắc :</label>
+                    <select class="form-control" th:field="*{mau_sac}">
+                        <option   value="">Tất cả</option>
+                        <option  th:each="x:${listMauSac}" th:value="${x.ten}">[[${x.ten}]]</option>
+                    </select>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label >Giới Tính :</label>
+                    <select class="form-control" th:field="*{gioi_tinh}">
+                        <option   value="">Tất cả</option>
+                        <option  th:each="x:${listGioiTinh}" th:value="${x.ten}">[[${x.ten}]]</option>
+                    </select>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label >Đế Giày :</label>
+                    <select class="form-control" th:field="*{de_giay}">
+                        <option   value="">Tất cả</option>
+                        <option  th:each="x:${listDeGiay}" th:value="${x.ten}">[[${x.ten}]]</option>
+                    </select>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label >Kiểu Dáng :</label>
+                    <select class="form-control" th:field="*{kieu_dang}">
+                        <option   value="">Tất cả</option>
+                        <option  th:each="x:${listKieuDang}" th:value="${x.ten}">[[${x.ten}]]</option>
+                    </select>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label >Khoảng Giá :</label>
+                    <input type="text" placeholder="đ Từ" th:field="*{tien_min}">
+                    <input type="text" placeholder="đ Đến" th:field="*{tien_max}">
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Tìm Kiếm</button>
                 <button type="submit" class=" btn btn-warning mb-2" style="margin: 0 20px">Làm Mới</button>
@@ -192,7 +238,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="sp:${items}">
+                    <tr th:each="sp:${items.content}">
                         <th scope="row">[[${sp.ma}]]</th>
                         <th><img style="width: 100px" th:src="@{|/images/${sp.getAnhDau(sp.anhs)}|}" alt=""></th>
                         <th>[[${sp.ten}]]</th>
@@ -206,6 +252,25 @@
                 </tbody>
             </table>
         </div>
+        <nav aria-label="Page navigation example" style="display: flex;justify-content: space-between;">
+            <div style="margin-left: 20px">
+                <p>Bạn đang xem [[${items.numberOfElements}]] trên tổng số [[${items.totalElements}]]</p>
+            </div>
+            <ul class="pagination" style="margin-right: 24px;">
+                <li class="page-item">
+                    <a class="page-link" th:href="@{|/admin/kichco?page=${items.number-1}|}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <li th:each="tongtrang,status:${#numbers.sequence(1, items.totalPages)}" class="page-item"><a class="page-link" th:href="@{|/admin/kichco?page=${status.index}|}">[[${status.index+1}]]</a></li>
+                <li class="page-item">
+                    <a class="page-link" th:href="@{|/admin/kichco?page=${items.number+1}|}"  aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 

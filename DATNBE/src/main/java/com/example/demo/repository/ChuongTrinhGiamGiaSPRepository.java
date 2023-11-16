@@ -22,6 +22,9 @@ public interface ChuongTrinhGiamGiaSPRepository extends JpaRepository<ChuongTrin
 
     @Query("select ctggsp from ChuongTrinhGiamGiaSP  ctggsp where ctggsp.maKhuyenMai = ?1 ")
     ChuongTrinhGiamGiaSP findByMa(String maKM);
+//
+//    @Query(value = "select * from chuong_tring_giam_gia_san_pham   where ma = ?1 ", nativeQuery = true)
+//    ChuongTrinhGiamGiaSP findByMa(String maKM);
 
     @Query("select ctggsp from ChuongTrinhGiamGiaSP  ctggsp where ctggsp.trangThai = ?1")
     Page<ChuongTrinhGiamGiaSP> searchByTrangThai(String trangthai, Pageable pageable);

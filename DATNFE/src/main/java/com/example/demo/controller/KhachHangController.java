@@ -12,8 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -68,25 +75,31 @@ public class KhachHangController {
                                    @ModelAttribute("diachi") DiaChi diaChi) {
             model.addAttribute("listdiachi", diachiDao.getAllByMaDiaChi(ma));
         model.addAttribute("khachhang", khachHangDao.GetKhachhangByma(ma));
+
         return "khachhang/detail";
     }
 
 
     //    Thêm mới  khách hàng
     @PostMapping("admin/khachhang/save")
-    public String save(@Valid @ModelAttribute("khachhang") KhachHang kh,
-                       BindingResult result,
-                       Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("messga", "Không được để trống thông tin");
-            return "redirect:/admin/khachhang";
-        }else {
+    public String save(@ModelAttribute("khachhang") KhachHang kh,
+                       Model model,
+                       @RequestPart("ten_url1") MultipartFile file) {
+        Path path = Paths.get("src/main/webapp/images/");
+        try {
+            InputStream inputStream = file.getInputStream();
+            Files.copy(inputStream,path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+
             String maKH = khachHangDao.generateNextMaKhachHang();
             kh.setMa(maKH);
+            kh.setAvatar(file.getOriginalFilename());
             String ma =  khachHangDao.save(kh).getMa();
             return "redirect:/admin/khachhang/detail/" + ma;
-        }
 
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "redirect:/admin/khachhang";
+        }
     }
 
     //    Xóa khách hàng
@@ -96,11 +109,30 @@ public class KhachHangController {
         return "redirect:/admin/khachhang";
     }
 
-    //      update Khách Hàng theo mã khách hàng
     @PostMapping("/admin/khachhang/update/{id}")
-    public String update(@PathVariable("id") String id,@ModelAttribute("khachhang") KhachHang kh) {
-        khachHangRepo.update(id, kh);
-        return "redirect:/admin/khachhang/detail/" + id;
+    public String update(@PathVariable("id") String id, @ModelAttribute("khachhang") KhachHang kh, @RequestParam("file") MultipartFile file) {
+        try {
+            if (!file.isEmpty()) {
+                String uploadDir = "src/main/webapp/images/"; // Đường dẫn thư mục lưu trữ ảnh
+                Path path = Paths.get(uploadDir);
+
+                // Copy file ảnh vào thư mục trên server
+                Files.copy(file.getInputStream(), path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+
+                // Cập nhật đường dẫn file vào đối tượng khách hàng
+                kh.setAvatar( file.getOriginalFilename()); // Đường dẫn tới file ảnh sau khi lưu
+            } else {
+                // Nếu không có file mới được chọn, giữ nguyên đường dẫn ảnh hiện tại
+                KhachHang existingKhachHang = khachHangDao.GetKhachhangByma(id); // Lấy thông tin khách hàng hiện tại từ database
+                kh.setAvatar(existingKhachHang.getAvatar()); // Sử dụng đường dẫn ảnh hiện tại
+            }
+
+            khachHangRepo.update(id, kh); // Cập nhật thông tin của khách hàng
+            return "redirect:/admin/khachhang/detail/" + id;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "redirect:/admin/khachhang";
+        }
     }
 
 

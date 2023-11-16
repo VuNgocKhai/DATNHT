@@ -12,18 +12,37 @@
         <div class="col-lg-6 text-center text-lg-right">
             <div class="d-inline-flex align-items-center">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My
-                        Account
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button">Sign in</button>
-                        <button class="dropdown-item" type="button">Sign up</button>
-                        <a th:href="@{/qltk-kh/thong-tin}" style="text-decoration: none">
-                            <button class="dropdown-item" type="button">Quản lý
-                                tài khoản
-                            </button>
-                        </a>
+                    <div th:if="${not #authorization.expression('isAuthenticated()')}">
+                        <!-- Hiển thị thông báo hoặc nút đăng nhập nếu chưa đăng nhập -->
+                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My
+                            Account
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" type="button" href="/login">Đăng Nhập</a>
+                            <a class="dropdown-item" type="button" href="/dang-ky-khach-hang">Đăng Ký</a>
+                        </div>
                     </div>
+
+                    <!-- Thêm điều kiện kiểm tra trạng thái đăng nhập -->
+                    <div th:if="${#authorization.expression('isAuthenticated()')}">
+                        <!-- Hiển thị nút yêu thích nếu đã đăng nhập -->
+                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Hello,  <span th:if="${khachHang != null}">[[${khachHang.hoten}]]</span>
+                            <span th:if="${khachHang == null}">Guest</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a th:href="@{/qltk-kh/thong-tin}" style="text-decoration: none">
+                                <button class="dropdown-item" type="button">Quản lý
+                                    tài khoản
+                                </button>
+                            </a>
+                            <a class="dropdown-item" type="button" href="/logout">Đăng Xuất</a>
+                        </div>
+
+                    </div>
+
+
+
+
                 </div>
                 <div class="btn-group mx-2">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD

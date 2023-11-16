@@ -23,10 +23,15 @@ public class ThuongHieu implements Serializable {
     private String ten_url;
     private String ten;
     private Integer trangthai;
+
     @JsonIgnore
-    @OneToMany(mappedBy = "thuong_hieu",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "thuong_hieu", fetch = FetchType.EAGER)
     List<Giay> giayList;
     public Integer getSumSP(){
-        return giayList.size();
+        if (giayList==null){
+            return 0;
+        }else {
+            return giayList.size();
+        }
     }
 }

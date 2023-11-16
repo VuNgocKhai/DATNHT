@@ -75,7 +75,7 @@
                             class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu2">
                         <li>
-                            <a href="#">Sản Phẩm</a>
+                            <a href="/admin/sanpham">Sản Phẩm</a>
                         </li>
                         <li>
                             <a href="#">Thương Hiệu</a>
@@ -99,10 +99,10 @@
                             class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu3">
                         <li>
-                            <a href="#">Nhân Viên</a>
+                            <a href="/admin/nhan-vien">Nhân Viên</a>
                         </li>
                         <li>
-                            <a href="#">Khách Hàng</a>
+                            <a href="/admin/khachhang">Khách Hàng</a>
                         </li>
                     </ul>
                 </li>
@@ -114,7 +114,7 @@
                             <a href="/admin/chuong-trinh-giam-gia-sp">Sản Phẩm</a>
                         </li>
                         <li>
-                            <a href="#">Hóa Đơn</a>
+                            <a href="/admin/giamgiahoadon">Hóa Đơn</a>
                         </li>
                     </ul>
                 </li>
@@ -187,8 +187,8 @@
                                         <!--                <input type="text" hidden th:field="*{id}">-->
                                         <table class="table table-borderless">
                                             <tr>
-                                                    <input hidden type="text" th:field="*{maKhuyenMai}" class="form-control"
-                                                           id="formGroupExampleInput" th:text="${valMaKM}">
+                                                <input hidden type="text" th:field="*{maKhuyenMai}" class="form-control"
+                                                       id="formGroupExampleInput" th:text="${valMaKM}">
                                                 <td><label for="formGroupExampleInput2">Tên khuyến mại</label></td>
                                                 <td>
                                                     <input type="text" th:field="*{tenKhuyenMai}" class="form-control"
@@ -321,20 +321,17 @@
                     <td>
                         <span th:if="${item.trangThai == 1}">Đang hoạt động</span>
                         <span th:if="${item.trangThai == 0}">Ngừng hoạt động</span>
-                        <span th:if="${item.trangThai == 2}">Sắp diễn ra</span>
                     </td>
                     <!--                        <td th:text="${item.trangThai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>-->
                     <td>
                         <a th:href="@{|/admin/chuong-trinh-giam-gia-sp/detail/${item.maKhuyenMai}|}"
-                           class="bi bi-card-list"></a>
-<!--                        <button style="margin-left: 10px" type="button" class="btn btn-primary bi bi-pencil-square"-->
-<!--                                data-bs-toggle="modal"-->
-<!--                                data-bs-target="#exampleModal">-->
-<!--                            <a th:href="@{|/admin/chuong-trinh-giam-gia-sp/viewupdate/${item.maKhuyenMai}|}"-->
-<!--                               class="bi bi-pencil-square"></a>-->
-<!--                        </button>-->
+                           class="bi bi-eye"></a>
                         <a th:href="@{|/admin/chuong-trinh-giam-gia-sp/viewupdate/${item.maKhuyenMai}|}"
-                           class="bi bi-pencil-square"></a>
+                           style="color: #b1b108" class="bi bi-pencil-square"></a>
+                        <a href="#" class="btn-detail" data-bs-toggle="modal" data-bs-target="#exampleModal1"
+                           th:ma="${item.maKhuyenMai}">
+                            <i style="color: #4DC7A0" class="bi bi-pencil-square"></i>
+                        </a>
                     </td>
                 </tr>
                 </tbody>
@@ -373,12 +370,145 @@
         <!--        END PAGEABLE      -->
 
     </div>
+    <!--    Phần modal update giảm giá sản phẩm: -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="background-color: #e0e0e0">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Giảm Giá Sản Phẩm</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="/admin/chuong-trinh-giam-gia-sp/update" method="post" th:object="${giamgiaSP}">
+                        <input type="text" hidden th:field="*{idKhuyenMai}">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput">Mã</label>
+                                    <input type="text" th:field="*{maKhuyenMai}" class="form-control"
+                                           id="formGroupExampleInput"
+                                           placeholder="Mã" required>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput2">Tên</label>
+                                    <input type="text" th:field="*{tenKhuyenMai}" class="form-control"
+                                           id="formGroupExampleInput2"
+                                           placeholder="Tên">
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput2">Phần trăm giảm</label>
+                                    <input type="number" th:field="*{phanTramGiam}" class="form-control"
+                                           id="formGroupExampleInput2"
+                                           placeholder="Nhập số %">
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput2">Ngày Bắt Đầu</label>
+                                    <input type="date" th:field="*{ngayBatDau}" class="form-control"
+                                           id="formGroupExampleInput2">
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput2">Ngày Kết Thúc</label>
+                                    <input type="date" th:field="*{ngayKetThuc}" class="form-control"
+                                           id="formGroupExampleInput2">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label col-sm-2 pt-0">Trạng Thái :</legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                       th:field="*{trangThai}" id="gridRadios1"
+                                                       th:value="1">
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    Hoạt Động
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                       th:field="*{trangThai}" id="gridRadios2"
+                                                       th:value="0">
+                                                <label class="form-check-label" for="gridRadios2">
+                                                    Không Hoạt Động
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary"
+                                onclick="return confirm('Bạn có chắc chắn muốn sửa ?')"
+                                type="submit">Cập nhật
+                        </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    end modal update GGHD-->
 </div>
 
-
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/popper.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
+
+
+<!--Start script  update-->
+<script>
+    // function submitFilterForm() {
+    //     document.getElementById("filterForm").submit();
+    // }
+
+    $(document).ready(function () {
+        $(".btn-detail").click(function () {
+            var ma = $(this).attr("ma");
+            var form = $("#exampleModal1"); // Chọn tất cả các thẻ <form> trên trang
+            $.ajax({
+                url: "http://localhost:2020/rest/chuong-trinh-giam-gia-sp/" + ma,
+                method: "GET",
+                dataType: "json", // Kiểu dữ liệu trả về từ máy chủ (json, html, text, etc.)
+                success: function (data) {
+                    form.find('[name="idKhuyenMai"]').val(data.idKhuyenMai);
+                    form.find('[name="maKhuyenMai"]').val(data.maKhuyenMai);
+                    form.find('[name="tenKhuyenMai"]').val(data.tenKhuyenMai);
+                    form.find('[name="phanTramGiam"]').val(data.phanTramGiam);
+                    form.find('[name="ngayBatDau"]').val(data.ngayBatDau);
+                    form.find('[name="ngayKetThuc"]').val(data.ngayKetThuc);
+                    form.find('[name="trangThai"]').filter('[value="' + data.trangThai + '"]').prop('checked', true);
+                },
+                error: function (error) {
+                    console.log("Lỗi khi tải dữ liệu: " + error);
+                }
+            });
+        });
+    });
+</script>
+<!--End script cho phần update-->
+
 </body>
 </html>

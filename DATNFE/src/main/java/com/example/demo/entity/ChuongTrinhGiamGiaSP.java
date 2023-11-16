@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.UUID;
@@ -29,15 +33,21 @@ public class ChuongTrinhGiamGiaSP implements Serializable {
     private String maKhuyenMai;
 
     @Column(name = "ten")
+    @NotBlank(message = "Không được để trống!")
     private String tenKhuyenMai;
 
     @Column(name = "phan_tram_giam")
+    @NotNull(message = "Không được để trống!")
+    @Min(value = 0, message = "Phần trăm giảm không được âm!")
+    @Max(value = 100, message = "Phần trăm giảm phải bé hơn 100!")
     private Integer phanTramGiam;
 
     @Column(name = "ngay_bat_dau")
+    @NotNull(message = "Không được để trống!")
     private Date ngayBatDau;
 
     @Column(name = "ngay_ket_thuc")
+    @NotNull(message = "Không được để trống!")
     private Date ngayKetThuc;
 
     @Column(name = "trangthai")

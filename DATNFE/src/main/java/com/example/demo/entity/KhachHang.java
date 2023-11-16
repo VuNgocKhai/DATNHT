@@ -31,6 +31,9 @@ public class KhachHang implements Serializable {
     @Column(name = "ma")
     private String ma;
 
+    @Column(name = "avatar")
+    private String avatar;
+
     @Column(name = "ho_ten")
     @NotBlank(message = "Không được để trống họ tên")
     private String hoten;
