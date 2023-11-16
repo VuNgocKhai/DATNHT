@@ -183,19 +183,21 @@
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                          aria-hidden="true">
                         <div class="modal-dialog modal-xl">
-                            <div class="modal-content" style="background-color: #e0e0e0">
+                            <div class="modal-content bg-light">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Giảm Giá Hóa Đơn</h5>
+                                    <h5 class="modal-title text-center" id="exampleModalLabel">Thêm Mới Giảm Giá Hóa
+                                        Đơn</h5>
                                 </div>
                                 <div class="modal-body">
                                     <form id="myForm" action="/admin/giamgiahoadon/create" method="post"
                                           th:object="${giamgiahoadon}">
                                         <input type="text" hidden th:field="*{id}">
-                                        <div class="row">
+                                        <div class="row p-3">
                                             <div class="col-4">
                                                 <div class="form-group">
                                                     <label for="formGroupExampleInputMa">Mã</label>
-                                                    <input type="text" th:field="*{ma}" class="form-control"
+                                                    <input type="text" th:field="*{ma}"
+                                                           class="form-control bg-secondary"
                                                            id="formGroupExampleInputMa">
                                                     <div id="maError" class="text-danger"></div>
                                                     <div id="ma1Error1" class="text-danger"></div>
@@ -204,7 +206,8 @@
                                             <div class="col-4">
                                                 <div class="form-group">
                                                     <label for="formGroupExampleInputTen">Tên</label>
-                                                    <input type="text" th:field="*{ten}" class="form-control"
+                                                    <input type="text" th:field="*{ten}"
+                                                           class="form-control bg-secondary"
                                                            id="formGroupExampleInputTen">
                                                     <div id="tenError" class="text-danger"></div>
                                                 </div>
@@ -213,7 +216,8 @@
                                             <div class="col-4">
                                                 <div class="form-group">
                                                     <label for="formGroupExampleInputDieuKien">Điều Kiện</label>
-                                                    <input type="number" th:field="*{dieu_kien}" class="form-control"
+                                                    <input type="number" th:field="*{dieu_kien}"
+                                                           class="form-control bg-secondary"
                                                            id="formGroupExampleInputDieuKien">
                                                     <div id="dieuKienError" class="text-danger"></div>
                                                     <div id="dieuKien1Error1" class="text-danger"></div>
@@ -222,7 +226,8 @@
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <label for="formGroupExampleInputNgayBatDau">Ngày Bắt Đầu</label>
-                                                    <input type="date" th:field="*{ngay_bat_dau}" class="form-control"
+                                                    <input type="date" th:field="*{ngay_bat_dau}"
+                                                           class="form-control bg-secondary"
                                                            id="formGroupExampleInputNgayBatDau">
                                                     <div id="ngayBatDauError" class="text-danger"></div>
                                                     <div id="ngayBatDau1Error1" class="text-danger"></div>
@@ -231,7 +236,8 @@
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <label for="formGroupExampleInputNgayKetThuc">Ngày Kết Thúc</label>
-                                                    <input type="date" th:field="*{ngay_ket_thuc}" class="form-control"
+                                                    <input type="date" th:field="*{ngay_ket_thuc}"
+                                                           class="form-control bg-secondary"
                                                            id="formGroupExampleInputNgayKetThuc">
                                                     <div id="ngayKetThucError" class="text-danger"></div>
                                                     <div id="ngayKetThuc1Error1" class="text-danger"></div>
@@ -242,7 +248,7 @@
                                                     <label for="formGroupExampleInputSoTienGiamMax">Số Tiền Giảm
                                                         Max</label>
                                                     <input type="number" th:field="*{so_tien_giam_max}"
-                                                           class="form-control"
+                                                           class="form-control bg-secondary"
                                                            id="formGroupExampleInputSoTienGiamMax"
                                                            step="any">
                                                     <div id="soTienGiamMaxError" class="text-danger"></div>
@@ -254,7 +260,7 @@
                                                     <label for="formGroupExampleInputPhanTramGiam">Phần Trăm
                                                         Giảm</label>
                                                     <input type="number" th:field="*{phan_tram_giam}"
-                                                           class="form-control"
+                                                           class="form-control bg-secondary"
                                                            id="formGroupExampleInputPhanTramGiam"
                                                            step="any">
                                                     <div id="phanTramGiamError" class="text-danger"></div>
@@ -264,7 +270,8 @@
                                             <div class="col-4">
                                                 <div class="form-group">
                                                     <label for="formGroupExampleInputSoLuong">Số Lượng</label>
-                                                    <input type="number" th:field="*{so_luong}" class="form-control"
+                                                    <input type="number" th:field="*{so_luong}"
+                                                           class="form-control bg-secondary"
                                                            id="formGroupExampleInputSoLuong">
                                                     <div id="soLuongError" class="text-danger"></div>
                                                     <div id="soLuong1Error1" class="text-danger"></div>
@@ -297,10 +304,12 @@
                                                     </div>
                                                 </fieldset>
                                             </div>
+                                            <button class="btn btn-primary col-12" id="submitBtn" type="submit">
+                                                <div class="text-center">
+                                                    Thêm Mới
+                                                </div>
+                                            </button>
                                         </div>
-                                        <button class="btn btn-primary" id="submitBtn" type="submit">
-                                            Thêm Mới
-                                        </button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -464,7 +473,7 @@
             <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog modal-xl">
-                    <div class="modal-content" style="background-color: #e0e0e0">
+                    <div class="modal-content bg-light" style="background-color: #e0e0e0">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Update Giảm Giá Hóa Đơn</h5>
                         </div>
@@ -472,11 +481,11 @@
                             <form id="myFormUpdate" action="/admin/giamgiahoadon/update" method="post"
                                   th:object="${giamgiahoadon}">
                                 <input type="text" hidden th:field="*{id}">
-                                <div class="row">
+                                <div class="row p-3">
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="formGroupExampleInputMaUpdate">Mã</label>
-                                            <input type="text" th:field="*{ma}" class="form-control"
+                                            <input type="text" th:field="*{ma}" class="form-control bg-secondary"
                                                    id="formGroupExampleInputMaUpdate">
                                             <div id="maUpdateError" class="text-danger"></div>
                                         </div>
@@ -484,7 +493,7 @@
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="formGroupExampleInputTenUpdate">Tên</label>
-                                            <input type="text" th:field="*{ten}" class="form-control"
+                                            <input type="text" th:field="*{ten}" class="form-control bg-secondary"
                                                    id="formGroupExampleInputTenUpdate">
                                             <div id="tenUpdateError" class="text-danger"></div>
                                         </div>
@@ -492,7 +501,7 @@
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="formGroupExampleInputDieuKienUpdate">Điều Kiện</label>
-                                            <input type="text" th:field="*{dieu_kien}" class="form-control"
+                                            <input type="text" th:field="*{dieu_kien}" class="form-control bg-secondary"
                                                    id="formGroupExampleInputDieuKienUpdate">
                                             <div id="dieuKienUpdateError" class="text-danger"></div>
                                             <div id="dieuKienUpdate1Error1" class="text-danger"></div>
@@ -501,7 +510,8 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="formGroupExampleInputNgayBatDauUpdate">Ngày Bắt Đầu</label>
-                                            <input type="date" th:field="*{ngay_bat_dau}" class="form-control"
+                                            <input type="date" th:field="*{ngay_bat_dau}"
+                                                   class="form-control bg-secondary"
                                                    id="formGroupExampleInputNgayBatDauUpdate">
                                             <div id="ngayBatDauUpdateError" class="text-danger"></div>
                                             <div id="ngayBatDauUpdate1Error1" class="text-danger"></div>
@@ -510,7 +520,8 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="formGroupExampleInputNgayKetThucUpdate">Ngày Kết Thúc</label>
-                                            <input type="date" th:field="*{ngay_ket_thuc}" class="form-control"
+                                            <input type="date" th:field="*{ngay_ket_thuc}"
+                                                   class="form-control bg-secondary"
                                                    id="formGroupExampleInputNgayKetThucUpdate">
                                             <div id="ngayKetThucUpdateError" class="text-danger"></div>
                                             <div id="ngayKetThucUpdate1Error1" class="text-danger"></div>
@@ -520,7 +531,8 @@
                                         <div class="form-group">
                                             <label for="formGroupExampleInputSoTienGiamMaxUpdate">Số Tiền Giảm
                                                 Max</label>
-                                            <input type="number" th:field="*{so_tien_giam_max}" class="form-control"
+                                            <input type="number" th:field="*{so_tien_giam_max}"
+                                                   class="form-control bg-secondary"
                                                    id="formGroupExampleInputSoTienGiamMaxUpdate"
                                                    step="any">
                                             <div id="soTienGiamMaxUpdateError" class="text-danger"></div>
@@ -530,7 +542,8 @@
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="formGroupExampleInputPhanTramGiamUpdate">Phần Trăm Giảm</label>
-                                            <input type="number" th:field="*{phan_tram_giam}" class="form-control"
+                                            <input type="number" th:field="*{phan_tram_giam}"
+                                                   class="form-control bg-secondary"
                                                    id="formGroupExampleInputPhanTramGiamUpdate"
                                                    step="any">
                                             <div id="phanTramGiamUpdateError" class="text-danger"></div>
@@ -540,7 +553,8 @@
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="formGroupExampleInputSoLuongUpdate">Số Lượng</label>
-                                            <input type="number" th:field="*{so_luong}" class="form-control"
+                                            <input type="number" th:field="*{so_luong}"
+                                                   class="form-control bg-secondary"
                                                    id="formGroupExampleInputSoLuongUpdate">
                                             <div id="soLuongUpdateError" class="text-danger"></div>
                                             <div id="soLuongUpdate1Error1" class="text-danger"></div>
@@ -572,12 +586,12 @@
                                             </div>
                                         </fieldset>
                                     </div>
-
+                                    <button class="btn btn-primary col-12" id="submitBtn2" type="submit">
+                                        <div class="text-center">
+                                            Sửa
+                                        </div>
+                                    </button>
                                 </div>
-                                <button class="btn btn-primary"
-                                        id="submitBtn2"
-                                        type="submit">Sửa
-                                </button>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -602,7 +616,6 @@
         integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!--<script src="/assets/js/jquery.min.js"></script>-->
 <script src="/assets/js/popper.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
@@ -956,7 +969,7 @@
             var soLuongUpdate = $('#formGroupExampleInputSoLuongUpdate').val();
             var trangThaiUpdate = $('input[name="trangthai"]:checked').val();
 
-            var errors = validateInput1(maUpdate,tenUpdate, dieuKienUpdate, ngayBatDauUpdate, ngayKetThucUpdate, soTienGiamMaxUpdate, phanTramGiamUpdate, soLuongUpdate, trangThaiUpdate);
+            var errors = validateInput1(maUpdate, tenUpdate, dieuKienUpdate, ngayBatDauUpdate, ngayKetThucUpdate, soTienGiamMaxUpdate, phanTramGiamUpdate, soLuongUpdate, trangThaiUpdate);
 
             if (errors.length > 0) {
                 displayErrorMessages1(errors);
@@ -977,7 +990,7 @@
         });
     });
 
-    function validateInput1(maUpdate,tenUpdate, dieuKienUpdate, ngayBatDauUpdate, ngayKetThucUpdate, soTienGiamMaxUpdate, phanTramGiamUpdate, soLuongUpdate, trangThaiUpdate) {
+    function validateInput1(maUpdate, tenUpdate, dieuKienUpdate, ngayBatDauUpdate, ngayKetThucUpdate, soTienGiamMaxUpdate, phanTramGiamUpdate, soLuongUpdate, trangThaiUpdate) {
         var errors = [];
 
         if (!maUpdate) {
