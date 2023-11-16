@@ -221,7 +221,7 @@
                                     <h4 class="mb-4">[[${totalDg}]] review for "[[${item.ten}]]"</h4>
                                     <div class="media mb-4" th:each="dg:${pageDg.content}">
                                         <div class="media-body">
-                                            <h6>[[${dg.tenNguoiDanhGia}]]</h6>
+<!--                                            <h6>[[${dg.tenNguoiDanhGia}]]</h6>-->
                                             <div class="text-primary mb-2">
                                                 <span th:each="i : ${#numbers.sequence(1,5)}">
                                                     <i th:if="${dg.sao >= i}" class="fas fa-star"></i>

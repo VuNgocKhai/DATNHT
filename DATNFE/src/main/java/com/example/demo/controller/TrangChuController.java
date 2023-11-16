@@ -142,7 +142,10 @@ public class TrangChuController {
     }
 
     @RequestMapping("/contact")
-    public String contact() {
+    public String contact(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
+        model.addAttribute("khachHang",khachHang);
         return "home/contact";
     }
 
