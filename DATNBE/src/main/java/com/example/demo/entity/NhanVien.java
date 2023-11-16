@@ -35,6 +35,9 @@ public class NhanVien {
     @Column(name = "ma")
     private String ma;
 
+    @Column(name = "anh")
+    private String anh;
+
     @Column(name = "ho_ten")
     private String hoTen;
 
