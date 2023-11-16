@@ -13,7 +13,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -62,14 +68,35 @@ public class QuanLyTaiKhoanKhController {
     }
 
     @PostMapping("/qltk-kh/cap-nhat-thong-tin/{idKh}")
-    public String capNhatThongTin(@PathVariable String idKh, @ModelAttribute KhachHang khachHang) {
-        KhachHang kh = khachHangDao.findById(UUID.fromString(idKh)).get();
-        khachHang.setMatkhau(kh.getMatkhau());
-        khachHang.setTrangthai(kh.getTrangthai());
-        khachHang.setEmail(kh.getEmail());
-        khachHang.setMa(kh.getMa());
-        khachHangRepo.update(idKh, khachHang);
-        return "redirect:/qltk-kh/thong-tin";
+    public String capNhatThongTin(@PathVariable String idKh, @ModelAttribute KhachHang khachHang, @RequestParam("file") MultipartFile file) {
+        try {
+            if (!file.isEmpty()) {
+                String uploadDir = "src/main/webapp/images/"; // Đường dẫn thư mục lưu trữ ảnh
+                Path path = Paths.get(uploadDir);
+
+                // Copy file ảnh vào thư mục trên server
+                Files.copy(file.getInputStream(), path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+
+                // Cập nhật đường dẫn file vào đối tượng khách hàng
+                khachHang.setAvatar( file.getOriginalFilename()); // Đường dẫn tới file ảnh sau khi lưu
+            } else {
+                // Nếu không có file mới được chọn, giữ nguyên đường dẫn ảnh hiện tại
+                KhachHang existingKhachHang =  khachHangDao.findById(UUID.fromString(idKh)).get(); // Lấy thông tin khách hàng hiện tại từ database
+                khachHang.setAvatar(existingKhachHang.getAvatar()); // Sử dụng đường dẫn ảnh hiện tại
+            }
+
+            KhachHang kh = khachHangDao.findById(UUID.fromString(idKh)).get();
+            khachHang.setMatkhau(kh.getMatkhau());
+            khachHang.setTrangthai(kh.getTrangthai());
+            khachHang.setEmail(kh.getEmail());
+            khachHang.setMa(kh.getMa());
+            khachHangRepo.update(idKh, khachHang);
+            return "redirect:/qltk-kh/thong-tin";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "redirect:/qltk-kh/thong-tin";
+        }
+
     }
 
     @RequestMapping("/qltk-kh/doi-mat-khau")

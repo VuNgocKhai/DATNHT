@@ -21,4 +21,7 @@ public interface sanphamyeuthichchitietdao extends JpaRepository<San_Pham_Yeu_Th
 
     @Query("SELECT s FROM San_Pham_Yeu_Thich_Chi_Tiet11 s WHERE s.sanPhamYeuThich.khachHang = :khachHang AND s.giay = :giay")
     San_Pham_Yeu_Thich_Chi_Tiet11 findByKhachHangAndGiay(@Param("khachHang") KhachHang khachHang, @Param("giay") Giay giay);
+
+    @Query("select spytct from San_Pham_Yeu_Thich_Chi_Tiet11 spytct where spytct.giay.ma = :giayMa")
+    San_Pham_Yeu_Thich_Chi_Tiet11 getSan_Pham_Yeu_Thich_Chi_Tiet11Byma(String giayMa);
 }
