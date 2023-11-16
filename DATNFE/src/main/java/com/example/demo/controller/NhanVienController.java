@@ -18,8 +18,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -36,6 +44,9 @@ public class NhanVienController {
 
     @Autowired
     private ChucVuRepository chucVuRepository;
+
+    @Autowired
+    private NhanVienDAO nhanVienDAO;
 
     private int numberCurrent=0;
 
@@ -83,7 +94,19 @@ public class NhanVienController {
 //    }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute NhanVien nhanVien,Model model) {
+    public String create(@ModelAttribute NhanVien nhanVien,Model model,@RequestParam("file") MultipartFile file) {
+        Path path = Paths.get("src/main/webapp/images/");
+        try {
+            InputStream inputStream = file.getInputStream();
+            String[] duoi=file.getOriginalFilename().split("\\.");
+            String nameavt="avatar_nv"+nhanVienDAO.getMaMax()+"."+(duoi[duoi.length - 1]);
+            Files.copy(inputStream,path.resolve(nameavt), StandardCopyOption.REPLACE_EXISTING);
+            if(!file.isEmpty()){
+                nhanVien.setAnh(nameavt);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         nhanVienService.create(nhanVien);
         return "redirect:/admin/nhan-vien";
     }

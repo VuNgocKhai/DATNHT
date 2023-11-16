@@ -24,6 +24,9 @@ public class NhanVien {
     @Column(name = "ma",unique = true)
     private String ma;
 
+    @Column(name = "anh")
+    private String anh;
+
     @NotBlank
     @Column(name = "ho_ten")
     private String hoTen;

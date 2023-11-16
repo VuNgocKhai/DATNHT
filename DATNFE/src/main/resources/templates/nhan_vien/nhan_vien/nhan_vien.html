@@ -340,7 +340,9 @@
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
                            id="navbarDropdownMenuLink"
                            role="button" data-toggle="dropdown" aria-expanded="false">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" class="rounded-circle"
+                            <img
+                                 class="rounded-circle"
+                                 th:src="@{|/images/dior1.jpg|}"
                                  height="72" alt="Avatar" loading="lazy"/>
                         </a>
                         <div class="dropdown-menu" style="margin-left: -88px;">
@@ -433,7 +435,7 @@
                             <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Nhân Viên</h5>
                         </div>
                         <div class="modal-body">
-                            <form action="/admin/nhan-vien/create" method="post" th:object="${nhanVien}" id="nhanVienForm">
+                            <form action="/admin/nhan-vien/create" method="post" th:object="${nhanVien}" id="nhanVienForm" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="form-group col-4">
                                         <label for="formGroupExampleInput2">Họ tên</label>
@@ -541,6 +543,11 @@
                                         </select>
                                         <small class="text-danger" id="chucVuError"></small>
                                     </div>
+
+                                    <div class="form-group col-4">
+                                        <label for="formGroupExampleInput2">Chọn ảnh đại diện</label>
+                                        <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png">
+                                    </div>
                                 </div>
 
                                 <button class="btn btn-primary" type="button" onclick="validateForm()">Thêm mới</button>
@@ -557,6 +564,7 @@
                 <table class="table" style="margin: 20px 0;">
                     <thead class="thead-light">
                     <tr>
+                        <th scope="row">Ảnh đại diện</th>
                         <th scope="row">Mã nhân viên</th>
                         <th>Họ tên</th>
                         <th>Số điện thoại</th>
@@ -568,6 +576,12 @@
                     </thead>
                     <tbody>
                     <tr th:each="item,state:${page.content}">
+                        <th scope="row">
+                            <img
+                                    style="width: 8rem"
+                                    th:src="@{|/images/${item.anh}|}"
+                            >
+                        </th>
                         <th scope="row">[[${item.ma}]]</th>
                         <th>[[${item.hoTen}]]</th>
                         <th>[[${item.sdt}]]</th>
@@ -586,11 +600,25 @@
                                     <div class="modal-content" style="background-color: #d4d4d4">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Cập nhật nhân viên</h5>
+                                            <span class="float-right">
+                                                            <img src="https://tuvanbhxh.net/wp-content/uploads/2023/04/cach-thay-doi-anh-bia-zalo.jpg" id="anhud" style="width: 12rem;border-radius: 50%">
+                                                            <!--                                                        <label for="formGroupExampleInput2">Chọn ảnh đại diện</label>-->
+                                                            <!--                                                        <input type="file" id="file2" name="file" accept=".jpg, .jpeg, .png">-->
+                                            </span>
                                         </div>
+
                                         <div class="modal-body">
+
                                             <form action="/admin/nhan-vien/update" method="post" th:object="${nhanVien}" id="nhanVienForm2">
                                                 <div class="row">
-                                                    <input type="text" th:field="*{ma}" class="form-control" hidden>
+
+
+
+                                                    <div class="form-group col-4">
+                                                        <label for="formGroupExampleInput2">Mã</label>
+                                                        <input type="text" th:field="*{ma}" class="form-control" readonly>
+                                                        <small class="text-danger" id="hoTenError2"></small>
+                                                    </div>
 
                                                     <div class="form-group col-4">
                                                         <label for="formGroupExampleInput2">Họ tên</label>
@@ -604,26 +632,7 @@
                                                         <small class="text-danger" id="sdtError2"></small>
                                                     </div>
 
-                                                    <div class="form-group col-4">
-                                                        <fieldset>
-                                                            <legend class="col-form-label pt-0">Trạng Thái :</legend>
-                                                            <div class="">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" th:field="*{trangThai}" id="gridRadios1" th:value="1">
-                                                                    <label class="form-check-label" for="gridRadios1">
-                                                                        Hoạt động
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" th:field="*{trangThai}" id="gridRadios2" th:value="0">
-                                                                    <label class="form-check-label" for="gridRadios2">
-                                                                        Không hoạt động
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
-                                                        <small class="text-danger" id="trangThaiError2"></small>
-                                                    </div>
+
                                                 </div>
 
                                                 <div class="row">
@@ -653,17 +662,40 @@
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="form-group col-6">
+                                                    <div class="form-group col-4">
                                                         <label for="formGroupExampleInput2">Địa chỉ</label>
                                                         <input type="text" th:field="*{diaChi}" class="form-control" id="diaChiInput2" placeholder="Địa chỉ">
                                                         <small class="text-danger" id="diaChiError2"></small>
                                                     </div>
 
-                                                    <div class="form-group col-6">
+                                                    <div class="form-group col-4">
                                                         <label for="formGroupExampleInput2">Email</label>
                                                         <input type="text" th:field="*{email}" class="form-control" id="emailInput2" placeholder="Email">
                                                         <small class="text-danger" id="emailError2"></small>
                                                     </div>
+
+
+                                                    <div class="form-group col-4">
+                                                        <fieldset>
+                                                            <legend class="col-form-label pt-0">Trạng Thái :</legend>
+                                                            <div class="">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" th:field="*{trangThai}" id="gridRadios1" th:value="1">
+                                                                    <label class="form-check-label" for="gridRadios1">
+                                                                        Hoạt động
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" th:field="*{trangThai}" id="gridRadios2" th:value="0">
+                                                                    <label class="form-check-label" for="gridRadios2">
+                                                                        Không hoạt động
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                        <small class="text-danger" id="trangThaiError2"></small>
+                                                    </div>
+
 
                                                     <div class="form-group col-4" hidden>
                                                         <label for="formGroupExampleInput2">Mật khẩu</label>
@@ -879,6 +911,7 @@
                     form.find('[name="chucVu.id"]').val(data.chucVu.id);
                     form.find('[name="ngayVaoLam"]').val(data.ngayVaoLam);
                     form.find('[name="ngayNghiViec"]').val(data.ngayNghiViec);
+                    $('#anhud').attr("src",window.location.origin+'/images/'+ data.anh);
                     form.find('[name="trangThai"]').filter('[value="' + data.trangThai + '"]').prop('checked', true);
 
                 },
