@@ -36,10 +36,6 @@
     .mk{
         margin-bottom: 8px;
     }
-    .round-image {
-        border-radius: 50%;
-        overflow: hidden; /* Đảm bảo hình ảnh không vượt ra khỏi hình tròn */
-    }
 </style>
 
 <html th:replace="~{/layout/index :: dynamic(~{::main})}" xmlns:th="http://www.thymeleaf.org">
@@ -59,8 +55,9 @@
                     <li class="nav-item" style="border-bottom: .0625rem solid #efefef;padding-bottom: 10px;padding-top: 15px">
                         <a href="/qltk-kh/thong-tin" id="hoSo">
                             <div class="row">
-                                <div class="col-3 img-avart">
-                                    <img th:src="@{|/images/${khachHang.avatar}|}" alt="Avatar" class="img-thumbnail round-image">
+                                <div class="col-3">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
+                                         style="width: 100%">
                                 </div>
                                 <div class="col-9 ">
                                     <div class="row">

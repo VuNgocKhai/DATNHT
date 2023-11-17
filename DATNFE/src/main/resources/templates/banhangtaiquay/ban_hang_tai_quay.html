@@ -229,7 +229,9 @@
 
                     <th class="giaBan" th:text="${hd.tong_tien != null ? hd.tong_tien : 0}"></th>
                     <th >
-                        <span th:if="${hd.trangthai == 0}" class="badge badge-pill badge-sm" style="background-color: yellow">Chờ Xác Nhận</span>
+                        <span th:if="${hd.trangthai == 0}" class="badge badge-pill badge-sm" style="background-color: #00dbde">Chưa Thanh Toán</span>
+                        <span th:if="${hd.trangthai == 1}" class="badge badge-pill badge-sm" style="background-color: green">Đã Thanh Toán</span>
+                        <span th:if="${hd.trangthai == 2}" class="badge badge-pill badge-sm" style="background-color: yellow">Chờ Xác Nhận</span>
                     </th>
 
                     <th>

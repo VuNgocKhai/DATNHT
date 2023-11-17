@@ -188,7 +188,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form id="khachHangForm" action="/admin/khachhang/save" method="post" enctype="multipart/form-data" th:object="${khachhang}">
+                                <form id="khachHangForm" action="/admin/khachhang/save" method="post" th:object="${khachhang}">
                                     <div class="modal-body" >
                                         <div class="modal-body">
                                             <div class="container-fluid">
@@ -236,35 +236,23 @@
 
                                                 </div>
                                                 <br>
-
-
                                                 <div class="row">
-
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <legend class="col-form-label col-sm-2 pt-0">Trạng Thái : </legend>
-                                                            <div class="col-sm-10">
-                                                                <div class="custom-control custom-radio">
-                                                                    <input class="form-check-input" type="radio" th:field="*{trangthai}" id="gridRadios1" th:value="1">
-                                                                    <label class="form-check-label " for="gridRadios1" >
-                                                                        Hoạt Động
-                                                                    </label>
-                                                                </div>
-                                                                <div class="custom-control custom-radio">
-                                                                    <input class="form-check-input" type="radio" th:field="*{trangthai}"  id="gridRadios2" th:value="0" >
-                                                                    <label class="form-check-label" for="gridRadios2" >
-                                                                        Không Hoạt Động
-                                                                    </label>
-                                                                </div>
-                                                                <div id="trangthaiError" class="text-danger"></div>
-                                                            </div>
+                                                    <legend class="col-form-label col-sm-2 pt-0">Trạng Thái : </legend>
+                                                    <div class="col-sm-10">
+                                                        <div class="custom-control custom-radio">
+                                                            <input class="form-check-input" type="radio" th:field="*{trangthai}" id="gridRadios1" th:value="1">
+                                                            <label class="form-check-label " for="gridRadios1" >
+                                                                Hoạt Động
+                                                            </label>
                                                         </div>
+                                                        <div class="custom-control custom-radio">
+                                                            <input class="form-check-input" type="radio" th:field="*{trangthai}"  id="gridRadios2" th:value="0" >
+                                                            <label class="form-check-label" for="gridRadios2" >
+                                                                Không Hoạt Động
+                                                            </label>
+                                                        </div>
+                                                        <div id="trangthaiError" class="text-danger"></div>
                                                     </div>
-
-                                                    <div class="col-md-6">
-                                                      <input type="file" name="ten_url1">
-                                                    </div>
-
                                                 </div>
 
                                             </div>
@@ -306,7 +294,6 @@
                 <table class="table table-hover" style="margin: 20px 0;">
                     <thead class="thead-light">
                     <tr>
-                        <th scope="col">Ảnh</th>
                         <th scope="col">Họ và Tên</th>
                         <th scope="col">Ngày Sinh</th>
                         <th scope="col">Số Điện Thoại</th>
@@ -316,7 +303,6 @@
                     </tr>
                     </thead>
                     <tr th:each="item,state:${listPKhachhang.content}">
-                        <td>  <img th:src="@{|/images/${item.avatar}|}" alt="" style="width: 50px; height: 50px"></td>
                         <td>[[${item.hoten}]]</td>
                         <td>[[${item.ngaysinh}]]</td>
                         <td>[[${item.sdt}]]</td>

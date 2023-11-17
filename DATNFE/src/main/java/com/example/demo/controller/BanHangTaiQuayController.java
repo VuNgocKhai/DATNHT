@@ -132,7 +132,7 @@ public class BanHangTaiQuayController {
         hoaDon.setHinh_thuc_thanh_toan(0);
         hoaDon.setSo_tien_giam(BigDecimal.ZERO);
         hoaDon.setPhi_ship(BigDecimal.ZERO);
-        hoaDon.setTrangthai(0);
+        hoaDon.setTrangthai(1);
         hoaDonRepo.createHoaDon(hoaDon);
         redirectAttributes.addAttribute("maHD", maHoaDonMoi);
         return "redirect:/admin/ban-hang-tai-quay/view-cart/{maHD}";
@@ -635,15 +635,18 @@ public class BanHangTaiQuayController {
     public String xacNhan(HttpServletRequest request,
                           HttpServletResponse resp,
                           @RequestParam("maHD") String maHD,
+                          @RequestParam("phuongThucMuaHang") Integer phuongThucMuaHang,
+                          @RequestParam("phuongThucThanhToan") Integer phuongThucThanhToan,
                           RedirectAttributes redirectAttributes) throws IOException {
-        HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
-        if (hoaDon.getHinh_thuc_thanh_toan() == 0 && hoaDon.getHinh_thuc_mua() == 0) {
+        if (phuongThucMuaHang == 0 && phuongThucThanhToan == 0) {
+            HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
             LocalDate currentDate = LocalDate.now();
             hoaDon.setNgay_thanh_toan(currentDate);
-            hoaDon.setTrangthai(3);
+            hoaDon.setTrangthai(2);
             hoaDonRepo.createHoaDon(hoaDon);
             return "redirect:/admin/ban-hang";
         } else {
+            HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
             BigDecimal newTotal = calculateTotal(hoaDon);
             String vnp_Version = "2.1.0";
             String vnp_Command = "pay";
@@ -713,7 +716,7 @@ public class BanHangTaiQuayController {
             resp.sendRedirect(paymentUrl);
             LocalDate currentDate = LocalDate.now();
             hoaDon.setNgay_thanh_toan(currentDate);
-            hoaDon.setTrangthai(1);
+            hoaDon.setTrangthai(2);
             hoaDonRepo.createHoaDon(hoaDon);
             return "redirect:/admin/ban-hang";
         }
