@@ -62,7 +62,15 @@ public class TrangChuController {
     }
     @RequestMapping("/trangchu")
     public String trangchu(Model model) {
-        model.addAttribute("items", giayDAO.findAll());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
+        if (khachHang == null) {
+            model.addAttribute("items", giayDAO.findAll());
+        }else {
+            model.addAttribute("khachHang",khachHang);
+            model.addAttribute("items", giayDAO.findAll());
+        }
+
         return "home/index";
     }
     @Data
@@ -134,7 +142,10 @@ public class TrangChuController {
     }
 
     @RequestMapping("/contact")
-    public String contact() {
+    public String contact(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
+        model.addAttribute("khachHang",khachHang);
         return "home/contact";
     }
 

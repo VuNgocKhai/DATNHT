@@ -32,6 +32,68 @@
         text-decoration: none;
     }
 
+    p.float-right {
+        white-space: nowrap; /* Ngăn chữ xuống dòng */
+        overflow: hidden; /* Ẩn phần dư thừa */
+        text-overflow: ellipsis; /* Hiển thị dấu elipsis (...) khi vượt quá kích thước */
+    }
+
+    .avatar-wrapper {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+        border-radius: 50%;
+        border: 3px solid #ffffff;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+    }
+
+    .avatar-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .choose-file-btn {
+        display: block;
+        text-align: center;
+        padding: 5px 10px;
+        background-color: #ffffff;
+        border: 1px solid #dddddd;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .choose-file-btn:hover {
+        background-color: #f0f0f0;
+    }
+
+    #avatarInput {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+
+    .vertical-line {
+        display: block;
+        height: 200px; /* Điều chỉnh độ cao tùy ý */
+        margin: 20px 0;
+        border-left: 1px solid rgba(0,0,0,.09);
+    }
+
+    .round-image {
+        border-radius: 50%;
+        overflow: hidden; /* Đảm bảo hình ảnh không vượt ra khỏi hình tròn */
+    }
+
+
 </style>
 <html th:replace="~{/layout/index :: dynamic(~{::main})}" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -50,9 +112,8 @@
                     <li class="nav-item" style="border-bottom: .0625rem solid #efefef;padding-bottom: 10px;padding-top: 15px">
                         <a href="/qltk-kh/thong-tin" id="hoSo">
                             <div class="row">
-                                <div class="col-3">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
-                                         style="width: 100%">
+                                <div class="col-3 img-avart">
+                                    <img th:src="@{|/images/${khachHang.avatar}|}" alt="Avatar" class="img-thumbnail round-image">
                                 </div>
                                 <div class="col-9 ">
                                     <div class="row">
@@ -139,76 +200,76 @@
                         </span>
                     </li>
                 </ul>
-                <form th:object="${khachHang}" method="post"
+                <form th:object="${khachHang}" method="post" enctype="multipart/form-data"
                       th:action="@{|/qltk-kh/cap-nhat-thong-tin/${khachHang.id}|}">
-                    <div class="row" style="margin-top: 20px">
-                        <input type="text" hidden th:field="*{id}">
-                        <div class="col-6 row">
-                            <div class="col-4 ">
-                                <p class="float-right">
-                                    Mã
-                                </p>
+                <div class="row">
+                    <div class="col-lg-7">
+                            <div class="row" style="margin-top: 20px">
+                                <input type="text" hidden th:field="*{id}">
+                                <div class="col-4 ">
+                                    <p class="float-right">
+                                        Mã
+                                    </p>
+                                </div>
+                                <div class="col-8">
+                                    <label th:text="*{ma}"></label>
+                                </div>
                             </div>
-                            <div class="col-8">
-<!--                                <input type="text" th:field="*{ma}" class="form-control" id="formGroupExampleInput"-->
-<!--                                       placeholder="Mã">-->
-                                <label th:text="*{ma}"></label>
+                            <div class="row">
+                                <div class="col-4">
+                                    <p class="float-right">
+                                        Họ Và Tên
+                                    </p>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" th:field="*{hoten}" class="form-control" id="formGroupExampleInput" placeholder="Họ và tên">
+                                </div>
                             </div>
-                        </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <p class="float-right">
+                                        Ngày Sinh
+                                    </p>
+                                </div>
+                                <div class="col-8">
+                                    <input type="date" th:field="*{ngaysinh}" class="form-control" id="formGroupExampleInput" placeholder="Ngày Sinh">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <p class="float-right ">
+                                        Số điện thoại
+                                    </p>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" th:field="*{sdt}" class="form-control" id="formGroupExampleInput" placeholder="Số điện thoại">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4"></div>
+                                <div class="col-8">
+                                    <button type="submit" class="btn-primary btn">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                        Cập nhật
+                                    </button>
+                                </div>
+                            </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-6 row">
-                            <div class="col-4 ">
-                                <p class="float-right">
-                                    Họ Và Tên
-                                </p>
-                            </div>
-                            <div class="col-8">
-                                <input type="text" th:field="*{hoten}" class="form-control" id="formGroupExampleInput"
-                                       placeholder="Họ và tên">
-                            </div>
-                        </div>
+                    <div class="col-lg-1">
+                        <span class="vertical-line"></span>
                     </div>
+                        <div class="col-lg-4">
+                            <div class="text-center" style="margin-top: 20px; margin-left: 20px">
+                                <div class="avatar-wrapper">
+                                    <img id="avatarPreview" th:src="@{|/images/${khachHang.avatar}|}" alt="Avatar" class="img-thumbnail">
+                                    <input type="file" id="avatarInput" name="file" accept=".jpg,.jpeg,.png">
+                                </div>
+                                <label for="avatarInput" class="choose-file-btn" style="margin-right: 80px">Chọn ảnh</label>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-6 row">
-                            <div class="col-4 ">
-                                <p class="float-right">
-                                    Ngày Sinh </p>
-                            </div>
-                            <div class="col-8">
-                                <input type="date" th:field="*{ngaysinh}" class="form-control"
-                                       id="formGroupExampleInput"
-                                       placeholder="Ngày Sinh">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6 row">
-                            <div class="col-4 ">
-                                <p class="float-right">
-                                    Số điện thoại </p>
-                            </div>
-                            <div class="col-8">
-                                <input type="text" th:field="*{sdt}" class="form-control" id="formGroupExampleInput"
-                                       placeholder="Số điện thoại">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6 row">
-                            <div class="col-4 ">
-
-                            </div>
-                            <div class="col-8">
-                                <button type="submit" class="btn-primary btn">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                    Cập nhật
-                                </button>
-                            </div>
                         </div>
                     </div>
                 </form>
@@ -216,6 +277,20 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.getElementById('avatarInput').addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+    </script>
 
 </main>
 
