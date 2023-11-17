@@ -77,6 +77,8 @@ public class GioHangController {
             model.addAttribute("item", giay);
             model.addAttribute("Tongsothichsanpham", sanPhamYeuThichDAo.countYeuThichByGiayId(ma));
             model.addAttribute("taikhoan", khachHang.getId());
+            model.addAttribute("khachHang",khachHang);
+            model.addAttribute("yeuthich",sanPhamYeuThichDAo.getSan_Pham_Yeu_Thich_Chi_Tiet11Byma(ma));
         }
 
         //load danh gia
