@@ -99,7 +99,7 @@ public class NhanVienController {
         try {
             InputStream inputStream = file.getInputStream();
             String[] duoi=file.getOriginalFilename().split("\\.");
-            String nameavt="avatar_nv"+nhanVienDAO.getMaMax()+"."+(duoi[duoi.length - 1]);
+            String nameavt="avatar_nv"+String.valueOf(nhanVienDAO.getMaMax()+1)+"."+(duoi[duoi.length - 1]);
             Files.copy(inputStream,path.resolve(nameavt), StandardCopyOption.REPLACE_EXISTING);
             if(!file.isEmpty()){
                 nhanVien.setAnh(nameavt);
