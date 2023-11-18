@@ -109,6 +109,7 @@ create table nhan_vien (
 	xa nvarchar(250) default null,
 	huyen nvarchar(50) default null,
 	thanh_pho nvarchar(255) null,
+	anh varchar(20) null,
 	sdt nvarchar(15) null,
 	email nvarchar(255) null,
 	id_chuc_vu uniqueidentifier,
