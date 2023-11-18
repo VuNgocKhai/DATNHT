@@ -93,32 +93,27 @@ public class ChuongTrinhGiamGiaSPRestController {
         return ResponseEntity.ok(chuongTrinhGiamGiaSPRepository.findById(id));
     }
 
-//    @GetMapping("/{ma}")        // http://localhost:2020/rest/chuong-trinh-giam-gia-sp/detail
-//    public ResponseEntity<?> getOneByMa(@PathVariable("ma") String ma) {
-//        return ResponseEntity.ok(chuongTrinhGiamGiaSPRepository.findChuongTrinhGiamGiaSPByMaKhuyenMai(ma));
-//    }
-
-//    //Tìm kiếm theo mã:
-    @GetMapping("/{ma}")        // http://localhost:2020/rest/chuong-trinh-giam-gia-sp/GGSP01
-    public ChuongTrinhGiamGiaSP getOneByMa(@PathVariable("ma") String ma) {
+    //    //Tìm kiếm theo mã:
+    @GetMapping("/findbyma/{ma}")        // http://localhost:2020/rest/chuong-trinh-giam-gia-sp/GGSP01
+    public ChuongTrinhGiamGiaSP getCTGGSPByMa(@PathVariable("ma") String ma) {
         return chuongTrinhGiamGiaSPRepository.findByMa(ma);
     }
 
-    //update giảm giá hóa đơn theo mã
+    //update giảm giá SP theo mã
     @PostMapping("/{ma}")
     public ChuongTrinhGiamGiaSP updateVoucher(@PathVariable("ma") String ma, @RequestBody ChuongTrinhGiamGiaSP updatedGGSP) {
-        // Truy vấn đối tượng GiamGiaHoaDon từ cơ sở dữ liệu dựa trên ma
-        ChuongTrinhGiamGiaSP ggspUpdate= chuongTrinhGiamGiaSPRepository.findByMa(ma);
+        // Truy vấn đối tượng GiamGiaSP từ cơ sở dữ liệu dựa trên ma
+        ChuongTrinhGiamGiaSP ggspUpdate = chuongTrinhGiamGiaSPRepository.findByMa(ma);
 
         if (ggspUpdate != null) {
-            // Cập nhật các thuộc tính của đối tượng đã có từ updatedGiamGiaHoaDon
+            // Cập nhật các thuộc tính của đối tượng đã có từ GGSP
             ggspUpdate.setTenKhuyenMai(updatedGGSP.getTenKhuyenMai());
             ggspUpdate.setPhanTramGiam(updatedGGSP.getPhanTramGiam());
             ggspUpdate.setNgayBatDau(updatedGGSP.getNgayBatDau());
             ggspUpdate.setNgayKetThuc(updatedGGSP.getNgayKetThuc());
             ggspUpdate.setTrangThai(updatedGGSP.getTrangThai());
         }
-        return  chuongTrinhGiamGiaSPRepository.save(ggspUpdate);
+        return chuongTrinhGiamGiaSPRepository.save(ggspUpdate);
     }
 
     //Tìm kiếm bằng id
@@ -127,18 +122,18 @@ public class ChuongTrinhGiamGiaSPRestController {
         return ResponseEntity.ok(chuongTrinhGiamGiaSPRepository.findChuongTrinhGiamGiaSPByIdKhuyenMai(idKM));
     }
 
-    //Update theo mã (method Put)
-    @PutMapping("/{ma}")
-    public ResponseEntity<?> update(@RequestBody ChuongTrinhGiamGiaSP ctggsp, @PathVariable("ma") String ma) {
-        ChuongTrinhGiamGiaSP getOneCTGG = chuongTrinhGiamGiaSPRepository.findByMa(ma);
-
-        getOneCTGG.setTenKhuyenMai(ctggsp.getTenKhuyenMai());
-        getOneCTGG.setNgayBatDau(ctggsp.getNgayBatDau());
-        getOneCTGG.setNgayKetThuc(ctggsp.getNgayKetThuc());
-        getOneCTGG.setPhanTramGiam(ctggsp.getPhanTramGiam());
-        getOneCTGG.setTrangThai(ctggsp.getTrangThai());
-
-        return ResponseEntity.ok(chuongTrinhGiamGiaSPRepository.save(getOneCTGG));
-    }
+//    //Update theo mã (method Put)
+//    @PutMapping("/{ma}")
+//    public ResponseEntity<?> update(@RequestBody ChuongTrinhGiamGiaSP ctggsp, @PathVariable("ma") String ma) {
+//        ChuongTrinhGiamGiaSP getOneCTGG = chuongTrinhGiamGiaSPRepository.findByMa(ma);
+//
+//        getOneCTGG.setTenKhuyenMai(ctggsp.getTenKhuyenMai());
+//        getOneCTGG.setNgayBatDau(ctggsp.getNgayBatDau());
+//        getOneCTGG.setNgayKetThuc(ctggsp.getNgayKetThuc());
+//        getOneCTGG.setPhanTramGiam(ctggsp.getPhanTramGiam());
+//        getOneCTGG.setTrangThai(ctggsp.getTrangThai());
+//
+//        return ResponseEntity.ok(chuongTrinhGiamGiaSPRepository.save(getOneCTGG));
+//    }
 
 }
