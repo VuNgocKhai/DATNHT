@@ -4,6 +4,14 @@ import com.example.demo.config.Config;
 import com.example.demo.entity.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.UserService;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.TextAlignment;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -161,5 +169,68 @@ public class TrangChuController {
         }
         return "redirect:/contact";
     }
+    @RequestMapping("/pdf")
+    public String generatePdf(Model model) {
+        try {
+            generateInvoicePdf();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Xử lý lỗi nếu cần thiết
+        }
+        return "redirect:/trangchu"; // Hoặc forward:/trangchu tùy thuộc vào yêu cầu của bạn
+    }
 
+    public static void generateInvoicePdf() throws IOException {
+        try (PdfWriter writer = new PdfWriter("invoice.pdf");
+             PdfDocument pdf = new PdfDocument(writer);
+             Document document = new Document(pdf)) {
+
+            // Sử dụng font không chứa dấu
+
+            // Logo và tên thương hiệu
+            Image logo = new Image(ImageDataFactory.create("E:\\Spring_Boot_Java5\\DATNFE\\src\\main\\webapp\\images\\logodarlin.png")).scaleToFit(200f, 100f);;
+            Paragraph header = new Paragraph().add(logo);
+            document.add(header);
+            // Hóa đơn và thông tin ngày tháng
+            document.add(new Paragraph("HOA DON HD03").setTextAlignment(TextAlignment.RIGHT));
+            document.add(new Paragraph("Ngay: " + new Date()).setTextAlignment(TextAlignment.RIGHT));
+
+            // Tiêu đề HÓA ĐƠN
+            document.add(new Paragraph("HOA DON").setFontSize(16));
+
+            // Thông tin khách hàng
+            document.add(new Paragraph("Tên khách hàng: Nguyen Thanh Danh"));
+            document.add(new Paragraph("So dien thoai khach hang: 0385090080"));
+            document.add(new Paragraph("Dia chi khach hang: Ha Nam, Ha Noi"));
+
+            // Bảng chi tiết sản phẩm
+            float[] columnWidths = {200f, 50f, 50f, 50f};
+            Table table = new Table(columnWidths).setTextAlignment(TextAlignment.CENTER);
+            table.addHeaderCell(new Paragraph("Ten SP"));
+            table.addHeaderCell(new Paragraph("So luong"));
+            table.addHeaderCell(new Paragraph("Don Gia"));
+            table.addHeaderCell(new Paragraph("Thanh Tien"));
+
+            // Thêm sản phẩm (đây chỉ là ví dụ, bạn cần thay thế bằng dữ liệu thực tế)
+            table.addCell(new Paragraph("San pham 1"));
+            table.addCell(new Paragraph("2"));
+            table.addCell(new Paragraph("$50"));
+            table.addCell(new Paragraph("$100"));
+
+            table.addCell(new Paragraph("San pham 2"));
+            table.addCell(new Paragraph("1"));
+            table.addCell(new Paragraph("$30"));
+            table.addCell(new Paragraph("$30"));
+
+            document.add(table);
+
+            // Thông tin thanh toán
+            document.add(new Paragraph("Tong tien: $130").setTextAlignment(TextAlignment.RIGHT));
+            document.add(new Paragraph("Giam gia: $10").setTextAlignment(TextAlignment.RIGHT));
+            document.add(new Paragraph("Phi Ship: $5").setTextAlignment(TextAlignment.RIGHT));
+
+            // Tong thanh toan
+            document.add(new Paragraph("Tong thanh toan: $125").setTextAlignment(TextAlignment.RIGHT));
+        }
+    }
 }
