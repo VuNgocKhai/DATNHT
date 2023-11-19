@@ -183,7 +183,7 @@
                                 <div class="container"
                                      style="border: 1px solid black;border-radius: 10px;padding: 20px; background-color: #E4F4F7">
                                     <form action="/admin/chuong-trinh-giam-gia-sp/create" method="post"
-                                          th:object="${voucherForm}">
+                                          th:object="${voucherForm}" id="voucherForm1">
                                         <!--                <input type="text" hidden th:field="*{id}">-->
                                         <table class="table table-borderless">
                                             <tr>
@@ -192,22 +192,25 @@
                                                 <td><label for="formGroupExampleInput2">Tên khuyến mại</label></td>
                                                 <td>
                                                     <input type="text" th:field="*{tenKhuyenMai}" class="form-control"
-                                                           id="formGroupExampleInput2"
+                                                           id="tenKhuyenMaiInput"
                                                            placeholder="Nhập tên">
+                                                    <small class="text-danger" id="tenKhuyenMaiError"></small>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td><label for="formGroupExampleInput2">Ngày bắt đầu</label></td>
                                                 <td>
                                                     <input type="date" th:field="*{ngayBatDau}" class="form-control"
-                                                           id="formGroupExampleInput2"
+                                                           id="ngayBatDauInput"
                                                            placeholder="Nhập ngày bắt đầu">
+                                                    <small class="text-danger" id="ngayBatDauError"></small>
                                                 </td>
                                                 <td><label for="formGroupExampleInput2">Ngày kết thúc</label></td>
                                                 <td>
                                                     <input type="date" th:field="*{ngayKetThuc}" class="form-control"
-                                                           id="formGroupExampleInput2"
+                                                           id="ngayKetThucInput"
                                                            placeholder="Nhập ngày kết thúc">
+                                                    <small class="text-danger" id="ngayKetThucError"></small>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -234,7 +237,9 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                        <button class="btn btn-primary" type="submit" style="margin: 20px;">Thêm
+<!--                                        <button class="btn btn-primary" type="submit" style="margin: 20px;">Tạo-->
+<!--                                        </button>-->
+                                        <button class="btn btn-primary" type="button" onclick="validateForm()" style="margin: 20px;">Tạo
                                         </button>
                                         <button th:href="@{|/admin/chuong-trinh-giam-gia-sp|}" type="button"
                                                 class="btn btn-secondary"
@@ -329,7 +334,7 @@
                         <a th:href="@{|/admin/chuong-trinh-giam-gia-sp/viewupdate/${item.maKhuyenMai}|}"
                            style="color: #b1b108" class="bi bi-pencil-square"></a>
                         <a href="#" class="btn-detail" data-bs-toggle="modal" data-bs-target="#exampleModal1"
-                           th:ma="${item.maKhuyenMai}">
+                           th:maKhuyenMai="${item.maKhuyenMai}">
                             <i style="color: #4DC7A0" class="bi bi-pencil-square"></i>
                         </a>
                     </td>
@@ -379,7 +384,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Update Giảm Giá Sản Phẩm</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="/admin/chuong-trinh-giam-gia-sp/update" method="post" th:object="${giamgiaSP}">
+                    <form action="/admin/chuong-trinh-giam-gia-sp/update" method="post" th:object="${voucherForm}">
                         <input type="text" hidden th:field="*{idKhuyenMai}">
                         <div class="row">
                             <div class="col-4">
@@ -472,27 +477,61 @@
         integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/popper.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
 
 
+<!--Start script  validate-->
+<script>
+    function validateForm() {
+        // Làm sạch thông báo lỗi
+        document.getElementById("tenKhuyenMaiError").innerHTML = "";
+        var isErr=false;
+
+        // Kiểm tra lỗi cho từng trường
+        var tenKhuyenMai = document.getElementById("tenKhuyenMaiInput").value;
+        if (tenKhuyenMai.trim() === "") {
+            document.getElementById("tenKhuyenMaiError").innerHTML = "Không được để trống!";
+            isErr=true;
+        }
+
+        if(!isErr){
+            document.getElementById("voucherForm1").submit();
+        }
+    }
+
+    function validateForm2() {
+        // Làm sạch thông báo lỗi
+        document.getElementById("tenKhuyenMaiError").innerHTML = "";
+
+        var isErr=false;
+
+        // Kiểm tra lỗi cho từng trường
+        var hoTen = document.getElementById("hoTenInput2").value;
+        if (hoTen.trim() === "") {
+            document.getElementById("hoTenError2").innerHTML = "Vui lòng nhập Họ tên.";
+            isErr=true;
+        }
+
+        if(!isErr){
+            document.getElementById("voucherForm2").submit();
+        }
+    }
+</script>
+
 <!--Start script  update-->
 <script>
-    // function submitFilterForm() {
-    //     document.getElementById("filterForm").submit();
-    // }
-
     $(document).ready(function () {
         $(".btn-detail").click(function () {
-            var ma = $(this).attr("ma");
+            var maKM = $(this).attr("maKhuyenMai");  //// lấy dữ liệu từ th:maKhuyenMai
             var form = $("#exampleModal1"); // Chọn tất cả các thẻ <form> trên trang
             $.ajax({
-                url: "http://localhost:2020/rest/chuong-trinh-giam-gia-sp/" + ma,
+                url: "http://localhost:2020/rest/chuong-trinh-giam-gia-sp/findbyma/" + maKM,
                 method: "GET",
                 dataType: "json", // Kiểu dữ liệu trả về từ máy chủ (json, html, text, etc.)
                 success: function (data) {
+                    console.log("Dữ liệu nhận được từ server:", data);
                     form.find('[name="idKhuyenMai"]').val(data.idKhuyenMai);
                     form.find('[name="maKhuyenMai"]').val(data.maKhuyenMai);
                     form.find('[name="tenKhuyenMai"]').val(data.tenKhuyenMai);
