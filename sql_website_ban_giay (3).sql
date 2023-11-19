@@ -103,7 +103,6 @@ create table chuc_vu (
 create table nhan_vien (
 	id uniqueidentifier primary key default newid(),
 	ma varchar(20) unique,
-	anh nvarchar(max) default null,
 	ho_ten nvarchar(50) default null,
 	ngay_sinh date null,
 	dia_chi nvarchar(255) null,
