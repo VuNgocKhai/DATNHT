@@ -80,6 +80,16 @@
                     document.getElementById("emailError").innerHTML = "Email không hợp lệ.";
                     isErr = true;
                 }
+                else {
+                    checkEmail(email).then(data => {
+                        if (data) {
+                            document.getElementById("emailError").innerHTML = "Email đã tồn tại.";
+                            isErr = true;
+                        }
+                    }).catch(error => {
+                        console.log(error); // lỗi từ yêu cầu AJAX
+                    });
+                }
             }
 
             var matKhau = document.getElementById("matKhauInput").value;
@@ -181,6 +191,15 @@
                 if (!regex.test(email)) {
                     document.getElementById("emailError2").innerHTML = "Email không hợp lệ.";
                     isErr = true;
+                } else if(email!=emGlo){
+                    checkEmail(email).then(data => {
+                        if (data) {
+                            document.getElementById("emailError2").innerHTML = "Email đã tồn tại.";
+                            isErr = true;
+                        }
+                    }).catch(error => {
+                        console.log(error); // lỗi từ yêu cầu AJAX
+                    });
                 }
             }
 
@@ -442,7 +461,9 @@
                                                 <img id="avatarPreview" alt="Avatar" class="img-thumbnail"
                                                      style="width: 10rem;border-radius: 50%">
                                                 <br>
-                                                <label for="file" style="border-radius: 4px;border: 1px solid darkgray;margin-top: 5px">Chọn ảnh đại diện</label>
+                                                <label for="file"
+                                                       style="border-radius: 4px;border: 1px solid darkgray;margin-top: 5px">Chọn
+                                                    ảnh đại diện</label>
                                                 <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png"
                                                        style="display: none">
                                             </div>
@@ -634,11 +655,15 @@
                                                     <div class="col-12">
                                                         <div class="form-group col-2">
                                                             <div class="text-center">
-                                                                <img id="avatarPreview2" alt="Avatar" class="img-thumbnail"
+                                                                <img id="avatarPreview2" alt="Avatar"
+                                                                     class="img-thumbnail"
                                                                      style="width: 10rem;border-radius: 50%">
                                                                 <br>
-                                                                <label for="file2" style="border-radius: 4px;border: 1px solid darkgray;margin-top: 5px">Chọn ảnh đại diện</label>
-                                                                <input type="file" id="file2" name="file" accept=".jpg, .jpeg, .png"
+                                                                <label for="file2"
+                                                                       style="border-radius: 4px;border: 1px solid darkgray;margin-top: 5px">Chọn
+                                                                    ảnh đại diện</label>
+                                                                <input type="file" id="file2" name="file"
+                                                                       accept=".jpg, .jpeg, .png"
                                                                        style="display: none">
                                                             </div>
                                                         </div>
@@ -960,6 +985,7 @@
                     }, 200);
                     form.find('[name="sdt"]').val(data.sdt);
                     form.find('[name="email"]').val(data.email);
+                    emGlo=data.email;
                     form.find('[name="matKhau"]').val(data.matKhau);
                     form.find('[name="chucVu.id"]').val(data.chucVu.id);
                     form.find('[name="ngayVaoLam"]').val(data.ngayVaoLam);
@@ -1000,6 +1026,22 @@
             reader.readAsDataURL(file);
         }
     });
+
+    var  emGlo;
+    function checkEmail(email) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: '/admin/nhan-vien/isExist/' + email,
+                type: 'GET',
+                success: function (data) {
+                    resolve(data);
+                },
+                error: function (error) {
+                    reject(error);
+                }
+            });
+        });
+    }
 
 </script>
 </body>

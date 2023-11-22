@@ -4,14 +4,21 @@ import com.example.demo.config.Config;
 import com.example.demo.entity.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.UserService;
+import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.colors.Color;
+import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.colors.WebColors;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.borders.Border;
+import com.itextpdf.layout.element.*;
+import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.VerticalAlignment;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -34,6 +41,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.List;
 
 @Controller
 public class TrangChuController {
@@ -49,6 +57,7 @@ public class TrangChuController {
     KhachHangDao khachHangDao;
     @Autowired
     UserService userService;
+
     @RequestMapping("/login")
     public String login() {
         return "layout/login";
@@ -63,84 +72,88 @@ public class TrangChuController {
     public String logout() {
         return "layout/logout";
     }
+
     @RequestMapping("/oauth2/login/success")
-    public String oauth2(OAuth2AuthenticationToken oauth2){
+    public String oauth2(OAuth2AuthenticationToken oauth2) {
         userService.loginFromOAuth2(oauth2);
         return "home/index";
     }
+
     @RequestMapping("/trangchu")
     public String trangchu(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
         if (khachHang == null) {
             model.addAttribute("items", giayDAO.findAll());
-        }else {
-            model.addAttribute("khachHang",khachHang);
+        } else {
+            model.addAttribute("khachHang", khachHang);
             model.addAttribute("items", giayDAO.findAll());
         }
 
         return "home/index";
     }
+
     @Data
     public static class SearchForm {
-        String tensp="";
-        String thuong_hieu="";
-        String chat_lieu="";
-        String xuat_xu="";
-        String mau_sac="";
-        String gioi_tinh="";
-        String kieu_dang="";
-        String de_giay="";
-        String kich_co="";
+        String tensp = "";
+        String thuong_hieu = "";
+        String chat_lieu = "";
+        String xuat_xu = "";
+        String mau_sac = "";
+        String gioi_tinh = "";
+        String kieu_dang = "";
+        String de_giay = "";
+        String kich_co = "";
         Integer page = 0;
         BigDecimal tien_min;
         BigDecimal tien_max;
     }
+
     @RequestMapping("/sanpham")
-    public String sanpham(Model model,@ModelAttribute("searchform") SearchForm searchForm) {
-        System.out.println("Thuong hieu la"+searchForm.thuong_hieu);
+    public String sanpham(Model model, @ModelAttribute("searchform") SearchForm searchForm) {
+        System.out.println("Thuong hieu la" + searchForm.thuong_hieu);
         List<GiayChiTiet> giayChiTietList;
-        if (searchForm.tien_min==null && searchForm.tien_max==null){
-            giayChiTietList = giayChiTietDAO.getSearchsanphamByTT("%"+searchForm.tensp+"%",
-                    BigDecimal.ZERO,BigDecimal.valueOf(999999999),
-                    "%"+searchForm.thuong_hieu+"%","%"+searchForm.kich_co+"%","%"+searchForm.chat_lieu+"%","%"+searchForm.xuat_xu+"%",
-                    "%"+searchForm.mau_sac+"%","%"+searchForm.gioi_tinh+"%","%"+searchForm.kieu_dang+"%","%"+searchForm.de_giay+"%");
+        if (searchForm.tien_min == null && searchForm.tien_max == null) {
+            giayChiTietList = giayChiTietDAO.getSearchsanphamByTT("%" + searchForm.tensp + "%",
+                    BigDecimal.ZERO, BigDecimal.valueOf(999999999),
+                    "%" + searchForm.thuong_hieu + "%", "%" + searchForm.kich_co + "%", "%" + searchForm.chat_lieu + "%", "%" + searchForm.xuat_xu + "%",
+                    "%" + searchForm.mau_sac + "%", "%" + searchForm.gioi_tinh + "%", "%" + searchForm.kieu_dang + "%", "%" + searchForm.de_giay + "%");
         }
-        if (searchForm.tien_min==null){
-            giayChiTietList = giayChiTietDAO.getSearchsanphamByTT("%"+searchForm.tensp+"%",
-                    BigDecimal.ZERO,searchForm.tien_max,
-                    "%"+searchForm.thuong_hieu+"%","%"+searchForm.kich_co+"%","%"+searchForm.chat_lieu+"%","%"+searchForm.xuat_xu+"%",
-                    "%"+searchForm.mau_sac+"%","%"+searchForm.gioi_tinh+"%","%"+searchForm.kieu_dang+"%","%"+searchForm.de_giay+"%");
+        if (searchForm.tien_min == null) {
+            giayChiTietList = giayChiTietDAO.getSearchsanphamByTT("%" + searchForm.tensp + "%",
+                    BigDecimal.ZERO, searchForm.tien_max,
+                    "%" + searchForm.thuong_hieu + "%", "%" + searchForm.kich_co + "%", "%" + searchForm.chat_lieu + "%", "%" + searchForm.xuat_xu + "%",
+                    "%" + searchForm.mau_sac + "%", "%" + searchForm.gioi_tinh + "%", "%" + searchForm.kieu_dang + "%", "%" + searchForm.de_giay + "%");
         }
-        if(searchForm.tien_max==null){
-            giayChiTietList = giayChiTietDAO.getSearchsanphamByTT("%"+searchForm.tensp+"%",
-                    searchForm.tien_min,BigDecimal.valueOf(999999999),
-                    "%"+searchForm.thuong_hieu+"%","%"+searchForm.kich_co+"%","%"+searchForm.chat_lieu+"%","%"+searchForm.xuat_xu+"%",
-                    "%"+searchForm.mau_sac+"%","%"+searchForm.gioi_tinh+"%","%"+searchForm.kieu_dang+"%","%"+searchForm.de_giay+"%");
+        if (searchForm.tien_max == null) {
+            giayChiTietList = giayChiTietDAO.getSearchsanphamByTT("%" + searchForm.tensp + "%",
+                    searchForm.tien_min, BigDecimal.valueOf(999999999),
+                    "%" + searchForm.thuong_hieu + "%", "%" + searchForm.kich_co + "%", "%" + searchForm.chat_lieu + "%", "%" + searchForm.xuat_xu + "%",
+                    "%" + searchForm.mau_sac + "%", "%" + searchForm.gioi_tinh + "%", "%" + searchForm.kieu_dang + "%", "%" + searchForm.de_giay + "%");
 
-        }else {
-            giayChiTietList = giayChiTietDAO.getSearchsanphamByTT("%"+searchForm.tensp+"%",
-                    searchForm.tien_min,searchForm.tien_max,
-                    "%"+searchForm.thuong_hieu+"%","%"+searchForm.kich_co+"%","%"+searchForm.chat_lieu+"%","%"+searchForm.xuat_xu+"%",
-                    "%"+searchForm.mau_sac+"%","%"+searchForm.gioi_tinh+"%","%"+searchForm.kieu_dang+"%","%"+searchForm.de_giay+"%");
+        } else {
+            giayChiTietList = giayChiTietDAO.getSearchsanphamByTT("%" + searchForm.tensp + "%",
+                    searchForm.tien_min, searchForm.tien_max,
+                    "%" + searchForm.thuong_hieu + "%", "%" + searchForm.kich_co + "%", "%" + searchForm.chat_lieu + "%", "%" + searchForm.xuat_xu + "%",
+                    "%" + searchForm.mau_sac + "%", "%" + searchForm.gioi_tinh + "%", "%" + searchForm.kieu_dang + "%", "%" + searchForm.de_giay + "%");
         }
-        Pageable pageable= PageRequest.of(searchForm.page,20);
+        Pageable pageable = PageRequest.of(searchForm.page, 20);
         List<Giay> giayList = new ArrayList<>();
-        System.out.println("Mang là"+giayChiTietList.size());
+        System.out.println("Mang là" + giayChiTietList.size());
 
-        for (GiayChiTiet x:giayChiTietList
-             ) {
-            if (giayList.isEmpty()){
+        for (GiayChiTiet x : giayChiTietList
+        ) {
+            if (giayList.isEmpty()) {
                 giayList.add(x.getGiay());
-            }else {
-                boolean kq =true;
-                for (Giay a:giayList
-                     ) {
-                    if (x.getGiay().getMa().equals(a.getMa())){
-                        kq=false;
+            } else {
+                boolean kq = true;
+                for (Giay a : giayList
+                ) {
+                    if (x.getGiay().getMa().equals(a.getMa())) {
+                        kq = false;
                     }
                 }
-                if (kq==true){
+                if (kq == true) {
                     giayList.add(x.getGiay());
                 }
             }
@@ -153,7 +166,7 @@ public class TrangChuController {
     public String contact(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
-        model.addAttribute("khachHang",khachHang);
+        model.addAttribute("khachHang", khachHang);
         return "home/contact";
     }
 
@@ -163,12 +176,12 @@ public class TrangChuController {
                              @Email(message = "Địa chỉ Email không hợp lệ") String email,
                              @RequestParam("ykienphanhoi") String ykienphanhoi,
                              @RequestParam("agree") Integer agree) {
-        if (ten != null && email != null && ykienphanhoi != null && agree != null)
-        {
+        if (ten != null && email != null && ykienphanhoi != null && agree != null) {
             System.out.println(ten + email + ykienphanhoi + agree);
         }
         return "redirect:/contact";
     }
+
     @RequestMapping("/pdf")
     public String generatePdf(Model model) {
         try {
@@ -188,49 +201,162 @@ public class TrangChuController {
             // Sử dụng font không chứa dấu
 
             // Logo và tên thương hiệu
-            Image logo = new Image(ImageDataFactory.create("E:\\Spring_Boot_Java5\\DATNFE\\src\\main\\webapp\\images\\logodarlin.png")).scaleToFit(200f, 100f);;
+//            Image logo = new Image(ImageDataFactory.create("E:\\Spring_Boot_Java5\\DATNFE\\src\\main\\webapp\\images\\logodarlin.png")).scaleToFit(200f, 100f);;
+            Image logo = new Image(ImageDataFactory.create("C:\\Users\\duc27\\OneDrive\\Máy tính\\DATNHT\\DATNFE\\src\\main\\webapp\\images\\logodarlin.png")).scaleToFit(200f, 100f);
+            ;
+            float[] columnWidths1 = {150f, 200f, 400f};
+            Table headerTable = new Table(columnWidths1);
+
             Paragraph header = new Paragraph().add(logo);
-            document.add(header);
-            // Hóa đơn và thông tin ngày tháng
-            document.add(new Paragraph("HOA DON HD03").setTextAlignment(TextAlignment.RIGHT));
-            document.add(new Paragraph("Ngay: " + new Date()).setTextAlignment(TextAlignment.RIGHT));
+            header.setPaddingTop(0).setMarginTop(0);
+            Cell logoCell = new Cell().add(header);
+            logoCell.setBorder(Border.NO_BORDER);
+            logoCell.setTextAlignment(TextAlignment.LEFT);
+            logoCell.setHorizontalAlignment(HorizontalAlignment.LEFT);
+            logoCell.setVerticalAlignment(VerticalAlignment.TOP);
+            logoCell.setPaddingTop(0).setMarginTop(0);
+            headerTable.addCell(logoCell);
+
+            Paragraph infoWeb = new Paragraph();
+            PdfFont font = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
+            Text t = new Text("Darling Shop").setBold().setFontSize(17).setFont(font);
+            infoWeb.add(t);
+            infoWeb.add("\nlocalhost:8080");
+            headerTable.addCell(new Cell().add(infoWeb).setBorder(Border.NO_BORDER));
+
+            Paragraph infoParagraph = new Paragraph();
+            infoParagraph.setPaddingTop(0).setMarginTop(0);
+            infoParagraph.add(new Text("HOA DON HD03").setBold().setFontSize(23)).add("\n");
+            infoParagraph.add(new SimpleDateFormat("HH:mm 'Ngay' dd 'thang' MM 'nam' yyyy").format(new Date()));
+            Cell infoCell = new Cell().add(infoParagraph).setTextAlignment(TextAlignment.RIGHT);
+            infoCell.setBorder(Border.NO_BORDER);
+            infoCell.setTextAlignment(TextAlignment.RIGHT);
+            infoCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+            infoCell.setVerticalAlignment(VerticalAlignment.TOP);
+            infoCell.setPaddingTop(0).setMarginTop(0);
+            headerTable.addCell(infoCell);
+            headerTable.setBorder(Border.NO_BORDER);
+            document.add(headerTable);
 
             // Tiêu đề HÓA ĐƠN
-            document.add(new Paragraph("HOA DON").setFontSize(16));
+            document.add(new Paragraph("HOA DON \n").setFontSize(32).setBold());
+            document.add(new Paragraph("Nguyen Thanh Danh \n").setFontSize(20).setBold());
 
             // Thông tin khách hàng
-            document.add(new Paragraph("Tên khách hàng: Nguyen Thanh Danh"));
-            document.add(new Paragraph("So dien thoai khach hang: 0385090080"));
-            document.add(new Paragraph("Dia chi khach hang: Ha Nam, Ha Noi"));
-
+            float[] columnWidths2 = {200f, 50f, 50f, 50f};
+            Table table2 = new Table(columnWidths2)
+                    .setTextAlignment(TextAlignment.LEFT)
+                    .setBorder(Border.NO_BORDER)
+                    .setMarginTop(2);
+            table2.addCell(
+                    new Cell().setBorder(Border.NO_BORDER).add(
+                            new Paragraph().add("Tên khách hàng \n So dien thoai khach hang \n Dia chi khach hang")));
+            table2.addCell(
+                    new Cell().setBorder(Border.NO_BORDER).add(
+                            new Paragraph().add("Nguyen Thanh Danh \n 0385090080 \n Ha Nam, Ha Noi")));
+            document.add(table2);
+            document.add(new Paragraph("\n\n"));
             // Bảng chi tiết sản phẩm
-            float[] columnWidths = {200f, 50f, 50f, 50f};
-            Table table = new Table(columnWidths).setTextAlignment(TextAlignment.CENTER);
-            table.addHeaderCell(new Paragraph("Ten SP"));
-            table.addHeaderCell(new Paragraph("So luong"));
-            table.addHeaderCell(new Paragraph("Don Gia"));
-            table.addHeaderCell(new Paragraph("Thanh Tien"));
+            float[] columnWidths = {200f, 200f, 200f, 200f};
+            Table table = new Table(columnWidths)
+                    .setTextAlignment(TextAlignment.LEFT)
+                    .setBorder(Border.NO_BORDER);
+            table.addHeaderCell(new Cell().add(new Paragraph("Ten SP").setBold().setFontSize(12)).setBorder(Border.NO_BORDER));
+            table.addHeaderCell(new Cell().add(new Paragraph("So luong").setBold().setFontSize(12)).setBorder(Border.NO_BORDER));
+            table.addHeaderCell(new Cell().add(new Paragraph("Don Gia").setBold().setFontSize(12)).setBorder(Border.NO_BORDER));
+            table.addHeaderCell(new Cell().add(new Paragraph("Thanh Tien").setBold().setFontSize(12)).setBorder(Border.NO_BORDER));
 
             // Thêm sản phẩm (đây chỉ là ví dụ, bạn cần thay thế bằng dữ liệu thực tế)
-            table.addCell(new Paragraph("San pham 1"));
-            table.addCell(new Paragraph("2"));
-            table.addCell(new Paragraph("$50"));
-            table.addCell(new Paragraph("$100"));
-
-            table.addCell(new Paragraph("San pham 2"));
-            table.addCell(new Paragraph("1"));
-            table.addCell(new Paragraph("$30"));
-            table.addCell(new Paragraph("$30"));
-
+            int index = 5;
+            for (int i = 0; i < index; i++) {
+                table.addCell(new Cell().add(new Paragraph("\nSan pham 1\n"))
+                        .setBorderLeft(Border.NO_BORDER)
+                        .setBorderRight(Border.NO_BORDER)
+                        .setBorderBottom(Border.NO_BORDER));
+                table.addCell(new Cell().add(new Paragraph("\n2\n"))
+                        .setBorderLeft(Border.NO_BORDER)
+                        .setBorderRight(Border.NO_BORDER)
+                        .setBorderBottom(Border.NO_BORDER));
+                table.addCell(new Cell().add(new Paragraph("\n$50\n"))
+                        .setBorderLeft(Border.NO_BORDER)
+                        .setBorderRight(Border.NO_BORDER)
+                        .setBorderBottom(Border.NO_BORDER));
+                table.addCell(new Cell().add(new Paragraph("\n$100\n"))
+                        .setBorderLeft(Border.NO_BORDER)
+                        .setBorderRight(Border.NO_BORDER)
+                        .setBorderBottom(Border.NO_BORDER));
+            }
+            table.setBorder(Border.NO_BORDER);
             document.add(table);
 
             // Thông tin thanh toán
-            document.add(new Paragraph("Tong tien: $130").setTextAlignment(TextAlignment.RIGHT));
-            document.add(new Paragraph("Giam gia: $10").setTextAlignment(TextAlignment.RIGHT));
-            document.add(new Paragraph("Phi Ship: $5").setTextAlignment(TextAlignment.RIGHT));
 
-            // Tong thanh toan
-            document.add(new Paragraph("Tong thanh toan: $125").setTextAlignment(TextAlignment.RIGHT));
+            float[] columnWidths3 = {200f, 200f, 200f, 200f};
+            Table table3 = new Table(columnWidths3)
+                    .setTextAlignment(TextAlignment.LEFT)
+                    .setBorder(Border.NO_BORDER);
+            //dong1
+            table3.addCell(new Cell().setBorder(Border.NO_BORDER));
+            table3.addCell(new Cell().setBorder(Border.NO_BORDER));
+            table3.addCell(
+                    new Cell()
+                            .setTextAlignment(TextAlignment.RIGHT)
+                            .setBorder(Border.NO_BORDER)
+                            .add(new Paragraph("Tong tien: ")));
+            table3.addCell(
+                    new Cell()
+                            .setTextAlignment(TextAlignment.LEFT)
+                            .setBorder(Border.NO_BORDER)
+                            .add(new Paragraph("$130")));
+
+            //dong2
+            table3.addCell(new Cell().setBorder(Border.NO_BORDER));
+            table3.addCell(new Cell().setBorder(Border.NO_BORDER));
+            table3.addCell(
+                    new Cell()
+                            .setTextAlignment(TextAlignment.RIGHT)
+                            .setBorder(Border.NO_BORDER)
+                            .add(new Paragraph("Giam gia: ")));
+            table3.addCell(
+                    new Cell()
+                            .setTextAlignment(TextAlignment.LEFT)
+                            .setBorder(Border.NO_BORDER)
+                            .add(new Paragraph("$10")));
+
+            //dong3
+            table3.addCell(new Cell().setBorder(Border.NO_BORDER));
+            table3.addCell(new Cell().setBorder(Border.NO_BORDER));
+            table3.addCell(
+                    new Cell()
+                            .setTextAlignment(TextAlignment.RIGHT)
+                            .setBorder(Border.NO_BORDER)
+                            .add(new Paragraph("Phi Ship: ")));
+            table3.addCell(
+                    new Cell()
+                            .setTextAlignment(TextAlignment.LEFT)
+                            .setBorder(Border.NO_BORDER)
+                            .add(new Paragraph("$5")));
+
+            //dong4
+//            com.itextpdf.kernel.color.Color myColor = new DeviceRgb(255, 100, 20);
+            Color color= new DeviceRgb(0,0,128);
+            table3.addCell(new Cell().setBorder(Border.NO_BORDER));
+            table3.addCell(new Cell().setBorder(Border.NO_BORDER));
+            table3.addCell(
+                    new Cell()
+                            .setTextAlignment(TextAlignment.RIGHT)
+                            .setBorder(Border.NO_BORDER)
+                            .setFontColor(color)
+                            .add(new Paragraph("Tong thanh toan: ")));
+            table3.addCell(
+                    new Cell()
+                            .setTextAlignment(TextAlignment.LEFT)
+                            .setBorder(Border.NO_BORDER)
+                            .setFontColor(color)
+                            .add(new Paragraph("$125")));
+            document.add(new Paragraph("\n\n"));
+            document.add(table3);
+
         }
     }
 }

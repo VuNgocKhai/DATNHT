@@ -140,7 +140,17 @@ public class NhanVienController {
     public String delete(@PathVariable String ma) {
         nhanVienService.deleteByMa(ma);
         return "redirect:/admin/nhan-vien?number="+numberCurrent;
+    }
 
+    @ResponseBody
+    @GetMapping("/isExist/{email}")
+    public Boolean isExist(@PathVariable String email) {
+        NhanVien nv=nhanVienDAO.getNVByEmail(email.trim());
+        if(nv!=null){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     @ModelAttribute("listNhanVien")
