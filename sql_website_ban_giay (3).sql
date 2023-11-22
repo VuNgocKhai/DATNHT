@@ -1,5 +1,9 @@
 ﻿drop database website_ban_giay
+go
 create database website_ban_giay
+go
+use website_ban_giay
+go
 create table thuong_hieu (
 	id uniqueidentifier primary key default newid(),
 	ten_url varchar(20) default null,
@@ -69,9 +73,6 @@ create table giay (
 	foreign key (id_kieu_dang) references kieu_dang(id),
 	foreign key (id_mau_sac) references mau_sac(id)
 )
-
-
-
 create table anh_giay (
 	id uniqueidentifier primary key default newid(),
 	ten_url varchar(20) unique,
@@ -239,7 +240,7 @@ create table chuong_trinh_giam_gia_hoa_don (
 )
 create table chuong_trinh_giam_gia_chi_tiet_hoa_don (
 	id uniqueidentifier primary key default newid(),
-	id_hoa_don uniqueidentifier,
+	id_hoa_don uniqueidentifier unique,
 	id_chuong_trinh_giam_gia_hoa_don uniqueidentifier,
 	tong_tien decimal  default null,
 	so_tien_da_giam decimal  default null,
@@ -267,7 +268,6 @@ create table san_pham_yeu_thich_chi_tiet(
 INSERT INTO website_ban_giay.dbo.chuc_vu (id,ma,ten,trangthai) VALUES
 	 (N'7B52F69D-5508-4745-926F-A22F9907E523',N'CV02',N'USER',1),
 	 (N'F09E9132-7F9E-48BD-A30C-E58C9E16717E',N'CV01',N'ADMIN',1);
-
 INSERT INTO website_ban_giay.dbo.chat_lieu (id,ma,ten,trangthai) VALUES
 	 (N'2637F26C-A204-42C1-AC7F-12B8FC937C9A',N'CL7',N'Da tổng hợp',1),
 	 (N'BE5186A7-5389-4FD3-B7AF-2BC0DB126295',N'CL11',N'Vải lưới',1),
@@ -383,11 +383,11 @@ INSERT INTO website_ban_giay.dbo.kich_co (id,ma,ten,trangthai) VALUES
 	 (N'019427F5-1E52-402F-B5DC-EC17AD5F139A',N'KH02','mlb1_1.jpg',N'Nguyễn Đại','2003-08-08',N'0387090080',N'danhng@gmail.com',N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',1),
 	 (N'22B427F5-1E52-402F-B5DC-EC17AD5F139A',N'KH03','mlb1_1.jpg',N'Đào Gia Phong','2003-09-16',N'0385370656',N'phong@gmail.com',N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',1);
 	 INSERT INTO website_ban_giay.dbo.dia_chi (id,ma,id_khach_hang,ten_dia_chi,ten_nguoi_nhan,sdt_nguoi_nhan,xa,huyen,thanh_pho,trangthai) VALUES
-	 (N'FD4A021B-4231-419C-9ADE-3F4FB6E86DE1',N'DC05',N'019427F5-1E52-402F-B5DC-EC17AD5F139A',N'Xóm 1 Triều Đông',N'Nguyễn Thành Danh',N'0385090080',N'Tân Minh',N'Thường Tín',N'Hà Nội',1),
-	 (N'8B5AC57C-583E-4D62-88B4-558EF2FE3181',N'DC01',N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'Xóm 1 Triều Đông',N'Nguyễn Thành Danh',N'0385090080',N'Tân Minh',N'Thường Tín',N'Hà Nội',1),
-	 (N'1B1D2309-170B-46CA-B4A8-60C8E78D7962',N'DC02',N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'Xóm 1 Triều Đông',N'Nguyễn Thành Danh',N'0385090080',N'Tân Minh',N'Thường Tín',N'Hà Nội',1),
-	 (N'DB77537F-1E64-4850-B464-D570CF525128',N'DC04',N'019427F5-1E52-402F-B5DC-EC17AD5F139A',N'Xóm 1 Triều Đông',N'Nguyễn Thành Danh',N'0385090080',N'Tân Minh',N'Thường Tín',N'Hà Nội',1),
-	 (N'FFA06F58-24F6-47E5-81BF-E30725A85957',N'DC03',N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'Xóm 1 Triều Đông',N'Nguyễn Thành Danh',N'0385090080',N'Tân Minh',N'Thường Tín',N'Hà Nội',1);
+	 (N'FD4A021B-4231-419C-9ADE-3F4FB6E86DE1',N'DC05',N'019427F5-1E52-402F-B5DC-EC17AD5F139A',N'Xóm 1 Triều Đông',N'Nguyễn Thành Danh',N'0385090080',N'Xã Tân Minh',N'Huyện Thường Tín',N'Thành phố Hà Nội',0),
+	 (N'8B5AC57C-583E-4D62-88B4-558EF2FE3181',N'DC01',N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'Xóm 1 Triều Đông',N'Nguyễn Thành Danh',N'0385090080',N'Xã Tân Minh',N'Huyện Thường Tín',N'Thành phố Hà Nội',1),
+	 (N'1B1D2309-170B-46CA-B4A8-60C8E78D7962',N'DC02',N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'Xóm 1 Triều Đông',N'Nguyễn Thành Danh',N'0385090080',N'Xã Tân Minh',N'Huyện Thường Tín',N'Thành phố Hà Nội',0),
+	 (N'DB77537F-1E64-4850-B464-D570CF525128',N'DC04',N'019427F5-1E52-402F-B5DC-EC17AD5F139A',N'Xóm 1 Triều Đông',N'Nguyễn Thành Danh',N'0385090080',N'Xã Tân Minh',N'Huyện Thường Tín',N'Thành phố Hà Nội',1),
+	 (N'FFA06F58-24F6-47E5-81BF-E30725A85957',N'DC03',N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843',N'Xóm 1 Triều Đông',N'Nguyễn Thành Danh',N'0385090080',N'Xã Tân Minh',N'Huyện Thường Tín',N'Thành phố Hà Nội',0);
 	 INSERT INTO website_ban_giay.dbo.gio_hang (id,ma,id_khach_hang,ngay_tao,ngay_cap_nhap,ghi_chu,trangthai) VALUES
 	 (N'D40A87D4-F3FF-4F92-8394-F793F75B1639',N'GH01',N'BB772ACE-91FF-4CBE-83DE-EA5E80FA3843','2023-11-06','2023-11-06',N'1',1);
 	 INSERT INTO website_ban_giay.dbo.gio_hang_chi_tiet (id,id_gio_hang,id_giay_chi_tiet,so_luong,ghi_chu,trangthai) VALUES
@@ -439,4 +439,11 @@ INSERT INTO website_ban_giay.dbo.kich_co (id,ma,ten,trangthai) VALUES
 	 (N'845D57C3-0F44-BB47-982C-F7FBD8C5B0E7',N'mlb3.jpg',N'597A9673-6929-D342-96DC-0A4C47E3CC7B',NULL);
 
 	 select * from khach_hang
+	 select * from dia_chi
+	 select * from hoa_don
+	 select * from hoa_don_chi_tiet
 
+	 delete from chuong_trinh_giam_gia_chi_tiet_hoa_don
+	 delete from chuong_trinh_giam_gia_hoa_don
+	 delete from hoa_don_chi_tiet
+	 delete from hoa_don

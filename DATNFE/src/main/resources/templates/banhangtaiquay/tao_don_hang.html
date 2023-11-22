@@ -12,6 +12,15 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
+        .custom-table {
+            font-size: 13px;
+        }
+
+        .card:hover {
+            border: 2px solid dodgerblue;
+            border-radius: 5px;
+        }
+
         #listGCTTable {
             table-layout: fixed;
             table-layout: fixed;
@@ -46,10 +55,9 @@
         /* Hiệu ứng border nổi cho các thẻ địa chỉ */
         .address-card {
             border: 1px solid #ccc;
-            border-radius: 10px;
             padding: 10px;
             background-color: #fff;
-            margin-bottom: 10px;
+            margin-bottom: 7px;
         }
 
         /* Tạo khoảng cách giữa tiêu đề và nút radio */
@@ -208,93 +216,88 @@
                 </ul>
             </div>
         </nav>
-
-        <!--        Chọn các sản phẩm cần thêm vào hóa đơn + header-->
-        <div class="container bg-light" style="border: 2px solid #ccc; padding: 20px; border-radius: 10px;">
-            <div class="row">
-                <div class="col-5">
-                    <h4 class="page-title" style="color: #721c24">Các Sản Phẩm Đã Chọn</h4>
-                </div>
-                <div class="col-3"></div>
-                <div class="col-4">
-                    <button class="btn btn-info waves-effect waves-light" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                        <span class="btn-label"><i class="bi bi-plus-square"></i></span> Chọn Sản Phẩm
-                    </button>
-                </div>
-            </div>
-            <!--            Model chọn sản phẩm-->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content" style="background-color: #d4d4d4">
-                        <br>
-                        <form class="form-inline search-form" th:action="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}}"
-                              method="get">
-                            <div class="form-group mx-sm-3 mb-2">
-                                <input hidden="" type="text" class="form-control" name="maHD" th:value="${maHD}"
-                                       placeholder="Tìm Kiếm ">
-                                <input type="text" class="form-control" id="keyword" name="keyword"
-                                       placeholder="Tìm Kiếm ">
-
-                                <select class="form-control" id="size" name="size" style="margin-left: 20px">
-                                    <option value="">Tất Cả</option>
-                                    <span th:each="dskichco:${dskichco}">
-                                        <option th:value="${dskichco.ten}">[[${dskichco.ten}]]</option>
-                                    </span>
-                                </select>
+        <!--            Begin Modal chọn sản phẩm-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content" style="background-color: #f3f1f1">
+                    <br>
+                    <!--                    Begin tìm kiếm trong modal-->
+                    <form class="form-inline search-form" th:action="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}}"
+                          method="get">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <input hidden type="text" class="form-control" name="maHD" th:value="${maHD}">
+                            <input type="text" class="form-control-sm" id="keyword" name="keyword">
+                            <select class="form-control-sm" id="size" name="size"
+                                    style="margin-left: 20px">
+                                <option value="">Tất Cả</option>
+                                <span th:each="dskichco:${dskichco}">
+                                    <option th:value="${dskichco.ten}">[[${dskichco.ten}]]</option>
+                                </span>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-sm btn-primary mb-2" id="searchButton">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                    <!--                    End tìm kiếm trong modal-->
+                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-to-cart}" method="post">
+                        <div class="modal-body" style="padding-top: 0px; padding-bottom: 0px" id="ListGiayChiTiettable">
+                            <div th:if="${ListGiayChiTiet.content.isEmpty()}">
+                                <i style="font-size: 3rem"
+                                   class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>
+                                <div class="text-center d-flex justify-content-center align-items-center">No Data</div>
                             </div>
-                            <button type="sVoucherubmit" class="btn btn-primary mb-2" id="searchButton">Tìm Kiếm
-                            </button>
-                        </form>
-                        <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-to-cart}" method="post">
-                            <div class="modal-body" id="ListGiayChiTiettable">
-                                <div th:if="${ListGiayChiTiet.content.isEmpty()}">
-                                    <h4 style="text-align: center">Danh Sách Giày Trống !</h4>
-                                </div>
-                                <div th:each="gct:${ListGiayChiTiet.content}" class="address-card">
-                                    <div class="row">
-                                        <div class="col-2"
-                                             style="display: flex; justify-content: center; align-items: center;">
-                                            <input type="checkbox" style="width: 35px; height: 35px;"
-                                                   th:value="${gct.id}" th:name="selectedIds">
-                                        </div>
-                                        <div class="col-7 row">
-                                            <div class="col-5">
-                                                <img style="width: 100px"
-                                                     th:src="@{|/images/${gct.giay.getAnhDau(gct.giay.anhs)}|}" alt="">
+                            <div class="row mt-4">
+                                <div th:each="gct:${ListGiayChiTiet.content}" class="col-md-3 mb-2">
+                                    <div class="card mb-3" style="max-width: 540px;border: 2px solid black">
+                                        <div class="row g-0">
+                                            <div class="col-md-4">
+                                                <input type="checkbox"
+                                                       style="width: 25px; height: 25px;  position: absolute; top: 6px;left: 20px;"
+                                                       th:value="${gct.id}" th:name="selectedIds">
+                                                <img style="width: 6rem;"
+                                                     th:src="@{|/images/${gct.giay.getAnhDau(gct.giay.anhs)}|}"
+                                                     alt="" class="d-flex align-items-center">
+                                                <div style="font-size: 12px; position: absolute; bottom: 12px;left: 20px;">
+                                                    <span style="color: #86862f"> Giá: </span>
+                                                    [[${gct.giay.gia_sau_khuyen_mai}]]
+                                                </div>
                                             </div>
-                                            <div class="col-7">
-                                                <span style="margin: auto">
-                                                    <span style="color: #721c24">Tên Giày: </span> [[${gct.giay.ten}]]<br>
-                                                    <span style="color: #86862f"> Giá Bán: </span>
-                                                    <span style="color: #86862f" class="giaBan">[[${gct.giay.gia_sau_khuyen_mai}]] </span> <br>
-                                                    <span style="color: darkgreen">Kích Cỡ: </span> [[${gct.kich_co.ten}]]<br>
-                                                    <span style="color: #3e3ea4">Số lượng tồn:</span> [[${gct.so_luong_ton}]]
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <span>
-                                                Số Lượng:
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <button type="button" class="btn btn-outline-secondary"
-                                                                onclick="decrementValue(this)">
-                                                            -
-                                                        </button>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <div class="text-center"
+                                                         style="font-weight: bolder;font-size: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                                        [[${gct.giay.ten}]]
                                                     </div>
-                                                    <input type="number" class="form-control col-4 bg-secondary"
-                                                           th:name="'quantity[' + ${gct.id} + ']'" value="1"
-                                                           th:data-max-stock="${gct.so_luong_ton}">
-                                                    <div class="input-group-append">
-                                                        <button type="button" class="btn btn-outline-secondary"
-                                                                onclick="incrementValue(this)">
-                                                            +
-                                                        </button>
+                                                    <div style="font-size: 12px">
+                                                        <span style="color: darkgreen">Size: </span>
+                                                        [[${gct.kich_co.ten}]] -
+                                                        <span style="color: #3e3ea4">Tồn:</span>
+                                                        [[${gct.so_luong_ton}]]
+                                                    </div>
+
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <button type="button" style="border: none;background: none"
+                                                                    class="btn-sm bi bi-dash-circle"
+                                                                    onclick="decrementValue(this)">
+                                                            </button>
+                                                        </div>
+                                                        <input type="number"
+                                                               style="border: none; border-bottom: 1px solid #000;background: none; border-radius: 0;"
+                                                               class="col-4"
+                                                               th:name="'quantity[' + ${gct.id} + ']'" value="1"
+                                                               th:data-max-stock="${gct.so_luong_ton}">
+                                                        <div class="input-group-append">
+                                                            <button type="button" style="border: none;background: none"
+                                                                    class="btn-sm bi bi-plus-circle"
+                                                                    onclick="incrementValue(this)">
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -330,573 +333,575 @@
                                 </ul>
                             </nav>
                             <!--            nav-->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <div class="modal-header">
-                                    <input type="hidden" class="form-control" th:name="maHD" th:value="${maHD}">
-                                    <button type="submit" class="btn btn-success"
-                                            style="float: right;text-decoration: none;">
-                                        Chọn Sản Phẩm (<span id="selectedCount">0</span>)
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!--            End modal chọn sản phẩm-->
-        </div>
-        <!--        End Chọn các sản phẩm cần thêm vào hóa đơn + header-->
-
-        <div style="margin-top: 20px"></div>
-
-        <!--        Danh sách sản phẩm đã chọn -->
-        <div class="container bg-light" style="border: 2px solid #ccc; padding: 20px; border-radius: 10px;">
-            <table class="table table-hover">
-                <thead class="thead-light">
-                <tr>
-                    <th scope="col" style="text-align: center">Ảnh</th>
-                    <th scope="col" style="text-align: center">Sản Phẩm</th>
-                    <th scope="col" style="text-align: center">Size</th>
-                    <th scope="col" style="text-align: center">Số Lượng</th>
-                    <th scope="col" style="text-align: center">Đơn Giá</th>
-                    <th scope="col" style="text-align: center">Thao Tác</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:if="${hoaDonChiTietPage.content.isEmpty()}">
-                    Danh sách trống
-                </tr>
-                <tr th:each="hdct:${hoaDonChiTietPage.content}">
-                    <td>
-                        <span th:if="${hdct.giayChiTiet == null}"></span>
-                        <span class="d-flex justify-content-center align-items-center"
-                              th:if="${hdct.giayChiTiet != null}">
-                            <img style="width: 100px"
-                                 th:src="@{|/images/${hdct.giayChiTiet.giay.getAnhDau(hdct.giayChiTiet.giay.anhs)}|}"
-                                 alt="">
-                        </span>
-                    </td>
-                    <td>
-                        <span th:if="${hdct.giayChiTiet == null}"></span>
-                        <span class="d-flex justify-content-center align-items-center"
-                              th:if="${hdct.giayChiTiet != null}">
-                            [[${hdct.giayChiTiet.giay.ten}]]
-                        </span>
-                    </td>
-                    <td>
-                        <span th:if="${hdct.giayChiTiet == null}"></span>
-                        <span class="d-flex justify-content-center align-items-center"
-                              th:if="${hdct.giayChiTiet != null}">
-                            [[${hdct.giayChiTiet.kich_co.ten}]]
-                        </span>
-                    </td>
-                    <td>
-                        <span th:if="${hdct.so_luong == null}"></span>
-                        <span class="d-flex justify-content-center align-items-center"
-                              th:if="${hdct.so_luong != null}">
-                                <div class="input-group">
-                                    <form action="/giam/so-luong-hoa-don" method="post">
-                                       <input type="hidden" class="form-control" th:name="maHD"
-                                              th:value="${hdct.hoaDon.ma}">
-                                            <input type="hidden" class="form-control small-input" th:name="idctsp"
-                                                   th:value="${hdct.giayChiTiet.id}">
-                                        <div class="input-group-prepend">
-                                            <button type="submit" class="btn btn-outline-secondary"
-                                                    onclick="decrementValue(this)"><i
-                                                    class="bi bi-dash-circle-fill"></i></button>
-                                        </div>
-                                    </form>
-                                        <input type="number" style="width: 30px"
-                                               class="form-control bg-secondary text-center" th:name="soluong"
-                                               th:value="${hdct.so_luong}"
-                                               th:data-max-stock="${hdct.giayChiTiet.so_luong_ton} + ${hdct.so_luong}">
-                                    <form action="/add/so-luong-hoa-don" method="post" id="soLuongForm">
-                                        <input type="hidden" class="form-control" th:name="maHD"
-                                               th:value="${hdct.hoaDon.ma}">
-                                        <input type="hidden" class="form-control small-input" th:name="idctsp"
-                                               th:value="${hdct.giayChiTiet.id}">
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-outline-secondary"
-                                                    onclick="incrementValue(this)"><i
-                                                    class="bi bi-plus-circle-fill"></i>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </span>
-                    </td>
-                    <td>
-                        <span th:if="${hdct.don_gia == null}"></span>
-                        <span class="d-flex justify-content-center align-items-center giaBan"
-                              th:if="${hdct.don_gia != null}">
-                            [[${hdct.don_gia}]]
-                        </span>
-                    </td>
-                    <td class="d-flex justify-content-center align-items-center"
-                        th:if="${hdct.giayChiTiet != null}">
-                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                           th:href="@{|/admin/ban-hang-tai-quay/tao-don-hang/delete/${hdct.hoaDon.ma}/${hdct.giayChiTiet.id}/${hdct.so_luong}|}">
-                            <i style="font-size: 2rem; color: red;" class="bi bi-x-square"></i>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <!--            nav-->
-            <nav aria-label="Page navigation example"
-                 style="display: flex;justify-content: space-between;">
-                <div style="margin-left: 20px">
-                    <p>Bạn đang xem [[${hoaDonChiTietPage.numberOfElements}]] trên tổng số
-                        [[${hoaDonChiTietPage.totalElements}]]</p>
-                </div>
-                <ul class="pagination" style="margin-right: 24px;">
-                    <li class="page-item">
-                        <a class="page-link" th:if="${hoaDonChiTietPage.number > 0}"
-                           th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${hoaDonChiTietPage.number-1}|}"
-                           aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-
-                    <li th:each="tongtrang,status:${#numbers.sequence(1, hoaDonChiTietPage.totalPages)}"
-                        class="page-item"><a class="page-link"
-                                             th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${status.index}|}">[[${status.index+1}]]</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link"
-                           th:if="${hoaDonChiTietPage.number < hoaDonChiTietPage.totalPages - 1}"
-                           th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${hoaDonChiTietPage.number+1}|}"
-                           aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <!--            nav-->
-        </div>
-        <!--     End Danh sách sản phẩm đã chọn-->
-
-        <div style="margin-top: 20px"></div>
-
-        <!--        Chọn khách hàng-->
-        <div class="container bg-light" style="border: 2px solid #ccc; padding: 20px; border-radius: 10px;">
-            <div class="row">
-                <div class="col-5">
-                    <h4 class="page-title" style="color: coral">Tài Khoản</h4>
-                </div>
-                <div class="col-3"></div>
-                <div class="col-4">
-                    <button class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal1"><i
-                            class="bi bi-person-vcard-fill"></i> Chọn Khách Hàng
-                    </button>
-                </div>
-            </div>
-            <hr style="border: 1px solid #000">
-            <div>
-                <span>
-                    <label style="font-weight: bold;color: #721c24"><i class="bi bi-person-vcard-fill"></i> Tên Khách Hàng:</label>
-                    <span style="margin-left: 25px" th:if="${KhachHangDetail == null}"> Khách Lẻ</span>
-                    <span style="margin-left: 25px"
-                          th:if="${KhachHangDetail != null}">[[${KhachHangDetail.hoten}]]</span>
-                </span>
-                <span th:if="${KhachHangDetail != null}">
-                    <br>
-                    <label style="font-weight: bold;color: #de6a6a"><i class="bi bi-person-bounding-box"></i> Tên Tài Khoản:</label>
-                    <span style="margin-left: 25px" th:if="${KhachHangDetail != null}"
-                          th:text="${KhachHangDetail.email}"></span>
-                </span>
-                <span th:if="${KhachHangDetail != null}">
-                    <br>
-                    <label style="font-weight: bold;color: #4949b8"><i
-                            class="bi bi-telephone"></i> Số Điện Thoại:</label>
-                    <span style="margin-left: 25px" th:if="${KhachHangDetail != null}"
-                          th:text="${KhachHangDetail.sdt}"></span>
-                </span>
-                <span th:if="${KhachHangDetail != null}">
-                    <br>
-                    <label style="font-weight: bold;color: #919138"><i
-                            class="bi bi-envelope-paper-fill"></i> Email:</label>
-                    <span style="margin-left: 25px" th:if="${KhachHangDetail != null}"
-                          th:text="${KhachHangDetail.email}"></span>
-                </span>
-            </div>
-
-            <!--            Model chọn khách hàng-->
-            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-xl">
-                    <div class="modal-content" style="background-color: #d4d4d4">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Chọn Tài Khoản Khách Hàng</h5>
-                        </div>
-                        <div class="modal-body">
-                            <table id="ListKhachHangTable"
-                                   class="table table-hover">
-                                <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">Mã</th>
-                                    <th scope="col">Họ Tên</th>
-                                    <th scope="col">Ngày Sinh</th>
-                                    <th scope="col">SDT</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                                </thead>
-                                <tbody style="max-height: 300px; overflow-y: auto;">
-                                <!-- Dữ liệu của tbody -->
-                                <tr th:if="${ListKhachHang.isEmpty()}">
-                                    <td colspan="9">Danh Sách Khách Hàng Trống</td>
-                                </tr>
-                                <tr th:each="kh:${ListKhachHang}">
-                                    <th>[[${kh.ma}]]</th>
-                                    <th>[[${kh.hoten}]]</th>
-                                    <th>[[${kh.ngaysinh}]]</th>
-                                    <th>[[${kh.sdt}]]</th>
-                                    <th>[[${kh.email}]]</th>
-                                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-khach-hang}"
-                                          method="post">
-                                        <th>
-                                            <input type="hidden" class="form-control" th:name="maKH"
-                                                   th:value="${kh.ma}">
-                                            <input type="hidden" class="form-control" th:name="maHD"
-                                                   th:value="${maHD}">
-                                            <button type="submit" class="btn btn-link" style="text-decoration: none;">
-                                                <i class="bi bi-plus-circle"></i>
-                                                Chọn
-                                            </button>
-                                        </th>
-                                    </form>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <!--            end phần table-->
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <div class="modal-header">
+                                <input type="hidden" class="form-control" th:name="maHD" th:value="${maHD}">
+                                <button type="submit" class="btn btn-success"
+                                        style="float: right;text-decoration: none;">
+                                    Chọn Sản Phẩm (<span id="selectedCount">0</span>)
+                                </button>
+                            </div>
                         </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--            End Modal chọn sản phẩm-->
+
+        <!--            Begin Model chọn khách hàng-->
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content " style="background-color: #ffffff">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Chọn Tài Khoản Khách Hàng</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div id="searchKH" class="d-flex align-items-center">
+                            <input type="text" class="form-control col-6 m-r-1" style="border: 1px solid black">
+                            <button class="btn btn-primary">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                        <table id="ListKhachHangTable" style="margin-top: 15px" class="table table-hover">
+                            <tbody style="max-height: 300px; overflow-y: auto;">
+                            <!-- Dữ liệu của tbody -->
+                            <tr th:if="${ListKhachHang.isEmpty()}">
+                                <td colspan="9">Danh Sách Khách Hàng Trống</td>
+                            </tr>
+                            <tr th:each="kh:${ListKhachHang}">
+                                <th style="width: 8rem">
+                                    <i style="font-size: 3rem" class="bi bi-person-circle"></i>
+                                </th>
+                                <th style="width: 15rem">Mã KH: [[${kh.ma}]]
+                                    <br>
+                                    Tên: [[${kh.hoten}]]
+                                    <br>
+                                    Ngày sinh: [[${kh.ngaysinh}]]
+                                </th>
+                                <th style="width: 15rem">
+                                    SĐT: [[${kh.sdt}]]
+                                    <br>
+                                    Email: [[${kh.email}]]
+                                </th>
+                                <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-khach-hang}"
+                                      method="post">
+                                    <th style="width: 7rem">
+                                        <input type="hidden" class="form-control" th:name="maKH"
+                                               th:value="${kh.ma}">
+                                        <input type="hidden" class="form-control" th:name="maHD"
+                                               th:value="${maHD}">
+                                        <div style="margin-top: 20px">
+                                            <button type="submit" class="btn btn-primary"
+                                                    style="text-decoration: none;">
+                                                Chọn
+                                            </button>
+                                        </div>
+                                    </th>
+                                </form>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--            end phần table-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
                     </div>
                 </div>
             </div>
-            <!--            End modal chọn khách hàng-->
         </div>
-        <!--        End chọn khách hàng-->
+        <!--            End Model chọn khách hàng-->
 
-        <div style="margin-top: 20px"></div>
-
-        <!--        Chọn Địa chỉ và Voucher-->
-        <div class="container bg-light" style="border: 2px solid #ccc; padding: 20px; border-radius: 10px;">
-            <div class="row">
-                <div class="col-5">
-                    <h4 class="page-title" style="color: #8d8d39">Khách Hàng</h4>
-                </div>
-                <div class="col-3">
-                </div>
-                <div class="col-4">
-                    <button th:if="${KhachHangDetail != null}" id="nutChonDiaChi" style="display: none"
-                            class="btn btn-warning waves-effect waves-light" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal2">
-                        <i class="bi bi-geo-alt-fill"></i>
-                        Chọn Địa Chỉ
-                    </button>
-                    <!-- Modal chọn địa chỉ -->
-                    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Chọn Địa Chỉ Khách Hàng</h5>
-                                </div>
-                                <div class="modal-body" style="background-color: #ddd">
+        <!--            Begin Modal chọn địa chỉ -->
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Chọn Địa Chỉ Khách Hàng</h5>
+                    </div>
+                    <div class="modal-body" style="background-color: #ddd">
+                        <div>
+                            <div id="searchDC" class="d-flex align-items-center">
+                                <input type="text" class="form-control col-6">
+                                <button class="btn btn-primary">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                            <div style="margin-top: 15px" th:if="${KhachHangcheck == null}">
+                                <i style="font-size: 3rem"
+                                   class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>
+                                <div class="text-center d-flex justify-content-center align-items-center">No Data</div>
+                            </div>
+                            <div style="margin-top: 15px" th:if="${KhachHangcheck != null}" th:each="dc:${ListDiaChi}" class="address-card">
+                                <div class="row">
+                                    <div class="col-2 d-flex justify-content-center align-items-center">
+                                        <i style="font-size: 3rem; color: cornflowerblue;"
+                                           class="bi bi-geo-alt-fill bi-3x"></i>
+                                    </div>
+                                    <div class="col-8">
+                                        <div>
+                                            <span style="color: black">Tên người nhận: </span>
+                                            [[${dc.ten_nguoi_nhan}]]
+                                        </div>
+                                        <div>
+                                            <span style="color: black">SĐT người nhận: </span>
+                                             [[${dc.sdt_nguoi_nhan}]]
+                                        </div>
+                                        <div>
+                                            <span style="color: black">Địa chỉ:</span>
+                                            [[${dc.tendiachi}]]
+                                        </div>
+                                        <div>
+                                            [[${dc.xa}]] - [[${dc.huyen}]] - [[${dc.thanhpho}]]
+                                        </div>
+                                    </div>
                                     <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-dia-chi}"
                                           method="post">
-                                        <input type="hidden" class="form-control" th:name="maHD" th:value="${maHD}">
-                                        <div>
-                                            <div th:if="${KhachHangcheck == null}">
-                                                Khách hàng này chưa có địa chỉ
-                                            </div>
-                                            <div th:if="${KhachHangcheck != null}" th:each="dc:${ListDiaChi}"
-                                                 class="address-card">
-                                                <div class="row">
-                                                    <div class="col-2 d-flex justify-content-center align-items-center">
-                                                        <i style="font-size: 3rem; color: cornflowerblue;"
-                                                           class="bi bi-geo-alt-fill bi-3x"></i>
-                                                    </div>
-                                                    <div class="col-7">
-                                                        <h6>
-                                                            [[${dc.khachHang.hoten}]] |
-                                                            <span style="color: darkgray;">[[${dc.khachHang.sdt}]]</span>
-                                                        </h6>
-                                                        <div>
-                                                            <span style="color: black">
-                                                                Địa chỉ:
-                                                            </span>
-                                                            [[${dc.tendiachi}]]
-                                                        </div>
-                                                        <div>
-                                                            Xã : [[${dc.xa}]] , Huyện : [[${dc.huyen}]] , Thành Phố :
-                                                            [[${dc.thanhpho}]]
-                                                        </div>
-                                                        <div class="col-5" style="border: 2px solid red"
-                                                             th:if="${dc.trangthai == 1}">
-                                                            <span style="margin: 2px;color: red">
-                                                                 Địa chỉ mặc định
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3 d-flex justify-content-center align-items-center">
-                                                        <input type="radio" class="form-control" th:name="maDC"
-                                                               th:value="${dc.madc}"
-                                                               th:checked="${dc.trangthai == 1}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <button type="submit" class="btn btn-success btn-block" id="submitBtn">
-                                                    Xác Nhận
+                                        <div class="col-2 d-flex justify-content-center align-items-center">
+                                            <input type="hidden" class="form-control" th:name="maDC"
+                                                   th:value="${dc.madc}">
+                                            <input type="hidden" class="form-control" th:name="maHD" th:value="${maHD}">
+                                            <div style="margin-top: 24px">
+                                                <button type="submit" class="btn btn-success" id="submitBtn">
+                                                    Chọn
                                                 </button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                                    </button>
-                                </div>
                             </div>
                         </div>
+
                     </div>
-                    <!-- End modal chọn địa chỉ -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                        </button>
+                    </div>
                 </div>
             </div>
-            <hr style="border: 1px solid #000">
-            <div class="row">
-                <form action="/admin/ban-hang-tai-quay/tao-don-hang/add-dia-chi1" method="post"
-                      id="address-form">
-                    <div class="row">
-                        <div class="col-6">
-                     <span id="diaChiSection" class="col-12">
-                        <br>
-                        <label>
-                            <h5 style="color: green">Thông tin Khách Hàng</h5>
-                        </label>
-                        <br>
+        </div>
+        <!--            End Modal chọn địa chỉ -->
 
-                              <input type="hidden" class="form-control" th:name="maHD" th:value="${maHD}">
-                            <div class="row">
-                                  <div class="col-6">
-                                      <input type="hidden" class="form-control"
-                                             name="maDC"
-                                             th:value="${maHD}">
-                                      <label>Tên Người Nhận:</label>
-                                      <input type="text" class="form-control"
-                                             name="ten_nguoi_nhan"
-                                             th:value="${tenNNDetail}">
-                                     </div>
-                                 <div class="col-6">
-                                    <label>Số Điện Thoại:</label>
-                                    <input type="text" class="form-control"
-                                           name="sdt_nguoi_nhan"
-                                           th:value="${sdtDetail}">
-                                 </div>
-                                 <br>
-                                 <div class="col-4" style="margin-top: 10px">
-                                     <label>Thành Phố:</label>
-                                     <select class="form-control" name="province" id="province">
-                                              <option th:value="${thanhPhoDetail}">[[${thanhPhoDetail}]]</option>
-                                     </select>
-                                 </div>
-                                 <br>
-                                 <div class="col-4" style="margin-top: 10px">
-                                     <label>Huyện:</label>
-                                     <select class="form-control" name="district" id="district">
-                                         <option
-                                                 th:value="${huyenDetail}">[[${huyenDetail}]]</option>
-                                      </select>
-                                 </div>
-                                 <br>
-                                 <div class="col-4" style="margin-top: 10px">
-                                    <label>Xã:</label>
-                                    <select class="form-control" name="ward" id="ward" onchange="callAPIGHN();">
-                                          <option
-                                                  th:value="${xaDetail}">[[${xaDetail}]]</option>
-                                    </select>
-                                 </div>
-                                 <br>
-                                 <div class="col-12" style="margin-top: 10px">
-                                    <label>Tên Địa Chỉ:</label>
-                                    <input type="text" class="form-control"
-                                           name="dia_chi"
-                                           th:value="${tenDcDetail}">
-                                 </div>
-                                 <div class="col-12" style="margin-top: 10px">
-                                    <label>Ghi chú:</label>
-                                    <br>
-                                    <textarea name="mota" cols="72" rows="10"
-                                              th:value="${moTaDetail}">[[${moTaDetail}]]</textarea>
-                                 </div>
-                            </div>
-                    </span>
+        <!--            Begin Modal danh sách voucher-->
+        <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="background-color: #ffffff">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Chọn Voucher cho khách hàng</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div id="searchVC" class="d-flex align-items-center">
+                            <input type="text" style="border: 1px solid black" class="form-control col-6">
+                            <button class="btn btn-primary">
+                                <i class="bi bi-search"></i>
+                            </button>
                         </div>
-                        <div class="col-6"><br>
-                            <label><h5 style="color: #060696">Thông tin Thanh toán</h5></label>
-
-                            <br>
-                            <div class="col-6">
-                                <label>Phương thức mua hàng:</label>
-                                <select class="form-control" name="phuongThucMuaHang" id="phuongThucMuaHang">
-                                    <option th:selected="${htm==0}" th:value="0">Tại cửa hàng</option>
-                                    <option th:selected="${htm==1}" th:value="1">Online</option>
-                                </select>
+                        <div th:if="${ListGiamGiaHoaDon.isEmpty()}">
+                            <td colspan="9">Không có dữ liệu</td>
+                        </div>
+                        <div style="margin-top: 15px" th:each="item:${ListGiamGiaHoaDon}"
+                             class="address-card">
+                            <div class="row">
+                                <div class="col-2 d-flex justify-content-center align-items-center">
+                                    <img src="https://img.timviec.com.vn/2020/10/voucher-la-gi-3.jpg"
+                                         style="width: 5rem">
+                                </div>
+                                <div class="col-7">
+                                    <h6 style="font-weight: 20px">
+                                        Giảm [[${item.phan_tram_giam}]]% cho hóa đơn
+                                    </h6>
+                                    <div>
+                                        Đơn Hàng Tối Thiểu: <span style="color: #e3e308" class="giaBan">[[${item.dieu_kien}]]</span> --
+                                        Giảm Tối Đa: <span style="color: #e3e308" class="giaBan">[[${item.so_tien_giam_max}]]</span>
+                                    </div>
+                                    <div style="color: red">
+                                        Hạn sử dụng: [[${item.ngay_ket_thuc}]]
+                                    </div>
+                                </div>
+                                <div class="col-3 d-flex justify-content-center align-items-center">
+                                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-voucher}" method="post" class="d-inline">
+                                        <input type="hidden" class="form-control" th:name="maHD"
+                                               th:value="${maHD}">
+                                        <input type="hidden" class="form-control" th:name="maGGHD"
+                                               th:value="${item.ma}">
+                                        <button type="submit" class="btn btn-success"
+                                                style="text-decoration: none"
+                                                th:disabled="${checkGGHD != 1 || detailMaGGHD == item.ma}">
+                                            Chọn
+                                        </button>
+                                    </form>
+                                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/delete}" method="get" class="d-inline">
+                                        <input type="hidden" class="form-control" th:name="maHD"
+                                               th:value="${maHD}">
+                                        <input type="hidden" class="form-control" th:name="maGGHD"
+                                               th:value="${item.ma}">
+                                        <button type="submit" class="btn btn-danger"
+                                                style="text-decoration: none"
+                                                th:disabled="${detailMaGGHD != item.ma}">
+                                            Hủy
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="col-6">
-                                <label>Phương thức thanh toán:</label>
-                                <select class="form-control" name="phuongThucThanhToan" id="phuongThucThanhToan">
-                                    <option th:selected="${httt==0}" th:value="0">Tiền mặt</option>
-                                    <option th:selected="${httt==1}" th:value="1">Online</option>
-                                </select>
-                            </div>
-                            <span id="donViVanChuyen" class="col-6" style="display: none;margin-top: 17px">
-                            Đơn vị vận chuyển:
-                            <div>
-                                <img style="width: 100px" src="/assets/images/ghnlogo.jpg" alt="">
-                            </div>
-                        </span>
-                            <span id="donViThanhToan" class="col-6" style="display: none;margin-top: 17px">
-                            Thanh Toán Qua VNPay:
-                            <div>
-                                <img style="width: 100px" src="/assets/images/vnpay.svg" alt="">
-                            </div>
-                        </span></div>
-                        <div class="row" style="margin-top: 35px">
-                            <div class="col-12">
-                                <h5>
-                                    <span style="color: #0303a9">Tiền Hàng: </span>
-                                    <input class="giaBan" id="tongTienTruocGiam" th:value="${TongTienTruocGiam}">
-                                </h5>
-                                <h5 style="margin-top: 15px">
-                                    <span style="color: green">Số Tiền Giảm: </span>
-                                    <input class="giaBan" name="soTienGiam" id="soTienGiam" th:value="${soTienGiam}">
-                                </h5>
-                                <h5 style="margin-top: 15px; display: none" id="divPhiShip">
-                                    <span style="color: green">Phí vận chuyển: </span>
-                                    <input class="giaBan" name="phiShip" id="phiShip" th:value="${phiShip}">
-                                </h5>
-                                <h4 style="margin-top: 15px">
-                                    <span style="color: darkred">Tổng số tiền:</span>
-                                    <input class="giaBan" name="tongTienSauGiam" id="tongTienSauGiam"
-                                           th:value="${TongTienSauGiam}">
-                                </h4>
-                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                            </button>
                         </div>
                     </div>
-
-                </form>
-                <div class="form-inline" style="margin-top: 4px">
-                    <input type="text" class="form-control" th:value="${detailMaGGHD}" placeholder="Mã Giảm Giá">
-                    <button class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal3">
-                        <i class="bi bi-plus-square"></i> Chọn Voucher
-                    </button>
                 </div>
-                <div class="col-5">
+            </div>
+            <!--                    end phần modal danh sách voucher-->
+        </div>
+        <!--            End Modal danh sách voucher-->
 
-                    <form action="/admin/ban-hang-tai-quay/xac-nhan-don-hang" class="row" method="post">
-                        <input type="text" hidden th:value="${maHD}" name="maHD">
-
-
-                        <div style="width: 400px; text-align: right; margin-left: auto; margin-top: auto; margin-bottom: auto;">
-                            <button type="submit" class="btn btn-success waves-effect waves-light">
-                                Xác Nhận
-                            </button>
-                            <a href="/admin/ban-hang" type="submit"
-                               class="btn btn-danger waves-effect waves-light">
-                                Cancel
-                            </a>
+        <!--        Begin Thông tin hóa đơn -->
+        <div class="container-lg bg-light border">
+            <div class="row p-3">
+                <div class="col-6">
+                    <h4 class="text-center">Thông tin Hóa Đơn</h4>
+                    <br>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="p-l-5">Mã HĐ:</label>
+                            <input type="text" class="form-control" th:value="${HoaDonDetail.ma}" readonly>
                         </div>
-                    </form>
-
-                    <!--                    phần modal danh sách voucher-->
-                    <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content" style="background-color: #d4d4d4">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Chọn Voucher cho khách hàng</h5>
+                        <div class="col-6">
+                            <label class="p-l-5">Ngày Tạo:</label>
+                            <input type="text" class="form-control" th:value="${HoaDonDetail.ngay_tao}" readonly>
+                        </div>
+                        <br>
+                        <div class="col-12" style="margin-top: 10px">
+                            <label>Khách hàng:</label>
+                            <div class="d-flex align-items-center">
+                                <div th:if="${KhachHangDetail == null}">
+                                    <div class="input-group">
+                                        <input type="text" style="width: 400px" class="form-control" value="Khách Lẻ"
+                                               readonly>
+                                        <button style="margin-left: 10px" class="btn-sm btn-primary"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                            <i class="bi bi-person-vcard-fill"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    <div th:if="${ListGiamGiaHoaDon.isEmpty()}">
-                                        <td colspan="9">Không có dữ liệu</td>
-                                    </div>
-                                    <div th:each="item:${ListGiamGiaHoaDon}"
-                                         class="address-card">
-                                        <div class="row">
-                                            <div class="col-2 d-flex justify-content-center align-items-center">
-                                                <img src="https://img.timviec.com.vn/2020/10/voucher-la-gi-3.jpg"
-                                                     width="100px" height="100px">
-                                            </div>
-                                            <div class="col-7">
-                                                <h6 style="font-weight: 20px">
-                                                    Giảm [[${item.phan_tram_giam}]] % cho hóa đơn
-                                                </h6>
-                                                <div>
-                                                    Đơn Hàng Tối Thiểu: <span style="color: #e3e308" class="giaBan">[[${item.dieu_kien}]]</span>
-                                                    <br>
-                                                    Giảm Tối Đa: <span style="color: #e3e308" class="giaBan">[[${item.so_tien_giam_max}]]</span>
-                                                </div>
-                                                <div style="color: red">
-                                                    Hạn sử dụng: [[${item.ngay_ket_thuc}]]
-                                                </div>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-center align-items-center">
-                                                <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-voucher}"
-                                                      method="post" class="d-inline">
-                                                    <input type="hidden" class="form-control" th:name="maHD"
-                                                           th:value="${maHD}">
-                                                    <input type="hidden" class="form-control" th:name="maGGHD"
-                                                           th:value="${item.ma}">
-                                                    <button type="submit" class="btn btn-success"
-                                                            style="text-decoration: none;height: 100px"
-                                                            th:disabled="${checkGGHD != 1 || detailMaGGHD == item.ma}">
-                                                        Áp dụng
-                                                    </button>
-                                                </form>
-                                                <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/delete}"
-                                                      method="get"
-                                                      class="d-inline">
-                                                    <input type="hidden" class="form-control" th:name="maHD"
-                                                           th:value="${maHD}">
-                                                    <input type="hidden" class="form-control" th:name="maGGHD"
-                                                           th:value="${item.ma}">
-                                                    <button type="submit" class="btn btn-danger"
-                                                            style="text-decoration: none;height: 100px"
-                                                            th:disabled="${detailMaGGHD != item.ma}">
-                                                        Hủy bỏ
-                                                    </button>
-                                                </form>
-                                            </div>
+                                <div th:if="${KhachHangDetail != null}">
+                                    <div class="input-group">
+                                        <div style="display: flex; align-items: center;">
+                                            <input type="text" style="width: 400px" class="form-control" id="inputField"
+                                                   th:value="${KhachHangDetail.hoten + ' - ' + KhachHangDetail.email + ' - ' + KhachHangDetail.sdt}" readonly>
+                                            <a style="margin-left: -20px"
+                                               th:href="@{|/admin/ban-hang-tai-quay/xoa-khach-hang/${maHD}|}">
+                                                <i style="font-size: 1rem" class="bi bi-x-circle"></i>
+                                            </a>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                        <button style="margin-left: 10px" class="btn-sm btn-primary"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                            <i class="bi bi-person-vcard-fill"></i>
+                                        </button>
+                                        <button th:if="${KhachHangDetail != null}" id="nutChonDiaChi"
+                                                style="display: none;margin-left: 10px" class="btn btn-warning"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                                            <i class="bi bi-geo-alt-fill"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!--                    end phần modal danh sách voucher-->
+                        <div class="col-6" style="margin-top: 10px">
+                            <label class="p-l-5">Nhân Viên:</label>
+                            <input type="text" class="form-control" th:if="${HoaDonDetail.nhanVien != null}"
+                                   th:value="${HoaDonDetail.nhanVien.hoTen}" readonly>
+                            <input type="text" class="form-control" th:if="${HoaDonDetail.nhanVien == null}"
+                                   value="Không có thông tin">
+                        </div>
+                        <div class="col-6" style="margin-top: 10px">
+                            <label class="p-l-5">Voucher:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" th:value="${detailMaGGHD}"
+                                       placeholder="Mã Giảm Giá">
+                                <button style="margin-right: 10px" class="btn-sm btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal3">
+                                    <i class="bi bi-ticket-perforated"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-12" style="margin-top: 10px">
+                            <form action="/admin/ban-hang-tai-quay/tao-don-hang/add-dia-chi1" method="post"
+                                  id="address-form">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label>Phương thức mua hàng:</label>
+                                        <select class="form-control" name="phuongThucMuaHang"
+                                                id="phuongThucMuaHang">
+                                            <option th:selected="${htm==0}" th:value="0">Tại cửa hàng</option>
+                                            <option th:selected="${htm==1}" th:value="1">Online</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Phương thức thanh toán:</label>
+                                        <select class="form-control" name="phuongThucThanhToan"
+                                                id="phuongThucThanhToan">
+                                            <option th:selected="${httt==0}" th:value="0">Tiền mặt</option>
+                                            <option th:selected="${httt==1}" th:value="1">Online</option>
+                                        </select>
+                                    </div>
+                                    <span id="donViVanChuyen" class="col-6" style="display: none;margin-top: 17px">
+                                        Đơn vị vận chuyển:
+                                        <div>
+                                            <img style="width: 100px" src="/assets/images/ghnlogo.jpg" alt="">
+                                        </div>
+                                    </span>
+                                    <span id="donViThanhToan" class="col-6" style="display: none;margin-top: 17px">
+                                        Thanh Toán Qua VNPay:
+                                        <div>
+                                            <img style="width: 100px" src="/assets/images/vnpay.svg" alt="">
+                                        </div>
+                                    </span>
+                                    <div class="col-12" id="diaChiSection">
+                                        <input type="hidden" class="form-control" th:name="maHD" th:value="${maHD}">
+                                        <div class="row">
+                                            <div class="col-6" style="margin-top: 10px">
+                                                <input type="hidden" class="form-control"
+                                                       name="maDC"
+                                                       th:value="${maHD}">
+                                                <label>Tên Người Nhận<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr>:</label>
+                                                <input type="text" class="form-control"
+                                                       name="ten_nguoi_nhan"
+                                                       th:value="${tenNNDetail}">
+                                            </div>
+                                            <div class="col-6" style="margin-top: 10px">
+                                                <label>Số Điện Thoại<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr>:</label>
+                                                <input type="text" class="form-control"
+                                                       name="sdt_nguoi_nhan"
+                                                       th:value="${sdtDetail}">
+                                            </div>
+                                            <br>
+                                            <div class="col-4" style="margin-top: 10px">
+                                                <label>Thành Phố<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr>:</label>
+                                                <select class="form-control" name="province" id="province">
+                                                    <option th:value="${thanhPhoDetail}">[[${thanhPhoDetail}]]</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="col-4" style="margin-top: 10px">
+                                                <label>Huyện<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr>:</label>
+                                                <select class="form-control" name="district" id="district">
+                                                    <option th:value="${huyenDetail}">[[${huyenDetail}]]</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="col-4" style="margin-top: 10px">
+                                                <label>Xã<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr>:</label>
+                                                <select class="form-control" name="ward" id="ward"
+                                                        onchange="callAPIGHN();">
+                                                    <option th:value="${xaDetail}">[[${xaDetail}]]</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="col-12" style="margin-top: 10px">
+                                                <label>Địa chỉ cụ thể<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr>:</label>
+                                                <input type="text" class="form-control" name="dia_chi" th:value="${tenDcDetail}">
+                                            </div>
+                                            <div class="col-12" style="margin-top: 10px">
+                                                <label>Ghi chú:</label>
+                                                <br>
+                                                <textarea name="mota" cols="75" rows="5" th:value="${moTaDetail}">[[${moTaDetail}]]</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="col-6" style="margin-top: 10px">
+                                        <label>Tiền Hàng: </label>
+                                        <input class="form-control giaBan" id="tongTienTruocGiam"
+                                               th:value="${TongTienTruocGiam}" readonly>
+                                    </div>
+                                    <div class="col-6" style="margin-top: 10px">
+                                        <label>Số Tiền Giảm: </label>
+                                        <input class="form-control giaBan" name="soTienGiam" id="soTienGiam"
+                                               th:value="${soTienGiam}" readonly>
+                                    </div>
+                                    <div class="col-6" style="margin-top: 10px;display: none" id="divPhiShip">
+                                        <label>Phí vận chuyển: </label>
+                                        <input class="form-control giaBan" name="phiShip" id="phiShip"
+                                               th:value="${phiShip}">
+                                    </div>
+                                    <div class="col-6" style="margin-top: 10px">
+                                        <label style="color:red;">Tổng số tiền:</label>
+                                        <input style="border: 2px solid black" class="form-control giaBan"
+                                               name="tongTienSauGiam" id="tongTienSauGiam"
+                                               th:value="${TongTienSauGiam}" readonly>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-12">
+                            <form action="/admin/ban-hang-tai-quay/xac-nhan-don-hang" class="row" method="post">
+                                <input type="text" hidden th:value="${maHD}" name="maHD">
+                                <div style="width: 400px; text-align: right; margin-left: auto; margin-top: 40px; margin-bottom: auto;">
+                                    <button type="submit" class="btn btn-success waves-effect waves-light">
+                                        Xác Nhận
+                                    </button>
+                                    <a href="/admin/ban-hang" type="submit"
+                                       class="btn btn-danger waves-effect waves-light">
+                                        Cancel
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+
+                </div>
+                <div class="col-6">
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Chọn SP
+                        </button>
+                        <input type="text" class="form-control col-8 mx-2">
+                        <button class="btn btn-primary">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                    <hr>
+                    <table class="table custom-table table-hover">
+                        <thead class="thead-light" style="height: ̀50px">
+                        <tr>
+                            <th scope="col" style="text-align: center">Ảnh</th>
+                            <th scope="col" style="text-align: center">Sản Phẩm</th>
+                            <th scope="col" style="text-align: center">Đơn Giá</th>
+                            <th scope="col" style="text-align: center">Thành Tiền</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${hoaDonChiTietPage.content.isEmpty()}">
+                            <td colspan="6" class="text-center">
+                                <i style="font-size: 3rem"
+                                   class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>
+                                <div class="text-center">No Data</div>
+                            </td>
+                        </tr>
+                        <tr th:each="hdct:${hoaDonChiTietPage.content}">
+                            <td>
+                                <div th:if="${hdct.giayChiTiet == null}"></div>
+                                <div class="d-flex justify-content-center align-items-center"
+                                     th:if="${hdct.giayChiTiet != null}">
+                                    <img style="width: 80px"
+                                         th:src="@{|/images/${hdct.giayChiTiet.giay.getAnhDau(hdct.giayChiTiet.giay.anhs)}|}"
+                                         alt="">
+                                </div>
+                            </td>
+                            <td>
+                                <div th:if="${hdct.giayChiTiet.giay == null || hdct.giayChiTiet.kich_co == null}"></div>
+                                <div style="font-weight: bolder" class="p-r-3"
+                                     th:if="${hdct.giayChiTiet.giay != null || hdct.giayChiTiet.kich_co != null}">
+                                    [[${hdct.giayChiTiet.giay.ten}]] <br> Size: [[${hdct.giayChiTiet.kich_co.ten}]]
+                                </div>
+                                <div class="row">
+                                    <div class="col-9">
+                                        <div th:if="${hdct.so_luong == null}"></div>
+                                        <div th:if="${hdct.so_luong != null}" class="p-r-3">
+                                            <div class="input-group">
+                                                <form action="/giam/so-luong-hoa-don" method="post">
+                                                    <input type="hidden" class="form-control" th:name="maHD"
+                                                           th:value="${hdct.hoaDon.ma}">
+                                                    <input type="hidden" class="form-control small-input"
+                                                           th:name="idctsp"
+                                                           th:value="${hdct.giayChiTiet.id}">
+                                                    <div class="input-group-prepend">
+                                                        <button type="submit"
+                                                                class="btn-sm bi bi-dash-circle"
+                                                                style="border: none; background: none"
+                                                                onclick="decrementValue(this)">
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                                <input type="number"
+                                                       style="width: 35px; height: 29px; border: none; border-bottom: 1px solid #000;background: none; border-radius: 0;"
+                                                       class="text-center" th:name="soluong"
+                                                       th:value="${hdct.so_luong}"
+                                                       th:data-max-stock="${hdct.giayChiTiet.so_luong_ton} + ${hdct.so_luong}">
+                                                <form action="/add/so-luong-hoa-don" method="post" id="soLuongForm">
+                                                    <input type="hidden" class="form-control" th:name="maHD"
+                                                           th:value="${hdct.hoaDon.ma}">
+                                                    <input type="hidden" class="form-control small-input"
+                                                           th:name="idctsp"
+                                                           th:value="${hdct.giayChiTiet.id}">
+                                                    <div class="input-group-append">
+                                                        <button type="submit" class="btn-sm bi bi-plus-circle"
+                                                                style="border: none; background: none"
+                                                                onclick="incrementValue(this)">
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3" th:if="${hdct.giayChiTiet != null}">
+                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
+                                           th:href="@{|/admin/ban-hang-tai-quay/tao-don-hang/delete/${hdct.hoaDon.ma}/${hdct.giayChiTiet.id}/${hdct.so_luong}|}">
+                                            <i style="font-size: 22px;color: red;" class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div th:if="${hdct.don_gia == null}"></div>
+                                <div style="font-weight: bold"
+                                     class="d-flex justify-content-center align-items-center giaBan"
+                                     th:if="${hdct.don_gia != null}">
+                                    [[${hdct.don_gia}]]
+                                </div>
+                            </td>
+                            <td style="font-weight: bold;color: #ff4949"
+                                class="d-flex justify-content-center align-items-center"
+                                th:if="${hdct.giayChiTiet != null}">
+                                [[${hdct.don_gia * hdct.so_luong}]]
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--            nav-->
+                    <nav class="mt-auto" aria-label="Page navigation example"
+                         style="display: flex;justify-content: space-between;">
+                        <div style="margin-left: 20px">
+                            <p>Bạn đang xem [[${hoaDonChiTietPage.numberOfElements}]] trên tổng số
+                                [[${hoaDonChiTietPage.totalElements}]]</p>
+                        </div>
+                        <ul class="pagination" style="margin-right: 24px;">
+                            <li class="page-item">
+                                <a class="page-link" th:if="${hoaDonChiTietPage.number > 0}"
+                                   th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${hoaDonChiTietPage.number-1}|}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <li th:each="tongtrang,status:${#numbers.sequence(1, hoaDonChiTietPage.totalPages)}"
+                                class="page-item"><a class="page-link"
+                                                     th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${status.index}|}">[[${status.index+1}]]</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                   th:if="${hoaDonChiTietPage.number < hoaDonChiTietPage.totalPages - 1}"
+                                   th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${hoaDonChiTietPage.number+1}|}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!--            nav-->
                 </div>
             </div>
-            <!--        End Chọn Địa chỉ và Voucher-->
         </div>
-        <!--        End Địa chỉ và Voucher-->
-        <!--    End Page Content-->
+        <!--     End Thông tin hóa đơn-->
     </div>
+    <!--    End Page Content-->
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -1316,6 +1321,32 @@
         let divPhiShip = document.getElementById("divPhiShip");
         let donViVanChuyen = document.getElementById("donViVanChuyen");
         let donViThanhToan = document.getElementById("donViThanhToan");
+        let nutChonDiaChi = document.getElementById("nutChonDiaChi");
+
+        if (phuongThucMuaHangSelect.value === "1") {
+            divPhiShip.style.display = "block";
+            donViVanChuyen.style.display = "block";
+            nutChonDiaChi.style.display = "block";
+
+        } else if (phuongThucMuaHangSelect.value === "0") {
+            divPhiShip.style.display = "none";
+            donViVanChuyen.style.display = "none";
+            nutChonDiaChi.style.display = "none";
+        }
+        if (phuongThucThanhToan.value === "1") {
+            donViThanhToan.style.display = "block";
+
+        } else if (phuongThucThanhToan.value === "0") {
+            donViThanhToan.style.display = "none";
+        }
+    });
+
+    phuongThucMuaHangSelect.addEventListener("change", function (){
+        let phuongThucMuaHangSelect = document.getElementById("phuongThucMuaHang");
+        let phuongThucThanhToan = document.getElementById("phuongThucThanhToan");
+        let divPhiShip = document.getElementById("divPhiShip");
+        let donViVanChuyen = document.getElementById("donViVanChuyen");
+        let donViThanhToan = document.getElementById("donViThanhToan");
 
         if (phuongThucMuaHangSelect.value === "1") {
             divPhiShip.style.display = "block";
@@ -1445,6 +1476,30 @@
             donViThanhToan.style.display = "none";
         }
     });
+
+    // hiển thị phần nhập địa chỉ khi chuyển sang hình thức mua online
+    document.addEventListener("DOMContentLoaded", function() {
+        var phuongThucMuaHang = document.getElementById("phuongThucMuaHang");
+        var diaChiSection = document.getElementById("diaChiSection");
+
+        // Kiểm tra giá trị ban đầu của ô lựa chọn phương thức mua hàng
+        if (phuongThucMuaHang.value === "1") { // Nếu giá trị ban đầu là online (giá trị = 1)
+            diaChiSection.style.display = "block"; // Hiển thị phần nhập địa chỉ
+        } else {
+            diaChiSection.style.display = "none"; // Nếu không, ẩn phần nhập địa chỉ
+        }
+
+        // Thêm sự kiện lắng nghe khi có sự thay đổi trong ô lựa chọn phương thức mua hàng
+        phuongThucMuaHang.addEventListener("change", function() {
+            if (phuongThucMuaHang.value === "1") { // Nếu chọn phương thức mua hàng online
+                diaChiSection.style.display = "block"; // Hiển thị phần nhập địa chỉ
+            } else {
+                diaChiSection.style.display = "none"; // Nếu không chọn phương thức mua hàng online, ẩn phần nhập địa chỉ
+            }
+        });
+    });
+
+
 </script>
 <!--End Hiển thị giao diện đơn vị vận chuyển-->
 </body>

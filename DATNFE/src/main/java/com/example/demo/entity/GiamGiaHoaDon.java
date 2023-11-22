@@ -70,9 +70,9 @@ public class GiamGiaHoaDon implements Serializable {
     private Integer so_luong;
 
     @NotNull(message = "Không được để trống trạng thái !")
-    private Integer trangthai;
+    private Integer trangthai = 1;
 
-    @OneToMany(mappedBy = "gghd", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "gghd",fetch = FetchType.EAGER)
     @JsonIgnore
     private List<GiamGiaChiTietHoaDon> ListGGCTHD;
 }
