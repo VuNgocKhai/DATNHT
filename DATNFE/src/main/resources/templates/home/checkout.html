@@ -74,10 +74,9 @@
                             Nhận Hàng</span></h5>
                 <div class="radio"><label><input type="radio" value="existing" name="dc" checked>
                     Tôi muốn dùng địa chỉ này</label></div>
-                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="dia_chi" style="height: 40px;width: 605px">
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="dia_chi" name="dia_chi" onclick="callAPIGHN2()" style="height: 40px;width: 605px">
                     <option th:each="x:${list_dia_chi}" th:value="${x.madc}">
-                        [[${x.ten_nguoi_nhan}]] (+84)[[${x.sdt_nguoi_nhan}]]
-                        [[${x.tendiachi}]]-[[${x.xa}]]-[[${x.huyen}]]-[[${x.thanhpho}]]
+                        [[${x.ten_nguoi_nhan}]] (+84)[[${x.sdt_nguoi_nhan}]] - [[${x.tendiachi}]] - [[${x.xa}]] - [[${x.huyen}]] - [[${x.thanhpho}]]
                     </option>
                 </select>
 
@@ -283,7 +282,71 @@
             }
         });
     }
-
+    function callAPIGHN2() {
+        var dia_chi= document.getElementById("dia_chi").innerText;
+        var value = dia_chi.split("-");
+        var thanhPho= value[1].trim();
+        var huyen= value[2].trim();
+        var xa= value[3].trim();
+        $.ajax({
+            type: "POST",
+            url: "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create" , // Đường dẫn của bạn để lấy thông tin chi tiết
+            headers: {
+                'Token': '50ea92cd-6b53-11ee-a6e6-e60958111f48', // Thay thế YOUR_API_TOKEN_HERE bằng token của bạn
+                'Content-Type': 'application/json',
+                'ShopId': '189834 - 0385090080'
+            },
+            data: JSON.stringify({
+                "payment_type_id": 2,
+                "note": "Tintest 123",
+                "required_note": "KHONGCHOXEMHANG",
+                "return_phone": "0332190158",
+                "return_address": "39 NTT",
+                "return_district_id": null,
+                "return_ward_code": "",
+                "client_order_code": "",
+                "from_name": "TinTest124",
+                "from_phone": "0987654321",
+                "from_address": "Hà Nội, Vietnam",
+                "from_ward_name": "Cấn Hữu",
+                "from_district_name": "Quốc Oai",
+                "from_province_name": "Hà Nội",
+                "to_name": "TinTest124",
+                "to_phone": "0987654321",
+                "to_address": "72 Thành Thái, Phường 14, Quận 10, Hồ Chí Minh, Vietnam",
+                "to_ward_name": xa,
+                "to_district_name": huyen,
+                "to_province_name": thanhPho,
+                "cod_amount": 200000,
+                "content": "Theo New York Times",
+                "weight": 2000,
+                "length": 1,
+                "width": 19,
+                "height": 10,
+                "cod_failed_amount": 2000,
+                "pick_station_id": 1444,
+                "deliver_station_id": null,
+                "insurance_value": 10000000,
+                "service_id": 0,
+                "service_type_id":2,
+                "coupon":null,
+                "pickup_time":1692840132,
+                "pick_shift":[2]
+            }),
+            success: function(response) {
+                // Giả sử phản hồi trả về là một đối tượng JSON với các thuộc tính như ma, hoTen,...
+                console.log("Thành Công");
+                console.log("xa:"+xa);
+                console.log("huyen"+huyen);
+                console.log("thanh pho:"+thanhPho);
+                document.getElementById('phiShip').innerText = response.data.total_fee;
+            },
+            error: function(error) {
+                console.log(error);
+                alert("Lỗi khi lấy thông tin nhân viên");
+            }
+        });
+    }
     const host = "https://provinces.open-api.vn/api/";
     var callAPI = (api) => {
         return axios.get(api)

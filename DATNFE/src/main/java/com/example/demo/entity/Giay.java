@@ -25,6 +25,7 @@ public class Giay implements Serializable {
 
     private String ma;
 
+
     private String ten;
 
 
@@ -76,7 +77,7 @@ public class Giay implements Serializable {
     private BigDecimal gia_sau_khuyen_mai;
     private Integer do_hot;
     private LocalDate ngay_nhap;
-    private Integer trangthai;
+    private Integer trangthai = 1;
     @JsonIgnore
     @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER)
     Set<ChuongTrinhGiamGiaChiTietSP> chuongTrinhGiamGiaChiTietSP;

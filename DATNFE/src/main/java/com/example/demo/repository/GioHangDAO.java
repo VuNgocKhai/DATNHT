@@ -22,5 +22,6 @@ public interface GioHangDAO extends JpaRepository<GioHang, UUID> {
 
         return "GH" + nextNumber;
     }
-
+    @Query("select p from GioHang p where p.khach_hang.ma=?1")
+    GioHang getGioHangByMaKH(String makh);
 }

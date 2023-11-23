@@ -22,7 +22,7 @@ public class ThuongHieu implements Serializable {
     private String ma;
     private String ten_url;
     private String ten;
-    private Integer trangthai;
+    private Integer trangthai = 1;
 
     @JsonIgnore
     @OneToMany(mappedBy = "thuong_hieu", fetch = FetchType.EAGER)

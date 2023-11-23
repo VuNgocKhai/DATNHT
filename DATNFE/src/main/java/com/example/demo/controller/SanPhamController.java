@@ -6,6 +6,7 @@ import com.example.demo.entity.GiayChiTiet;
 import com.example.demo.repository.AnhGiayDAO;
 import com.example.demo.repository.GiayChiTietDAO;
 import com.example.demo.repository.GiayDAO;
+import com.example.demo.repository.KichCoDAO;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +27,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -38,6 +40,8 @@ public class    SanPhamController {
     GiayDAO giayDAO;
     @Autowired
     GiayChiTietDAO giayChiTietDAO;
+    @Autowired
+    KichCoDAO kichCoDAO;
     @Data
     public static class SearchForm {
        String tensp="";
@@ -89,6 +93,7 @@ public class    SanPhamController {
     }
     @GetMapping("/admin/sanpham/create")
     public String productCreate(Model model,@ModelAttribute("sanpham") Giay giay){
+        giay.setMa(giayDAO.generateNextMaGiay());
         model.addAttribute("items",giayDAO.findAll());
         return "product/create_sp";
     }
@@ -100,10 +105,11 @@ public class    SanPhamController {
         return "product/update_sp";
     }
     @GetMapping(value = "/admin/sanpham/update/{x}",params = "spct")
-    public String productUpdate1(Model model, @PathVariable("x") String x, @RequestParam("spct") UUID spct){
-        model.addAttribute("itemsdetail",giayChiTietDAO.getAllByMaGiay(x));
-        model.addAttribute("giaychitiet",giayChiTietDAO.findById(spct).get());
-        model.addAttribute("item",giayDAO.getGiayByMa(x));
+    public String productUpdate1(Model model, @PathVariable("x") String x, @RequestParam("spct") String spct){
+        model.addAttribute("listgiaychitiet",giayChiTietDAO.getAllByMaGiay(x));
+        model.addAttribute("anh",anhGiayDAO.getAnhByMaGiay(x));
+        model.addAttribute("sanpham",giayDAO.getGiayByMa(x));
+        model.addAttribute("giaychitiet",giayChiTietDAO.getAllByMaGiayChiTiet(spct));
         return "product/update_sp";
     }
     @PostMapping("/admin/sanpham/update/{x}")
@@ -114,10 +120,28 @@ public class    SanPhamController {
     }
     @PostMapping("/admin/sanpham/create")
     public String productCreate2(Model model,@ModelAttribute("sanpham") Giay giay){
+        giay.setMa(giayDAO.generateNextMaGiay());
         giay.setNgay_nhap(LocalDate.now());
         giay.setGia_sau_khuyen_mai(giay.getGiaban());
         String ma= giayDAO.save(giay).getMa();
         model.addAttribute("items",giayDAO.findAll());
+        return "redirect:/admin/sanpham/update/"+ma;
+    }
+    @PostMapping("/admin/sanpham/createkc")
+    public String productcreatekc(Model model,HttpServletRequest request,@RequestParam("idsp")UUID idsp){
+        String[] listvalue = request.getParameterValues("listKC");
+        if (listvalue != null) {
+            for (String x : listvalue
+            ) {
+                GiayChiTiet giayChiTiet = new GiayChiTiet();
+                giayChiTiet.setKich_co(kichCoDAO.findById(UUID.fromString(x)).get());
+                giayChiTiet.setSo_luong_ton(Integer.parseInt(request.getParameter(x + "_soluong")));
+                giayChiTiet.setGiay(Giay.builder().id(idsp).build());
+                giayChiTiet.setTrangthai(1);
+                giayChiTietDAO.save(giayChiTiet);
+            }
+        }
+        String ma=  giayDAO.findById(idsp).get().getMa();
         return "redirect:/admin/sanpham/update/"+ma;
     }
     @PostMapping("/admin/sanpham/createact")
@@ -128,20 +152,29 @@ public class    SanPhamController {
         return "redirect:/admin/sanpham/update/"+ma;
     }
     @PostMapping("/admin/sanpham/createanh")
-    public String createanh(Model model, HttpServletRequest request, @RequestParam("idsp")UUID idsp, @RequestPart("ten_url1") MultipartFile file) throws IOException, ServletException {
-        Anh anh = new Anh();
-        Path path = Paths.get("src/main/webapp/images/");
-        try {
-            InputStream inputStream = file.getInputStream();
-            Files.copy(inputStream,path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
-
-        } catch (IOException e) {
-            e.printStackTrace();
+    public String createanh(Model model, HttpServletRequest request, @RequestParam("idsp")UUID idsp, @RequestPart("ten_url1") List<MultipartFile> files) throws IOException, ServletException {
+        for (MultipartFile file : files) {
+            // Xử lý mỗi tệp tin (lưu, xử lý, vv.)
+                Anh anh = new Anh();
+                Path path = Paths.get("src/main/webapp/images/");
+                try {
+                    InputStream inputStream = file.getInputStream();
+                    Files.copy(inputStream,path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+    
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                anh.setGiay(Giay.builder().id(idsp).build());
+                anh.setTen_url(file.getOriginalFilename());
+                anhGiayDAO.save(anh);
         }
-        anh.setGiay(Giay.builder().id(idsp).build());
-        anh.setTen_url(file.getOriginalFilename());
-        String ma=  giayDAO.findById(anh.getGiay().getId()).get().getMa();
-        anhGiayDAO.save(anh);
+        String ma=  giayDAO.findById(idsp).get().getMa();
+        return "redirect:/admin/sanpham/update/"+ma;
+    }
+    @PostMapping("/admin/sanpham/deleteanh")
+    public String deleteanh(Model model, HttpServletRequest request, @RequestParam("idAnhDel")UUID idAnhDel) {
+        String ma= anhGiayDAO.findById(idAnhDel).get().getGiay().getMa();
+        anhGiayDAO.deleteById(idAnhDel);
         return "redirect:/admin/sanpham/update/"+ma;
     }
 }

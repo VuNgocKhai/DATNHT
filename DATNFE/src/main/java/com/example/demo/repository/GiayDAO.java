@@ -25,5 +25,19 @@ public interface GiayDAO extends JpaRepository<Giay, UUID> {
     Page<Giay> getSearchsanphamByTT(String tensp, BigDecimal giabnmin, BigDecimal giabnmax, String thuong_hieu,
                                            String chat_lieu, String xuat_xu, String mau_sac,
                                            String gioi_tinh, String kieu_dang, String de_giay, Pageable pageable);
+    @Query("SELECT MAX(CAST(SUBSTRING(hd.ma, 3, LENGTH(hd.ma) - 2) AS int)) FROM Giay hd")
+    Integer findMaxMaGiayNumber();
 
+    default String generateNextMaGiay() {
+        Integer maxMaNumber = findMaxMaGiayNumber();
+        int nextNumber;
+
+        if (maxMaNumber != null) {
+            nextNumber = maxMaNumber + 1;
+        } else {
+            nextNumber = 1;
+        }
+
+        return "SP" + nextNumber;
+    }
 }

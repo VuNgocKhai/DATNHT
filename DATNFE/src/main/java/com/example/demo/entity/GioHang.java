@@ -19,7 +19,7 @@ public class GioHang {
     private UUID id;
     private String ma;
     @JsonIgnore
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_khach_hang")
     private KhachHang khach_hang;
     private LocalDate ngay_tao;

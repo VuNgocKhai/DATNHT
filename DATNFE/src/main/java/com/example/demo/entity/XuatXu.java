@@ -19,5 +19,5 @@ public class XuatXu implements Serializable {
     private UUID id;
     private String ma;
     private String ten;
-    private Integer trangthai;
+    private Integer trangthai = 1;
 }

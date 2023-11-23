@@ -13,6 +13,101 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        ul li {
+            margin-bottom: 5px;
+        }
+
+        ul li a {
+            color: #3D464D;
+        }
+
+        ul li a:hover {
+            color: #FFD333;
+        }
+
+        .nav {
+            display: block !important;
+        }
+
+        .container .row .col-9 form div.row {
+            margin-bottom: 10px;
+        }
+
+        .container > .row > .col-9 {
+            background-color: white;
+            border: .0625rem solid #efefef;
+            border-radius: 5px;
+        }
+
+        #hoSo:hover {
+            text-decoration: none;
+        }
+
+        p.float-right {
+            white-space: nowrap; /* Ngăn chữ xuống dòng */
+            overflow: hidden; /* Ẩn phần dư thừa */
+            text-overflow: ellipsis; /* Hiển thị dấu elipsis (...) khi vượt quá kích thước */
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .choose-file-btn {
+            display: block;
+            text-align: center;
+            padding: 5px 10px;
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .choose-file-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        #avatarInput {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+
+        .vertical-line {
+            display: block;
+            height: 200px; /* Điều chỉnh độ cao tùy ý */
+            margin: 20px 0;
+            border-left: 1px solid rgba(0,0,0,.09);
+        }
+
+        .round-image {
+            border-radius: 50%;
+            overflow: hidden; /* Đảm bảo hình ảnh không vượt ra khỏi hình tròn */
+        }
+
+
+    </style>
+
 </head>
 <body>
 
@@ -161,27 +256,39 @@
             </div>
         </nav>
         <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px">
-            <form action="/admin/thuonghieu/create" method="post" th:object="${thuonghieu}">
+            <form action="/admin/thuonghieu/create" enctype="multipart/form-data" method="post" th:object="${thuonghieu}" >
                 <input type="text" hidden  th:field="*{id}">
                 <div class="form-group">
-                    <label for="formGroupExampleInput">Mã</label>
+                    <label for="formGroupExampleInput" class="required">Mã</label>
                     <input type="text" th:field="*{ma}" class="form-control" id="formGroupExampleInput" placeholder="Mã">
                 </div>
                 <div class="form-group">
-                    <label for="formGroupExampleInput2">Tên</label>
+                    <label for="formGroupExampleInput2" class="required">Tên</label>
                     <input type="text" th:field="*{ten}" class="form-control" id="formGroupExampleInput2" placeholder="Tên">
                 </div>
-                <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px">
-                    <h3 style="text-align: center">Ảnh</h3>
-                    <form action="/admin/thuonghieu/createanh" enctype="multipart/form-data" method="post" >
-                        <input type="text" class="form-control" hidden name="idth" th:value="${thuonghieu.id}">
-                        <input type="file" name="ten_url1">
-                        <button type="submit" class="btn btn-primary">Thêm Ảnh</button>
-                    </form>
+<!--                <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px">-->
+<!--                    <h3 style="text-align: center">Ảnh</h3>-->
+<!--                    <form action="/admin/thuonghieu/createanh" enctype="multipart/form-data" method="post" >-->
+<!--                        <input type="text" class="form-control" hidden name="idth" th:value="${thuonghieu.id}">-->
+<!--                        <input type="file" name="ten_url1">-->
+<!--                        <button type="submit" class="btn btn-primary">Thêm Ảnh</button>-->
+<!--                    </form>-->
+<!--                </div>-->
+                <div class="form-group">
+                    <div class="col-lg-4">
+                        <div class="text-center" style="margin-top: 20px; margin-left: 20px">
+                            <div class="avatar-wrapper">
+                                <img id="avatarPreview" th:src="@{|/images/${thuonghieu.ten_url}|}" alt="Avatar" class="img-thumbnail">
+                                <input type="file" id="avatarInput" name="file" accept=".jpg,.jpeg,.png">
+                            </div>
+                            <label for="avatarInput" class="choose-file-btn" style="margin-right: 80px">Chọn ảnh</label>
+                        </div>
+
+                    </div>
                 </div>
                 <fieldset class="form-group">
                     <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">Trạng Thái : </legend>
+                        <legend class="col-form-label col-sm-2 pt-0 required">Trạng Thái : </legend>
                         <div class="col-sm-10">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" th:field="*{trangthai}" id="gridRadios1" th:value="1">
@@ -249,9 +356,65 @@
     </div>
 </div>
 
-<script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/popper.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    document.getElementById('avatarInput').addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('avatarPreview').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+</script>
+<script>
+    document.getElementById('kichcoForm').addEventListener('submit', function (event) {
+        // Perform your validation logic here
+        clearErrorMessages();
+
+        if (!validateForm()) {
+            // Prevent the form from submitting if validation fails
+            event.preventDefault();
+        }
+    });
+
+    function validateForm() {
+        // Add your validation logic here
+        var maValue = document.getElementById('formGroupExampleInput').value;
+        var tenValue = document.getElementById('formGroupExampleInput2').value;
+        var kq= 0;
+        if (maValue.trim() === '') {
+            displayErrorMessage('maError', 'Mã không được để trống');
+            kq=1;
+        }
+
+        if (tenValue.trim() === '') {
+            displayErrorMessage('tenError', 'Tên không được để trống');
+            kq=1;
+        }
+        if (kq==1){
+            return false;
+        }
+        return true;
+    }
+    function displayErrorMessage(elementId, message) {
+        var errorElement = document.getElementById(elementId);
+        errorElement.innerText = message;
+        errorElement.style.color = 'red';
+    }
+    function clearErrorMessages() {
+        var errorElements = document.querySelectorAll('.error-message');
+        errorElements.forEach(function (element) {
+            element.innerText = '';
+        });
+    }
+
+</script>
 </body>
 </html>

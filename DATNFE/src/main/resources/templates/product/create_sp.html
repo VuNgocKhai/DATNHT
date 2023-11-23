@@ -162,102 +162,108 @@
         </nav>
         <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px">
             <h3 style="text-align: center">THÊM SẢN PHẨM</h3>
-            <form action="/admin/sanpham/create" method="post" th:object="${sanpham}">
+            <form id="kichcoForm" action="/admin/sanpham/create" method="post" th:object="${sanpham}">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>Mã Sản Phẩm :</label>
-                        <input type="text" class="form-control"  placeholder="Mã Sản Phẩm"  th:field="*{ma}" >
+                        <label class="required">Mã Sản Phẩm :</label>
+                        <input type="text" class="form-control" disabled id="formGroupExampleInput" placeholder="Mã Sản Phẩm"  th:field="*{ma}" >
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Tên Sản Phẩm :</label>
-                        <input type="text" class="form-control"  placeholder="Tên Sản Phẩm"   th:field="*{ten}">
+                        <label class="required">Tên Sản Phẩm :</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput1" placeholder="Tên Sản Phẩm"   th:field="*{ten}">
+                        <span id="tenError" class="error-message"></span>
+
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>Mô Tả :</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"   th:field="*{mota}"></textarea>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label >Giá Nhập :</label>
-                        <input type="text" class="form-control"  placeholder="Giá Nhập Sản Phẩm"  th:field="*{gianhap}">
+                        <label class="required">Giá Nhập :</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Giá Nhập Sản Phẩm"  th:field="*{gianhap}">
+                        <span id="giaNhapError" class="error-message"></span>
 
                     </div>
                     <div class="form-group col-md-6">
-                        <label >Giá Bán :</label>
-                        <input type="text" class="form-control"  placeholder="Giá Bán Sản Phẩm"  th:field="*{giaban}">
+                        <label class="required">Giá Bán :</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput3" placeholder="Giá Bán Sản Phẩm"  th:field="*{giaban}">
+                        <span id="giaBanError" class="error-message"></span>
+
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label >Xuất Xứ :</label>
-                        <select class="form-control" th:field="*{xuat_xu.id}">
-                                <option th:each="cg:${listXuatXu}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                        <label class="required">Thương Hiệu :</label>
+                        <select class="form-control" th:field="*{thuong_hieu.id}">
+                            <option th:each="cg:${listThuongHieu}" th:value="${cg.id}">[[${cg.ten}]]</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <label >Chất Liệu :</label>
+                        <label class="required">Chất Liệu :</label>
                         <select class="form-control" th:field="*{chat_lieu.id}">
                             <option th:each="cg:${listChatLieu}" th:value="${cg.id}">[[${cg.ten}]]</option>
                         </select>
                     </div>
                 </div>
-                    <div class="form-row">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="required">Xuất Xứ :</label>
+                        <select class="form-control" th:field="*{xuat_xu.id}">
+                            <option th:each="cg:${listXuatXu}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="required">Màu Sắc :</label>
+                        <select class="form-control" th:field="*{mau_sac.id}">
+                            <option th:each="cg:${listMauSac}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label >Kiểu Dáng :</label>
+                        <label class="required">Kiểu Dáng :</label>
                         <select class="form-control" th:field="*{kieu_dang.id}">
                             <option th:each="cg:${listKieuDang}" th:value="${cg.id}">[[${cg.ten}]]</option>
                         </select>
                     </div>
                     <div class="form-group col-md-4">
-                        <label >Đế Giày :</label>
+                        <label class="required">Đế Giày :</label>
                         <select class="form-control" th:field="*{de_giay.id}">
                             <option th:each="cg:${listDeGiay}" th:value="${cg.id}">[[${cg.ten}]]</option>
                         </select>
                     </div>
-                    
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label >Gioi Tinh :</label>
-                            <select class="form-control" th:field="*{gioi_tinh.id}">
-                                <option th:each="cg:${listGioiTinh}" th:value="${cg.id}">[[${cg.ten}]]</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label >Màu Sắc :</label>
-                        <select class="form-control" th:field="*{mau_sac.id}">
-                            <option th:each="cg:${listMauSac}" th:value="${cg.id}">[[${cg.ten}]]</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label >Thương Hiệu :</label>
-                        <select class="form-control" th:field="*{thuong_hieu.id}">
-                            <option th:each="cg:${listThuongHieu}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                        <label class="required">Gioi Tinh :</label>
+                        <select class="form-control" th:field="*{gioi_tinh.id}">
+                            <option th:each="cg:${listGioiTinh}" th:value="${cg.id}">[[${cg.ten}]]</option>
                         </select>
                     </div>
                 </div>
-                <fieldset class="form-group">
-                    <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">Trạng Thái : </legend>
-                        <div class="col-sm-10">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" id="gridRadios1" th:value="1" checked  th:field="*{trangthai}">
-                                <label class="form-check-label" for="gridRadios1">
-                                    Hoạt Động
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio"  id="gridRadios2" th:value="0"  th:field="*{trangthai}">
-                                <label class="form-check-label" for="gridRadios2">
-                                    Không Hoạt Động
-                                </label>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="required">Mô Tả :</label>
+                        <textarea class="form-control" id="formGroupExampleInput4" style="height: 140px !important;"  rows="30"   th:field="*{mota}"></textarea>
+                        <span id="moTaError" class="error-message"></span>
+                    </div>
+                    <fieldset class="form-group col-md-6">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0 required" >Trạng Thái : </legend>
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="gridRadios1" th:value="1"  th:field="*{trangthai}">
+                                    <label class="form-check-label" for="gridRadios1">
+                                        Hoạt Động
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"  id="gridRadios2" th:value="0"  th:field="*{trangthai}">
+                                    <label class="form-check-label" for="gridRadios2">
+                                        Không Hoạt Động
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </fieldset>
+                    </fieldset>
+                </div>
                 <button type="submit" class="btn btn-primary">Xác Nhận</button>
             </form>
         </div>
@@ -268,5 +274,70 @@
 <script src="/assets/js/popper.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
+<script>
+    document.getElementById('kichcoForm').addEventListener('submit', function (event) {
+        // Perform your validation logic here
+        clearErrorMessages();
+
+        if (!validateForm()) {
+            // Prevent the form from submitting if validation fails
+            event.preventDefault();
+        }
+    });
+
+    function validateForm() {
+        // Add your validation logic here
+        var maValue = document.getElementById('formGroupExampleInput').value;
+        var tenValue = document.getElementById('formGroupExampleInput1').value;
+        var giaNhapValue = document.getElementById('formGroupExampleInput2').value;
+        var giaBanValue = document.getElementById('formGroupExampleInput3').value;
+        var moTaValue = document.getElementById('formGroupExampleInput4').value;
+        var kq= 0;
+        if (tenValue.trim() === '') {
+            displayErrorMessage('tenError', 'Tên không được để trống');
+            kq=1;
+        }
+
+        if (giaNhapValue.trim() === '') {
+            displayErrorMessage('giaNhapError', 'Gía nhập không được để trống');
+            kq=1;
+        }
+
+        if (giaBanValue.trim() === '') {
+            displayErrorMessage('giaBanError', 'Gía bán không được để trống');
+            kq=1;
+        }
+
+        if (moTaValue.trim() === '') {
+            displayErrorMessage('moTaError', 'Mô tả không được để trống');
+            kq=1;
+        }
+        if (isNaN(giaNhapValue) || parseFloat(giaNhapValue) <= 0) {
+            displayErrorMessage('giaNhapError', 'Gía nhập không đúng định dạng');
+            kq=1;
+        }
+        if (isNaN(giaBanValue) || parseFloat(giaBanValue) <= 0) {
+            displayErrorMessage('giaBanError', 'Gía bán không đúng định dạng');
+            kq=1;
+        }
+        if (kq==1){
+            return false;
+        }
+        return true;
+    }
+    function displayErrorMessage(elementId, message) {
+        var errorElement = document.getElementById(elementId);
+        errorElement.innerText = message;
+        errorElement.style.color = 'red';
+    }
+    function clearErrorMessages() {
+        var errorElements = document.querySelectorAll('.error-message');
+        errorElements.forEach(function (element) {
+            element.innerText = '';
+        });
+    }
+
+</script>
+
 </body>
 </html>

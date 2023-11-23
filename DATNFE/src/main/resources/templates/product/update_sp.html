@@ -162,135 +162,143 @@
         </nav>
         <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px">
             <h3 style="text-align: center">UPDATE SẢN PHẨM</h3>
-            <form th:action="@{|/admin/sanpham/update/${sanpham.ma}|}" method="post" th:object="${sanpham}">
+            <form id="kichcoForm" th:action="@{|/admin/sanpham/update/${sanpham.ma}|}" method="post" th:object="${sanpham}">
                 <input type="text" hidden th:filed="*{id}" th:value="${sanpham.id}">
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>Mã Sản Phẩm :</label>
-                        <input type="text" class="form-control"  placeholder="Mã Sản Phẩm"  th:field="*{ma}" >
+                        <label class="required">Mã Sản Phẩm :</label>
+                        <input type="text" class="form-control" disabled id="formGroupExampleInput" placeholder="Mã Sản Phẩm"  th:field="*{ma}" >
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Tên Sản Phẩm :</label>
-                        <input type="text" class="form-control"  placeholder="Tên Sản Phẩm"   th:field="*{ten}">
+                        <label class="required">Tên Sản Phẩm :</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput1" placeholder="Tên Sản Phẩm"   th:field="*{ten}">
+                        <span id="tenError" class="error-message"></span>
+
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>Mô Tả :</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"   th:field="*{mota}"></textarea>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label >Giá Nhập :</label>
-                        <input type="text" class="form-control"  placeholder="Giá Nhập Sản Phẩm"  th:field="*{gianhap}">
+                        <label class="required">Giá Nhập :</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Giá Nhập Sản Phẩm"  th:field="*{gianhap}">
+                        <span id="giaNhapError" class="error-message"></span>
 
                     </div>
                     <div class="form-group col-md-6">
-                        <label >Giá Bán :</label>
-                        <input type="text" class="form-control"  placeholder="Giá Bán Sản Phẩm"  th:field="*{giaban}">
+                        <label class="required">Giá Bán :</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput3" placeholder="Giá Bán Sản Phẩm"  th:field="*{giaban}">
+                        <span id="giaBanError" class="error-message"></span>
+
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label >Xuất Xứ :</label>
-                        <select class="form-control" th:field="*{xuat_xu.id}">
-                            <option th:each="cg:${listXuatXu}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                        <label class="required">Thương Hiệu :</label>
+                        <select class="form-control" th:field="*{thuong_hieu.id}">
+                            <option th:each="cg:${listThuongHieu}" th:value="${cg.id}">[[${cg.ten}]]</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <label >Chất Liệu :</label>
+                        <label class="required">Chất Liệu :</label>
                         <select class="form-control" th:field="*{chat_lieu.id}">
                             <option th:each="cg:${listChatLieu}" th:value="${cg.id}">[[${cg.ten}]]</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="required">Xuất Xứ :</label>
+                        <select class="form-control" th:field="*{xuat_xu.id}">
+                            <option th:each="cg:${listXuatXu}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="required">Màu Sắc :</label>
+                        <select class="form-control" th:field="*{mau_sac.id}">
+                            <option th:each="cg:${listMauSac}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label >Kiểu Dáng :</label>
+                        <label class="required">Kiểu Dáng :</label>
                         <select class="form-control" th:field="*{kieu_dang.id}">
                             <option th:each="cg:${listKieuDang}" th:value="${cg.id}">[[${cg.ten}]]</option>
                         </select>
                     </div>
                     <div class="form-group col-md-4">
-                        <label >Đế Giày :</label>
+                        <label class="required">Đế Giày :</label>
                         <select class="form-control" th:field="*{de_giay.id}">
                             <option th:each="cg:${listDeGiay}" th:value="${cg.id}">[[${cg.ten}]]</option>
                         </select>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label >Gioi Tinh :</label>
+                    <div class="form-group col-md-4">
+                        <label class="required">Gioi Tinh :</label>
                         <select class="form-control" th:field="*{gioi_tinh.id}">
                             <option th:each="cg:${listGioiTinh}" th:value="${cg.id}">[[${cg.ten}]]</option>
                         </select>
                     </div>
                 </div>
+
                 <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label >Màu Sắc :</label>
-                        <select class="form-control" th:field="*{mau_sac.id}">
-                            <option th:each="cg:${listMauSac}" th:value="${cg.id}">[[${cg.ten}]]</option>
-                        </select>
+                    <div class="form-group col-md-6">
+                        <label class="required">Mô Tả :</label>
+                        <textarea class="form-control" id="formGroupExampleInput4" style="height: 140px !important;"  rows="30"   th:field="*{mota}"></textarea>
+                        <span id="moTaError" class="error-message"></span>
                     </div>
-                    <div class="form-group col-md-4">
-                        <label >Thương Hiệu :</label>
-                        <select class="form-control" th:field="*{thuong_hieu.id}">
-                            <option th:each="cg:${listThuongHieu}" th:value="${cg.id}">[[${cg.ten}]]</option>
-                        </select>
-                    </div>
-                </div>
-                <fieldset class="form-group">
-                    <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">Trạng Thái : </legend>
-                        <div class="col-sm-10">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" id="gridRadios1" th:value="1" checked  th:field="*{trangthai}">
-                                <label class="form-check-label" for="gridRadios1">
-                                    Hoạt Động
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio"  id="gridRadios2" th:value="0"  th:field="*{trangthai}">
-                                <label class="form-check-label" for="gridRadios2">
-                                    Không Hoạt Động
-                                </label>
+                    <fieldset class="form-group col-md-6">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0 required" >Trạng Thái : </legend>
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="gridRadios1" th:value="1"  th:field="*{trangthai}">
+                                    <label class="form-check-label" for="gridRadios1">
+                                        Hoạt Động
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"  id="gridRadios2" th:value="0"  th:field="*{trangthai}">
+                                    <label class="form-check-label" for="gridRadios2">
+                                        Không Hoạt Động
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </fieldset>
-                <button type="submit" class="btn btn-primary">Xác Nhận</button>
+                    </fieldset>
+                </div>
+                <button type="submit" class="btn btn-primary">Cập Nhập</button>
             </form>
         </div>
         <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px;margin: 20px 0px">
             <h3 style="text-align: center">Kích Cỡ Và Số Lượng</h3>
-            <form action="/admin/sanpham/createact" method="post" th:object="${giaychitiet}">
+            <form id="kichCoForm2" action="/admin/sanpham/createact" method="post" th:object="${giaychitiet}">
                 <input type="text" hidden th:name="idsp" th:value="${sanpham.id}">
                 <input type="text" class="form-control" hidden th:field="*{id}">
+                <input type="text" class="form-control" hidden th:field="*{kich_co.id}">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label >Kích Cỡ :</label>
-                        <select class="form-control" th:field="*{kich_co.id}">
-                            <option th:each="cg:${listKichCo}" th:value="${cg.id}">[[${cg.ten}]]</option>
-                        </select>
+                        <label class="required">Kích Cỡ :</label>
+                        <input class="form-control" disabled th:field="*{kich_co.ten}" id="formGroupExampleInput5">
+                        <span id="kcError" class="error-message"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label >Số Lượng</label>
-                    <input type="number" class="form-control" th:field="*{so_luong_ton}" th:value="${giaychitiet.so_luong_ton}">
+                    <label class="required">Số Lượng</label>
+                    <input type="number" class="form-control" th:field="*{so_luong_ton}" th:value="${giaychitiet.so_luong_ton}" id="formGroupExampleInput6">
+                    <span id="slError" class="error-message"></span>
                 </div>
                 <fieldset class="form-group">
                     <div class="row">
                         <legend class="col-form-label col-sm-2 pt-0">Trạng Thái : </legend>
                         <div class="col-sm-10">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" th:field="*{trangthai}"  th:value="1" checked th:text="${giaychitiet.trangthai==1?'checked':''}">
+                                <input class="form-check-input" type="radio" th:field="*{trangthai}"  th:value="1" >
                                 <label class="form-check-label" for="gridRadios1">
                                     Kích Hoạt
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" th:field="*{trangthai}"  th:value="0" th:text="${giaychitiet.trangthai==0?'checked':''}"}>
+                                <input class="form-check-input" type="radio" th:field="*{trangthai}"  th:value="0" }>
                                 <label class="form-check-label" for="gridRadios2">
                                     Ngưng Kích Hoạt
                                 </label>
@@ -298,8 +306,51 @@
                         </div>
                     </div>
                 </fieldset>
-                <button type="submit" class="btn btn-primary">Xác Nhận</button>
+                <button type="submit" class="btn btn-primary">Cập Nhập</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Thêm Kích Cỡ</button>
             </form>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form action="/admin/sanpham/createkc" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Kích Cỡ Và Số Lượng</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                                <input type="text" hidden th:name="idsp" th:value="${sanpham.id}">
+                                <table class="table table-light table-borderless table-hover text-center mb-0">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th></th>
+                                        <th>Kích Cỡ</th>
+                                        <th>Số Lượng</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="align-middle">
+                                    <tr th:each="cg:${listKichCo}">
+                                        <td><input type="checkbox" th:value="${cg.id}" name="listKC"></td>
+                                        <td class="align-middle">[[${cg.ten}]]</td>
+                                        <td class="align-middle">
+                                            <div class="input-group quantity mx-auto" style="width: 100px;">
+                                                <input type="number" class="form-control form-control-sm bg-secondary border-0 text-center" th:name="${cg.id}+'_soluong'" value="10">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
             <table class="table" style="margin: 20px 0;">
                 <thead class="thead-light">
                 <tr>
@@ -314,7 +365,7 @@
                         <th scope="row">[[${act.kich_co.ten}]]</th>
                         <th>[[${act.so_luong_ton}]]</th>
                         <th>[[${act.trangthai==1?'Kích Hoạt':'Ngưng Kích Hoạt'}]]</th>
-                        <th><a th:href="@{|/admin/update/${act.giay.ma}?spct=${act.id}|}">Detail</a></th>
+                        <th><a th:href="@{|/admin/sanpham/update/${act.giay.ma}?spct=${act.kich_co.ten}|}">Detail</a></th>
                     </tr>
                 </tbody>
             </table>
@@ -324,12 +375,26 @@
             <h3 style="text-align: center">Thêm Ảnh</h3>
             <form action="/admin/sanpham/createanh" enctype="multipart/form-data" method="post" >
                 <input type="text" class="form-control" hidden name="idsp" th:value="${sanpham.id}">
-                <input type="file" name="ten_url1">
+                <input type="file" name="ten_url1" multiple>
                 <button type="submit" class="btn btn-primary">Thêm Anh</button>
             </form>
             <div class="form-row">
                     <div class="form-group col-md-3" th:each="sp:${anh}">
+                        <form action="/admin/sanpham/deleteanh" method="post">
+                        <input type="text" hidden name="idAnhDel" th:value="${sp.id}">
                         <img th:src="@{|/images/${sp.ten_url}|}" alt="" style="width: 100%">
+                        <button type="submit" class="delete-button" style="
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 42px;
+">×</button>
+                        </form>
                     </div>
             </div>
         </div>
@@ -340,5 +405,96 @@
 <script src="/assets/js/popper.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
+<script>
+    document.getElementById('kichcoForm').addEventListener('submit', function (event) {
+        // Perform your validation logic here
+        clearErrorMessages();
+
+        if (!validateForm()) {
+            // Prevent the form from submitting if validation fails
+            event.preventDefault();
+        }
+    });
+    document.getElementById('kichCoForm2').addEventListener('submit', function (event) {
+        // Perform your validation logic here
+        clearErrorMessages();
+
+        if (!validateForm2()) {
+            // Prevent the form from submitting if validation fails
+            event.preventDefault();
+        }
+    });
+    function validateForm() {
+        // Add your validation logic here
+        var maValue = document.getElementById('formGroupExampleInput').value;
+        var tenValue = document.getElementById('formGroupExampleInput1').value;
+        var giaNhapValue = document.getElementById('formGroupExampleInput2').value;
+        var giaBanValue = document.getElementById('formGroupExampleInput3').value;
+        var moTaValue = document.getElementById('formGroupExampleInput4').value;
+        var kq= 0;
+        if (tenValue.trim() === '') {
+            displayErrorMessage('tenError', 'Tên không được để trống');
+            kq=1;
+        }
+
+        if (giaNhapValue.trim() === '') {
+            displayErrorMessage('giaNhapError', 'Gía nhập không được để trống');
+            kq=1;
+        }
+
+        if (giaBanValue.trim() === '') {
+            displayErrorMessage('giaBanError', 'Gía bán không được để trống');
+            kq=1;
+        }
+
+        if (moTaValue.trim() === '') {
+            displayErrorMessage('moTaError', 'Mô tả không được để trống');
+            kq=1;
+        }
+        if (isNaN(giaNhapValue) || parseFloat(giaNhapValue) <= 0) {
+            displayErrorMessage('giaNhapError', 'Gía nhập không đúng định dạng');
+            kq=1;
+        }
+        if (isNaN(giaBanValue) || parseFloat(giaBanValue) <= 0) {
+            displayErrorMessage('giaBanError', 'Gía bán không đúng định dạng');
+            kq=1;
+        }
+        if (kq==1){
+            return false;
+        }
+        return true;
+    }
+    function validateForm2() {
+        // Add your validation logic here
+        var kcValue = document.getElementById('formGroupExampleInput5').value;
+        var slValue = document.getElementById('formGroupExampleInput6').value;
+        var kq= 0;
+        if (kcValue.trim() === '') {
+            displayErrorMessage('tenError', 'Kích Cỡ không được để trống');
+            kq=1;
+        }
+
+        if (slValue.trim() === '') {
+            displayErrorMessage('giaNhapError', 'Số Lượng nhập không được để trống');
+            kq=1;
+        }
+        if (kq==1){
+            return false;
+        }
+        return true;
+    }
+    function displayErrorMessage(elementId, message) {
+        var errorElement = document.getElementById(elementId);
+        errorElement.innerText = message;
+        errorElement.style.color = 'red';
+    }
+    function clearErrorMessages() {
+        var errorElements = document.querySelectorAll('.error-message');
+        errorElements.forEach(function (element) {
+            element.innerText = '';
+        });
+    }
+
+</script>
 </body>
 </html>
