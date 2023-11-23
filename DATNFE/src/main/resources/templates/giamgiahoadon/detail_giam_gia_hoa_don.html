@@ -263,11 +263,13 @@
                     <a href="#danhSachDaApMaDropDown" data-toggle="collapse" aria-expanded="false"
                        class="dropdown-toggle col-12 text-center"> Áp Dụng Chương Trình Giảm Giá Hóa Đơn</a>
                 </h4>
-                <div th:if="${giamgiahoadon.trangthai == 0}" style="padding: 10px" class="collapse list-unstyled col-12 border bg-light"
+                <div th:if="${giamgiahoadon.trangthai == 0}" style="padding: 10px"
+                     class="collapse list-unstyled col-12 border bg-light"
                      id="danhSachDaApMaDropDown">
                     <h4 class="text-center">Chương trình đã ngừng hoạt động</h4>
                 </div>
-                <div th:if="${giamgiahoadon.trangthai == 1}" style="padding: 10px" class="collapse list-unstyled col-12 border bg-light"
+                <div th:if="${giamgiahoadon.trangthai == 1}" style="padding: 10px"
+                     class="collapse list-unstyled col-12 border bg-light"
                      id="danhSachDaApMaDropDown">
                     <div class="row">
                         <div class="col-6">
@@ -288,16 +290,19 @@
                                         </th>
                                         <th scope="col">Mã HĐ</th>
                                         <th scope="col">Ngày Tạo</th>
-                                        <th scope="col">Khách Hàng</th>
+                                        <th scope="col">KH</th>
                                         <th scope="col">Tổng Tiền</th>
                                         <th scope="col">Trạng thái</th>
                                     </tr>
                                     </thead>
                                     <tbody th:if="${giamgiahoadon.trangthai != 0}">
                                     <tr th:if="${listHoaDon.content.isEmpty()}">
-                                        <td colspan="8">Không Hóa đơn nào chưa được áp dụng chương trình giảm
-                                            giá
-                                            hoặc Hóa đơn chưa đủ điều kiện
+                                        <td colspan="8">
+                                            <i style="font-size: 3rem"
+                                               class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>
+                                            <div class="text-center d-flex justify-content-center align-items-center">No
+                                                Data
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr th:each="hd:${listHoaDon.content}">
@@ -395,7 +400,13 @@
                                         <tbody style="max-height: 300px; overflow-y: auto;">
                                         <!-- Dữ liệu của tbody -->
                                         <tr th:if="${hoaDonListdaGG.content.isEmpty()}" class="text-center">
-                                            <td colspan="8">Không Hóa đơn nào đã được áp dụng chương trình này</td>
+                                            <td colspan="8">
+                                                <i style="font-size: 3rem"
+                                                   class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>
+                                                <div class="text-center d-flex justify-content-center align-items-center">
+                                                    No Data
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr th:each="hd:${hoaDonListdaGG.content}" class="text-center">
                                             <td class="text-center">

@@ -68,7 +68,7 @@ public class GiamGiaHoaDon implements Serializable {
     @NotNull(message = "Không được để trống trạng thái !")
     private Integer trangthai;
 
-    @OneToMany(mappedBy = "gghd", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "gghd", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<GiamGiaChiTietHoaDon> ListGGCTHD;
 }

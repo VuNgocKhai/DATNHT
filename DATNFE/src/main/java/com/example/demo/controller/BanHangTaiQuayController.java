@@ -132,7 +132,7 @@ public class BanHangTaiQuayController {
         hoaDon.setHinh_thuc_thanh_toan(0);
         hoaDon.setSo_tien_giam(BigDecimal.ZERO);
         hoaDon.setPhi_ship(BigDecimal.ZERO);
-        hoaDon.setTrangthai(0);
+        hoaDon.setTrangthai(1);
         hoaDonRepo.createHoaDon(hoaDon);
         redirectAttributes.addAttribute("maHD", maHoaDonMoi);
         return "redirect:/admin/ban-hang-tai-quay/view-cart/{maHD}";
@@ -149,7 +149,7 @@ public class BanHangTaiQuayController {
 
                               Model model) {
 
-        Pageable pageable1 = PageRequest.of(page2.orElse(0), 5);
+        Pageable pageable1 = PageRequest.of(page2.orElse(0), 12);
         PageDTO<GiayChiTiet> pageDTO1 = new PageDTO<>(giayChiTietDAO.getSearchsanpham("%" + keyword.orElse("") + "%", "%" + size.orElse("") + "%", pageable1));
         model.addAttribute("ListGiayChiTiet", pageDTO1); // Danh sách giày chi tiết theo Page
 
@@ -160,6 +160,7 @@ public class BanHangTaiQuayController {
         model.addAttribute("ListKhachHang", khachHangRepo.getAll()); //ListKhachHang
         model.addAttribute("ListGiamGiaHoaDon", giamGiaHoaDonRepo.getAllGGHDtrangthai1()); //List Giảm giá hóa đơn
         model.addAttribute("maHD", ma); // Mã hóa đơn
+        model.addAttribute("HoaDonDetail", hoaDonRepo.getHoaDonByMa(ma));
         model.addAttribute("dskichco", kichCoRepo.getListKichCo());
 
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(ma);
@@ -468,12 +469,27 @@ public class BanHangTaiQuayController {
         return "redirect:/admin/ban-hang-tai-quay/view-cart/{maHD}";
     }
 
+    @RequestMapping("/admin/ban-hang-tai-quay/xoa-khach-hang/{maHD}")
+    public String deleteKhachHang(@PathVariable("maHD") String maHD,
+                                  RedirectAttributes redirectAttributes) {
+
+        HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
+        hoaDon.setKhachHang(null);
+        hoaDon.setTen_nguoi_nhan(null);
+        hoaDon.setSdt_nguoi_nhan(null);
+        hoaDon.setDia_chi(null);
+        hoaDonRepo.createHoaDon(hoaDon);
+
+        redirectAttributes.addAttribute("maHD", maHD);
+        return "redirect:/admin/ban-hang-tai-quay/view-cart/{maHD}";
+    }
+
     @PostMapping("/admin/ban-hang-tai-quay/tao-don-hang/add-dia-chi")
     public String themDiaChiKhachHangVaoHoaDon(@RequestParam("maHD") String maHD,
                                                @RequestParam("maDC") String maDC,
                                                RedirectAttributes redirectAttributes) {
 
-        if (maDC != null || maDC != null) {
+        if (maDC != null || maHD != null) {
             HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
             DiaChi diaChi = diachiDao.getDiachiByma(maDC);
             GiaoHangNhanh giaoHangNhanh = new GiaoHangNhanh();
@@ -517,7 +533,6 @@ public class BanHangTaiQuayController {
                                                 HttpServletRequest request,
                                                 RedirectAttributes redirectAttributes) {
         System.out.println("in tien ra" + tongTienSauGiam + phiShip + soTienGiam);
-        ;
 //        Integer phuongThucMuaHang =Integer.parseInt(request.getParameter("phuongThucMuaHang"));
 //        Integer phuongThucThanhToan = Integer.parseInt(request.getParameter("phuongThucThanhToan"));
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
