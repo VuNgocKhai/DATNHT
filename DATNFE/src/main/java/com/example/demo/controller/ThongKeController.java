@@ -30,7 +30,11 @@ public class ThongKeController {
 
     private void prepareModelData(Model model) {
         LocalDate ngayHienTai = LocalDate.now();
-        model.addAttribute("tongTien", hoaDonDAO.tongTienTheoNgay(ngayHienTai));
+        BigDecimal tongTienTheoNgay = hoaDonDAO.tongTienTheoNgay(ngayHienTai);
+
+        BigDecimal tongTien = (tongTienTheoNgay != null) ? tongTienTheoNgay : BigDecimal.ZERO;
+        model.addAttribute("tongTien",tongTien);
+        model.addAttribute("tongTienTrongNgay",hoaDonDAO.tongTienTrongNgay(ngayHienTai));
         model.addAttribute("tongsohoadondangchoxanhan", hoaDonDAO.tongsohoadondangchoxanhan());
         model.addAttribute("tongSoHoaDonDaHuy", hoaDonDAO.countByTrangthai(5));
         model.addAttribute("tongSoHoaDonDaHoanThanh", hoaDonDAO.countByTrangthai(4));
@@ -57,19 +61,23 @@ public class ThongKeController {
 
         switch (thoiGian) {
             case "ngay":
-                tongTien = hoaDonDAO.tongTienTheoNgay(ngayHienTai);
+                BigDecimal TongTienTheoNgay = hoaDonDAO.tongTienTheoNgay(ngayHienTai);
+                tongTien = ( TongTienTheoNgay!= null) ? TongTienTheoNgay : BigDecimal.ZERO;
                 model.addAttribute("ngayDaChonDoanhThuDetail", thoiGian);
                 break;
             case "tuan":
-                tongTien = hoaDonDAO.tongTienTheoTuan(ngayHienTai);
+                BigDecimal TongTienTheoTuaan = hoaDonDAO.tongTienTheoTuan(ngayHienTai);
+                tongTien = (TongTienTheoTuaan != null) ? TongTienTheoTuaan : BigDecimal.ZERO;
                 model.addAttribute("ngayDaChonDoanhThuDetail", thoiGian);
                 break;
             case "thang":
-                tongTien = hoaDonDAO.tongTienTheoThang(ngayHienTai);
+                BigDecimal TongTienTheothang= hoaDonDAO.tongTienTheoThang(ngayHienTai);
+                tongTien = TongTienTheothang != null ? TongTienTheothang : BigDecimal.ZERO;
                 model.addAttribute("ngayDaChonDoanhThuDetail", thoiGian);
                 break;
             case "nam":
-                tongTien = hoaDonDAO.tongTienTheoNam(ngayHienTai);
+                BigDecimal TongTienTheonam = hoaDonDAO.tongTienTheoNam(ngayHienTai);
+                tongTien = TongTienTheonam != null ? TongTienTheonam : BigDecimal.ZERO;
                 model.addAttribute("ngayDaChonDoanhThuDetail", thoiGian);
                 break;
             default:

@@ -22,7 +22,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -47,7 +46,7 @@ public class QuanLyTaiKhoanKhController {
     @Autowired
     private GioHangDAO gioHangDAO;
     @Autowired
-    SanPhamYeuThichDAo sanPhamYeuThichDAo;
+    GioHangYeuThichDao gioHangYeuThichDAo;
 
     private Authentication authentication;
 

@@ -197,8 +197,7 @@
                                 <div class="col-7 col-md-8">
                                     <div class="numbers">
                                         <h6 class="card-category">Tổng Doanh Thu Bán Hàng</h6>
-                                        <p th:class="giaBan" class="card-title">
-                                            [[${tongTien}]]
+                                        <p th:class="giaBan" class="card-title" th:text="${tongTien}">
                                         <p>
                                     </div>
                                 </div>
@@ -279,8 +278,7 @@
                                 <div class="col-7 col-md-8">
                                     <div class="numbers">
                                         <p class="card-category">Doanh Thu</p>
-                                        <p th:class="giaBan" class="card-title">
-                                            [[${tongTien}]]
+                                        <p th:class="giaBan" class="card-title" th:text="${tongTienTrongNgay != null ? tongTienTrongNgay : 0}">
                                         <p>
                                     </div>
                                 </div>
