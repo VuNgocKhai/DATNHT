@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -40,4 +41,9 @@ public interface GiayDAO extends JpaRepository<Giay, UUID> {
 
         return "SP" + nextNumber;
     }
+    @Query("select g from Giay g where g.thuong_hieu.ten = :thuonghieu")
+    List<Giay> getAllGiayByThuonghieu(@Param("thuonghieu") String thuonghieu);
+
+    @Query("select g from Giay g where g.mau_sac.ten = :mausac")
+    Page<Giay> getAllGiayByMauSac(String mausac, Pageable pageable);
 }

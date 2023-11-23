@@ -6,9 +6,9 @@ import com.example.demo.repository.*;
 import com.example.demo.service.CallAPIGHN;
 import com.example.demo.service.UntityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
@@ -59,29 +58,36 @@ public class GioHangController {
     @Autowired
     DanhGiaDAO danhGiaDAO;
     @Autowired
-    sanphamyeuthichchitietdao sanPhamYeuThichDAo;
+    GioHangYeuThichChiTietDao sanPhamYeuThichDAo;
+    @Autowired
+    AnhGiayDAO anhGiayDAO;
 
     private Authentication authentication;
 
 
-    @RequestMapping("/ctsp/{x}")
-    public String ctsp(Model model, @PathVariable("x") String ma,@RequestParam(defaultValue = "0") String numberDg) {
+    @RequestMapping("/ctsp/{x}-{giaythuonghieu}-{giaymausac}")
+    public String ctsp(Model model, @PathVariable("x") String ma, @RequestParam(defaultValue = "0") String numberDg,
+                       @PathVariable("giaythuonghieu") String thuonghieu,
+                       @PathVariable("giaymausac") String mausac) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
-        if (khachHang == null) {
-            Giay giay = giayDAO.getGiayByMa(ma);
-            model.addAttribute("item", giay);
-            model.addAttribute("Tongsothichsanpham", sanPhamYeuThichDAo.countYeuThichByGiayId(ma));
-        } else {
-            Giay giay = giayDAO.getGiayByMa(ma);
-            model.addAttribute("item", giay);
-            model.addAttribute("Tongsothichsanpham", sanPhamYeuThichDAo.countYeuThichByGiayId(ma));
+
+        Pageable pageable1 = PageRequest.of(0, 3);
+
+        Giay giay = giayDAO.getGiayByMa(ma);
+        model.addAttribute("item", giay);
+        model.addAttribute("Tongsothichsanpham", sanPhamYeuThichDAo.countYeuThichByGiayId(ma));
+
+        if (khachHang != null) {
             model.addAttribute("taikhoan", khachHang.getId());
-            model.addAttribute("khachHang",khachHang);
-            model.addAttribute("yeuthich",sanPhamYeuThichDAo.getSan_Pham_Yeu_Thich_Chi_Tiet11Byma(ma));
+            model.addAttribute("khachHang", khachHang);
+            model.addAttribute("yeuthich", sanPhamYeuThichDAo.getSan_Pham_Yeu_Thich_Chi_Tiet11Byma(ma));
         }
 
-        //load danh gia
+        model.addAttribute("ListGiayTheoThuongHieu", giayDAO.getAllGiayByThuonghieu(thuonghieu));
+        model.addAttribute("ListGiayTheoMauSac", giayDAO.getAllGiayByMauSac(mausac,pageable1));
+        model.addAttribute("listanhgiay",anhGiayDAO.getAnhByMaGiay(ma));
+
         Pageable pageable = PageRequest.of(Integer.valueOf(numberDg), 3);
         model.addAttribute("pageDg", new PageDTO<>(danhGiaDAO.findDanhGiasByMaSpAndTt(ma, pageable)));
         model.addAttribute("totalDg", danhGiaDAO.countGiayByMaGiayAndTt(ma));
@@ -90,6 +96,7 @@ public class GioHangController {
 
         return "home/chitietsanpham";
     }
+
 
     @ResponseBody
     @PostMapping("/danh-gia")

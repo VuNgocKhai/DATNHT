@@ -9,13 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.time.LocalDate;
 
 @Controller
 public class SanPhamYeuThichController {
 
     @Autowired
-    SanPhamYeuThichDAo sanPhamYeuThichDAo;
+    GioHangYeuThichDao gioHangYeuThichDAo;
 
     @Autowired
     KhachHangDao khachHangDao;
@@ -24,13 +26,13 @@ public class SanPhamYeuThichController {
     GiayDAO giayDAO;
 
     @Autowired
-    sanphamyeuthichchitietdao sanPhamYeuThichChiTietDao;
+    GioHangYeuThichChiTietDao sanPhamYeuThichChiTietDao;
 
     private Authentication authentication;
 
 
     @RequestMapping("/qltk-kh/dssanphamyeuthich")
-    public String index(Model model, @ModelAttribute San_Pham_Yeu_Thich sanphamyeuthich) {
+    public String index(Model model, @ModelAttribute Gio_Hang_Yeu_Thich sanphamyeuthich) {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         KhachHang khachHang=  khachHangDao.getKhByEmail(authentication.getName());
         sanphamyeuthich.setKhachHang(khachHang);
@@ -41,53 +43,56 @@ public class SanPhamYeuThichController {
 
 
     @PostMapping("/add-san-pham-yeu-thich")
-    public String themSanPhamYeuThich(@RequestParam("Magiay") String Magiay) {
+    public String themSanPhamYeuThich(@RequestParam("Magiay") String Magiay,
+                                      @RequestParam("Url_sanpham") String Url_sanpham)  throws UnsupportedEncodingException {
+        String encodedUrl = URLEncoder.encode(Url_sanpham, "UTF-8");
         Giay giay = giayDAO.getGiayByMa(Magiay);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
 
         if (khachHang != null && giay != null) {
-            San_Pham_Yeu_Thich sanPhamYeuThich = sanPhamYeuThichDAo.findByKhachHang(khachHang);
+            Gio_Hang_Yeu_Thich sanPhamYeuThich = gioHangYeuThichDAo.findByKhachHang(khachHang);
 
             if (sanPhamYeuThich == null) {
-                sanPhamYeuThich = new San_Pham_Yeu_Thich();
+                sanPhamYeuThich = new Gio_Hang_Yeu_Thich();
                 sanPhamYeuThich.setKhachHang(khachHang);
                 sanPhamYeuThich.setNgay_tao(LocalDate.now());
                 sanPhamYeuThich.setTrangthai(1);
 
-                sanPhamYeuThich = sanPhamYeuThichDAo.save(sanPhamYeuThich);
+                sanPhamYeuThich = gioHangYeuThichDAo.save(sanPhamYeuThich);
             }
 
-            San_Pham_Yeu_Thich_Chi_Tiet11 sanPhamYeuThichChiTiet = new San_Pham_Yeu_Thich_Chi_Tiet11();
+            Gio_Hang_Yeu_Thich_Chi_Tiet sanPhamYeuThichChiTiet = new Gio_Hang_Yeu_Thich_Chi_Tiet();
             sanPhamYeuThichChiTiet.setSanPhamYeuThich(sanPhamYeuThich);
             sanPhamYeuThichChiTiet.setGiay(giay);
             sanPhamYeuThichChiTiet.setNgay_tao(LocalDate.now());
             sanPhamYeuThichChiTiet.setTrangthai(1);
-
             sanPhamYeuThichChiTietDao.save(sanPhamYeuThichChiTiet);
         }else if (khachHang == null){
             return "redirect:/login";
         }
 
-        return "redirect:/ctsp/" + Magiay;
+        return "redirect:/ctsp/" + encodedUrl;
     }
 
 
 
 
     @RequestMapping("/remove-san-pham-yeu-thich")
-    public String xoaSanPhamYeuThich(@RequestParam("Magiay") String Magiay) {
+    public String xoaSanPhamYeuThich(@RequestParam("Magiay") String Magiay,
+                                     @RequestParam("Url_sanpham") String Url_sanpham) throws UnsupportedEncodingException {
+        String encodedUrl = URLEncoder.encode(Url_sanpham, "UTF-8");
         // Lấy thông tin sản phẩm và người dùng hiện tại
         Giay giay = giayDAO.getGiayByMa(Magiay);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
 
         // Tìm sản phẩm yêu thích cụ thể của người dùng
-        San_Pham_Yeu_Thich sanPhamYeuThich = sanPhamYeuThichDAo.findByKhachHang(khachHang);
+        Gio_Hang_Yeu_Thich sanPhamYeuThich = gioHangYeuThichDAo.findByKhachHang(khachHang);
 
         if (sanPhamYeuThich != null) {
             // Tìm chi tiết sản phẩm yêu thích dựa trên sản phẩm và người dùng
-            San_Pham_Yeu_Thich_Chi_Tiet11 sanPhamYeuThichChiTiet = sanPhamYeuThichChiTietDao.findByKhachHangAndGiay(khachHang, giay);
+            Gio_Hang_Yeu_Thich_Chi_Tiet sanPhamYeuThichChiTiet = sanPhamYeuThichChiTietDao.findByKhachHangAndGiay(khachHang, giay);
 
             if (sanPhamYeuThichChiTiet != null) {
                 // Nếu sản phẩm tồn tại trong danh sách yêu thích, xóa nó
@@ -95,7 +100,7 @@ public class SanPhamYeuThichController {
             }
         }
 
-        return "redirect:/ctsp/" + Magiay;
+        return "redirect:/ctsp/" + encodedUrl;
     }
 
 

@@ -10,9 +10,9 @@
     <div class="row px-xl-5">
         <div class="col-12">
             <nav class="breadcrumb bg-light mb-30">
-                <a class="breadcrumb-item text-dark" href="#">Home</a>
-                <a class="breadcrumb-item text-dark" href="#">Shop</a>
-                <span class="breadcrumb-item active">Shop List</span>
+                <a class="breadcrumb-item text-dark" href="#">Trang Chủ</a>
+                <a class="breadcrumb-item text-dark" href="#">Cửa Hàng</a>
+                <span class="breadcrumb-item active">Danh sách cửa hàng</span>
             </nav>
         </div>
     </div>
@@ -261,17 +261,17 @@
                         <div class="ml-2">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                                        data-toggle="dropdown">Sorting
+                                        data-toggle="dropdown">Sắp xếp
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">Latest</a>
-                                    <a class="dropdown-item" href="#">Popularity</a>
-                                    <a class="dropdown-item" href="#">Best Rating</a>
+                                    <a class="dropdown-item" href="#">Muộn nhất</a>
+                                    <a class="dropdown-item" href="#">Phổ biến</a>
+                                    <a class="dropdown-item" href="#">Đánh giá tốt nhất</a>
                                 </div>
                             </div>
                             <div class="btn-group ml-2">
                                 <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                                        data-toggle="dropdown">Showing
+                                        data-toggle="dropdown">Đang hiển thị
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="#">10</a>
@@ -304,7 +304,7 @@
                         </div>
                         <a href="" style="position: absolute;bottom: 160px;left: 145px;text-decoration: underline;">[[${item.thuong_hieu.ten}]]</a>
                         <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" th:href="@{|/ctsp/*{ma}|}">
+                            <a class="h6 text-decoration-none text-truncate" th:href="@{|/ctsp/*{ma}-*{thuong_hieu.ten}-*{mau_sac.ten}|}">
                                 <p style="margin: auto;text-align: center;max-width: 250px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color: #817d70;">
                                     [[*{ten}]]
                                 </p>

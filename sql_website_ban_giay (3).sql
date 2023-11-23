@@ -249,20 +249,20 @@ create table chuong_trinh_giam_gia_chi_tiet_hoa_don (
 	foreign key (id_hoa_don) references hoa_don(id),
 	foreign key (id_chuong_trinh_giam_gia_hoa_don) references chuong_trinh_giam_gia_hoa_don(id)
 )
-create table san_pham_yeu_thich(
+create table gio_hang_san_pham_yeu_thich(
 	id uniqueidentifier primary key default newid(),
 	id_khach_hang uniqueidentifier,
 	ngay_tao date null,
 		trangthai int null,
 	foreign key (id_khach_hang) references khach_hang(id)
 )
-create table san_pham_yeu_thich_chi_tiet(
+create table gio_hang_san_pham_yeu_thich_chi_tiet(
 	id uniqueidentifier primary key default newid(),
-	id_san_pham_yeu_thich uniqueidentifier,
+	id_gio_hang_san_pham_yeu_thich uniqueidentifier,
 	id_giay uniqueidentifier,
 	ngay_tao date null,
 	trangthai int null,
-	foreign key (id_san_pham_yeu_thich) references san_pham_yeu_thich(id),
+	foreign key (id_gio_hang_san_pham_yeu_thich) references gio_hang_san_pham_yeu_thich(id),
 		foreign key (id_giay) references giay(id)
 )
 INSERT INTO website_ban_giay.dbo.chuc_vu (id,ma,ten,trangthai) VALUES
@@ -393,9 +393,9 @@ INSERT INTO website_ban_giay.dbo.kich_co (id,ma,ten,trangthai) VALUES
 	 INSERT INTO website_ban_giay.dbo.gio_hang_chi_tiet (id,id_gio_hang,id_giay_chi_tiet,so_luong,ghi_chu,trangthai) VALUES
 	 (N'3A2E4DA9-49E0-4A2C-9CD7-1531F08C007C',N'D40A87D4-F3FF-4F92-8394-F793F75B1639',N'E4F458CF-98D0-F847-BB59-07AE707F25BD',3,N'1',1),
 	 (N'B897AC00-69F7-4E49-8595-89124CC42E45',N'D40A87D4-F3FF-4F92-8394-F793F75B1639',N'0F034CF9-8D35-1846-BBFB-087BE7AB5DC0',5,N'1',1);
-	 INSERT INTO website_ban_giay.dbo.san_pham_yeu_thich (id,id_khach_hang,ngay_tao,trangthai) VALUES
+	 INSERT INTO website_ban_giay.dbo.gio_hang_san_pham_yeu_thich (id,id_khach_hang,ngay_tao,trangthai) VALUES
 	 (N'72AE816C-5FE7-6B42-8971-4FD24759445C',N'22B427F5-1E52-402F-B5DC-EC17AD5F139A','2023-11-10',1);
-	 INSERT INTO website_ban_giay.dbo.san_pham_yeu_thich_chi_tiet (id,id_san_pham_yeu_thich,id_giay,ngay_tao,trangthai) VALUES
+	 INSERT INTO website_ban_giay.dbo.gio_hang_san_pham_yeu_thich_chi_tiet (id,id_gio_hang_san_pham_yeu_thich,id_giay,ngay_tao,trangthai) VALUES
 	 (N'FC1C9BA0-01E9-B044-9E51-8CEEE4EB96C5',N'72AE816C-5FE7-6B42-8971-4FD24759445C',N'C00D80A0-1ADB-7845-9F3B-9AC42C2E2D1C','2023-11-10',1);
 	 INSERT INTO website_ban_giay.dbo.chuong_tring_giam_gia_san_pham (id,ma,ten,phan_tram_giam,ngay_bat_dau,ngay_ket_thuc,id_nhan_vien_create,id_nhan_vien_update,trangthai) VALUES
 	 (N'F00C57E5-B909-4CE4-B252-2FB5DB12F181',N'GGSP02',N'Mừng 8-3',20,'2023-11-06','2023-11-09',N'9D8372B8-AAA4-464A-A938-3C6927210010',N'5D89F310-6D41-41EE-B5B8-57F5B6DB7A9A',1),
@@ -438,10 +438,17 @@ INSERT INTO website_ban_giay.dbo.kich_co (id,ma,ten,trangthai) VALUES
 	 (N'482E73CC-0327-374C-AF21-F7DFE4F38F32',N'dior1_2.jpg',N'C00D80A0-1ADB-7845-9F3B-9AC42C2E2D1C',NULL),
 	 (N'845D57C3-0F44-BB47-982C-F7FBD8C5B0E7',N'mlb3.jpg',N'597A9673-6929-D342-96DC-0A4C47E3CC7B',NULL);
 
+<<<<<<< HEAD
 	 select * from khach_hang
 	 select * from dia_chi
 	 select * from hoa_don
 	 select * from hoa_don_chi_tiet
+=======
+	 select * from gio_hang_san_pham_yeu_thich_chi_tiet
+	 	 select * from hoa_don
+
+	 delete  from gio_hang_san_pham_yeu_thich_chi_tiet
+>>>>>>> origin/khachhang
 
 	 delete from chuong_trinh_giam_gia_chi_tiet_hoa_don
 	 delete from chuong_trinh_giam_gia_hoa_don

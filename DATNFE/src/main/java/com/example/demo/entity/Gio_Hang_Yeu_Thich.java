@@ -8,9 +8,9 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "san_pham_yeu_thich")
+@Table(name = "gio_hang_san_pham_yeu_thich")
 
-public class San_Pham_Yeu_Thich {
+public class Gio_Hang_Yeu_Thich {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
