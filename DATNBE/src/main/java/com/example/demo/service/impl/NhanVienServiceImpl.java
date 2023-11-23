@@ -72,6 +72,7 @@ public class NhanVienServiceImpl implements NhanVienService {
             nv.setNgayVaoLam(nhanVien.getNgayVaoLam());
             nv.setNgayNghiViec(nhanVien.getNgayNghiViec());
             nv.setChucVu(nhanVien.getChucVu());
+            nv.setAnh(nhanVien.getAnh());
             nhanVienDAO.save(nv);
             return true;
         } catch (Exception e) {

@@ -28,6 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -53,10 +54,12 @@ public class NhanVienController {
     PageDTO<NhanVien> page;
 
     @GetMapping("")
-    public String page(@ModelAttribute NhanVien nhanVien,
+    public String page(
+            @ModelAttribute NhanVien nhanVien,
                        @RequestParam(defaultValue = "0") String number,
                        Model model) {
         nhanVien.setTrangThai(1);
+        nhanVien.setNgayNghiViec(String.valueOf(LocalDate.now()));
         numberCurrent=Integer.valueOf(number);
         page=new PageDTO<>(nhanVienService.getPageByTrangThai(1,Integer.valueOf(number)));
         model.addAttribute("page", page);
@@ -71,6 +74,7 @@ public class NhanVienController {
                        Model model,
                        Optional<String> number) {
         nhanVien.setTrangThai(1);
+        nhanVien.setNgayNghiViec(String.valueOf(LocalDate.now()));
         page = new PageDTO<>(nhanVienService.findNhanVien(ma,data,maCv, Integer.valueOf(number.orElse("0"))));
         model.addAttribute("page", page);
         model.addAttribute("data", data.orElse(null));
@@ -97,12 +101,14 @@ public class NhanVienController {
     public String create(@ModelAttribute NhanVien nhanVien,Model model,@RequestParam("file") MultipartFile file) {
         Path path = Paths.get("src/main/webapp/images/");
         try {
-            InputStream inputStream = file.getInputStream();
-            String[] duoi=file.getOriginalFilename().split("\\.");
-            String nameavt="avatar_nv"+nhanVienDAO.getMaMax()+"."+(duoi[duoi.length - 1]);
-            Files.copy(inputStream,path.resolve(nameavt), StandardCopyOption.REPLACE_EXISTING);
             if(!file.isEmpty()){
+                InputStream inputStream = file.getInputStream();
+                String[] duoi=file.getOriginalFilename().split("\\.");
+                String nameavt="avatar_nv"+String.valueOf(nhanVienDAO.getMaMax()+1)+"."+(duoi[duoi.length - 1]);
+                Files.copy(inputStream,path.resolve(nameavt), StandardCopyOption.REPLACE_EXISTING);
+                inputStream.close();
                 nhanVien.setAnh(nameavt);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -112,7 +118,20 @@ public class NhanVienController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute NhanVien nhanVien) {
+    public String update(@ModelAttribute NhanVien nhanVien,@RequestParam("file") MultipartFile file) {
+        Path path = Paths.get("src/main/webapp/images/");
+        try {
+            if(!file.isEmpty()){
+                InputStream inputStream = file.getInputStream();
+                String[] duoi=file.getOriginalFilename().split("\\.");
+                String nameavt="avatar_nv"+String.valueOf(nhanVien.getMa().split("NV")[1])+"."+(duoi[duoi.length - 1]);
+                Files.copy(inputStream,path.resolve(nameavt), StandardCopyOption.REPLACE_EXISTING);
+                inputStream.close();
+                nhanVien.setAnh(nameavt);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         nhanVienService.update(nhanVien);
         return "redirect:/admin/nhan-vien?number="+numberCurrent;
     }
@@ -121,7 +140,17 @@ public class NhanVienController {
     public String delete(@PathVariable String ma) {
         nhanVienService.deleteByMa(ma);
         return "redirect:/admin/nhan-vien?number="+numberCurrent;
+    }
 
+    @ResponseBody
+    @GetMapping("/isExist/{email}")
+    public Boolean isExist(@PathVariable String email) {
+        NhanVien nv=nhanVienDAO.getNVByEmail(email.trim());
+        if(nv!=null){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     @ModelAttribute("listNhanVien")

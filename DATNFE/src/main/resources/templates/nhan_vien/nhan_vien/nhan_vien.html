@@ -25,91 +25,100 @@
             document.getElementById("ngayVaoLamError").innerHTML = "";
             document.getElementById("chucVuError").innerHTML = "";
 
-            var isErr=false;
+            var isErr = false;
 
             // Kiểm tra lỗi cho từng trường
             var hoTen = document.getElementById("hoTenInput").value;
             if (hoTen.trim() === "") {
                 document.getElementById("hoTenError").innerHTML = "Vui lòng nhập Họ tên.";
-                isErr=true;
+                isErr = true;
             }
 
             var sdt = document.getElementById("sdtInput").value.trim();
             if (sdt === "") {
                 document.getElementById("sdtError").innerHTML = "Vui lòng nhập Số điện thoại.";
-                isErr=true;
-            }else if(sdt !== ''){
+                isErr = true;
+            } else if (sdt !== '') {
                 var regex = /^(0[1-9])+([0-9]{8})$/;
-                if(!regex.test(sdt)){
+                if (!regex.test(sdt)) {
                     document.getElementById("sdtError").innerHTML = "Số điện thoại không hợp lệ.";
-                    isErr=true;
+                    isErr = true;
                 }
             }
 
             var thanhPho = document.getElementById("province").value;
             if (thanhPho.trim() === "") {
                 document.getElementById("thanhPhoError").innerHTML = "Vui lòng chọn Tỉnh/Thành phố.";
-                isErr=true;
+                isErr = true;
             }
 
             var huyen = document.getElementById("district").value;
             if (huyen.trim() === "") {
                 document.getElementById("huyenError").innerHTML = "Vui lòng chọn Quận/Huyện.";
-                isErr=true;
+                isErr = true;
             }
 
             var xa = document.getElementById("ward").value;
             if (xa.trim() === "") {
                 document.getElementById("xaError").innerHTML = "Vui lòng chọn Xã/Phường.";
-                isErr=true;
+                isErr = true;
             }
 
             var diaChi = document.getElementById("diaChiInput").value;
             if (diaChi.trim() === "") {
                 document.getElementById("diaChiError").innerHTML = "Vui lòng nhập Địa chỉ.";
-                isErr=true;
+                isErr = true;
             }
 
             var email = document.getElementById("emailInput").value.trim();
             if (email === "") {
                 document.getElementById("emailError").innerHTML = "Vui lòng nhập Email.";
-                isErr=true;
-            }
-            else if(email !== ""){
+                isErr = true;
+            } else if (email !== "") {
                 var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if(!regex.test(email)){
+                if (!regex.test(email)) {
                     document.getElementById("emailError").innerHTML = "Email không hợp lệ.";
-                    isErr=true;
+                    isErr = true;
+                }
+                else {
+                    checkEmail(email).then(data => {
+                        if (data) {
+                            document.getElementById("emailError").innerHTML = "Email đã tồn tại.";
+                            isErr = true;
+                        }
+                    }).catch(error => {
+                        console.log(error); // lỗi từ yêu cầu AJAX
+                    });
                 }
             }
 
             var matKhau = document.getElementById("matKhauInput").value;
             if (matKhau.trim() === "") {
                 document.getElementById("matKhauError").innerHTML = "Vui lòng nhập Mật khẩu.";
-                isErr=true;
+                isErr = true;
             }
 
             var ngaySinh = document.getElementById("ngaySinhInput").value;
             if (ngaySinh.trim() === "") {
                 document.getElementById("ngaySinhError").innerHTML = "Vui lòng chọn Ngày sinh.";
-                isErr=true;
-            }else if(ngaySinh.trim() != "") {
+                isErr = true;
+            } else if (ngaySinh.trim() != "") {
                 var currentDate = new Date();
                 var selectedDate = new Date(ngaySinh);
 
                 if (selectedDate >= currentDate) {
                     document.getElementById("ngaySinhError").innerHTML = "Ngày sinh phải trước ngày hiện tại.";
-                    isErr=true;
+                    isErr = true;
                 }
             }
 
             var ngayVaoLam = document.getElementById("ngayVaoLamInput").value;
             if (ngayVaoLam.trim() === "") {
                 document.getElementById("ngayVaoLamError").innerHTML = "Vui lòng chọn Ngày vào làm.";
-                isErr=true;
+                isErr = true;
             }
 
-            if(!isErr){
+            if (!isErr) {
                 document.getElementById("nhanVienForm").submit();
             }
         }
@@ -128,85 +137,93 @@
             document.getElementById("ngayVaoLamError2").innerHTML = "";
             document.getElementById("chucVuError2").innerHTML = "";
 
-            var isErr=false;
+            var isErr = false;
 
             // Kiểm tra lỗi cho từng trường
             var hoTen = document.getElementById("hoTenInput2").value;
             if (hoTen.trim() === "") {
                 document.getElementById("hoTenError2").innerHTML = "Vui lòng nhập Họ tên.";
-                isErr=true;
+                isErr = true;
             }
 
             var sdt = document.getElementById("sdtInput2").value.trim();
             if (sdt === "") {
                 document.getElementById("sdtError2").innerHTML = "Vui lòng nhập Số điện thoại.";
-                isErr=true;
-            }else if(sdt !== ''){
+                isErr = true;
+            } else if (sdt !== '') {
                 var regex = /^(0[1-9])+([0-9]{8})$/;
-                if(!regex.test(sdt)){
+                if (!regex.test(sdt)) {
                     document.getElementById("sdtError2").innerHTML = "Số điện thoại không hợp lệ.";
-                    isErr=true;
+                    isErr = true;
                 }
             }
 
             var thanhPho = document.getElementById("province2").value;
             if (thanhPho.trim() === "") {
                 document.getElementById("thanhPhoError2").innerHTML = "Vui lòng chọn Tỉnh/Thành phố.";
-                isErr=true;
+                isErr = true;
             }
 
             var huyen = document.getElementById("district2").value;
             if (huyen.trim() === "") {
                 document.getElementById("huyenError2").innerHTML = "Vui lòng chọn Quận/Huyện.";
-                isErr=true;
+                isErr = true;
             }
 
             var xa = document.getElementById("ward2").value;
             if (xa.trim() === "") {
                 document.getElementById("xaError2").innerHTML = "Vui lòng chọn Xã/Phường.";
-                isErr=true;
+                isErr = true;
             }
 
             var diaChi = document.getElementById("diaChiInput2").value;
             if (diaChi.trim() === "") {
                 document.getElementById("diaChiError2").innerHTML = "Vui lòng nhập Địa chỉ.";
-                isErr=true;
+                isErr = true;
             }
 
             var email = document.getElementById("emailInput2").value.trim();
             if (email === "") {
                 document.getElementById("emailError2").innerHTML = "Vui lòng nhập Email.";
-                isErr=true;
-            }
-            else if(email !== ""){
+                isErr = true;
+            } else if (email !== "") {
                 var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if(!regex.test(email)){
+                if (!regex.test(email)) {
                     document.getElementById("emailError2").innerHTML = "Email không hợp lệ.";
-                    isErr=true;
+                    isErr = true;
+                } else if(email!=emGlo){
+                    checkEmail(email).then(data => {
+                        if (data) {
+                            document.getElementById("emailError2").innerHTML = "Email đã tồn tại.";
+                            isErr = true;
+                        }
+                    }).catch(error => {
+                        console.log(error); // lỗi từ yêu cầu AJAX
+                    });
                 }
             }
 
             var ngaySinh = document.getElementById("ngaySinhInput2").value;
             if (ngaySinh.trim() === "") {
                 document.getElementById("ngaySinhError2").innerHTML = "Vui lòng chọn Ngày sinh.";
-                isErr=true;
-            }else if(ngaySinh.trim() != "") {
+                isErr = true;
+            } else if (ngaySinh.trim() != "") {
                 var currentDate = new Date();
                 var selectedDate = new Date(ngaySinh);
 
                 if (selectedDate >= currentDate) {
                     document.getElementById("ngaySinhError2").innerHTML = "Ngày sinh phải trước ngày hiện tại.";
-                    isErr=true;
+                    isErr = true;
                 }
             }
 
             var ngayVaoLam = document.getElementById("ngayVaoLamInput2").value;
             if (ngayVaoLam.trim() === "") {
                 document.getElementById("ngayVaoLamError2").innerHTML = "Vui lòng chọn Ngày vào làm.";
-                isErr=true;
+                isErr = true;
             }
 
-            if(!isErr){
+            if (!isErr) {
                 document.getElementById("nhanVienForm2").submit();
             }
         }
@@ -341,9 +358,9 @@
                            id="navbarDropdownMenuLink"
                            role="button" data-toggle="dropdown" aria-expanded="false">
                             <img
-                                 class="rounded-circle"
-                                 th:src="@{|/images/dior1.jpg|}"
-                                 height="72" alt="Avatar" loading="lazy"/>
+                                    class="rounded-circle"
+                                    th:src="@{|/images/dior1.jpg|}"
+                                    height="72" alt="Avatar" loading="lazy"/>
                         </a>
                         <div class="dropdown-menu" style="margin-left: -88px;">
                             <a class="dropdown-item" href="#">Đăng Xuất</a>
@@ -405,7 +422,7 @@
                     <div class="form-group col-3">
                         <label for="formGroupExampleInput2">Chức vụ</label>
                         <select class="form-control" id="formGroupExampleInput2" name="maCv">
-                            <option th:value="${null}" >Tất cả</option>
+                            <option th:value="${null}">Tất cả</option>
                             <option th:each="cv : ${listChucVu}" th:value="${cv.ma}" th:text="${cv.ten} "
                             ></option>
                         </select>
@@ -435,17 +452,35 @@
                             <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Nhân Viên</h5>
                         </div>
                         <div class="modal-body">
-                            <form action="/admin/nhan-vien/create" method="post" th:object="${nhanVien}" id="nhanVienForm" enctype="multipart/form-data">
+                            <form action="/admin/nhan-vien/create" method="post" th:object="${nhanVien}"
+                                  id="nhanVienForm" enctype="multipart/form-data">
                                 <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group col-2">
+                                            <div class="text-center">
+                                                <img id="avatarPreview" alt="Avatar" class="img-thumbnail"
+                                                     style="width: 10rem;border-radius: 50%">
+                                                <br>
+                                                <label for="file"
+                                                       style="border-radius: 4px;border: 1px solid darkgray;margin-top: 5px">Chọn
+                                                    ảnh đại diện</label>
+                                                <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png"
+                                                       style="display: none">
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group col-4">
                                         <label for="formGroupExampleInput2">Họ tên</label>
-                                        <input type="text" th:field="*{hoTen}" class="form-control" id="hoTenInput" placeholder="Họ tên">
+                                        <input type="text" th:field="*{hoTen}" class="form-control" id="hoTenInput"
+                                               placeholder="Họ tên">
                                         <small class="text-danger" id="hoTenError"></small>
                                     </div>
 
                                     <div class="form-group col-4">
                                         <label for="formGroupExampleInput2">Số điện thoại</label>
-                                        <input type="text" th:field="*{sdt}" class="form-control" id="sdtInput" placeholder="Số điện thoại">
+                                        <input type="text" th:field="*{sdt}" class="form-control" id="sdtInput"
+                                               placeholder="Số điện thoại">
                                         <small class="text-danger" id="sdtError"></small>
                                     </div>
 
@@ -454,13 +489,15 @@
                                             <legend class="col-form-label pt-0">Trạng Thái :</legend>
                                             <div class="">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" th:field="*{trangThai}" id="gridRadios1" th:value="1">
+                                                    <input class="form-check-input" type="radio" th:field="*{trangThai}"
+                                                           id="gridRadios1" th:value="1">
                                                     <label class="form-check-label" for="gridRadios1">
                                                         Hoạt động
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" th:field="*{trangThai}" id="gridRadios2" th:value="0">
+                                                    <input class="form-check-input" type="radio" th:field="*{trangThai}"
+                                                           id="gridRadios2" th:value="0">
                                                     <label class="form-check-label" for="gridRadios2">
                                                         Không hoạt động
                                                     </label>
@@ -475,7 +512,7 @@
                                     <div class="form-group col-4">
                                         <label for="province">Tỉnh/Thành phố</label>
                                         <select class="form-control" id="province" th:field="*{thanhPho}">
-                                            <option value="" >Chọn Tỉnh/Thành phố</option>
+                                            <option value="">Chọn Tỉnh/Thành phố</option>
                                         </select>
                                         <small class="text-danger" id="thanhPhoError"></small>
                                     </div>
@@ -483,7 +520,7 @@
                                     <div class="form-group col-4">
                                         <label for="district">Quận/Huyện</label>
                                         <select class="form-control " id="district" th:field="*{huyen}">
-                                            <option value="" >Chọn Quận/Huyện</option>
+                                            <option value="">Chọn Quận/Huyện</option>
                                         </select>
                                         <small class="text-danger" id="huyenError"></small>
                                     </div>
@@ -491,7 +528,7 @@
                                     <div class="form-group col-4">
                                         <label for="ward">Xã/Phường</label>
                                         <select class="form-control" id="ward" th:field="*{xa}">
-                                            <option value="" >Chọn Xã/Phường</option>
+                                            <option value="">Chọn Xã/Phường</option>
                                         </select>
                                         <small class="text-danger" id="xaError"></small>
                                     </div>
@@ -500,19 +537,22 @@
                                 <div class="row">
                                     <div class="form-group col-4">
                                         <label for="formGroupExampleInput2">Địa chỉ</label>
-                                        <input type="text" th:field="*{diaChi}" class="form-control" id="diaChiInput" placeholder="Địa chỉ">
+                                        <input type="text" th:field="*{diaChi}" class="form-control" id="diaChiInput"
+                                               placeholder="Địa chỉ">
                                         <small class="text-danger" id="diaChiError"></small>
                                     </div>
 
                                     <div class="form-group col-4">
                                         <label for="formGroupExampleInput2">Email</label>
-                                        <input type="text" th:field="*{email}" class="form-control" id="emailInput" placeholder="Email">
+                                        <input type="text" th:field="*{email}" class="form-control" id="emailInput"
+                                               placeholder="Email">
                                         <small class="text-danger" id="emailError"></small>
                                     </div>
 
                                     <div class="form-group col-4">
                                         <label for="formGroupExampleInput2">Mật khẩu</label>
-                                        <input type="text" th:field="*{matKhau}" class="form-control" id="matKhauInput" placeholder="Mật khẩu">
+                                        <input type="text" th:field="*{matKhau}" class="form-control" id="matKhauInput"
+                                               placeholder="Mật khẩu">
                                         <small class="text-danger" id="matKhauError"></small>
                                     </div>
                                 </div>
@@ -520,34 +560,35 @@
                                 <div class="row">
                                     <div class="form-group col-3">
                                         <label for="formGroupExampleInput2">Ngày sinh</label>
-                                        <input type="date" th:field="*{ngaySinh}" class="form-control" id="ngaySinhInput">
+                                        <input type="date" th:field="*{ngaySinh}" class="form-control"
+                                               id="ngaySinhInput">
                                         <small class="text-danger" id="ngaySinhError"></small>
                                     </div>
 
                                     <div class="form-group col-3">
                                         <label for="formGroupExampleInput2">Ngày vào làm</label>
-                                        <input type="date" th:field="*{ngayVaoLam}" class="form-control" id="ngayVaoLamInput">
+                                        <input type="date" th:field="*{ngayVaoLam}" class="form-control"
+                                               id="ngayVaoLamInput">
                                         <small class="text-danger" id="ngayVaoLamError"></small>
                                     </div>
 
                                     <div class="form-group col-3">
                                         <label for="formGroupExampleInput2">Ngày nghỉ việc</label>
-                                        <input type="date" th:field="*{ngayNghiViec}" class="form-control" id="ngayNghiViecInput">
+                                        <input type="date" th:field="*{ngayNghiViec}" class="form-control"
+                                               id="ngayNghiViecInput">
                                         <small class="text-danger" id="ngayNghiViecError"></small>
                                     </div>
 
                                     <div class="form-group col-3">
                                         <label for="formGroupExampleInput2">Chức vụ</label>
                                         <select class="form-control" id="chucVuInput" th:field="*{chucVu.id}">
-                                            <option th:each="cv : ${listChucVu}" th:value="${cv.id}" th:text="${cv.ten}"></option>
+                                            <option th:each="cv : ${listChucVu}" th:value="${cv.id}"
+                                                    th:text="${cv.ten}"></option>
                                         </select>
                                         <small class="text-danger" id="chucVuError"></small>
                                     </div>
 
-                                    <div class="form-group col-4">
-                                        <label for="formGroupExampleInput2">Chọn ảnh đại diện</label>
-                                        <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png">
-                                    </div>
+
                                 </div>
 
                                 <button class="btn btn-primary" type="button" onclick="validateForm()">Thêm mới</button>
@@ -590,45 +631,61 @@
                         <th>[[${item.chucVu.ten}]]</th>
                         <th>
                             <!--            modal xem,updte nhan vien-->
-                            <a href="#" title="Xem chi tiết" type="button" data-toggle="modal" data-target="#exampleModalUd" class="btn-detail" th:ma="${item.ma}">
+                            <a href="#" title="Xem chi tiết" type="button" data-toggle="modal"
+                               data-target="#exampleModalUd" class="btn-detail" th:ma="${item.ma}">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                             </a>
 
-                            <div class="modal fade" id="exampleModalUd" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            <div class="modal fade" id="exampleModalUd" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-xl">
                                     <div class="modal-content" style="background-color: #d4d4d4">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Cập nhật nhân viên</h5>
-                                            <span class="float-right">
-                                                            <img src="https://tuvanbhxh.net/wp-content/uploads/2023/04/cach-thay-doi-anh-bia-zalo.jpg" id="anhud" style="width: 12rem;border-radius: 50%">
-                                                            <!--                                                        <label for="formGroupExampleInput2">Chọn ảnh đại diện</label>-->
-                                                            <!--                                                        <input type="file" id="file2" name="file" accept=".jpg, .jpeg, .png">-->
-                                            </span>
+
                                         </div>
 
                                         <div class="modal-body">
 
-                                            <form action="/admin/nhan-vien/update" method="post" th:object="${nhanVien}" id="nhanVienForm2">
+                                            <form action="/admin/nhan-vien/update" method="post" th:object="${nhanVien}"
+                                                  id="nhanVienForm2" enctype="multipart/form-data">
                                                 <div class="row">
 
-
-
+                                                    <div class="col-12">
+                                                        <div class="form-group col-2">
+                                                            <div class="text-center">
+                                                                <img id="avatarPreview2" alt="Avatar"
+                                                                     class="img-thumbnail"
+                                                                     style="width: 10rem;border-radius: 50%">
+                                                                <br>
+                                                                <label for="file2"
+                                                                       style="border-radius: 4px;border: 1px solid darkgray;margin-top: 5px">Chọn
+                                                                    ảnh đại diện</label>
+                                                                <input type="file" id="file2" name="file"
+                                                                       accept=".jpg, .jpeg, .png"
+                                                                       style="display: none">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="form-group col-4">
                                                         <label for="formGroupExampleInput2">Mã</label>
-                                                        <input type="text" th:field="*{ma}" class="form-control" readonly>
+                                                        <input type="text" th:field="*{ma}" class="form-control"
+                                                               readonly>
                                                         <small class="text-danger" id="hoTenError2"></small>
                                                     </div>
 
                                                     <div class="form-group col-4">
                                                         <label for="formGroupExampleInput2">Họ tên</label>
-                                                        <input type="text" th:field="*{hoTen}" class="form-control" id="hoTenInput2" placeholder="Họ tên">
+                                                        <input type="text" th:field="*{hoTen}" class="form-control"
+                                                               id="hoTenInput2" placeholder="Họ tên">
                                                         <small class="text-danger" id="hoTenError2"></small>
                                                     </div>
 
                                                     <div class="form-group col-4">
                                                         <label for="formGroupExampleInput2">Số điện thoại</label>
-                                                        <input type="text" th:field="*{sdt}" class="form-control" id="sdtInput2" placeholder="Số điện thoại">
+                                                        <input type="text" th:field="*{sdt}" class="form-control"
+                                                               id="sdtInput2" placeholder="Số điện thoại">
                                                         <small class="text-danger" id="sdtError2"></small>
                                                     </div>
 
@@ -638,16 +695,18 @@
                                                 <div class="row">
                                                     <div class="form-group col-4">
                                                         <label for="province">Tỉnh/Thành phố</label>
-                                                        <select class="form-control" id="province2" th:field="*{thanhPho}">
-                                                            <option value="" >Chọn Tỉnh/Thành phố</option>
+                                                        <select class="form-control" id="province2"
+                                                                th:field="*{thanhPho}">
+                                                            <option value="">Chọn Tỉnh/Thành phố</option>
                                                         </select>
                                                         <small class="text-danger" id="thanhPhoError2"></small>
                                                     </div>
 
                                                     <div class="form-group col-4">
                                                         <label for="district">Quận/Huyện</label>
-                                                        <select class="form-control " id="district2" th:field="*{huyen}">
-                                                            <option value="" >Chọn Quận/Huyện</option>
+                                                        <select class="form-control " id="district2"
+                                                                th:field="*{huyen}">
+                                                            <option value="">Chọn Quận/Huyện</option>
                                                         </select>
                                                         <small class="text-danger" id="huyenError2"></small>
                                                     </div>
@@ -655,7 +714,7 @@
                                                     <div class="form-group col-4">
                                                         <label for="ward">Xã/Phường</label>
                                                         <select class="form-control" id="ward2" th:field="*{xa}">
-                                                            <option value="" >Chọn Xã/Phường</option>
+                                                            <option value="">Chọn Xã/Phường</option>
                                                         </select>
                                                         <small class="text-danger" id="xaError2"></small>
                                                     </div>
@@ -664,13 +723,15 @@
                                                 <div class="row">
                                                     <div class="form-group col-4">
                                                         <label for="formGroupExampleInput2">Địa chỉ</label>
-                                                        <input type="text" th:field="*{diaChi}" class="form-control" id="diaChiInput2" placeholder="Địa chỉ">
+                                                        <input type="text" th:field="*{diaChi}" class="form-control"
+                                                               id="diaChiInput2" placeholder="Địa chỉ">
                                                         <small class="text-danger" id="diaChiError2"></small>
                                                     </div>
 
                                                     <div class="form-group col-4">
                                                         <label for="formGroupExampleInput2">Email</label>
-                                                        <input type="text" th:field="*{email}" class="form-control" id="emailInput2" placeholder="Email">
+                                                        <input type="text" th:field="*{email}" class="form-control"
+                                                               id="emailInput2" placeholder="Email">
                                                         <small class="text-danger" id="emailError2"></small>
                                                     </div>
 
@@ -680,13 +741,17 @@
                                                             <legend class="col-form-label pt-0">Trạng Thái :</legend>
                                                             <div class="">
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" th:field="*{trangThai}" id="gridRadios1" th:value="1">
+                                                                    <input class="form-check-input" type="radio"
+                                                                           th:field="*{trangThai}" id="gridRadios1"
+                                                                           th:value="1">
                                                                     <label class="form-check-label" for="gridRadios1">
                                                                         Hoạt động
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" th:field="*{trangThai}" id="gridRadios2" th:value="0">
+                                                                    <input class="form-check-input" type="radio"
+                                                                           th:field="*{trangThai}" id="gridRadios2"
+                                                                           th:value="0">
                                                                     <label class="form-check-label" for="gridRadios2">
                                                                         Không hoạt động
                                                                     </label>
@@ -699,7 +764,8 @@
 
                                                     <div class="form-group col-4" hidden>
                                                         <label for="formGroupExampleInput2">Mật khẩu</label>
-                                                        <input type="text" th:field="*{matKhau}" class="form-control" id="matKhauInput2" placeholder="Mật khẩu">
+                                                        <input type="text" th:field="*{matKhau}" class="form-control"
+                                                               id="matKhauInput2" placeholder="Mật khẩu">
                                                         <small class="text-danger" id="matKhauError2"></small>
                                                     </div>
                                                 </div>
@@ -707,32 +773,39 @@
                                                 <div class="row">
                                                     <div class="form-group col-3">
                                                         <label for="formGroupExampleInput2">Ngày sinh</label>
-                                                        <input type="date" th:field="*{ngaySinh}" class="form-control" id="ngaySinhInput2">
+                                                        <input type="date" th:field="*{ngaySinh}" class="form-control"
+                                                               id="ngaySinhInput2">
                                                         <small class="text-danger" id="ngaySinhError2"></small>
                                                     </div>
 
                                                     <div class="form-group col-3">
                                                         <label for="formGroupExampleInput2">Ngày vào làm</label>
-                                                        <input type="date" th:field="*{ngayVaoLam}" class="form-control" id="ngayVaoLamInput2">
+                                                        <input type="date" th:field="*{ngayVaoLam}" class="form-control"
+                                                               id="ngayVaoLamInput2">
                                                         <small class="text-danger" id="ngayVaoLamError2"></small>
                                                     </div>
 
                                                     <div class="form-group col-3">
                                                         <label for="formGroupExampleInput2">Ngày nghỉ việc</label>
-                                                        <input type="date" th:field="*{ngayNghiViec}" class="form-control" id="ngayNghiViecInput2">
+                                                        <input type="date" th:field="*{ngayNghiViec}"
+                                                               class="form-control" id="ngayNghiViecInput2">
                                                         <small class="text-danger" id="ngayNghiViecError2"></small>
                                                     </div>
 
                                                     <div class="form-group col-3">
                                                         <label for="formGroupExampleInput2">Chức vụ</label>
-                                                        <select class="form-control" id="chucVuInput2" th:field="*{chucVu.id}">
-                                                            <option th:each="cv : ${listChucVu}" th:value="${cv.id}" th:text="${cv.ten}"></option>
+                                                        <select class="form-control" id="chucVuInput2"
+                                                                th:field="*{chucVu.id}">
+                                                            <option th:each="cv : ${listChucVu}" th:value="${cv.id}"
+                                                                    th:text="${cv.ten}"></option>
                                                         </select>
                                                         <small class="text-danger" id="chucVuError2"></small>
                                                     </div>
                                                 </div>
 
-                                                <button class="btn btn-primary" type="button" onclick="validateForm2()">Cập nhật</button>
+                                                <button class="btn btn-primary" type="button" onclick="validateForm2()">
+                                                    Cập nhật
+                                                </button>
                                             </form>
                                         </div>
                                     </div>
@@ -763,8 +836,12 @@
 <script src="/assets/js/popper.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 <script>
@@ -772,25 +849,25 @@
     var callAPI = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data, "province","Tỉnh/Thành phố");
+                renderData(response.data, "province", "Tỉnh/Thành phố");
             });
     }
     callAPI('https://provinces.open-api.vn/api/?depth=1');
     var callApiDistrict = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data.districts, "district","Quận/Huyện");
+                renderData(response.data.districts, "district", "Quận/Huyện");
             });
     }
     var callApiWard = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data.wards, "ward","Xã/Phường");
+                renderData(response.data.wards, "ward", "Xã/Phường");
             });
     }
 
-    var renderData = (array, select,type) => {
-        let row = ' <option disable value="" selected>Chọn '+type+'</option>';
+    var renderData = (array, select, type) => {
+        let row = ' <option disable value="" selected>Chọn ' + type + '</option>';
 
         array.forEach(element => {
             row += `<option value="${element.name}" data-code="${element.code}">${element.name}</option>`
@@ -800,7 +877,7 @@
 
     $("#province").change(() => {
         const selectedCode = $("#province option:selected").data("code");
-        if (selectedCode == '' || selectedCode == null ){
+        if (selectedCode == '' || selectedCode == null) {
             $("#district").val('');
             $("#ward").val('');
         }
@@ -809,7 +886,7 @@
     });
     $("#district").change(() => {
         const selectedCode = $("#district option:selected").data("code");
-        if (selectedCode == '' || selectedCode == null ){
+        if (selectedCode == '' || selectedCode == null) {
             $("#ward").val('');
         }
         callApiWard(host + "d/" + selectedCode + "?depth=2");
@@ -832,7 +909,7 @@
     var callAPI2 = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data, "province2","Tỉnh/Thành phố");
+                renderData(response.data, "province2", "Tỉnh/Thành phố");
 
             });
     }
@@ -840,19 +917,19 @@
     var callApiDistrict2 = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data.districts, "district2","Quận/Huyện");
+                renderData(response.data.districts, "district2", "Quận/Huyện");
             });
     }
     var callApiWard2 = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data.wards, "ward2","Xã/Phường");
+                renderData(response.data.wards, "ward2", "Xã/Phường");
             });
     }
 
     $("#province2").change(() => {
         const selectedCode = $("#province2 option:selected").data("code");
-        if (selectedCode == '' || selectedCode == null ){
+        if (selectedCode == '' || selectedCode == null) {
             $("#district2").val('');
             $("#ward2").val('');
         }
@@ -861,7 +938,7 @@
     });
     $("#district2").change(() => {
         const selectedCode = $("#district2 option:selected").data("code");
-        if (selectedCode == '' || selectedCode == null ){
+        if (selectedCode == '' || selectedCode == null) {
             $("#ward2").val('');
         }
         callApiWard2(host + "d/" + selectedCode + "?depth=2");
@@ -881,12 +958,13 @@
         }
     }
 
-    $(document).ready(function(){
-        $(".btn-detail").click(function(){
-            var ma=$(this).attr("ma");
+
+    $(document).ready(function () {
+        $(".btn-detail").click(function () {
+            var ma = $(this).attr("ma");
             var form = $("#exampleModalUd"); // Chọn tất cả các thẻ <form> trên trang
             $.ajax({
-                url: "http://localhost:2020/rest/nhanvien/"+ma,
+                url: "http://localhost:2020/rest/nhanvien/" + ma,
                 method: "GET",
                 dataType: "json", // Kiểu dữ liệu trả về từ máy chủ (json, html, text, etc.)
                 success: function (data) {
@@ -907,11 +985,12 @@
                     }, 200);
                     form.find('[name="sdt"]').val(data.sdt);
                     form.find('[name="email"]').val(data.email);
+                    emGlo=data.email;
                     form.find('[name="matKhau"]').val(data.matKhau);
                     form.find('[name="chucVu.id"]').val(data.chucVu.id);
                     form.find('[name="ngayVaoLam"]').val(data.ngayVaoLam);
                     form.find('[name="ngayNghiViec"]').val(data.ngayNghiViec);
-                    $('#anhud').attr("src",window.location.origin+'/images/'+ data.anh);
+                    $('#avatarPreview2').attr("src", window.location.origin + '/images/' + data.anh);
                     form.find('[name="trangThai"]').filter('[value="' + data.trangThai + '"]').prop('checked', true);
 
                 },
@@ -924,5 +1003,46 @@
 
 </script>
 
+
+<script>
+    document.getElementById('file').addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('avatarPreview').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('file2').addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('avatarPreview2').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    var  emGlo;
+    function checkEmail(email) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: '/admin/nhan-vien/isExist/' + email,
+                type: 'GET',
+                success: function (data) {
+                    resolve(data);
+                },
+                error: function (error) {
+                    reject(error);
+                }
+            });
+        });
+    }
+
+</script>
 </body>
 </html>
