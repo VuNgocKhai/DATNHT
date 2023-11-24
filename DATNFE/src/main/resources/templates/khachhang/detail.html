@@ -18,6 +18,10 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
+        .error-border {
+            border: 1px solid red;
+        }
+
         .avatar-wrapper {
             position: relative;
             width: 150px;
@@ -197,7 +201,7 @@
 
         <div class="container-lg bg-light border">
             <div style="padding: 15px">
-                <form th:action="@{|/admin/khachhang/update/${khachhang.ma}}" enctype="multipart/form-data" method="post" th:object="${khachhang}">
+                <form id="KhachHangForm" th:action="@{|/admin/khachhang/update/${khachhang.ma}}" enctype="multipart/form-data" method="post" th:object="${khachhang}">
                     <div class="row">
                         <div class="col-md-5">
                             <div class="text-center">
@@ -224,37 +228,41 @@
                         <input type="text" hidden th:field="*{ma}" class="form-control" id="formGroupExampleInput" placeholder="Mã">
 
                         <div class="col-md-6">
-                            <label for="formGroupExampleInput">Họ Và Tên</label>
-                            <input type="text" th:field="*{hoten}" class="form-control" id="formGroupExampleInput" placeholder="Họ và tên">
+                            <label class="required" for="formGroupExampleInput">Họ Và Tên</label>
+                            <input type="text" th:field="*{hoten}" class="form-control" id="formGroupExampleInputhoten" placeholder="Họ và tên">
+                            <span id="tenError" class="error-message"></span>
                         </div>
 
                         <div class="col-md-6">
-                            <label for="formGroupExampleInput">Số điện thoại</label>
-                            <input type="text" th:field="*{sdt}" class="form-control" id="formGroupExampleInput" placeholder="Số điện thoại">
+                            <label class="required" for="formGroupExampleInput">Số điện thoại</label>
+                            <input type="text" th:field="*{sdt}" class="form-control" id="formGroupExampleInputsdt" placeholder="Số điện thoại">
+                            <span id="sdtError" class="error-message"></span>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="formGroupExampleInput">Ngày Sinh</label>
-                            <input type="date" th:field="*{ngaysinh}" class="form-control" id="formGroupExampleInput" placeholder="Ngày Sinh">
+                            <label class="required" for="formGroupExampleInput">Ngày Sinh</label>
+                            <input type="date" th:field="*{ngaysinh}" class="form-control" id="formGroupExampleInputngaysinh" placeholder="Ngày Sinh">
+                            <span id="ngaysinhError" class="error-message"></span>
                         </div>
 
 
                         <div class="col-md-6">
-                            <label for="formGroupExampleInput">Email</label>
-                            <input type="text" th:field="*{email}" class="form-control" id="formGroupExampleInput" placeholder="Email">
+                            <label class="required" for="formGroupExampleInput">Email</label>
+                            <input type="text" th:field="*{email}" class="form-control" id="formGroupExampleInputEmail" placeholder="Email">
+                            <span id="EmailError" class="error-message"></span>
                         </div>
 
                     </div>
                     <br>
                     <div class="col-md-6" hidden>
-                        <label for="formGroupExampleInput">Mật Khẩu</label>
+                        <label class="required" for="formGroupExampleInput">Mật Khẩu</label>
                         <input type="text" th:field="*{matkhau}" class="form-control" id="formGroupExampleInput" placeholder="Mật Khẩu">
                     </div>
                     <br>
                     <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">Trạng Thái : </legend>
+                        <legend class="col-form-label col-sm-2 pt-0 required">Trạng Thái : </legend>
                         <div class="col-sm-10">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" th:field="*{trangthai}" id="gridRadios1" th:value="1">
@@ -285,63 +293,61 @@
                         Nhập Địa Chỉ
                     </h3>
                 </div>
-                <form action="/admin/diachi/save" method="post" th:object="${diachi}" >
+                <form id="DiaChiFrom" action="/admin/diachi/save" method="post" th:object="${diachi}" >
                     <input hidden="hidden" th:value="${ma}" th:name="maKh"></input>
                     <select class="form-control" th:field="*{khachHang.id}" hidden>
                         <option th:value="${khachhang.id}">[[${khachhang.hoten}]]</option>
                     </select>
 
                     <div class="row">
-
                         <div class="col-md-6">
-                            <label for="formGroupExampleInput">Tên Người Nhận:</label>
-                            <input type="text" th:field="*{ten_nguoi_nhan}" class="form-control" id="formGroupExampleInput" placeholder="">
-                            <span th:if="${#fields.hasErrors('ten_nguoi_nhan')}" th:errors="*{ten_nguoi_nhan}"></span>
+                            <label class="required" for="formGroupExampleInput">Tên Người Nhận:</label>
+                            <input type="text" th:field="*{ten_nguoi_nhan}" class="form-control" id="formGroupExampleInputtennguoinhan" placeholder="">
+                            <span id="tennguoinhanError" class="error-message"></span>
                         </div>
-
-
                         <div class="col-md-6">
-                            <label for="formGroupExampleInput">Số Điện Thoại</label>
-                            <input type="text" th:field="*{sdt_nguoi_nhan}"   class="form-control" id="formGroupExampleInput" placeholder="">
+                            <label class="required" for="formGroupExampleInput">Số Điện Thoại</label>
+                            <input type="text" th:field="*{sdt_nguoi_nhan}"   class="form-control" id="formGroupExampleInputsdtnguoinhan" placeholder="">
+                            <span id="sdtnguoinhanError" class="error-message"></span>
                         </div>
-
                     </div>
-
                     <br>
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label>Thành Phố :</label>
+                            <label class="required">Thành Phố :</label>
                             <select class="form-control" th:field="*{thanhpho}" name="province" id="province">
                                 <option th:value="${diachi.thanhpho}" >[[${diachi.thanhpho}]]</option>
                             </select>
+                            <span id="ThanhPhoError" class="error-message"></span>
                         </div>
 
                         <div class="form-group col-md-4">
-                            <label>Huyện :</label>
+                            <label class="required">Huyện :</label>
                             <select class="form-control" name="district" id="district" th:field="*{huyen}">
-
                                 <option th:value="${diachi.huyen}" >[[${diachi.huyen}]]</option>
                             </select>
+                            <span id="HuyenError" class="error-message"></span>
                         </div>
 
                         <div class="form-group col-md-4">
-                            <label>Phường :</label>
+                            <label class="required">Phường :</label>
                             <select class="form-control" name="ward" id="ward" th:field="*{xa}">
                                 <option th:value="${diachi.xa}">[[${diachi.xa}]]</option>
                             </select>
+                            <span id="XaError" class="error-message"></span>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="formGroupExampleInput">Đia Chỉ Cụ thể</label>
-                            <input type="text" th:field="*{tendiachi}"   class="form-control" id="formGroupExampleInput" placeholder="">
-                            <span class="text-danger" th:if="${#fields.hasErrors('tendiachi')}" th:errors="*{tendiachi}">Không được đê trống</span>
+                            <label class="required" for="formGroupExampleInput">Đia Chỉ Cụ thể</label>
+                            <input type="text" th:field="*{tendiachi}"   class="form-control" id="formGroupExampleInputdiachicuthe" placeholder="">
+                            <span id="diachicutheError" class="error-message"></span>
                         </div>
                     </div>
                     <br>
                     <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">Trạng Thái : </legend>
+                        <legend class="col-form-label col-sm-2 pt-0 required">Trạng Thái : </legend>
                         <div class="col-sm-10">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" th:field="*{trangthai}" id="gridRadios1" th:value="1">
@@ -403,7 +409,7 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     // 1. what is API
@@ -468,7 +474,6 @@
     }
 </script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     document.getElementById('avatarInput').addEventListener('change', function() {
         const file = this.files[0];
@@ -483,6 +488,196 @@
 
 </script>
 
+
+<script>
+
+    <!--    documet khachhang-->
+    document.getElementById('KhachHangForm').addEventListener('submit', function (event) {
+        // Perform your validation logic here
+        clearErrorMessages();
+
+        if (!validateForm()) {
+            // Prevent the form from submitting if validation fails
+            event.preventDefault();
+        }
+    });
+
+    //valida khachhang
+    function validateForm() {
+        // Add your validation logic here
+        var tenValue = document.getElementById('formGroupExampleInputhoten').value;
+        var sdtValue = document.getElementById('formGroupExampleInputsdt').value;
+        var ngaysinhValue = document.getElementById('formGroupExampleInputngaysinh').value;
+        var emailValue = document.getElementById('formGroupExampleInputEmail').value;
+
+        var kq= 0;
+        if (tenValue.trim() === '') {
+            displayErrorMessage('tenError', 'Không được để trống thông tin');
+            $('#formGroupExampleInputhoten').addClass('error-border');
+            kq=1;
+        }else {
+            $('#formGroupExampleInputhoten').removeClass('error-border');
+        }
+
+        if (sdtValue.trim() === '') {
+            displayErrorMessage('sdtError', 'Không được để trống thông tin');
+            $('#formGroupExampleInputsdt').addClass('error-border');
+            kq=1;
+        }else if(!isValidPhoneNumber(sdtValue)){
+            displayErrorMessage('sdtError', 'Số điện thoại không hợp lệ');
+            $('#formGroupExampleInputsdt').addClass('error-border');
+            kq=1;
+        }else {
+            $('#formGroupExampleInputsdt').removeClass('error-border');
+        }
+
+        if (ngaysinhValue.trim() === '') {
+            displayErrorMessage('ngaysinhError', 'Không được để trống thông tin');
+            $('#formGroupExampleInputngaysinh').addClass('error-border');
+            kq=1;
+        }else if (!isValidDate(ngaysinhValue)) {
+            displayErrorMessage('ngaysinhError', 'Ngày Sinh không hợp lệ');
+            $('#formGroupExampleInputngaysinh').addClass('error-border');
+            kq=1;
+        }else {
+            $('#formGroupExampleInputngaysinh').removeClass('error-border');
+        }
+
+        if (emailValue.trim() === '') {
+            displayErrorMessage('EmailError', 'Không được để trống thông tin');
+            $('#formGroupExampleInputEmail').addClass('error-border');
+            kq=1;
+        }else if (!isValidEmail(emailValue)){
+            displayErrorMessage('EmailError', 'Email không hợp lê');
+            $('#formGroupExampleInputEmail').addClass('error-border');
+            kq=1;
+        }else {
+            $('#formGroupExampleInputEmail').removeClass('error-border');
+        }
+
+
+        if (kq==1){
+            return false;
+        }
+        return true;
+    }
+
+<!--    documet dia chi-->
+    document.getElementById('DiaChiFrom').addEventListener('submit', function (event) {
+        // Perform your validation logic here
+        clearErrorMessages();
+
+        if (!validateForm2()) {
+            // Prevent the form from submitting if validation fails
+            event.preventDefault();
+        }
+    });
+
+    //valida địa chị
+    function validateForm2() {
+        // Add your validation logic here
+        var tennguoinhanValue = document.getElementById('formGroupExampleInputtennguoinhan').value;
+        var sdtnguoinhanValue = document.getElementById('formGroupExampleInputsdtnguoinhan').value;
+        var thanhphoValue = document.getElementById('province').value;
+        var huyenValue = document.getElementById('district').value;
+        var xaValue = document.getElementById('ward').value;
+        var diachicutheValue = document.getElementById('formGroupExampleInputdiachicuthe').value;
+        var kq= 0;
+        if (tennguoinhanValue.trim() === '') {
+            displayErrorMessage('tennguoinhanError', 'Không được để trống thông tin');
+            $('#formGroupExampleInputtennguoinhan').addClass('error-border');
+            kq=1;
+        }else {
+            $('#formGroupExampleInputtennguoinhan').removeClass('error-border');
+        }
+
+        if (sdtnguoinhanValue.trim() === '') {
+            displayErrorMessage('sdtnguoinhanError', 'Không được để trống thông tin');
+            $('#formGroupExampleInputsdtnguoinhan').addClass('error-border');
+            kq=1;
+        }else if(!isValidPhoneNumber(sdtnguoinhanValue)){
+            displayErrorMessage('sdtnguoinhanError', 'Số điện thoại không hợp lệ');
+            $('#formGroupExampleInputsdtnguoinhan').addClass('error-border');
+            kq=1;
+        }else {
+            $('#formGroupExampleInputsdtnguoinhan').removeClass('error-border');
+        }
+
+        if (thanhphoValue.trim() === '') {
+            displayErrorMessage('ThanhPhoError', 'Không được để trống thông tin');
+            $('#province').addClass('error-border');
+            kq=1;
+        }else {
+            $('#province').removeClass('error-border');
+        }
+
+        if (huyenValue.trim() === '') {
+            displayErrorMessage('HuyenError', 'Không được để trống thông tin');
+            $('#district').addClass('error-border');
+            kq=1;
+        }else {
+            $('#district').removeClass('error-border');
+        }
+
+        if (xaValue.trim() === '') {
+            displayErrorMessage('XaError', 'Không được để trống thông tin');
+            $('#ward').addClass('error-border');
+            kq=1;
+        }else {
+            $('#ward').removeClass('error-border');
+        }
+
+        if (diachicutheValue.trim() === '') {
+            displayErrorMessage('diachicutheError', 'Không được để trống thông tin');
+            $('#formGroupExampleInputdiachicuthe').addClass('error-border');
+            kq=1;
+        }else {
+            $('#formGroupExampleInputdiachicuthe').removeClass('error-border');
+        }
+
+        if (kq==1){
+            return false;
+        }
+        return true;
+    }
+
+    // kiểm tra định dạng iphone
+    function isValidPhoneNumber(phoneNumber) {
+        // Sử dụng biểu thức chính quy để kiểm tra số điện thoại
+        var phonePattern = /^[0-9]{10}$/;
+        return phonePattern.test(phoneNumber);
+    }
+
+    // Kiểm tra tính hợp lệ của ngày sinh
+    function isValidDate(date) {
+        var selectedDate = new Date(date);
+        var currentDate = new Date();
+        return selectedDate < currentDate;
+    }
+
+
+    // kiểm tra định dạng của Email
+    function isValidEmail(email) {
+        // Sử dụng biểu thức chính quy để kiểm tra định dạng email
+        var emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+        return emailPattern.test(email);
+    }
+
+    // thông báo lỗi và viền đỏ
+    function displayErrorMessage(elementId, message) {
+        var errorElement = document.getElementById(elementId);
+        errorElement.innerText = message;
+        errorElement.style.color = 'red';
+    }
+
+    // clear thông báo lỗi khi thoảng mãn điều kiện
+    function clearErrorMessages() {
+        var errorElements = document.querySelectorAll('.error-message');
+        errorElements.forEach(function (element) {
+            element.innerText = '';
+        });
+    }
+</script>
 
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/popper.js"></script>
