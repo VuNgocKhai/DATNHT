@@ -32,32 +32,26 @@ public class DiaChi {
     @Column(name = "ma")
     private String madc;
 
-    @NotBlank(message = "Không được để trống")
     @Column(name = "ten_dia_chi")
     private String tendiachi;
 
-    @NotBlank(message = "Không được để trống")
     @Column(name = "xa")
     private String xa;
 
-    @NotBlank(message = "Không được để trống")
     @Column(name = "huyen")
     private String huyen;
 
-    @NotBlank(message = "Không được để trống")
     @Column(name = "thanh_pho")
     private String thanhpho;
 
-    @NotBlank(message = "Không được để trống")
     @Column(name = "ten_nguoi_nhan")
     private String ten_nguoi_nhan;
 
-    @NotBlank(message = "Không được để trống")
     @Column(name = "sdt_nguoi_nhan")
     private String sdt_nguoi_nhan;
 
     @Column(name = "trangthai")
-    private Integer trangthai;
+    private Integer trangthai = 1;
 
     @ManyToOne
     @JoinColumn(name = "id_khach_hang")

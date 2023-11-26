@@ -110,15 +110,15 @@ public class KhachHangController {
     }
 
     @PostMapping("/admin/khachhang/update/{id}")
-    public String update(@PathVariable("id") String id, @ModelAttribute("khachhang") KhachHang kh, @RequestParam("file") MultipartFile file) {
+    public String update(@PathVariable("id") String id,
+                         @ModelAttribute("khachhang") KhachHang kh,
+                         @RequestParam("file") MultipartFile file) {
         try {
             if (!file.isEmpty()) {
                 String uploadDir = "src/main/webapp/images/"; // Đường dẫn thư mục lưu trữ ảnh
                 Path path = Paths.get(uploadDir);
-
                 // Copy file ảnh vào thư mục trên server
                 Files.copy(file.getInputStream(), path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
-
                 // Cập nhật đường dẫn file vào đối tượng khách hàng
                 kh.setAvatar( file.getOriginalFilename()); // Đường dẫn tới file ảnh sau khi lưu
             } else {
@@ -126,7 +126,6 @@ public class KhachHangController {
                 KhachHang existingKhachHang = khachHangDao.GetKhachhangByma(id); // Lấy thông tin khách hàng hiện tại từ database
                 kh.setAvatar(existingKhachHang.getAvatar()); // Sử dụng đường dẫn ảnh hiện tại
             }
-
             khachHangRepo.update(id, kh); // Cập nhật thông tin của khách hàng
             return "redirect:/admin/khachhang/detail/" + id;
         } catch (IOException e) {

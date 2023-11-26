@@ -19,6 +19,7 @@ public class Gio_Hang_Yeu_Thich_Chi_Tiet {
     @ManyToOne
     @JoinColumn(name = "id_giay")
     private Giay giay;
+
     private LocalDate ngay_tao;
     private Integer trangthai;
 }

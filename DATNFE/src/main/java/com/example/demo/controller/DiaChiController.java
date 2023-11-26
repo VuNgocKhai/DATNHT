@@ -50,15 +50,7 @@ public class DiaChiController {
 
     @PostMapping("/admin/diachi/save")
     public String save(@RequestParam("maKh") String makh,
-                       @Valid  DiaChi diaChi,
-                       BindingResult result,
-                       RedirectAttributes redirectAttributes) {
-        if (result.hasFieldErrors()) {
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.diachi", result);
-            redirectAttributes.addFlashAttribute("diachi", diaChi); // Giữ lại giá trị của đối tượng diaChi
-            return "redirect:/admin/khachhang/detail/" + makh;
-        }
-
+                      DiaChi diaChi) {
         // Xử lý khi không có lỗi
         String madc = diachiDao.generateNextDiaChi();
         diaChi.setMadc(madc);
