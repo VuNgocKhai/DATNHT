@@ -249,6 +249,7 @@ create table chuong_trinh_giam_gia_chi_tiet_hoa_don (
 	foreign key (id_hoa_don) references hoa_don(id),
 	foreign key (id_chuong_trinh_giam_gia_hoa_don) references chuong_trinh_giam_gia_hoa_don(id)
 )
+drop table san_pham_yeu_thich_chi_tiet
 create table gio_hang_san_pham_yeu_thich(
 	id uniqueidentifier primary key default newid(),
 	id_khach_hang uniqueidentifier,

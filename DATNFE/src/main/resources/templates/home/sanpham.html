@@ -21,10 +21,10 @@
 
 
 <!-- Shop Start -->
-<div style="width: 98%;margin: auto;">
+<div style="width: 88%;margin: auto;">
     <div class="row px-xl-5">
         <!-- Shop Sidebar Start -->
-        <div class="col-lg-2 col-md-4">
+        <div class="col-lg-3 col-md-4">
             <!-- Price Start -->
             <form action="/sanpham" method="post" th:object="${searchform}">
                 <button type="submit" class="btn btn-primary mb-2">Tìm Kiếm</button>
@@ -250,7 +250,7 @@
         <!-- Shop Sidebar End -->
 
         <!-- Shop Product Start -->
-        <div class="col-lg-10 col-md-8">
+        <div class="col-lg-9 col-md-8">
             <div class="row pb-3">
                 <div class="col-12 pb-1">
                     <div class="d-flex align-items-center justify-content-between mb-4">
@@ -282,7 +282,7 @@
                         </div>
                     </div>
                 </div>
-                <div th:each="item:${items}" th:object="${item}" class="col-lg-3 col-md-4 col-sm-3 pb-1">
+                <div th:each="item:${items}" th:object="${item}" class="col-lg-4 col-md-4 col-sm-3 pb-1">
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
                             <img class="img-fluid w-100" th:src="@{|/images/*{getAnhDau(anhs)}|}" alt="">

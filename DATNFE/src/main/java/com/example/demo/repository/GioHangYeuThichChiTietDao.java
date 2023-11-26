@@ -22,4 +22,7 @@ public interface GioHangYeuThichChiTietDao extends JpaRepository<Gio_Hang_Yeu_Th
 
     @Query("select spytct from Gio_Hang_Yeu_Thich_Chi_Tiet spytct where spytct.giay.ma = :giayMa")
     Gio_Hang_Yeu_Thich_Chi_Tiet getSan_Pham_Yeu_Thich_Chi_Tiet11Byma(String giayMa);
+
+    @Query("select count(p.id) from Gio_Hang_Yeu_Thich_Chi_Tiet p where p.sanPhamYeuThich.khachHang.ma = ?1")
+    Integer countGHSPYEByMaKH(String giayMa);
 }

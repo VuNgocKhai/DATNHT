@@ -22,7 +22,7 @@ public interface GiayDAO extends JpaRepository<Giay, UUID> {
 
     @Query("select p from Giay p where p.ten like ?1 and (?2 is null or p.giaban > ?2) and (?3 is null or p.giaban < ?3) " +
             "and p.thuong_hieu.ten like ?4 and p.chat_lieu.ten like ?5 and p.xuat_xu.ten like ?6 " +
-            "and p.mau_sac.ten like ?7 and p.gioi_tinh.ten like ?8 and p.kieu_dang.ten like ?9 and p.de_giay.ten like ?10 ")
+            "and p.mau_sac.ten like ?7 and p.gioi_tinh.ten like ?8 and p.kieu_dang.ten like ?9 and p.de_giay.ten like ?10 order by p.ngay_nhap desc")
     Page<Giay> getSearchsanphamByTT(String tensp, BigDecimal giabnmin, BigDecimal giabnmax, String thuong_hieu,
                                            String chat_lieu, String xuat_xu, String mau_sac,
                                            String gioi_tinh, String kieu_dang, String de_giay, Pageable pageable);
