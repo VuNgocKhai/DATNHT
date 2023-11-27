@@ -75,7 +75,7 @@ public class Giay implements Serializable {
 
     @Column(name = "gia_sau_khuyen_mai")
     private BigDecimal gia_sau_khuyen_mai;
-    private Integer do_hot;
+    private Integer do_hot = 1;
     private LocalDate ngay_nhap;
     private Integer trangthai = 1;
     @JsonIgnore

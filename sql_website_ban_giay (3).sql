@@ -333,7 +333,7 @@ INSERT INTO website_ban_giay.dbo.kich_co (id,ma,ten,trangthai) VALUES
 	 (N'9D8372B8-AAA4-464A-A938-3C6927210010',N'NV01',N'Nguyễn Văn Đạt','2003-12-12',N'Cấn Hữu-Quốc Oai-Hà Nội',NULL,NULL,NULL,N'0385090080',N'danhntnv1@gmail.com',N'7B52F69D-5508-4745-926F-A22F9907E523',N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq','2020-12-12',NULL,1),
 	 (N'5D89F310-6D41-41EE-B5B8-57F5B6DB7A9A',N'NV02',N'Hoàng Đại Ka','2003-09-09',N'Cấn Hữu-Quốc Oai-Hà Nội',NULL,NULL,NULL,N'0385090080',N'danhntnv2@gmail.com',N'F09E9132-7F9E-48BD-A30C-E58C9E16717E',N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq','2023-09-12',NULL,1);
 	 INSERT INTO website_ban_giay.dbo.thuong_hieu (id,ma,ten,trangthai,ten_url) VALUES
-	 (N'F6F425A0-AD73-421F-B76B-09787A50808F',N'TH07',N'Gucci',1,N'logo1.png'),
+	 (N'F6F425A0-AD73-421F-B76B-09787A50808F',N'TH07',N'Gucci',1,N'logogucci.png'),
 	 (N'C41E486F-1EB2-40FD-9D2A-1F8F12298488',N'TH08',N'Calvin Klein',1,N'logo2.png'),
 	 (N'EC0054D9-433D-4E85-8190-4582CDEBF593',N'TH03',N'MLB',1,N'logo3.png'),
 	 (N'4EDE9E53-D595-4893-BDDF-46CCA4147D45',N'TH09',N'YSL',1,N'logo4.png'),
@@ -450,8 +450,9 @@ INSERT INTO website_ban_giay.dbo.kich_co (id,ma,ten,trangthai) VALUES
 
 	 delete  from gio_hang_san_pham_yeu_thich_chi_tiet
 >>>>>>> origin/khachhang
-
-	 delete from chuong_trinh_giam_gia_chi_tiet_hoa_don
-	 delete from chuong_trinh_giam_gia_hoa_don
+	select * from giay_chi_tiet
+	update giay set ngay_nhap='2023-11-06'
+	 select * from chuong_trinh_giam_gia_chi_tiet_hoa_don
+	 select * from update chuong_trinh_giam_gia_hoa_don set trangthai=1
 	 delete from hoa_don_chi_tiet
 	 delete from hoa_don

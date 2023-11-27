@@ -109,12 +109,16 @@ public class    SanPhamController {
         model.addAttribute("listgiaychitiet",giayChiTietDAO.getAllByMaGiay(x));
         model.addAttribute("anh",anhGiayDAO.getAnhByMaGiay(x));
         model.addAttribute("sanpham",giayDAO.getGiayByMa(x));
-        model.addAttribute("giaychitiet",giayChiTietDAO.getAllByMaGiayChiTiet(spct));
+        model.addAttribute("giaychitiet",giayChiTietDAO.getAllByMaGiayChiTiet(x,spct));
         return "product/update_sp";
     }
     @PostMapping("/admin/sanpham/update/{x}")
-    public String productUpdate2(Model model,@ModelAttribute("sanpham") Giay giay){
-        giay.setId(giayDAO.getGiayByMa(giay.getMa()).getId());
+    public String productUpdate2(Model model,@PathVariable("x") String x,@ModelAttribute("sanpham") Giay giay){
+        Giay giay1 = giayDAO.getGiayByMa(x);
+        giay.setMa(x);
+        giay.setGia_sau_khuyen_mai(giay.getGiaban());
+        giay.setId(giay1.getId());
+        giay.setNgay_nhap(giay1.getNgay_nhap());
         giayDAO.save(giay);
         return "redirect:/admin/sanpham/update/"+giay.getMa();
     }

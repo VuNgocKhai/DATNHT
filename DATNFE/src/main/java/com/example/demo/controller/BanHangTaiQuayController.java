@@ -132,7 +132,7 @@ public class BanHangTaiQuayController {
         hoaDon.setHinh_thuc_thanh_toan(0);
         hoaDon.setSo_tien_giam(BigDecimal.ZERO);
         hoaDon.setPhi_ship(BigDecimal.ZERO);
-        hoaDon.setTrangthai(1);
+        hoaDon.setTrangthai(0);
         hoaDonRepo.createHoaDon(hoaDon);
         redirectAttributes.addAttribute("maHD", maHoaDonMoi);
         return "redirect:/admin/ban-hang-tai-quay/view-cart/{maHD}";
@@ -647,7 +647,7 @@ public class BanHangTaiQuayController {
     }
 
     @PostMapping("/admin/ban-hang-tai-quay/xac-nhan-don-hang")
-    public String xacNhan(HttpServletRequest request,
+    public void xacNhan(HttpServletRequest request,
                           HttpServletResponse resp,
                           @RequestParam("maHD") String maHD,
                           RedirectAttributes redirectAttributes) throws IOException {
@@ -657,7 +657,6 @@ public class BanHangTaiQuayController {
             hoaDon.setNgay_thanh_toan(currentDate);
             hoaDon.setTrangthai(3);
             hoaDonRepo.createHoaDon(hoaDon);
-            return "redirect:/admin/ban-hang";
         } else {
             BigDecimal newTotal = calculateTotal(hoaDon);
             String vnp_Version = "2.1.0";
@@ -730,7 +729,6 @@ public class BanHangTaiQuayController {
             hoaDon.setNgay_thanh_toan(currentDate);
             hoaDon.setTrangthai(1);
             hoaDonRepo.createHoaDon(hoaDon);
-            return "redirect:/admin/ban-hang";
         }
     }
 }
