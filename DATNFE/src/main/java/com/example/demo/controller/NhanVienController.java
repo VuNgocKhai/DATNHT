@@ -13,6 +13,8 @@ import com.example.demo.service.NhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +50,8 @@ public class NhanVienController {
 
     @Autowired
     private NhanVienDAO nhanVienDAO;
+
+    private Authentication authentication;
 
     private int numberCurrent=0;
 
@@ -156,6 +160,13 @@ public class NhanVienController {
     @ModelAttribute("listNhanVien")
     public List<NhanVien> getListNhanVien() {
         return nhanVienService.getAll();
+    }
+
+    @ModelAttribute("nhanVienLogin")
+    public NhanVien nhanVienLogin() {
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv=nhanVienDAO.getNVByEmail(authentication.getName());
+        return nv;
     }
 
     @ModelAttribute("nhanVienDto")

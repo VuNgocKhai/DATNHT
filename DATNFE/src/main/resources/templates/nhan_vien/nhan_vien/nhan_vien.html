@@ -23,6 +23,7 @@
             document.getElementById("matKhauError").innerHTML = "";
             document.getElementById("ngaySinhError").innerHTML = "";
             document.getElementById("ngayVaoLamError").innerHTML = "";
+            document.getElementById("ngayNghiViecError").innerHTML = "";
             document.getElementById("chucVuError").innerHTML = "";
 
             var isErr = false;
@@ -30,13 +31,13 @@
             // Kiểm tra lỗi cho từng trường
             var hoTen = document.getElementById("hoTenInput").value;
             if (hoTen.trim() === "") {
-                document.getElementById("hoTenError").innerHTML = "Vui lòng nhập Họ tên.";
+                document.getElementById("hoTenError").innerHTML = "Vui lòng nhập họ tên.";
                 isErr = true;
             }
 
             var sdt = document.getElementById("sdtInput").value.trim();
             if (sdt === "") {
-                document.getElementById("sdtError").innerHTML = "Vui lòng nhập Số điện thoại.";
+                document.getElementById("sdtError").innerHTML = "Vui lòng nhập số điện thoại.";
                 isErr = true;
             } else if (sdt !== '') {
                 var regex = /^(0[1-9])+([0-9]{8})$/;
@@ -66,7 +67,7 @@
 
             var diaChi = document.getElementById("diaChiInput").value;
             if (diaChi.trim() === "") {
-                document.getElementById("diaChiError").innerHTML = "Vui lòng nhập Địa chỉ.";
+                document.getElementById("diaChiError").innerHTML = "Vui lòng nhập địa chỉ.";
                 isErr = true;
             }
 
@@ -94,13 +95,13 @@
 
             var matKhau = document.getElementById("matKhauInput").value;
             if (matKhau.trim() === "") {
-                document.getElementById("matKhauError").innerHTML = "Vui lòng nhập Mật khẩu.";
+                document.getElementById("matKhauError").innerHTML = "Vui lòng nhập mật khẩu.";
                 isErr = true;
             }
 
             var ngaySinh = document.getElementById("ngaySinhInput").value;
             if (ngaySinh.trim() === "") {
-                document.getElementById("ngaySinhError").innerHTML = "Vui lòng chọn Ngày sinh.";
+                document.getElementById("ngaySinhError").innerHTML = "Vui lòng chọn ngày sinh.";
                 isErr = true;
             } else if (ngaySinh.trim() != "") {
                 var currentDate = new Date();
@@ -114,7 +115,13 @@
 
             var ngayVaoLam = document.getElementById("ngayVaoLamInput").value;
             if (ngayVaoLam.trim() === "") {
-                document.getElementById("ngayVaoLamError").innerHTML = "Vui lòng chọn Ngày vào làm.";
+                document.getElementById("ngayVaoLamError").innerHTML = "Vui lòng chọn ngày vào làm.";
+                isErr = true;
+            }
+
+            var ngayNghiViec = document.getElementById("ngayNghiViecInput").value;
+            if (ngayNghiViec.trim() === "") {
+                document.getElementById("ngayNghiViecError").innerHTML = "Vui lòng chọn ngày nghỉ việc.";
                 isErr = true;
             }
 
@@ -220,6 +227,12 @@
             var ngayVaoLam = document.getElementById("ngayVaoLamInput2").value;
             if (ngayVaoLam.trim() === "") {
                 document.getElementById("ngayVaoLamError2").innerHTML = "Vui lòng chọn Ngày vào làm.";
+                isErr = true;
+            }
+
+            var ngayNghiViec = document.getElementById("ngayNghiViecInput2").value;
+            if (ngayNghiViec.trim() === "") {
+                document.getElementById("ngayNghiViecError2").innerHTML = "Vui lòng chọn ngày nghỉ việc.";
                 isErr = true;
             }
 
@@ -359,7 +372,7 @@
                            role="button" data-toggle="dropdown" aria-expanded="false">
                             <img
                                     class="rounded-circle"
-                                    th:src="@{|/images/dior1.jpg|}"
+                                    th:src="@{|/images/${nhanVienLogin.anh}|}"
                                     height="72" alt="Avatar" loading="lazy"/>
                         </a>
                         <div class="dropdown-menu" style="margin-left: -88px;">
@@ -471,14 +484,14 @@
                                     </div>
 
                                     <div class="form-group col-4">
-                                        <label for="formGroupExampleInput2">Họ tên</label>
+                                        <label for="formGroupExampleInput2">Họ tên <span style="color: red">*</span></label>
                                         <input type="text" th:field="*{hoTen}" class="form-control" id="hoTenInput"
                                                placeholder="Họ tên">
                                         <small class="text-danger" id="hoTenError"></small>
                                     </div>
 
                                     <div class="form-group col-4">
-                                        <label for="formGroupExampleInput2">Số điện thoại</label>
+                                        <label for="formGroupExampleInput2">Số điện thoại <span style="color: red">*</span></label>
                                         <input type="text" th:field="*{sdt}" class="form-control" id="sdtInput"
                                                placeholder="Số điện thoại">
                                         <small class="text-danger" id="sdtError"></small>
@@ -486,7 +499,7 @@
 
                                     <div class="form-group col-4">
                                         <fieldset>
-                                            <legend class="col-form-label pt-0">Trạng Thái :</legend>
+                                            <legend class="col-form-label pt-0">Trạng Thái <span style="color: red">*</span>: </legend>
                                             <div class="">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" th:field="*{trangThai}"
@@ -510,7 +523,7 @@
 
                                 <div class="row">
                                     <div class="form-group col-4">
-                                        <label for="province">Tỉnh/Thành phố</label>
+                                        <label for="province">Tỉnh/Thành phố <span style="color: red">*</span></label>
                                         <select class="form-control" id="province" th:field="*{thanhPho}">
                                             <option value="">Chọn Tỉnh/Thành phố</option>
                                         </select>
@@ -518,7 +531,7 @@
                                     </div>
 
                                     <div class="form-group col-4">
-                                        <label for="district">Quận/Huyện</label>
+                                        <label for="district">Quận/Huyện <span style="color: red">*</span></label>
                                         <select class="form-control " id="district" th:field="*{huyen}">
                                             <option value="">Chọn Quận/Huyện</option>
                                         </select>
@@ -526,7 +539,7 @@
                                     </div>
 
                                     <div class="form-group col-4">
-                                        <label for="ward">Xã/Phường</label>
+                                        <label for="ward">Xã/Phường <span style="color: red">*</span></label>
                                         <select class="form-control" id="ward" th:field="*{xa}">
                                             <option value="">Chọn Xã/Phường</option>
                                         </select>
@@ -536,21 +549,21 @@
 
                                 <div class="row">
                                     <div class="form-group col-4">
-                                        <label for="formGroupExampleInput2">Địa chỉ</label>
+                                        <label for="formGroupExampleInput2">Địa chỉ <span style="color: red">*</span></label>
                                         <input type="text" th:field="*{diaChi}" class="form-control" id="diaChiInput"
                                                placeholder="Địa chỉ">
                                         <small class="text-danger" id="diaChiError"></small>
                                     </div>
 
                                     <div class="form-group col-4">
-                                        <label for="formGroupExampleInput2">Email</label>
+                                        <label for="formGroupExampleInput2">Email <span style="color: red">*</span></label>
                                         <input type="text" th:field="*{email}" class="form-control" id="emailInput"
                                                placeholder="Email">
                                         <small class="text-danger" id="emailError"></small>
                                     </div>
 
                                     <div class="form-group col-4">
-                                        <label for="formGroupExampleInput2">Mật khẩu</label>
+                                        <label for="formGroupExampleInput2">Mật khẩu <span style="color: red">*</span></label>
                                         <input type="text" th:field="*{matKhau}" class="form-control" id="matKhauInput"
                                                placeholder="Mật khẩu">
                                         <small class="text-danger" id="matKhauError"></small>
@@ -559,28 +572,28 @@
 
                                 <div class="row">
                                     <div class="form-group col-3">
-                                        <label for="formGroupExampleInput2">Ngày sinh</label>
+                                        <label for="formGroupExampleInput2">Ngày sinh <span style="color: red">*</span></label>
                                         <input type="date" th:field="*{ngaySinh}" class="form-control"
                                                id="ngaySinhInput">
                                         <small class="text-danger" id="ngaySinhError"></small>
                                     </div>
 
                                     <div class="form-group col-3">
-                                        <label for="formGroupExampleInput2">Ngày vào làm</label>
+                                        <label for="formGroupExampleInput2">Ngày vào làm <span style="color: red">*</span></label>
                                         <input type="date" th:field="*{ngayVaoLam}" class="form-control"
                                                id="ngayVaoLamInput">
                                         <small class="text-danger" id="ngayVaoLamError"></small>
                                     </div>
 
                                     <div class="form-group col-3">
-                                        <label for="formGroupExampleInput2">Ngày nghỉ việc</label>
+                                        <label for="formGroupExampleInput2">Ngày nghỉ việc <span style="color: red">*</span></label>
                                         <input type="date" th:field="*{ngayNghiViec}" class="form-control"
                                                id="ngayNghiViecInput">
                                         <small class="text-danger" id="ngayNghiViecError"></small>
                                     </div>
 
                                     <div class="form-group col-3">
-                                        <label for="formGroupExampleInput2">Chức vụ</label>
+                                        <label for="formGroupExampleInput2">Chức vụ <span style="color: red">*</span></label>
                                         <select class="form-control" id="chucVuInput" th:field="*{chucVu.id}">
                                             <option th:each="cv : ${listChucVu}" th:value="${cv.id}"
                                                     th:text="${cv.ten}"></option>
@@ -676,14 +689,14 @@
                                                     </div>
 
                                                     <div class="form-group col-4">
-                                                        <label for="formGroupExampleInput2">Họ tên</label>
+                                                        <label for="formGroupExampleInput2">Họ tên <span style="color: red">*</span></label>
                                                         <input type="text" th:field="*{hoTen}" class="form-control"
                                                                id="hoTenInput2" placeholder="Họ tên">
                                                         <small class="text-danger" id="hoTenError2"></small>
                                                     </div>
 
                                                     <div class="form-group col-4">
-                                                        <label for="formGroupExampleInput2">Số điện thoại</label>
+                                                        <label for="formGroupExampleInput2">Số điện thoại <span style="color: red">*</span></label>
                                                         <input type="text" th:field="*{sdt}" class="form-control"
                                                                id="sdtInput2" placeholder="Số điện thoại">
                                                         <small class="text-danger" id="sdtError2"></small>
@@ -694,7 +707,7 @@
 
                                                 <div class="row">
                                                     <div class="form-group col-4">
-                                                        <label for="province">Tỉnh/Thành phố</label>
+                                                        <label for="province">Tỉnh/Thành phố <span style="color: red">*</span></label>
                                                         <select class="form-control" id="province2"
                                                                 th:field="*{thanhPho}">
                                                             <option value="">Chọn Tỉnh/Thành phố</option>
@@ -703,7 +716,7 @@
                                                     </div>
 
                                                     <div class="form-group col-4">
-                                                        <label for="district">Quận/Huyện</label>
+                                                        <label for="district">Quận/Huyện <span style="color: red">*</span></label>
                                                         <select class="form-control " id="district2"
                                                                 th:field="*{huyen}">
                                                             <option value="">Chọn Quận/Huyện</option>
@@ -712,7 +725,7 @@
                                                     </div>
 
                                                     <div class="form-group col-4">
-                                                        <label for="ward">Xã/Phường</label>
+                                                        <label for="ward">Xã/Phường <span style="color: red">*</span></label>
                                                         <select class="form-control" id="ward2" th:field="*{xa}">
                                                             <option value="">Chọn Xã/Phường</option>
                                                         </select>
@@ -722,14 +735,14 @@
 
                                                 <div class="row">
                                                     <div class="form-group col-4">
-                                                        <label for="formGroupExampleInput2">Địa chỉ</label>
+                                                        <label for="formGroupExampleInput2">Địa chỉ <span style="color: red">*</span></label>
                                                         <input type="text" th:field="*{diaChi}" class="form-control"
                                                                id="diaChiInput2" placeholder="Địa chỉ">
                                                         <small class="text-danger" id="diaChiError2"></small>
                                                     </div>
 
                                                     <div class="form-group col-4">
-                                                        <label for="formGroupExampleInput2">Email</label>
+                                                        <label for="formGroupExampleInput2">Email <span style="color: red">*</span></label>
                                                         <input type="text" th:field="*{email}" class="form-control"
                                                                id="emailInput2" placeholder="Email">
                                                         <small class="text-danger" id="emailError2"></small>
@@ -738,7 +751,7 @@
 
                                                     <div class="form-group col-4">
                                                         <fieldset>
-                                                            <legend class="col-form-label pt-0">Trạng Thái :</legend>
+                                                            <legend class="col-form-label pt-0">Trạng Thái <span style="color: red">*</span>:</legend>
                                                             <div class="">
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio"
@@ -763,7 +776,7 @@
 
 
                                                     <div class="form-group col-4" hidden>
-                                                        <label for="formGroupExampleInput2">Mật khẩu</label>
+                                                        <label for="formGroupExampleInput2">Mật khẩu </label>
                                                         <input type="text" th:field="*{matKhau}" class="form-control"
                                                                id="matKhauInput2" placeholder="Mật khẩu">
                                                         <small class="text-danger" id="matKhauError2"></small>
@@ -772,28 +785,28 @@
 
                                                 <div class="row">
                                                     <div class="form-group col-3">
-                                                        <label for="formGroupExampleInput2">Ngày sinh</label>
+                                                        <label for="formGroupExampleInput2">Ngày sinh <span style="color: red">*</span></label>
                                                         <input type="date" th:field="*{ngaySinh}" class="form-control"
                                                                id="ngaySinhInput2">
                                                         <small class="text-danger" id="ngaySinhError2"></small>
                                                     </div>
 
                                                     <div class="form-group col-3">
-                                                        <label for="formGroupExampleInput2">Ngày vào làm</label>
+                                                        <label for="formGroupExampleInput2">Ngày vào làm <span style="color: red">*</span></label>
                                                         <input type="date" th:field="*{ngayVaoLam}" class="form-control"
                                                                id="ngayVaoLamInput2">
                                                         <small class="text-danger" id="ngayVaoLamError2"></small>
                                                     </div>
 
                                                     <div class="form-group col-3">
-                                                        <label for="formGroupExampleInput2">Ngày nghỉ việc</label>
+                                                        <label for="formGroupExampleInput2">Ngày nghỉ việc <span style="color: red">*</span></label>
                                                         <input type="date" th:field="*{ngayNghiViec}"
                                                                class="form-control" id="ngayNghiViecInput2">
                                                         <small class="text-danger" id="ngayNghiViecError2"></small>
                                                     </div>
 
                                                     <div class="form-group col-3">
-                                                        <label for="formGroupExampleInput2">Chức vụ</label>
+                                                        <label for="formGroupExampleInput2">Chức vụ <span style="color: red">*</span></label>
                                                         <select class="form-control" id="chucVuInput2"
                                                                 th:field="*{chucVu.id}">
                                                             <option th:each="cv : ${listChucVu}" th:value="${cv.id}"

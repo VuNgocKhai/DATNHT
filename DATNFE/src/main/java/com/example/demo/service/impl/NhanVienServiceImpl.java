@@ -44,7 +44,7 @@ public class NhanVienServiceImpl implements NhanVienService {
 
     @Override
     public Boolean update(NhanVien nhanVien) {
-        if(nhanVien.getNgayNghiViec()!=null){
+        if(nhanVien.getNgayNghiViec()!=null && !nhanVien.getNgayNghiViec().trim().isEmpty()){
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate ngayNghiViecDate = LocalDate.parse(nhanVien.getNgayNghiViec(), formatter);
             LocalDate currentDate = LocalDate.now();

@@ -50,7 +50,7 @@ create table mau_sac (
 create table giay (
 	id uniqueidentifier primary key default newid(),
 	ma varchar(20) unique,
-	ten nvarchar(50) default null,
+	ten nvarchar(200) default null,
 	id_thuong_hieu uniqueidentifier,
 	id_gioi_tinh uniqueidentifier,
 	id_chat_lieu uniqueidentifier,
@@ -249,7 +249,6 @@ create table chuong_trinh_giam_gia_chi_tiet_hoa_don (
 	foreign key (id_hoa_don) references hoa_don(id),
 	foreign key (id_chuong_trinh_giam_gia_hoa_don) references chuong_trinh_giam_gia_hoa_don(id)
 )
-drop table san_pham_yeu_thich_chi_tiet
 create table gio_hang_san_pham_yeu_thich(
 	id uniqueidentifier primary key default newid(),
 	id_khach_hang uniqueidentifier,
@@ -439,15 +438,8 @@ INSERT INTO website_ban_giay.dbo.kich_co (id,ma,ten,trangthai) VALUES
 	 (N'482E73CC-0327-374C-AF21-F7DFE4F38F32',N'dior1_2.jpg',N'C00D80A0-1ADB-7845-9F3B-9AC42C2E2D1C',NULL),
 	 (N'845D57C3-0F44-BB47-982C-F7FBD8C5B0E7',N'mlb3.jpg',N'597A9673-6929-D342-96DC-0A4C47E3CC7B',NULL);
 
-<<<<<<< HEAD
-	 select * from khach_hang
-	 select * from dia_chi
-	 select * from hoa_don
-	 select * from hoa_don_chi_tiet
-=======
-	 select * from gio_hang_san_pham_yeu_thich_chi_tiet
-	 	 select * from hoa_don
 
+<<<<<<< HEAD
 	 delete  from gio_hang_san_pham_yeu_thich_chi_tiet
 >>>>>>> origin/khachhang
 	select * from giay_chi_tiet
@@ -456,3 +448,5 @@ INSERT INTO website_ban_giay.dbo.kich_co (id,ma,ten,trangthai) VALUES
 	 select * from update chuong_trinh_giam_gia_hoa_don set trangthai=1
 	 delete from hoa_don_chi_tiet
 	 delete from hoa_don
+=======
+>>>>>>> origin/nhanvien
