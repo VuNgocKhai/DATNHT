@@ -91,25 +91,25 @@
                 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                     <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
                         <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
-                        <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+                        <h5 class="font-weight-semi-bold m-0">Sản phẩm chất lượng</h5>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                     <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
                         <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
-                        <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
+                        <h5 class="font-weight-semi-bold m-0">Miễn phí vận chuyển</h5>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                     <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
                         <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
-                        <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
+                        <h5 class="font-weight-semi-bold m-0">Hoàn trả trong 14 ngày</h5>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                     <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
                         <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
-                        <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+                        <h5 class="font-weight-semi-bold m-0">Hỗ trợ 24/7</h5>
                     </div>
                 </div>
             </div>
@@ -121,7 +121,7 @@
             <div class="row px-xl-5 pb-3">
 
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1" th:each="th:${listThuongHieu}">
-                    <a class="text-decoration-none" href="">
+                    <a class="text-decoration-none" th:href="@{|/sanpham?thuong_hieu=${th.ten}|}">
                         <div class="cat-item d-flex align-items-center mb-4">
                             <div class="overflow-hidden" style="width: 100px; height: 100px;padding: 10px">
                                 <img class="img-fluid" th:src="@{|/images/${th.ten_url}|}" alt="">
@@ -161,7 +161,7 @@
     bottom: 197px;
     left: 145px;    text-decoration: underline;">[[${item.thuong_hieu.ten}]]</a>
                         <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" th:href="@{|/ctsp/*{ma}|}"><p style="margin: auto;
+                            <a class="h6 text-decoration-none text-truncate" th:href="@{|/ctsp/*{ma}-*{thuong_hieu.ten}-*{mau_sac.ten}|}"><p style="margin: auto;
     text-align: center;
     max-width: 226px;
     white-space: break-spaces;color: #817d70;">[[*{ten}]]</p></a>
@@ -234,7 +234,7 @@
     bottom: 197px;
     left: 145px;    text-decoration: underline;">[[${item.thuong_hieu.ten}]]</a>
                         <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" th:href="@{|/ctsp/*{ma}|}"><p style="margin: auto;
+                            <a class="h6 text-decoration-none text-truncate" th:href="@{|/ctsp/*{ma}-*{thuong_hieu.ten}-*{mau_sac.ten}|}"><p style="margin: auto;
     text-align: center;
     max-width: 226px;
     white-space: break-spaces;color: #817d70;">[[*{ten}]]</p></a>

@@ -12,7 +12,8 @@ import java.util.UUID;
 public interface DiachiDao extends JpaRepository<DiaChi, UUID> {
     @Query("select p from DiaChi p where p.khachHang.ma = ?1")
     List<DiaChi> getAllByMaDiaChi(String ma);
-
+    @Query("select p from DiaChi p where p.khachHang.ma = ?1 order by p.trangthai asc")
+    List<DiaChi> getAllByMaDiaChiSortTT(String ma);
     @Query("select p from DiaChi p where p.khachHang.id = ?1")
     DiaChi GetKhachhangByid(UUID id);
     

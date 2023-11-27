@@ -161,19 +161,21 @@
             </div>
         </nav>
         <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px">
-            <form action="/admin/gioitinh/create" method="post" th:object="${gioitinh}">
+            <form id="kichcoForm" action="/admin/gioitinh/create" method="post" th:object="${gioitinh}">
                 <input type="text" hidden  th:field="*{id}">
                 <div class="form-group">
-                    <label for="formGroupExampleInput">Mã</label>
+                    <label for="formGroupExampleInput" class="required">Mã</label>
                     <input type="text" th:field="*{ma}" class="form-control" id="formGroupExampleInput" placeholder="Mã">
+                    <span id="maError" class="error-message"></span>
                 </div>
                 <div class="form-group">
-                    <label for="formGroupExampleInput2">Tên</label>
+                    <label for="formGroupExampleInput2" class="required">Tên</label>
                     <input type="text" th:field="*{ten}" class="form-control" id="formGroupExampleInput2" placeholder="Tên">
+                    <span id="tenError" class="error-message"></span>
                 </div>
                 <fieldset class="form-group">
                     <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">Trạng Thái : </legend>
+                        <legend class="col-form-label col-sm-2 pt-0 required" >Trạng Thái : </legend>
                         <div class="col-sm-10">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" th:field="*{trangthai}" id="gridRadios1" th:value="1">
@@ -245,5 +247,48 @@
 <script src="/assets/js/popper.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
+<script>
+    document.getElementById('kichcoForm').addEventListener('submit', function (event) {
+        // Perform your validation logic here
+        clearErrorMessages();
+
+        if (!validateForm()) {
+            // Prevent the form from submitting if validation fails
+            event.preventDefault();
+        }
+    });
+
+    function validateForm() {
+        // Add your validation logic here
+        var maValue = document.getElementById('formGroupExampleInput').value;
+        var tenValue = document.getElementById('formGroupExampleInput2').value;
+        var kq= 0;
+        if (maValue.trim() === '') {
+            displayErrorMessage('maError', 'Mã không được để trống');
+            kq=1;
+        }
+
+        if (tenValue.trim() === '') {
+            displayErrorMessage('tenError', 'Tên không được để trống');
+            kq=1;
+        }
+        if (kq==1){
+            return false;
+        }
+        return true;
+    }
+    function displayErrorMessage(elementId, message) {
+        var errorElement = document.getElementById(elementId);
+        errorElement.innerText = message;
+        errorElement.style.color = 'red';
+    }
+    function clearErrorMessages() {
+        var errorElements = document.querySelectorAll('.error-message');
+        errorElements.forEach(function (element) {
+            element.innerText = '';
+        });
+    }
+
+</script>
 </body>
 </html>

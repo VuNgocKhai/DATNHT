@@ -43,7 +43,5 @@ public class GiamGiaChiTietHoaDon implements Serializable {
 
     private BigDecimal so_tien_da_giam;
 
-    private BigDecimal tong_tien_thanh_toan;
-
     private Integer trangthai;
 }

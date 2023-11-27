@@ -40,8 +40,17 @@ public class ThuongHieuController {
     }
 
     @PostMapping("/admin/thuonghieu/create")
-    public String createThuongHieu(@ModelAttribute("thuonghieu") ThuongHieu ThuongHieu) {
-        thuongHieuRepo.createThuongHieu(ThuongHieu);
+    public String createThuongHieu(@ModelAttribute("thuonghieu") ThuongHieu thuongHieu,HttpServletRequest request,@RequestPart("file") MultipartFile file) {
+        Path path = Paths.get("src/main/webapp/images/");
+        try {
+            InputStream inputStream = file.getInputStream();
+            Files.copy(inputStream,path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        thuongHieu.setTen_url(file.getOriginalFilename());
+        thuongHieuRepo.createThuongHieu(thuongHieu);
         return "redirect:/admin/thuonghieu";
     }
     @PostMapping("/admin/thuonghieu/update/{x}")

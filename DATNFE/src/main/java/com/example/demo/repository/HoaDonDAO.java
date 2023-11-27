@@ -78,6 +78,10 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
     @Query("SELECT SUM(tong_tien) FROM HoaDon WHERE trangthai = 3 AND ngay_thanh_toan = :ngay")
     BigDecimal tongTienTheoNgay(@Param("ngay") LocalDate ngay);
 
+    //Tính tổng tiền doanh thu bán hàng Trong ngày
+    @Query("SELECT SUM(tong_tien) FROM HoaDon WHERE trangthai = 3 AND ngay_thanh_toan = :ngay")
+    BigDecimal tongTienTrongNgay(LocalDate ngay);
+
     //Tính tổng tiền doanh thu bán hàng theo tuần
     @Query("SELECT SUM(tong_tien) FROM HoaDon WHERE trangthai = 3 AND EXTRACT(WEEK FROM ngay_thanh_toan) = EXTRACT(WEEK FROM :ngay)")
     BigDecimal tongTienTheoTuan(@Param("ngay") LocalDate ngay);
@@ -103,13 +107,13 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
 //    Tổng Số Người mua kiều online
     @Query("SELECT COUNT(*) AS TongSoHinhThucMuaOn\n" +
             "FROM HoaDon\n" +
-            "WHERE hinh_thuc_mua = 1\n")
+            "WHERE hinh_thuc_mua = 0\n")
     Integer tongsomuaonline();
 
     //    Tổng Số Người mua kiều Trức tiếp
     @Query("SELECT COUNT(*) AS TongSoHinhThucMuaTrucTiep\n" +
             "FROM HoaDon\n" +
-            "WHERE hinh_thuc_mua = 2\n")
+            "WHERE hinh_thuc_mua = 1\n")
     Integer tongsomuatructiep();
 
 

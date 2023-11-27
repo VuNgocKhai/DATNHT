@@ -242,8 +242,8 @@
                         <th scope="row">[[${sp.ma}]]</th>
                         <th><img style="width: 100px" th:src="@{|/images/${sp.getAnhDau(sp.anhs)}|}" alt=""></th>
                         <th>[[${sp.ten}]]</th>
-                        <th>[[${sp.gianhap}]]</th>
-                        <th>[[${sp.giaban}]]</th>
+                        <th>[[*{#numbers.formatDecimal(sp.gianhap, 0, 'COMMA', 0, 'POINT')}]] ₫</th>
+                        <th>[[*{#numbers.formatDecimal(sp.giaban, 0, 'COMMA', 0, 'POINT')}]] ₫</th>
                         <th>[[${sp.chat_lieu.ten}]]</th>
                         <th>[[${sp.gioi_tinh.ten}]]</th>
                         <th>[[${sp.trangthai==1?'Hoạt Động':'Ngừng Hoạt Động'}]]</th>

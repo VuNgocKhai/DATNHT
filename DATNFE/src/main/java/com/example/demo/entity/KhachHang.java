@@ -51,7 +51,7 @@ public class KhachHang implements Serializable {
     private String matkhau;
 
     @Column(name = "trangthai")
-    private Integer trangthai;
+    private Integer trangthai = 1;
     @JsonIgnore
     @OneToOne(mappedBy = "khach_hang")
     private GioHang gio_hang;

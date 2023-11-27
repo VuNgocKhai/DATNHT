@@ -38,6 +38,8 @@ public class GlobalInterceptor
     GioHangChiTietDAO gioHangChiTietDAO;
     @Autowired
     KhachHangDao khachHangDao;
+    @Autowired
+    GioHangYeuThichChiTietDao gioHangYeuThichChiTietDao;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // TODO
@@ -54,16 +56,18 @@ public class GlobalInterceptor
         request.setAttribute("listKichCo", kichCoRepo.getListKichCo());
         request.setAttribute("listMauSac", mauSacRepo.getListMauSac());
         request.setAttribute("listThuongHieu", thuongHieuDAO.findAll());
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String username = authentication.getName();
-//        System.out.println("Name là"+username);
-//        if (!username.equals("anonymousUser")){
-//            KhachHang khachHang = khachHangDao.getKhByEmail(username);
-//            if (khachHang!=null){
-//                request.setAttribute("countGHCTByKH", gioHangChiTietDAO.countGH(khachHang.getMa()));
-//            }
-//        }else {
-//            request.setAttribute("countGHCTByKH", 0);
-//        }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        System.out.println("Name là"+username);
+        if (!username.equals("anonymousUser")){
+            KhachHang khachHang = khachHangDao.getKhByEmail(username);
+            if (khachHang!=null){
+                request.setAttribute("countGHCTByKH", gioHangChiTietDAO.countGH(khachHang.getMa()));
+                request.setAttribute("countGHSPYTByKH", gioHangYeuThichChiTietDao.countGHSPYEByMaKH(khachHang.getMa()));
+            }
+        }else {
+            request.setAttribute("countGHCTByKH", 0);
+            request.setAttribute("countGHSPYTByKH", 0);
+        }
     }
 }

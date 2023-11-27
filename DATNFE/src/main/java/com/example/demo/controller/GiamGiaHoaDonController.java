@@ -97,6 +97,15 @@ public class GiamGiaHoaDonController {
         return "redirect:/admin/giamgiahoadon";
     }
 
+    @PostMapping("/admin/giamgiahoadon/set-ngung-hoat-dong")
+    public String ngungHoatDongGiamGiaHoaDon(@RequestParam("idGGHD") UUID idGGHD,
+            Model model) {
+        GiamGiaHoaDon giamGiaHoaDon = giamGiaHoaDonRepo.getGiamGiaHoaDonById(idGGHD);
+        giamGiaHoaDon.setTrangthai(0);
+        giamGiaHoaDonRepo.createGGHD(giamGiaHoaDon);
+        return "redirect:/admin/giamgiahoadon";
+    }
+
     // view detail Giảm Giá Hóa Đơn
     @RequestMapping("/admin/giamgiahoadon/detail/{ma}")
     public String detailGGHD(@PathVariable("ma") String ma,
@@ -159,6 +168,7 @@ public class GiamGiaHoaDonController {
 
         PageDTO<GiamGiaHoaDon> pageResult = giamGiaHoaDonRepo.getPageGGHDByTen(ten, page.orElse(0));
         model.addAttribute("listPGiamGiaHoaDon", pageResult);
+        model.addAttribute("loctheotenDetail",ten);
         return "giamgiahoadon/giam_gia_hoa_don";
     }
 
@@ -186,22 +196,26 @@ public class GiamGiaHoaDonController {
                 giamGiaChiTietHoaDon.setHd(hoaDon); // set hóa đơn vào giảm giá chi tiết hóa đơn
                 giamGiaChiTietHoaDon.setGghd(giamGiaHoaDon); // set giảm giá hóa đơn vào giảm giá chi tiết hóa đơn
                 BigDecimal tongTienHoaDon = hoaDon.getTong_tien();  // Lấy tổng tiền của hóa đơn
+                BigDecimal phiShip = hoaDon.getPhi_ship(); // lấy phí ship
+                BigDecimal tongTienHoaDonChuaPhiShip = tongTienHoaDon.subtract(phiShip); // lấy tổng tiền chưa có phí ship cộng vào
+
                 int phanTramGiam = giamGiaHoaDon.getPhan_tram_giam();// Lấy phần trăm giảm
                 BigDecimal soTienGiamMax = giamGiaHoaDon.getSo_tien_giam_max(); // Lấy số tiền giảm tối đa
-                BigDecimal soTienGiam = tongTienHoaDon.multiply(new BigDecimal(phanTramGiam)).divide(new BigDecimal(100)); // Tính số tiền giảm dựa trên phần trăm
+                BigDecimal soTienGiam = tongTienHoaDonChuaPhiShip.multiply(new BigDecimal(phanTramGiam)).divide(new BigDecimal(100)); // Tính số tiền giảm dựa trên phần trăm
 
                 // Nếu số tiền giảm vượt quá số tiền giảm tối đa, sử dụng số tiền giảm tối đa
                 if (soTienGiam.compareTo(soTienGiamMax) > 0) {
                     soTienGiam = soTienGiamMax;
                 }
-                tongTienHoaDon = tongTienHoaDon.subtract(soTienGiam); // Trừ số tiền giảm khỏi tổng tiền hóa đơn
-                hoaDon.setTong_tien(tongTienHoaDon); // Cập nhật tổng tiền của hóa đơn
+
+                tongTienHoaDonChuaPhiShip = tongTienHoaDonChuaPhiShip.subtract(soTienGiam); // Trừ số tiền giảm khỏi tổng tiền hóa đơn
+                BigDecimal tongTienSauCung = tongTienHoaDonChuaPhiShip.add(phiShip); // cộng lại phí ship
+                hoaDon.setTong_tien(tongTienSauCung); // Cập nhật tổng tiền của hóa đơn
                 hoaDon.setSo_tien_giam(soTienGiam); // cập nhật số tiền giảm của hóa đơn
                 giamGiaHoaDon.setSo_luong(giamGiaHoaDon.getSo_luong() - 1); // Giảm số lượng giảm giá hóa đơn đi 1
                 giamGiaChiTietHoaDon.setTrangthai(1);// Set trạng thái của chi tiết giảm giá trên hóa đơn
-                giamGiaChiTietHoaDon.setTong_tien(tongTienHoaDon.add(soTienGiam)); // set tổng tiền ban đầu vào giảm giá chi tiết hóa đơn
+                giamGiaChiTietHoaDon.setTong_tien(tongTienSauCung); // set tổng tiền ban đầu vào giảm giá chi tiết hóa đơn
                 giamGiaChiTietHoaDon.setSo_tien_da_giam(soTienGiam); // set số tiền giảm vào giảm giá chi tiết hóa đơn
-                giamGiaChiTietHoaDon.setTong_tien_thanh_toan(tongTienHoaDon); // set tổng tiền thanh toán
 
                 // Lưu cập nhật vào cơ sở dữ liệu
                 giamGiaChiTietHoaDonRepo.createGGCTHD2(giamGiaChiTietHoaDon);
@@ -224,7 +238,12 @@ public class GiamGiaHoaDonController {
                 GiamGiaChiTietHoaDon giamGiaChiTietHoaDon = giamGiaChiTietHoaDonRepo.getGiamGiaCTHoaDonByHDandGGHD(hdid, gghdid); // tìm giảm giá chi tiết hóa đơn theo 2 id phụ
                 HoaDon hoaDon = hoaDonRepo.getHoaDonByID(hdid); // tìm hóa đơn theo id
                 GiamGiaHoaDon giamGiaHoaDon = giamGiaHoaDonRepo.getGiamGiaHoaDonById(gghdid); // tìm giảm giá hóa đơn theo id
-                hoaDon.setTong_tien(giamGiaChiTietHoaDon.getTong_tien()); // tính lại tổng tiền hóa đơn về ban đầu
+                BigDecimal soTienGiam = hoaDon.getSo_tien_giam();
+                BigDecimal phiShip = hoaDon.getPhi_ship();
+                BigDecimal tongTienDaGiamGiaVaPhiShip = giamGiaChiTietHoaDon.getTong_tien();
+                BigDecimal tongTienCoPhiShip = tongTienDaGiamGiaVaPhiShip.add(soTienGiam);
+
+                hoaDon.setTong_tien(tongTienCoPhiShip); // tính lại tổng tiền hóa đơn về ban đầu
                 hoaDon.setSo_tien_giam(BigDecimal.ZERO); // set số tiền giảm về 0
                 giamGiaHoaDon.setSo_luong(giamGiaHoaDon.getSo_luong() + 1); // tăng lại số lượng lên 1 đơn vị
 

@@ -22,7 +22,7 @@ public class Anh implements Serializable {
     private UUID id;
     private String ten_url;
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_giay")
     private Giay giay;
     private Integer trangthai;

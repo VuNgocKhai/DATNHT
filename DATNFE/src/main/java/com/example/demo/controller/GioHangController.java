@@ -6,9 +6,9 @@ import com.example.demo.repository.*;
 import com.example.demo.service.CallAPIGHN;
 import com.example.demo.service.UntityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
@@ -59,29 +58,36 @@ public class GioHangController {
     @Autowired
     DanhGiaDAO danhGiaDAO;
     @Autowired
-    sanphamyeuthichchitietdao sanPhamYeuThichDAo;
+    GioHangYeuThichChiTietDao sanPhamYeuThichDAo;
+    @Autowired
+    AnhGiayDAO anhGiayDAO;
 
     private Authentication authentication;
 
 
-    @RequestMapping("/ctsp/{x}")
-    public String ctsp(Model model, @PathVariable("x") String ma,@RequestParam(defaultValue = "0") String numberDg) {
+    @RequestMapping("/ctsp/{x}-{giaythuonghieu}-{giaymausac}")
+    public String ctsp(Model model, @PathVariable("x") String ma, @RequestParam(defaultValue = "0") String numberDg,
+                       @PathVariable("giaythuonghieu") String thuonghieu,
+                       @PathVariable("giaymausac") String mausac) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
-        if (khachHang == null) {
-            Giay giay = giayDAO.getGiayByMa(ma);
-            model.addAttribute("item", giay);
-            model.addAttribute("Tongsothichsanpham", sanPhamYeuThichDAo.countYeuThichByGiayId(ma));
-        } else {
-            Giay giay = giayDAO.getGiayByMa(ma);
-            model.addAttribute("item", giay);
-            model.addAttribute("Tongsothichsanpham", sanPhamYeuThichDAo.countYeuThichByGiayId(ma));
+
+        Pageable pageable1 = PageRequest.of(0, 3);
+
+        Giay giay = giayDAO.getGiayByMa(ma);
+        model.addAttribute("item", giay);
+        model.addAttribute("Tongsothichsanpham", sanPhamYeuThichDAo.countYeuThichByGiayId(ma));
+
+        if (khachHang != null) {
             model.addAttribute("taikhoan", khachHang.getId());
-            model.addAttribute("khachHang",khachHang);
-            model.addAttribute("yeuthich",sanPhamYeuThichDAo.getSan_Pham_Yeu_Thich_Chi_Tiet11Byma(ma));
+            model.addAttribute("khachHang", khachHang);
+            model.addAttribute("yeuthich", sanPhamYeuThichDAo.getSan_Pham_Yeu_Thich_Chi_Tiet11Byma(ma));
         }
 
-        //load danh gia
+        model.addAttribute("ListGiayTheoThuongHieu", giayDAO.getAllGiayByThuonghieu(thuonghieu));
+        model.addAttribute("ListGiayTheoMauSac", giayDAO.getAllGiayByMauSac(mausac,pageable1));
+        model.addAttribute("listanhgiay",anhGiayDAO.getAnhByMaGiay(ma));
+
         Pageable pageable = PageRequest.of(Integer.valueOf(numberDg), 3);
         model.addAttribute("pageDg", new PageDTO<>(danhGiaDAO.findDanhGiasByMaSpAndTt(ma, pageable)));
         model.addAttribute("totalDg", danhGiaDAO.countGiayByMaGiayAndTt(ma));
@@ -90,6 +96,7 @@ public class GioHangController {
 
         return "home/chitietsanpham";
     }
+
 
     @ResponseBody
     @PostMapping("/danh-gia")
@@ -155,20 +162,7 @@ public class GioHangController {
 
     @PostMapping("/getlistGiay")
     public String getlistvalue(Model model, HttpServletRequest request, @RequestParam("maVC") String maVC) {
-        String maGGHD = "";
-        Integer phan_tramGGHD = 0;
-        BigDecimal so_tienGGHD = BigDecimal.valueOf(0);
-        List<GiamGiaHoaDon> listGGHD = gghddao.findAll();
-        for (GiamGiaHoaDon x : listGGHD
-        ) {
-            if (x.getMa().equals(maVC)) {
-                maGGHD = x.getMa();
-                phan_tramGGHD = x.getPhan_tram_giam();
-                so_tienGGHD = x.getSo_tien_giam_max();
-                model.addAttribute("maGGHD", x.getMa());
-                model.addAttribute("phan_tramGGHD", x.getPhan_tram_giam());
-            }
-        }
+
         String[] listvalue = request.getParameterValues("listGiay");
         List<UUID> listvalue1 = new ArrayList<>();
         List<GiayChiTiet> giayChiTietList = new ArrayList<>();
@@ -196,6 +190,26 @@ public class GioHangController {
             for (GiayChiTiet x : giayChiTietList
             ) {
                 tongTien = tongTien.add(x.getGiay().tinhTong(x.getGiay().getGia_sau_khuyen_mai(), Integer.parseInt(request.getParameter(x.getId() + "soluong"))));
+            }
+        }
+        String maGGHD = "";
+        Integer phan_tramGGHD = 0;
+        BigDecimal so_tienGGHD = BigDecimal.valueOf(0);
+        BigDecimal so_tienMinHD = BigDecimal.valueOf(0);
+        List<GiamGiaHoaDon> listGGHD = gghddao.findAll();
+        for (GiamGiaHoaDon x : listGGHD
+        ) {
+            if (x.getMa().equals(maVC)) {
+                so_tienMinHD = x.getDieu_kien();
+                System.out.println("Min"+so_tienMinHD);
+                System.out.println("Max"+tongTien);
+                if (so_tienMinHD.compareTo(tongTien) < 0){
+                    maGGHD = x.getMa();
+                    phan_tramGGHD = x.getPhan_tram_giam();
+                    so_tienGGHD = x.getSo_tien_giam_max();
+                    model.addAttribute("maGGHD", x.getMa());
+                    model.addAttribute("phan_tramGGHD", x.getPhan_tram_giam());
+                }
             }
         }
         BigDecimal tienGGHD = tongTien.multiply(BigDecimal.valueOf(phan_tramGGHD)).divide(BigDecimal.valueOf(100));
@@ -284,20 +298,7 @@ public class GioHangController {
     @PostMapping("/checkout")
 
     public String checkout1(Model model, HttpServletRequest request, @RequestParam(value = "maVC", defaultValue = "") String maVC, @RequestParam(value = "ma_giay", defaultValue = "") String ma_giay, @RequestParam(value = "size_giay", defaultValue = "") String size_giay, @RequestParam(value = "so_luong", defaultValue = "") Integer so_luong) {
-        String maGGHD = "";
-        Integer phan_tramGGHD = 0;
-        BigDecimal so_tienGGHD = BigDecimal.valueOf(0);
-        List<GiamGiaHoaDon> listGGHD = gghddao.findAll();
-        for (GiamGiaHoaDon x : listGGHD
-        ) {
-            if (x.getMa().equals(maVC)) {
-                maGGHD = x.getMa();
-                phan_tramGGHD = x.getPhan_tram_giam();
-                so_tienGGHD = x.getSo_tien_giam_max();
-                model.addAttribute("maGGHD", x.getMa());
-                model.addAttribute("phan_tramGGHD", x.getPhan_tram_giam());
-            }
-        }
+
         String[] listvalue = null;
         listvalue = request.getParameterValues("listGiay");
 
@@ -306,6 +307,7 @@ public class GioHangController {
         List<GioHangChiTiet> gioHangChiTietList1 = new ArrayList<>();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
+        KhachHang khachHang = khachHangDao.getKhByEmail(username);
         BigDecimal tongTien = BigDecimal.valueOf(0);
         if (listvalue != null) {
             for (String x : listvalue
@@ -315,7 +317,6 @@ public class GioHangController {
                 System.out.println("gct" + giayChiTiet.getId());
                 giayChiTietList.add(giayChiTiet);
             }
-            KhachHang khachHang = khachHangDao.getKhByEmail(username);
             List<GioHangChiTiet> gioHangChiTietList = khachHang.getGio_hang().
                     getListGHCT(khachHang.getGio_hang().getGioHangChiTiets());
             for (String x : listvalue
@@ -345,14 +346,33 @@ public class GioHangController {
             }
             System.out.println("Chạy vào đây");
         }
-
+        String maGGHD = "";
+        Integer phan_tramGGHD = 0;
+        BigDecimal so_tienGGHD = BigDecimal.valueOf(0);
+        BigDecimal so_tienMinHD = BigDecimal.valueOf(0);
+        List<GiamGiaHoaDon> listGGHD = gghddao.findAll();
+        for (GiamGiaHoaDon x : listGGHD
+        ) {
+            if (x.getMa().equals(maVC)) {
+                so_tienMinHD = x.getDieu_kien();
+                System.out.println("Min"+so_tienMinHD);
+                System.out.println("Max"+tongTien);
+                if (so_tienMinHD.compareTo(tongTien) < 0){
+                    maGGHD = x.getMa();
+                    phan_tramGGHD = x.getPhan_tram_giam();
+                    so_tienGGHD = x.getSo_tien_giam_max();
+                    model.addAttribute("maGGHD", x.getMa());
+                    model.addAttribute("phan_tramGGHD", x.getPhan_tram_giam());
+                }
+            }
+        }
         BigDecimal tienGGHD = tongTien.multiply(BigDecimal.valueOf(phan_tramGGHD)).divide(BigDecimal.valueOf(100));
         if (tienGGHD.compareTo(so_tienGGHD) > 0) {
             tienGGHD = so_tienGGHD;
         }
         GiaoHangNhanh giaoHangNhanh = new GiaoHangNhanh();
-
-        List<DiaChi> diaChiList = diachiDao.findAll();
+        List<DiaChi> diaChiList = diachiDao.getAllByMaDiaChiSortTT(khachHang.getMa());
+        System.out.println("Size "+diaChiList.size());
         for (DiaChi x : diaChiList
         ) {
             if (x.getTrangthai() == 1) {
@@ -371,7 +391,7 @@ public class GioHangController {
         model.addAttribute("maGGHD", maGGHD);
         model.addAttribute("maVC", maVC);
         model.addAttribute("listGHCT", gioHangChiTietList1);
-        model.addAttribute("list_dia_chi", diachiDao.findAll());
+        model.addAttribute("list_dia_chi", diaChiList);
 
         return "home/checkout";
     }
@@ -493,6 +513,17 @@ public class GioHangController {
                 hoaDonChiTiet.setDon_gia(x.getGiay().getGia_sau_khuyen_mai());
                 hoaDonChiTiet.setTrangthai(1);
                 hoaDonChiTietDAO.save(hoaDonChiTiet);
+                x.setSo_luong_ton(x.getSo_luong_ton()-Integer.parseInt(request.getParameter(x.getId() + "soluong")));
+                giayChiTietDAO.save(x);
+                List<GioHangChiTiet> gioHangChiTietList = khachHang.getGio_hang().
+                        getListGHCT(khachHang.getGio_hang().getGioHangChiTiets());
+                for (GioHangChiTiet a:gioHangChiTietList){
+                    if (a.getGiay_chi_tiet().getId().equals(x.getId())){
+                        System.out.println("Ma xoa"+x.getId());
+                        System.out.println("Ma xoa 2"+a.getGiay_chi_tiet().getId());
+                        gioHangChiTietDAO.deleteSPInGHCT(a.getId());
+                    }
+                }
             }
         } else if (pttt.equals("cod")) {
             HoaDon hoaDon = new HoaDon();
@@ -527,6 +558,17 @@ public class GioHangController {
                 hoaDonChiTiet.setDon_gia(x.getGiay().getGia_sau_khuyen_mai());
                 hoaDonChiTiet.setTrangthai(1);
                 hoaDonChiTietDAO.save(hoaDonChiTiet);
+                x.setSo_luong_ton(x.getSo_luong_ton()-Integer.parseInt(request.getParameter(x.getId() + "soluong")));
+                giayChiTietDAO.save(x);
+                List<GioHangChiTiet> gioHangChiTietList = khachHang.getGio_hang().
+                        getListGHCT(khachHang.getGio_hang().getGioHangChiTiets());
+                for (GioHangChiTiet a:gioHangChiTietList){
+                    if (a.getGiay_chi_tiet().getId().equals(x.getId())){
+                        System.out.println("Ma xoa"+x.getId());
+                        System.out.println("Ma xoa 2"+a.getGiay_chi_tiet().getId());
+                        gioHangChiTietDAO.deleteSPInGHCT(a.getId());
+                    }
+                }
             }
         }
     }
