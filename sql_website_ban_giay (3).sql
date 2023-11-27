@@ -333,18 +333,18 @@ INSERT INTO website_ban_giay.dbo.kich_co (id,ma,ten,trangthai) VALUES
 	 (N'9D8372B8-AAA4-464A-A938-3C6927210010',N'NV01',N'Nguyễn Văn Đạt','2003-12-12',N'Cấn Hữu-Quốc Oai-Hà Nội',NULL,NULL,NULL,N'0385090080',N'danhntnv1@gmail.com',N'7B52F69D-5508-4745-926F-A22F9907E523',N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq','2020-12-12',NULL,1),
 	 (N'5D89F310-6D41-41EE-B5B8-57F5B6DB7A9A',N'NV02',N'Hoàng Đại Ka','2003-09-09',N'Cấn Hữu-Quốc Oai-Hà Nội',NULL,NULL,NULL,N'0385090080',N'danhntnv2@gmail.com',N'F09E9132-7F9E-48BD-A30C-E58C9E16717E',N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq','2023-09-12',NULL,1);
 	 INSERT INTO website_ban_giay.dbo.thuong_hieu (id,ma,ten,trangthai,ten_url) VALUES
-	 (N'F6F425A0-AD73-421F-B76B-09787A50808F',N'TH07',N'Gucci',1,N'logo1.png'),
-	 (N'C41E486F-1EB2-40FD-9D2A-1F8F12298488',N'TH08',N'Calvin Klein',1,N'logo2.png'),
-	 (N'EC0054D9-433D-4E85-8190-4582CDEBF593',N'TH03',N'MLB',1,N'logo3.png'),
-	 (N'4EDE9E53-D595-4893-BDDF-46CCA4147D45',N'TH09',N'YSL',1,N'logo4.png'),
-	 (N'5A6426F1-A954-4F40-ACE4-47646087F8BB',N'TH04',N'Lacoste',1,N'logo5.png'),
-	 (N'12FB3324-EBA7-4F9F-995D-675CAD5097F3',N'TH02',N'Versace',1,N'logo6.png'),
-	 (N'18364555-4334-4232-997D-8880592056AD',N'TH10',N'Nike',1,N'logo7.png'),
-	 (N'BD4301E2-A17E-4F4D-AAEC-A44534AA7FF5',N'TH12',N'Puma',1,N'logo8.png'),
-	 (N'9F92ABD8-69FB-4AC0-9D81-A77C5D525252',N'TH05',N'Adidas',1,N'logo1.png'),
-	  (N'26E76171-C2CD-4766-97B8-E814FFA80EA6',N'TH06',N'Chanel',1,N'logo3.png'),
-	 (N'B83D14A1-57D9-4966-A111-E913E7574FD4',N'TH01',N'Dior',1,N'logo4.png'),
-	 (N'C3685B9F-8E3E-462B-975E-CC54FDF6DC9E',N'TH11',N'Balenciaga',1,N'logo2.png');
+	 (N'F6F425A0-AD73-421F-B76B-09787A50808F',N'TH07',N'Gucci',1,N'Logogucci.jpg'),
+	 (N'C41E486F-1EB2-40FD-9D2A-1F8F12298488',N'TH08',N'Calvin Klein',1,N'Logocalvin klein.jpg'),
+	 (N'EC0054D9-433D-4E85-8190-4582CDEBF593',N'TH03',N'MLB',1,N'LogoMLB.jpg'),
+	 (N'4EDE9E53-D595-4893-BDDF-46CCA4147D45',N'TH09',N'YSL',1,N'LogoYSL.jpg'),
+	 (N'5A6426F1-A954-4F40-ACE4-47646087F8BB',N'TH04',N'Lacoste',1,N'LogoLacoste.jpg'),
+	 (N'12FB3324-EBA7-4F9F-995D-675CAD5097F3',N'TH02',N'Versace',1,N'LogoVersace.jpg'),
+	 (N'18364555-4334-4232-997D-8880592056AD',N'TH10',N'Nike',1,N'LogoNike.jpg'),
+	 (N'BD4301E2-A17E-4F4D-AAEC-A44534AA7FF5',N'TH12',N'Puma',1,N'LogoPuma.jpg'),
+	 (N'9F92ABD8-69FB-4AC0-9D81-A77C5D525252',N'TH05',N'Adidas',1,N'Logoadidas.jpg'),
+	  (N'26E76171-C2CD-4766-97B8-E814FFA80EA6',N'TH06',N'Chanel',1,N'LogoChanel.jpg'),
+	 (N'B83D14A1-57D9-4966-A111-E913E7574FD4',N'TH01',N'Dior',1,N'Logodior.jpg'),
+	 (N'C3685B9F-8E3E-462B-975E-CC54FDF6DC9E',N'TH11',N'Balenciaga',1,N'LogoBalenciaga.jpg');
 	INSERT INTO website_ban_giay.dbo.xuat_xu (id,ma,ten,trangthai) VALUES
 	 (N'2D3C1855-497D-47C0-80F1-26500C8F1514',N'XS3',N'Ý',1),
 	 (N'0345F695-5836-4185-A2D6-3005156DD0E3',N'XS7',N'Nhật Bản',1),
@@ -439,17 +439,15 @@ INSERT INTO website_ban_giay.dbo.kich_co (id,ma,ten,trangthai) VALUES
 	 (N'482E73CC-0327-374C-AF21-F7DFE4F38F32',N'dior1_2.jpg',N'C00D80A0-1ADB-7845-9F3B-9AC42C2E2D1C',NULL),
 	 (N'845D57C3-0F44-BB47-982C-F7FBD8C5B0E7',N'mlb3.jpg',N'597A9673-6929-D342-96DC-0A4C47E3CC7B',NULL);
 
-<<<<<<< HEAD
+
 	 select * from khach_hang
 	 select * from dia_chi
 	 select * from hoa_don
 	 select * from hoa_don_chi_tiet
-=======
 	 select * from gio_hang_san_pham_yeu_thich_chi_tiet
 	 	 select * from hoa_don
 
 	 delete  from gio_hang_san_pham_yeu_thich_chi_tiet
->>>>>>> origin/khachhang
 
 	 delete from chuong_trinh_giam_gia_chi_tiet_hoa_don
 	 delete from chuong_trinh_giam_gia_hoa_don
