@@ -347,13 +347,13 @@ public class TrangChuController {
                             .setTextAlignment(TextAlignment.RIGHT)
                             .setBorder(Border.NO_BORDER)
                             .setFontColor(color)
-                            .add(new Paragraph("Tong thanh toan: ")));
+                            .add(new Paragraph("Tong thanh toan: ").setFontSize(17)));
             table3.addCell(
                     new Cell()
                             .setTextAlignment(TextAlignment.LEFT)
                             .setBorder(Border.NO_BORDER)
                             .setFontColor(color)
-                            .add(new Paragraph("$125")));
+                            .add(new Paragraph("$125").setFontSize(17)));
             document.add(new Paragraph("\n\n"));
             document.add(table3);
 

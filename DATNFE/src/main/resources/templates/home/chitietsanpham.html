@@ -232,7 +232,7 @@
                                         </div>
                                     </div>
                                     <nav aria-label="Page navigation example">
-                                        <ul class="pagination">
+                                        <ul class="pagination" th:if="${totalDg>0}">
                                             <li class="page-item">
                                                 <a class="page-link"
                                                    th:href="@{|/ctsp/${x}?numberDg=0|}" th:if="${pageDg.number>0}">
@@ -275,7 +275,7 @@
                                     <small>Your email address will not be published. Required fields are marked
                                         *</small>
                                     <div class="d-flex my-3">
-                                        <p class="mb-0 mr-2">Your Rating * :</p>
+                                        <p class="mb-0 mr-2">Đánh giá <span style="color: red">*</span> :</p>
                                         <div class="text-primary">
                                             <i class="far fa-star rating" v></i>
                                             <i class="far fa-star rating"></i>
@@ -286,11 +286,11 @@
                                     </div>
                                     <form id="form-dg" th:object="${dg}">
                                         <div class="form-group" >
-                                            <label for="review">Your Review *</label>
+                                            <label for="review">Bình luận <span style="color: red">*</span></label>
                                             <textarea  id="review" cols="30" rows="5" class="form-control"></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label for="name">Your Name *</label>
+                                            <label for="name">Họ tên <span style="color: red">*</span></label>
                                             <input type="text"  id="name" class="form-control">
                                         </div>
                                         <input type="text" th:field="*{trangThai}" id="trang-thai" class="form-control" hidden>
