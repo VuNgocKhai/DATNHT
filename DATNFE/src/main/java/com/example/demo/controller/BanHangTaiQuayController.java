@@ -685,7 +685,7 @@ public class BanHangTaiQuayController {
 
 //
             vnp_Params.put("vnp_Locale", "vn");
-//            vnp_Params.put("vnp_ReturnUrl", "http://localhost:8080/admin/ban-hang");
+            vnp_Params.put("vnp_ReturnUrl", "http://localhost:8080/admin/ban-hang");
 //            vnp_Params.put("vnp_ReturnUrl", "http://localhost:8080/hoadon/"+StringListGCT);
             vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 

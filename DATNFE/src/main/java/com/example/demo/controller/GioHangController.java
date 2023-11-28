@@ -61,6 +61,12 @@ public class GioHangController {
     GioHangYeuThichChiTietDao sanPhamYeuThichDAo;
     @Autowired
     AnhGiayDAO anhGiayDAO;
+    @Autowired
+    private GiamGiaHoaDonRepo giamGiaHoaDonRepo;
+
+    @Autowired
+    private GiamGiaChiTietHoaDonRepo giamGiaChiTietHoaDonRepo;
+
 
     private Authentication authentication;
 
@@ -132,13 +138,7 @@ public class GioHangController {
         String username = authentication.getName();
         KhachHang khachHang = khachHangDao.getKhByEmail(username);
         GiayChiTiet giayChiTiet = giayChiTietDAO.getAllByMaGiayAndSize(ma_giay, size_giay);
-        if (khachHang.getGio_hang()==null){
-            GioHang gioHang1 = new GioHang();
-            gioHang1.setKhach_hang(khachHang);
-            gioHang1.setNgay_tao(LocalDate.now());
-            gioHang1.setMa(gioHangDAO.generateNextMaGioHang());
-            gioHangDAO.save(gioHang1);
-        }
+
         GioHang gioHang = khachHang.getGio_hang();
         GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
         boolean kq = true;
@@ -196,7 +196,7 @@ public class GioHangController {
         Integer phan_tramGGHD = 0;
         BigDecimal so_tienGGHD = BigDecimal.valueOf(0);
         BigDecimal so_tienMinHD = BigDecimal.valueOf(0);
-        List<GiamGiaHoaDon> listGGHD = gghddao.findAll();
+        List<GiamGiaHoaDon> listGGHD = gghddao.getGiamGiaHoaDonByDk(LocalDate.now());
         for (GiamGiaHoaDon x : listGGHD
         ) {
             if (x.getMa().equals(maVC)) {
@@ -379,7 +379,7 @@ public class GioHangController {
                 giaoHangNhanh.setTo_district_name(x.getHuyen()); //huyện
                 giaoHangNhanh.setTo_province_name(x.getThanhpho()); //thành phố
                 giaoHangNhanh.setTo_ward_name(x.getXa()); //xã
-                giaoHangNhanh.setInsurance_value(tongTien.intValue());
+//                giaoHangNhanh.setInsurance_value(tongTien.intValue());
             }
         }
         String phiShip = callAPIGHN.getAPIGHN(giaoHangNhanh);
@@ -397,7 +397,7 @@ public class GioHangController {
     }
 
     @PostMapping("/pay")
-    public void getPay(HttpServletRequest request, HttpServletResponse resp, @RequestParam("ghichu") String ghichu, @RequestParam("payment_method") String pttt, @RequestParam("tienThanhToan") BigDecimal tienTT, @RequestParam("dc") String dc) throws IOException {
+    public void getPay(HttpServletRequest request, HttpServletResponse resp, @RequestParam("ghichu") String ghichu,@RequestParam("maVC") String maVC, @RequestParam("payment_method") String pttt, @RequestParam("tienThanhToan") BigDecimal tienTT,@RequestParam("phiShip") BigDecimal phiShip,@RequestParam("tienGGHD") BigDecimal tienGGHD, @RequestParam("dc") String dc) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         KhachHang khachHang = khachHangDao.getKhByEmail(username);
@@ -491,8 +491,25 @@ public class GioHangController {
             hoaDon.setSdt_nguoi_nhan(sdt_nguoi_nhan);
             hoaDon.setTen_nguoi_nhan(ten_nguoi_nhan);
             hoaDon.setDia_chi(dia_chi);
-            hoaDon.setTrangthai(0);
+            hoaDon.setNgay_thanh_toan(LocalDate.now());
+            hoaDon.setPhi_ship(phiShip);
+            hoaDon.setSo_tien_giam(tienGGHD);
+            hoaDon.setHinh_thuc_mua(1); //online
+            hoaDon.setHinh_thuc_thanh_toan(1); //vnpay
+            hoaDon.setTrangthai(1); //chờ giao
             HoaDon hoaDon1 = hoaDonDAO.save(hoaDon);
+            if (!maVC.equals("")){
+                GiamGiaHoaDon giamGiaHoaDon = giamGiaHoaDonRepo.getGiamGiaHoaDonByMa(maVC);
+                GiamGiaChiTietHoaDon giamGiaChiTietHoaDon = new GiamGiaChiTietHoaDon();
+                giamGiaChiTietHoaDon.setHd(hoaDon);
+                giamGiaChiTietHoaDon.setGghd(giamGiaHoaDon);
+                giamGiaChiTietHoaDon.setTrangthai(1);
+                giamGiaChiTietHoaDonRepo.createGGCTHD2(giamGiaChiTietHoaDon);
+
+                // Giảm số lượng voucher còn lại
+                giamGiaHoaDon.setSo_luong(giamGiaHoaDon.getSo_luong() - 1);
+                giamGiaHoaDonRepo.createGGHD(giamGiaHoaDon);
+            }
             String[] listvalue = request.getParameterValues("listGiay");
             List<UUID> listvalue1 = new ArrayList<>();
             List<GiayChiTiet> giayChiTietList = new ArrayList<>();
@@ -536,8 +553,24 @@ public class GioHangController {
             hoaDon.setSdt_nguoi_nhan(sdt_nguoi_nhan);
             hoaDon.setTen_nguoi_nhan(ten_nguoi_nhan);
             hoaDon.setDia_chi(dia_chi);
+            hoaDon.setPhi_ship(phiShip);
+            hoaDon.setSo_tien_giam(tienGGHD);
+            hoaDon.setHinh_thuc_mua(1); //online
+            hoaDon.setHinh_thuc_thanh_toan(0); //khi nhan hang
             hoaDon.setTrangthai(0);
             HoaDon hoaDon1 = hoaDonDAO.save(hoaDon);
+            if (!maVC.equals("")){
+                GiamGiaHoaDon giamGiaHoaDon = giamGiaHoaDonRepo.getGiamGiaHoaDonByMa(maVC);
+                GiamGiaChiTietHoaDon giamGiaChiTietHoaDon = new GiamGiaChiTietHoaDon();
+                giamGiaChiTietHoaDon.setHd(hoaDon);
+                giamGiaChiTietHoaDon.setGghd(giamGiaHoaDon);
+                giamGiaChiTietHoaDon.setTrangthai(1);
+                giamGiaChiTietHoaDonRepo.createGGCTHD2(giamGiaChiTietHoaDon);
+
+                // Giảm số lượng voucher còn lại
+                giamGiaHoaDon.setSo_luong(giamGiaHoaDon.getSo_luong() - 1);
+                giamGiaHoaDonRepo.createGGHD(giamGiaHoaDon);
+            }
             String[] listvalue = request.getParameterValues("listGiay");
             List<UUID> listvalue1 = new ArrayList<>();
             List<GiayChiTiet> giayChiTietList = new ArrayList<>();
