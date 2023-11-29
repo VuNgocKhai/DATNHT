@@ -101,7 +101,6 @@ create table chuc_vu (
 	ten nvarchar(50) default null,
 	trangthai int null
 )
-select * from hoa_don
 create table nhan_vien (
 	id uniqueidentifier primary key default newid(),
 	ma varchar(20) unique,

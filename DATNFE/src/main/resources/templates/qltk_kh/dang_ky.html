@@ -26,96 +26,94 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/util.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
     <!--===============================================================================================-->
+    <style>
+        .err {
+            color: red;
+        }
+    </style>
+
 </head>
 <body>
 
 <div class="limiter">
     <div class="container-login100" style="background-image: url('/assets/images/bg-01.jpg');">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <form action="/dang-ky-khach-hang" class="login100-form validate-form" method="post"
+            <form action="/dang-ky-khach-hang" class="login100-form validate-form" method="post" id="formDk"
                   th:object="${khachHang}">
 					<span class="login100-form-title p-b-49">
 						Đăng ký
 					</span>
 
-                <div class="wrap-input100 validate-input m-b-23" data-validate="Họ và tên không được để trống">
+                <div class="wrap-input100 m-b-23">
                     <span class="label-input100">Họ Và Tên</span>
-                    <input class="input100" th:field="*{hoten}" type="text" placeholder="Nhập họ và tên">
-                    <span class="focus-input100" data-symbol="&#xf206;"></span>
+                    <input class="input100" th:field="*{hoten}" id="hoTenInput" type="text"
+                           placeholder="Nhập họ và tên">
+                    <p id="hoTenErr" class="err"></p>
                 </div>
 
-                <div class="wrap-input100 validate-input m-b-23"  data-validate="Ngày sinh không được để trống">
+                <div class="wrap-input100 m-b-23">
                     <span class="label-input100">Ngày Sinh</span>
-                    <input class="input100" th:field="*{ngaysinh}" type="date" placeholder="Chọn ngày sinh">
-                    <span class="focus-input100"></span>
+                    <input class="input100" th:field="*{ngaysinh}" type="date" id="ngaySinhInput" placeholder="Chọn ngày sinh">
+                    <p id="ngaySinhErr" class="err"></p>
                 </div>
 
-                <div class="wrap-input100 validate-input m-b-23" data-validate="Email không được để trống">
+                <div class="wrap-input100m-b-23">
                     <span class="label-input100">Email</span>
-                    <input class="input100" th:field="*{email}" id="email" type="text" placeholder="Nhập email">
-                    <span class="focus-input100" data-symbol="&#xf206;"></span>
+                    <input class="input100" th:field="*{email}" id="emailInput" type="text" placeholder="Nhập email">
+                    <p id="emailErr" class="err"></p>
                 </div>
 
-                <p style="color: red;padding-left: 10px;font-size: 20px;font-family: Consolas">[[${email}]]</p>
-
-
-                <div class="wrap-input100 validate-input" data-validate="Mật khẩu không được để trống">
+                <div class="wrap-input100">
                     <span class="label-input100">Mật khẩu</span>
-                    <input class="input100" th:field="*{matkhau}" type="password" placeholder="Nhập mật khẩu">
-                    <span class="focus-input100" data-symbol="&#xf190;"></span>
+                    <input class="input100" th:field="*{matkhau}" id="matKhauInput" type="password" placeholder="Nhập mật khẩu">
+                    <p id="matKhauErr" class="err"></p>
                 </div>
 
-                <div class="wrap-input100 validate-input" data-validate="Số điện thoại không được để trống">
+                <div class="wrap-input100">
                     <span class="label-input100">Số điện thoại</span>
-                    <input class="input100" type="text" th:field="*{sdt}" placeholder="Nhập số điện thoại">
-                    <span class="focus-input100" data-symbol="&#xf190;"></span>
+                    <input class="input100" type="text" th:field="*{sdt}"  id="sdtInput" placeholder="Nhập số điện thoại">
+                    <p id="sdtErr" class="err"></p>
                 </div>
 
-                <div class="text-right p-t-8 p-b-31">
-                    <a href="#">
-                        Forgot password?
-                    </a>
-                </div>
 
                 <div class="container-login100-form-btn">
                     <div class="wrap-login100-form-btn">
                         <div class="login100-form-bgbtn"></div>
-                        <button class="login100-form-btn">
+                        <button class="login100-form-btn" onclick="validateForm()">
                             Tạo tài khoản
                         </button>
                     </div>
                 </div>
-
-                <div class="txt1 text-center p-t-54 p-b-20">
+            </form>
+            <div class="txt1 text-center p-t-54 p-b-20">
 						<span>
 							Or Sign Up Using
 						</span>
-                </div>
+            </div>
 
-                <div class="flex-c-m">
-                    <a href="#" class="login100-social-item bg1">
-                        <i class="fa fa-facebook"></i>
-                    </a>
+            <div class="flex-c-m">
+                <a href="#" class="login100-social-item bg1">
+                    <i class="fa fa-facebook"></i>
+                </a>
 
-                    <a href="#" class="login100-social-item bg2">
-                        <i class="fa fa-twitter"></i>
-                    </a>
+                <a href="#" class="login100-social-item bg2">
+                    <i class="fa fa-twitter"></i>
+                </a>
 
-                    <a href="#" class="login100-social-item bg3">
-                        <i class="fa fa-google"></i>
-                    </a>
-                </div>
+                <a href="#" class="login100-social-item bg3">
+                    <i class="fa fa-google"></i>
+                </a>
+            </div>
 
-                <div class="flex-col-c p-t-155">
+            <div class="flex-col-c p-t-155">
 						<span class="txt1 p-b-17">
-							Or Sign Up Using
+							Hoặc
 						</span>
 
-                    <a href="#" class="txt2">
-                        Sign Up
-                    </a>
-                </div>
-            </form>
+                <a href="#" class="txt2">
+                    Đăng nhập
+                </a>
+            </div>
         </div>
     </div>
 </div>
@@ -140,5 +138,110 @@
 <!--===============================================================================================-->
 <script src="/assets/js/main3.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    var formDk = document.getElementById('formDk');
+
+    var hoTen = document.getElementById('hoTenInput');
+    var hoTenErr = document.getElementById('hoTenErr');
+
+    var ngaySinh = document.getElementById('ngaySinhInput');
+    var ngaySinhErr = document.getElementById('ngaySinhErr');
+
+    var email = document.getElementById('emailInput');
+    var emailErr = document.getElementById('emailErr');
+
+    var matKhau = document.getElementById('matKhauInput');
+    var matKhauErr = document.getElementById('matKhauErr');
+
+    var sdt = document.getElementById('sdtInput');
+    var sdtErr = document.getElementById('sdtErr');
+
+    function reset() {
+        hoTenErr.innerText='';
+        ngaySinhErr.innerText='';
+        emailErr.innerText='';
+        matKhauErr.innerText='';
+        sdtErr.innerText='';
+    }
+
+    function checkEmail(email) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: '/khIsExist/' + email,
+                type: 'GET',
+                success: function (data) {
+                    resolve(data);
+                },
+                error: function (error) {
+                    reject(error);
+                }
+            });
+        });
+    }
+
+    function validateForm() {
+        event.preventDefault();
+        reset();
+        var isErr = false;
+
+        if (hoTen.value.trim() === '') {
+            hoTenErr.innerText='Vui lòng nhập họ tên';
+            isErr = true;
+        }
+
+        if (ngaySinh.value.trim() === '') {
+            ngaySinhErr.innerText='Vui lòng chọn ngày sinh';
+            isErr = true;
+        }else if (ngaySinh.value.trim() != "") {
+            var currentDate = new Date();
+            var selectedDate = new Date(ngaySinh.value.trim());
+
+            if (selectedDate >= currentDate) {
+                ngaySinhErr.innerText = "Ngày sinh không được sau ngày hiện tại.";
+                isErr = true;
+            }
+        }
+
+        if (email.value.trim() === '') {
+            emailErr.innerText='Vui lòng nhập email';
+            isErr = true;
+        }else if (email.value.trim() !== "") {
+            var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!regex.test(email.value.trim())) {
+                emailErr.innerText = "Email không hợp lệ.";
+                isErr = true;
+            } else{
+                checkEmail(email.value.trim()).then(data => {
+                    if (data) {
+                        emailErr.innerText = "Email đã tồn tại.";
+                        isErr = true;
+                    }
+                }).catch(error => {
+                    console.log(error); // lỗi từ yêu cầu AJAX
+                });
+            }
+        }
+
+        if (matKhau.value.trim() === '') {
+            matKhauErr.innerText='Vui lòng nhập mật khẩu';
+            isErr = true;
+        }
+
+        if (sdt.value.trim() === '') {
+            sdtErr.innerText='Vui lòng nhập SĐT';
+            isErr = true;
+        }else if (sdt.value.trim() !== '') {
+            var regex = /^(0[1-9])+([0-9]{8})$/;
+            if (!regex.test(sdt.value.trim())) {
+                sdtErr.innerText = "Số điện thoại không hợp lệ.";
+                isErr = true;
+            }
+        }
+
+        if (!isErr) {
+            formDk.submit();
+        }
+    }
+</script>
 </body>
 </html>

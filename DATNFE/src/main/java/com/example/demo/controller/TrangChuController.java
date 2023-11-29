@@ -83,13 +83,13 @@ public class TrangChuController {
     public String trangchu(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
-        if (khachHang == null) {
-            model.addAttribute("items", giayDAO.findAll());
-        } else {
-            model.addAttribute("khachHang", khachHang);
-            model.addAttribute("items", giayDAO.findAll());
-        }
 
+        model.addAttribute("itemsNew", giayDAO.top20SpMoiNhat());
+        model.addAttribute("itemsHot", giayDAO.top20SpHotNhat());
+
+        if (khachHang != null) {
+            model.addAttribute("khachHang", khachHang);
+        }
         return "home/index";
     }
 

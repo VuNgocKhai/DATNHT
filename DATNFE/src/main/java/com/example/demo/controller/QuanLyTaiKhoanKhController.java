@@ -220,14 +220,14 @@ public class QuanLyTaiKhoanKhController {
     @PostMapping("/dang-ky-khach-hang")
     public String dangKyKhachHangPost(Model model,
                                       @ModelAttribute KhachHang khachHang){
-        if(khachHangDao.getKhByEmail(khachHang.getEmail())==null){
-            model.addAttribute("khachHang",khachHang);
+        model.addAttribute("khachHang",khachHang);
+        KhachHang kh=khachHangDao.getKhByEmail(khachHang.getEmail().trim());
+        if(kh==null){
             emailService.sendOtp(khachHang.getEmail());
             return "qltk_kh/otp";
         }
         else {
             model.addAttribute("email","Email đã tồn tại");
-            model.addAttribute("khachHang",khachHang);
             return "qltk_kh/dang_ky";
         }
     }
@@ -263,5 +263,16 @@ public class QuanLyTaiKhoanKhController {
     public Boolean guiOtp(@PathVariable String email){
         emailService.sendOtp(email);
         return true;
+    }
+
+    @ResponseBody
+    @GetMapping("/khIsExist/{email}")
+    public Boolean isExist(@PathVariable String email) {
+        KhachHang kh=khachHangDao.getKhByEmail(email.trim());
+        if(kh!=null){
+            return true;
+        }else {
+            return false;
+        }
     }
 }
