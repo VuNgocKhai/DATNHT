@@ -63,6 +63,11 @@ public class TrangChuController {
         return "layout/login";
     }
 
+    @RequestMapping("/admin1/login")
+    public String loginadmin() {
+        return "layout/loginadmin";
+    }
+
     @RequestMapping(value = "/login", params = "error")
     public String loginfail() {
         return "layout/login";
