@@ -87,20 +87,25 @@ public class KhachHangController {
                        @RequestPart("ten_url1") MultipartFile file) {
         Path path = Paths.get("src/main/webapp/images/");
         try {
-            InputStream inputStream = file.getInputStream();
-            Files.copy(inputStream,path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+            if (file == null || file.isEmpty()) {
+                // Nếu không có ảnh được chọn, gán đường dẫn của ảnh mặc định vào đối tượng khách hàng
+                kh.setAvatar("avatar.jpg"); // Thay đổi đường dẫn của ảnh mặc định theo đường dẫn thực tế của bạn
+            } else {
+                InputStream inputStream = file.getInputStream();
+                Files.copy(inputStream, path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+                kh.setAvatar(file.getOriginalFilename());
+            }
 
             String maKH = khachHangDao.generateNextMaKhachHang();
             kh.setMa(maKH);
-            kh.setAvatar(file.getOriginalFilename());
-            String ma =  khachHangDao.save(kh).getMa();
+            String ma = khachHangDao.save(kh).getMa();
             return "redirect:/admin/khachhang/detail/" + ma;
-
         } catch (IOException e) {
             e.printStackTrace();
             return "redirect:/admin/khachhang";
         }
     }
+
 
     //    Xóa khách hàng
     @RequestMapping("/admin/khachhang/delete/{ma}")

@@ -43,12 +43,25 @@ public class ThongKeController {
         model.addAttribute("TongOn", hoaDonDAO.tongsomuaonline());
         model.addAttribute("Tongtructiep", hoaDonDAO.tongsomuatructiep());
         List<Object[]> tongtienthangtrongnam = hoaDonDAO.getHoaDonByTongTienTheoThangTrongNam();
+        List<Object[]> tongtienloinhuanthangtrongnam = hoaDonDAO.getHoaDonByTongTienloinhuanTheoThangTrongNam();
         model.addAttribute("jsonData", tongtienthangtrongnam);
+        model.addAttribute("jsonData1", tongtienloinhuanthangtrongnam);
     }
 
     @RequestMapping("/admin/thong-ke")
     public String index(Model model) {
         prepareModelData(model);
+        return "thongke/thongkedoanhthu";
+    }
+
+    @RequestMapping("/admin/thong-ke/bieu-do-doanh-thu-hang-trong-nam")
+    public String doanhthuhangthangtrongnam(@RequestParam("chon-nam") Integer thoiGian, Model model){
+        prepareModelData(model);
+        model.addAttribute("nam",thoiGian);
+        List<Object[]> tongtienthangtrongnam = hoaDonDAO.getHoaDonByTongTienTheoThangTrongNam(thoiGian);
+        List<Object[]> tongtienloinhuanthangtrongnam = hoaDonDAO.getHoaDonByTongTienloinhuanTheoThangTrongNam(thoiGian);
+        model.addAttribute("jsonData", tongtienthangtrongnam);
+        model.addAttribute("jsonData1", tongtienloinhuanthangtrongnam);
         return "thongke/thongkedoanhthu";
     }
 
@@ -132,9 +145,11 @@ public class ThongKeController {
             for (HoaDonChiTiet chiTiet : chiTietList) {
                 BigDecimal giaNhap = chiTiet.getGia_nhap();
                 BigDecimal giaBan = chiTiet.getDon_gia();
+                Integer soluong = chiTiet.getSo_luong();
+                BigDecimal soLuong = BigDecimal.valueOf(soluong);
 
                 // Tính lợi nhuận cho mỗi mục chi tiết hóa đơn và cộng vào tổng lợi nhuận
-                BigDecimal loiNhuan = giaBan.subtract(giaNhap);
+                BigDecimal loiNhuan = giaBan.subtract(giaNhap).multiply(soLuong);
                 tongLoiNhuan = tongLoiNhuan.add(loiNhuan);
             }
         }
@@ -156,7 +171,11 @@ public class ThongKeController {
             for (HoaDonChiTiet chiTiet : chiTietList) {
                 BigDecimal giaNhap = chiTiet.getGia_nhap();
                 BigDecimal giaBan = chiTiet.getDon_gia();
-                BigDecimal loiNhuan = giaBan.subtract(giaNhap);
+                Integer soluong = chiTiet.getSo_luong();
+                BigDecimal soLuong = BigDecimal.valueOf(soluong);
+
+                // Tính lợi nhuận cho mỗi mục chi tiết hóa đơn và cộng vào tổng lợi nhuận
+                BigDecimal loiNhuan = giaBan.subtract(giaNhap).multiply(soLuong);
                 tongLoiNhuan = tongLoiNhuan.add(loiNhuan);
             }
         }
@@ -178,7 +197,11 @@ public class ThongKeController {
             for (HoaDonChiTiet chiTiet : chiTietList) {
                 BigDecimal giaNhap = chiTiet.getGia_nhap();
                 BigDecimal giaBan = chiTiet.getDon_gia();
-                BigDecimal loiNhuan = giaBan.subtract(giaNhap);
+                Integer soluong = chiTiet.getSo_luong();
+                BigDecimal soLuong = BigDecimal.valueOf(soluong);
+
+                // Tính lợi nhuận cho mỗi mục chi tiết hóa đơn và cộng vào tổng lợi nhuận
+                BigDecimal loiNhuan = giaBan.subtract(giaNhap).multiply(soLuong);
                 tongLoiNhuan = tongLoiNhuan.add(loiNhuan);
             }
         }

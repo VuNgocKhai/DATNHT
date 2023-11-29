@@ -399,22 +399,30 @@
                     <div class="card card-chart">
                         <div class="card-header">
                             <h5 class="card-title">Biểu Đồ Doanh Thu Hàng Tháng Trong
-                                <script>
+                                <script th:if="${nam == null}">
                                     document.write(new Date().getFullYear())
                                 </script>
+                                <span th:if="${nam !=null}"> [[${nam}]]</span>
                             </h5>
                             <p class="card-category">Biểu Đồ Đường Có Điểm</p>
                         </div>
                         <div class="card-body">
-                            <canvas id="speedChart" width="400" height="100"></canvas>
+                            <canvas id="speedChart" width="400" height="140"></canvas>
                         </div>
                         <div class="card-footer">
                             <div class="chart-legend">
                                 <i class="fa fa-circle text-warning"></i> Doanh Thu
+                                <i class="fa fa-circle text-info"></i> Doanh Thu Lợi Nhuận
                             </div>
                             <hr/>
                             <div class="card-stats">
-                                <i class="fa fa-check"></i> Thông Tin Hàng Năm
+                                <form th:action="@{/admin/thong-ke/bieu-do-doanh-thu-hang-trong-nam}"  method="get">
+                                    <i class="fa fa-check"></i>
+                                    <label for="chon-nam">Chọn năm:</label>
+                                    <select  id="chon-nam" name="chon-nam">
+                                        <option value="">Chọn năm</option>
+                                    </select>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -423,6 +431,8 @@
         </div>
     </div>
 </div>
+
+
 
 <!--Định dạng số tiền VNĐ-->
 <script>
@@ -443,12 +453,13 @@
 
 <script th:inline="javascript">
     var tongsomuaon =  [[${TongOn}]];
-</script>
-
-<script th:inline="javascript">
     var tongsomuatructiep =  [[${Tongtructiep}]];
+
+    var tongtientrongnam = [[${jsonData}]];
+    var tongtienloinhauhangthangtrongnam = [[${jsonData1}]];
 </script>
 
+<!--Biểu đồ tròn hiện thị kiểu người mua-->
 <script>
     var ctx = document.getElementById('chartkieumua').getContext("2d");
 
@@ -507,16 +518,15 @@
     });
 </script>
 
-
-
-<script th:inline="javascript">
-    var tongtientrongnam = [[${jsonData}]];
-</script>
-
+<!--Biểu đồ đường hiện thị doanh thu theo tháng trong năm-->
 <script>
+
+    console.log(tongtienloinhauhangthangtrongnam)
     var speedCanvas = document.getElementById("speedChart");
     var vitri_x = tongtientrongnam.map(x => "Tháng " + x[0])
     var vitri_y = tongtientrongnam.map(x => x[1])
+
+    var vitri1_y = tongtienloinhauhangthangtrongnam.map(x => x[2])
 
     var monthlyTotalData = {
         data: vitri_y, // Số liệu tổng tiền hàng tháng
@@ -530,9 +540,21 @@
         label: 'Doanh thu'
     };
 
+    var monthlyTotalData1 = {
+        data: vitri1_y, // Số liệu tổng tiền hàng tháng
+        fill: false,
+        borderColor: '#51CACF',
+        backgroundColor: 'transparent',
+        pointBorderColor: '#51CACF',
+        pointRadius: 4,
+        pointHoverRadius: 4,
+        pointBorderWidth: 8,
+        label: 'Doanh thu lợi nhậu'
+    };
+
     var speedData = {
         labels: vitri_x,
-        datasets: [monthlyTotalData]
+        datasets: [monthlyTotalData,monthlyTotalData1]
     };
 
     var chartOptions = {
@@ -550,6 +572,35 @@
     });
 </script>
 
+<!--select thời gian mình chọn-->
+<script>
+    document.getElementById('thoi-gian-select1').addEventListener('change', function () {
+        this.form.submit();
+    });
+
+    document.getElementById('thoi-gian-select2').addEventListener('change', function () {
+        this.form.submit();
+    });
+
+    document.getElementById('chon-nam').addEventListener('change', function () {
+        this.form.submit();
+    });
+</script>
+
+<!--Lấy tất cả năm -->
+<script>
+    // Lấy năm hiện tại
+    var namHienTai = new Date().getFullYear();
+
+    // Tạo danh sách các năm từ năm hiện tại đến 100 năm trước đó
+    for (var i = namHienTai; i >= namHienTai - 100; i--) {
+        var option = document.createElement('option');
+        option.value = i;
+        option.text = i;
+        document.getElementById('chon-nam').appendChild(option);
+    }
+</script>
+
 
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/popper.js"></script>
@@ -562,16 +613,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
         crossorigin="anonymous"></script>
-<script>
-    document.getElementById('thoi-gian-select1').addEventListener('change', function () {
-        this.form.submit();
-    });
-</script>
-<script>
-    document.getElementById('thoi-gian-select2').addEventListener('change', function () {
-        this.form.submit();
-    });
-</script>
-
 </body>
 </html>
