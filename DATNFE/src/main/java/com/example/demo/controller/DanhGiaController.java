@@ -30,7 +30,6 @@ public class DanhGiaController {
         return "danh_gia/danh_gia";
     }
 
-
     @GetMapping("/duyet/{id}")
     public String duyet(@PathVariable String id){
         danhGiaDAO.duyetOne(UUID.fromString(id));
@@ -57,4 +56,9 @@ public class DanhGiaController {
         return ResponseEntity.ok(numberCurrent);
     }
 
+    @GetMapping("/xoa/{id}")
+    public String xoa1(@PathVariable String id){
+        danhGiaDAO.deleteById(UUID.fromString(id));
+        return "redirect:/admin/danh-gia?number="+numberCurrent;
+    }
 }
