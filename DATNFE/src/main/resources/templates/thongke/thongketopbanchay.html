@@ -240,12 +240,22 @@
 
 <script th:inline="javascript">
     var top10sanphambanchay = [[${top10sanphambanchay}]];
+    var top10khachhangmuanhieunhat = [[${top10khachhangmuanhieunhat}]];
+    var top10nhanvienbannhieunhat = [[${top10nhanvienbannhieunhat}]];
 </script>
 
+<!--Biểu đồ cột hiện thị top 10 Sản Phẩm-->
 <script>
+    const maxLength = 15; // Độ dài tối đa bạn muốn hiển thị
 
-    var vitri_x = top10sanphambanchay.map(x => x[1])
-    var vitri_y = top10sanphambanchay.map(x => x[2])
+    var vitri_x = top10sanphambanchay.map(x => {
+        if (x[1].length > maxLength) {
+            return x[1].substring(0, maxLength) + '...';
+        } else {
+            return x[1];
+        }
+    });
+    var vitri_y = top10sanphambanchay.map(x => x[2]);
 
     const ctx = document.getElementById('myChart');
 
@@ -260,6 +270,23 @@
             }]
         },
         options: {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            let label = context.label;
+                            let label1 = context.label;
+                            let dataIndex = context.dataIndex;
+                            let dataIndex1 = context.dataIndex;
+                            if (label.length > maxLength) {
+                                label = top10sanphambanchay[dataIndex][1];
+                                label1 = top10sanphambanchay[dataIndex1][2];
+                            }
+                            return label1  + " " + label;
+                        }
+                    }
+                }
+            },
             scales: {
                 y: {
                     beginAtZero: true
@@ -267,13 +294,12 @@
             }
         }
     });
+
 </script>
 
 
-<script th:inline="javascript">
-    var top10khachhangmuanhieunhat = [[${top10khachhangmuanhieunhat}]];
-</script>
 
+<!--Biểu đồ cột hiện thị top 10 Khách hàng-->
 <script>
     console.log(top10khachhangmuanhieunhat)
 
@@ -303,10 +329,8 @@
     });
 </script>
 
-<script th:inline="javascript">
-    var top10nhanvienbannhieunhat = [[${top10nhanvienbannhieunhat}]];
-</script>
 
+<!--Biểu đồ cột hiện thị top 10 thành viên-->
 <script>
     console.log(top10nhanvienbannhieunhat)
 
@@ -335,23 +359,21 @@
     });
 </script>
 
+<!--select thời gian mình chọn-->
 <script>
     document.getElementById('thoi-gian-select1').addEventListener('change', function () {
         this.form.submit();
     });
-</script>
 
-<script>
     document.getElementById('thoi-gian-select2').addEventListener('change', function () {
         this.form.submit();
     });
-</script>
 
-<script>
     document.getElementById('thoi-gian-select3').addEventListener('change', function () {
         this.form.submit();
     });
 </script>
+
 
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/popper.js"></script>

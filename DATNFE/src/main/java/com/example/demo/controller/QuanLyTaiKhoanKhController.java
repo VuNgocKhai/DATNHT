@@ -239,6 +239,7 @@ public class QuanLyTaiKhoanKhController {
         if(emailService.isValidOtp(khachHang.getEmail(),OTP)){
             khachHang.setMa("KH"+String.valueOf(khachHangDao.getMaMax()+1));
             khachHang.setTrangthai(1);
+            khachHang.setAvatar("avatar.jpg");
             khachHang.setMatkhau(passwordEncoder.encode(khachHang.getMatkhau()));
             KhachHang kh = khachHangDao.save(khachHang);
                 GioHang gioHang1 = new GioHang();
