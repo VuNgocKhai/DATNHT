@@ -420,28 +420,27 @@
         <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog modal-lg">
-                <div class="modal-content">
+                <div class="modal-content" style="background-color: #ffffff">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Chọn Địa Chỉ Khách Hàng</h5>
                     </div>
-                    <div class="modal-body" style="background-color: #ddd">
+                    <div class="modal-body" >
                         <div>
                             <div id="searchDC" class="d-flex align-items-center">
-                                <input type="text" class="form-control col-6">
+                                <input style="border: 1px solid black" type="text" class="form-control col-6">
                                 <button class="btn btn-primary">
                                     <i class="bi bi-search"></i>
                                 </button>
                             </div>
-                            <div style="margin-top: 15px" th:if="${KhachHangcheck == null}">
+                            <div class="address-card" style="margin-top: 15px" th:if="${KhachHangcheck == null || ListDiaChicuaKH.isEmpty()}">
                                 <i style="font-size: 3rem"
                                    class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>
                                 <div class="text-center d-flex justify-content-center align-items-center">No Data</div>
                             </div>
-                            <div style="margin-top: 15px" th:if="${KhachHangcheck != null}" th:each="dc:${ListDiaChi}" class="address-card">
+                            <div style="margin-top: 15px" th:if="${KhachHangcheck != null || ListDiaChicuaKH != null}" th:each="dc:${ListDiaChicuaKH}" class="address-card">
                                 <div class="row">
                                     <div class="col-2 d-flex justify-content-center align-items-center">
-                                        <i style="font-size: 3rem; color: cornflowerblue;"
-                                           class="bi bi-geo-alt-fill bi-3x"></i>
+                                        <i style="font-size: 3rem; color: cornflowerblue;" class="bi bi-geo-alt-fill bi-3x"></i>
                                     </div>
                                     <div class="col-8">
                                         <div>
@@ -493,7 +492,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content" style="background-color: #ffffff">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Chọn Voucher cho khách hàng</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Chọn Voucher</h5>
                     </div>
                     <div class="modal-body">
                         <div id="searchVC" class="d-flex align-items-center">
@@ -502,8 +501,10 @@
                                 <i class="bi bi-search"></i>
                             </button>
                         </div>
-                        <div th:if="${ListGiamGiaHoaDon.isEmpty()}">
-                            <td colspan="9">Không có dữ liệu</td>
+                        <div style="margin-top: 15px" class="address-card" th:if="${ListGiamGiaHoaDon.isEmpty()}">
+                            <i style="font-size: 3rem"
+                               class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>
+                            <div class="text-center">No Data</div>
                         </div>
                         <div style="margin-top: 15px" th:each="item:${ListGiamGiaHoaDon}"
                              class="address-card">
@@ -755,7 +756,6 @@
                             </form>
                         </div>
                     </div>
-
                 </div>
                 <div class="col-6">
                     <div class="d-flex align-items-center">

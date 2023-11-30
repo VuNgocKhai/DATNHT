@@ -148,7 +148,7 @@
                 </ul>
             </div>
         </nav>
-        <h1 class="page-title" style="text-align: center; font-size: 200%">Danh Sách Các Hóa Đơn Đang Chờ</h1>
+        <h1 class="page-title" style="text-align: center; font-size: 200%">Danh Sách Các Hóa Đơn</h1>
         <br>
         <!--        Danh sách các hóa đơn có trạng thái chưa thanh toán-->
         <div class="container" style="border: 1px solid black; border-radius: 10px; padding: 20px;">
@@ -229,7 +229,11 @@
 
                     <th class="giaBan" th:text="${hd.tong_tien != null ? hd.tong_tien : 0}"></th>
                     <th >
-                        <span th:if="${hd.trangthai == 0}" class="badge badge-pill badge-sm" style="background-color: yellow">Chờ Xác Nhận</span>
+                        <span th:if="${hd.trangthai == 0}" class="badge badge-pill badge-sm" style="background-color: #d39cff">Chờ xác nhận</span>
+                        <span th:if="${hd.trangthai == 1}" class="badge badge-pill badge-sm" style="background-color: #4545ff">Chờ giao</span>
+                        <span th:if="${hd.trangthai == 2}" class="badge badge-pill badge-sm" style="background-color: yellow">Vận chuyển</span>
+                        <span th:if="${hd.trangthai == 3}" class="badge badge-pill badge-sm" style="background-color: #00a219">Hoàn thành</span>
+                        <span th:if="${hd.trangthai == 4}" class="badge badge-pill badge-sm" style="background-color: orangered">Đã hủy</span>
                     </th>
 
                     <th>

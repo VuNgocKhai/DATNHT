@@ -46,7 +46,7 @@ public class HoaDonRestController {
     @GetMapping("/pagehdctt")
     public PageDTO<HoaDon> getPageHDchuaThanhToan(@RequestParam("page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.orElse(0), 5);
-        return new PageDTO<>(hoaDonDAO.findHoaDonChuaThanhToan(pageable));
+        return new PageDTO<>(hoaDonDAO.findAll(pageable));
     }
 
     // tìm hóa đơn theo id
