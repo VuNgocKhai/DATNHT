@@ -78,6 +78,10 @@ public class Giay implements Serializable {
     private Integer do_hot = 1;
     private LocalDate ngay_nhap;
     private Integer trangthai = 1;
+
+    @OneToMany(mappedBy = "giay", fetch = FetchType.EAGER)
+    private Set<DanhGia> danhGias;
+
     @JsonIgnore
     @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER)
     Set<ChuongTrinhGiamGiaChiTietSP> chuongTrinhGiamGiaChiTietSP;
@@ -109,5 +113,9 @@ public class Giay implements Serializable {
    public boolean getNewGiay(){
        boolean isNewItem = ngay_nhap.isAfter(LocalDate.now().minusDays(7));
        return isNewItem;
+   }
+
+   public Integer getTongDanhGia(){
+       return danhGias.size();
    }
 }
