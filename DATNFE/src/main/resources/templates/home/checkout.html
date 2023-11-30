@@ -74,7 +74,7 @@
                             Nhận Hàng</span></h5>
                 <div class="radio"><label><input type="radio" value="existing" name="dc" checked>
                     Tôi muốn dùng địa chỉ này</label></div>
-                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="dia_chi" name="dia_chi" onclick="callAPIGHN2()" style="height: 40px;width: 605px">
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="dia_chi" name="dia_chi" onchange="callAPIGHN2()" style="height: 40px;width: 605px">
                     <option th:each="x:${list_dia_chi}" th:value="${x.madc}">
                         [[${x.ten_nguoi_nhan}]] (+84)[[${x.sdt_nguoi_nhan}]] - [[${x.tendiachi}]] - [[${x.xa}]] - [[${x.huyen}]] - [[${x.thanhpho}]]
                     </option>
@@ -144,6 +144,17 @@
                 </div>
 
             </div>
+            <div class="col-lg-12" th:if="${tongDiemQuyDoiHienCo>5000}">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Điểm Tích Lũy</span></h5>
+                <p>Bạn có: [[${tongDiemQuyDoiHienCo}]]</p>
+                <div class="bg-light p-30 mb-2" style="display: flex;justify-content: space-between;/* height: 298px; */">
+                    <div class="section-body" style="width: 100%;">
+                        <div class="form-group form-coupon">
+                            <div class="input-group"><input type="text" id="soDiemDaDung" name="soDiemDaDung" placeholder="Nhập số điểm bạn muốn sử dụng" class="form-control"> <span class="input-group-btn"><button data-loading-text="Đang Xử lý..." class="btn btn-primary" type="button" id="suDungDiemTL"><span>Sử Dụng</span></button></span></div> <!---->
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-6">
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing
                         Address</span></h5>
@@ -191,16 +202,29 @@
                             <h6 class="font-weight-medium">Mã giảm giá ([[${maGGHD}]]):</h6>
                             <h6 class="font-weight-medium">-[[${#numbers.formatDecimal(tienGGHD, 0, 'COMMA', 0, 'POINT')}]]₫</h6>
                         </div>
+                        <div class="d-flex justify-content-between" th:if="${tongDiemQuyDoiHienCo>5000}">
+                            <h6 class="font-weight-medium">Giảm từ quy đổi:</h6>
+                            <h6 class="font-weight-medium" id="soTienQuyDoi">0₫</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Điểm tích lũy:</h6>
+                            <h6 class="font-weight-medium" id="soDiemCongText">[[${#numbers.formatDecimal(diemTichLuy, 0, 'COMMA', 0, 'POINT')}]]</h6>
+                        </div>
                     </div>
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2 mb-3">
                             <h5>Tổng:</h5>
-                            <h5>[[${#numbers.formatDecimal(tienThanhToan, 0, 'COMMA', 0, 'POINT')}]]₫</h5>
+                            <h5 id="tienThanhToantext">[[${#numbers.formatDecimal(tienThanhToan, 0, 'COMMA', 0, 'POINT')}]]₫</h5>
                         </div>
                     </div>
-                    <input type="text" hidden="hidden" th:value="${tienThanhToan}" name="tienThanhToan">
-                    <input type="text" hidden="hidden" th:value="${phiShip}" name="phiShip">
+                    <input type="text" hidden="hidden" th:value="${tienThanhToan}" id="tienThanhToan" name="tienThanhToan">
+                    <input type="text" hidden="hidden" th:value="${phiShip}" name="phiShip" id="phiShip1">
                     <input type="text" hidden="hidden" th:value="${tienGGHD}" name="tienGGHD">
+                    <input type="text" hidden="hidden" th:value="${diemTichLuy}" name="soDiemCong" id="soDiemCong">
+                    <input type="text" hidden="hidden" id="soTienQuyDoi1" name="soTienQuyDoi">
+                    <input type="text" hidden="hidden" th:value="${tienThanhToan}" id="tienThanhToan1" name="tienThanhToan1">
+                    <input type="text" hidden="hidden" th:value="${tien_tuong_ung}" id="tien_tuong_ung" >
+                    <input type="text" hidden="hidden" th:value="${diem_tuong_ung}" id="diem_tuong_ung" >
                     <button class="btn btn-block btn-primary font-weight-bold py-3" formaction="/pay">Đặt Hàng</button>
                 </div>
             </div>
@@ -263,7 +287,7 @@
                 "cod_failed_amount": 2000,
                 "pick_station_id": 1444,
                 "deliver_station_id": null,
-                "insurance_value": 10000000,
+                "insurance_value": 100000,
                 "service_id": 0,
                 "service_type_id":2,
                 "coupon":null,
@@ -277,6 +301,39 @@
                 console.log("huyen"+huyen);
                 console.log("thanh pho:"+thanhPho);
                 document.getElementById('phiShip').innerText = response.data.total_fee;
+                let tienShipChechLech = Number.parseInt(response.data.total_fee) - Number.parseInt(document.getElementById('phiShip1').value);
+
+                document.getElementById('phiShip1').value = response.data.total_fee;
+                let soDiemDaDung = document.getElementById("soDiemDaDung");
+                let tienThanhToan = document.getElementById("tienThanhToan");
+                let tienThanhToantext = document.getElementById("tienThanhToantext");
+                let soDiemCongText = document.getElementById("soDiemCongText");
+                let soDiemCong = document.getElementById("soDiemCong");
+                let tien_tuong_ung = document.getElementById("tien_tuong_ung");
+                let diem_tuong_ung = document.getElementById("diem_tuong_ung");
+                let tienThanhToan1 = document.getElementById("tienThanhToan1");
+
+                let tienThanhToanSau = 0;
+                console.log(tienShipChechLech);
+                if(tienShipChechLech>0){
+                        tienThanhToanSau = Number.parseInt(tienThanhToan.value) + tienShipChechLech;
+                    console.log("1"+tienThanhToanSau);
+
+                } else {
+                        tienThanhToanSau = Number.parseInt(tienThanhToan.value) + tienShipChechLech;
+                    console.log("2"+tienThanhToanSau);
+                }
+                console.log(tienThanhToanSau);
+                if (soDiemDaDung.value === ""){
+                    soDiemDaDung.value=0;
+                }
+                let diemCongSau = Math.round(((tienThanhToanSau/Number.parseInt(tien_tuong_ung.value))*Number.parseInt(diem_tuong_ung.value)));
+                soDiemCongText.innerHTML = diemCongSau.toLocaleString();
+                soDiemCong.value = diemCongSau;
+                tienThanhToan.value = tienThanhToanSau;
+                tienThanhToan1.value = tienThanhToanSau+Number.parseInt(soDiemDaDung.value);
+                console.log(tienThanhToan.value);
+                tienThanhToantext.innerHTML = tienThanhToanSau.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
             },
             error: function(error) {
                 console.log(error);
@@ -285,11 +342,17 @@
         });
     }
     function callAPIGHN2() {
-        var dia_chi= document.getElementById("dia_chi").innerText;
-        var value = dia_chi.split("-");
-        var thanhPho= value[1].trim();
-        var huyen= value[2].trim();
-        var xa= value[3].trim();
+        var dia_chi= document.getElementById("dia_chi");
+        var selectedIndex = dia_chi.selectedIndex;
+        var dia_chi_text= dia_chi.options[selectedIndex].text;
+        console.log(dia_chi_text);
+        var value = dia_chi_text.split("-");
+        var thanhPho= value[4].trim();
+        var huyen= value[3].trim();
+        var xa= value[2].trim();
+        console.log(thanhPho);
+        console.log(huyen);
+        console.log(xa);
         $.ajax({
             type: "POST",
             url: "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create" , // Đường dẫn của bạn để lấy thông tin chi tiết
@@ -328,7 +391,7 @@
                 "cod_failed_amount": 2000,
                 "pick_station_id": 1444,
                 "deliver_station_id": null,
-                "insurance_value": 10000000,
+                "insurance_value": 10000,
                 "service_id": 0,
                 "service_type_id":2,
                 "coupon":null,
@@ -342,6 +405,39 @@
                 console.log("huyen"+huyen);
                 console.log("thanh pho:"+thanhPho);
                 document.getElementById('phiShip').innerText = response.data.total_fee;
+                let tienShipChechLech = Number.parseInt(response.data.total_fee) - Number.parseInt(document.getElementById('phiShip1').value);
+
+                document.getElementById('phiShip1').value = response.data.total_fee;
+                let soDiemDaDung = document.getElementById("soDiemDaDung");
+                let tienThanhToan = document.getElementById("tienThanhToan");
+                let tienThanhToantext = document.getElementById("tienThanhToantext");
+                let soDiemCongText = document.getElementById("soDiemCongText");
+                let soDiemCong = document.getElementById("soDiemCong");
+                let tien_tuong_ung = document.getElementById("tien_tuong_ung");
+                let diem_tuong_ung = document.getElementById("diem_tuong_ung");
+                let tienThanhToan1 = document.getElementById("tienThanhToan1");
+                if (soDiemDaDung.value === ""){
+                    soDiemDaDung.value=0;
+                }
+                let tienThanhToanSau = 0;
+                console.log(tienShipChechLech);
+                if(tienShipChechLech>0){
+                    tienThanhToanSau = Number.parseInt(tienThanhToan.value) + tienShipChechLech;
+                    console.log("1"+tienThanhToanSau);
+
+                } else {
+                    tienThanhToanSau = Number.parseInt(tienThanhToan.value) + tienShipChechLech;
+                    console.log("2"+tienThanhToanSau);
+                }
+                console.log(tienThanhToanSau);
+
+                let diemCongSau = Math.round(((tienThanhToanSau/Number.parseInt(tien_tuong_ung.value))*Number.parseInt(diem_tuong_ung.value)));
+                soDiemCongText.innerHTML = diemCongSau.toLocaleString();
+                soDiemCong.value = diemCongSau;
+                tienThanhToan.value = tienThanhToanSau;
+                tienThanhToan1.value = tienThanhToanSau+Number.parseInt(soDiemDaDung.value);
+                console.log(tienThanhToan.value);
+                tienThanhToantext.innerHTML = tienThanhToanSau.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
             },
             error: function(error) {
                 console.log(error);
@@ -493,7 +589,31 @@
             });
         });
     });
-</script>
+    let suDungDiemTL = document.getElementById("suDungDiemTL");
+    suDungDiemTL.addEventListener("click", function (){
+        let soDiemDaDung = document.getElementById("soDiemDaDung");
+        let soTienQuyDoi = document.getElementById("soTienQuyDoi");
+        let tienThanhToan = document.getElementById("tienThanhToan");
+        let tienThanhToan1 = document.getElementById("tienThanhToan1");
+        let tienThanhToantext = document.getElementById("tienThanhToantext");
+        let soDiemCongText = document.getElementById("soDiemCongText");
+        let soDiemCong = document.getElementById("soDiemCong");
+        let tien_tuong_ung = document.getElementById("tien_tuong_ung");
+        let diem_tuong_ung = document.getElementById("diem_tuong_ung");
+        let soTienQuyDoi1 = document.getElementById("soTienQuyDoi1");
+        if (soDiemDaDung.value === ""){
+            soDiemDaDung.value=0;
+        }
+        soTienQuyDoi.innerHTML =Number.parseInt(soDiemDaDung.value).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+        soTienQuyDoi1.value =soDiemDaDung.value;
+        let tienThanhToanSau = Number.parseInt(tienThanhToan1.value) - Number.parseInt(soTienQuyDoi1.value);
+        let diemCongSau = Math.round(((tienThanhToanSau/Number.parseInt(tien_tuong_ung.value))*Number.parseInt(diem_tuong_ung.value)));
+        soDiemCongText.innerHTML = diemCongSau.toLocaleString();
+        soDiemCong.value = diemCongSau;
+        tienThanhToan.value = tienThanhToanSau;
+        tienThanhToantext.innerHTML = tienThanhToanSau.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    });
 
+</script>
 </body>
 </html>
