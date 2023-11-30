@@ -27,7 +27,6 @@ public class Giay implements Serializable {
 
     private String ten;
 
-
     @ManyToOne
     @JoinColumn(name = "id_chat_lieu")
     private ChatLieu chat_lieu;

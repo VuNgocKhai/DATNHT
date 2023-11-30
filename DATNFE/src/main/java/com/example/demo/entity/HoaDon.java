@@ -85,18 +85,16 @@ public class HoaDon implements Serializable {
 
     public String convertTrangThai() {
         switch (this.trangthai) {
-            case 1:
+            case 0:
                 return "Chờ xác nhận";
+            case 1:
+                return "Chờ giao";
             case 2:
-                return "Đang chuẩn bị";
+                return "Vận chuyển";
             case 3:
-                return "Đang giao hàng";
-            case 4:
                 return "Hoàn thành";
-            case 5:
+            case 4:
                 return "Đã hủy";
-            case 6:
-                return "Trả hàng/Hoàn tiền";
             default:
                 return null;
         }

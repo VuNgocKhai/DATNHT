@@ -1,7 +1,16 @@
 package com.example.demo.controller;
 
 import com.example.demo.config.Config;
-import com.example.demo.entity.*;
+import com.example.demo.entity.DiaChi;
+import com.example.demo.entity.GiamGiaChiTietHoaDon;
+import com.example.demo.entity.GiamGiaHoaDon;
+import com.example.demo.entity.GiaoHangNhanh;
+import com.example.demo.entity.GiayChiTiet;
+import com.example.demo.entity.HoaDon;
+import com.example.demo.entity.HoaDonChiTiet;
+import com.example.demo.entity.KhachHang;
+import com.example.demo.entity.NhanVien;
+import com.example.demo.entity.PageDTO;
 import com.example.demo.repository.DiaChiRepo;
 import com.example.demo.repository.DiachiDao;
 import com.example.demo.repository.GiamGiaChiTietHoaDonRepo;
@@ -21,24 +30,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.TimeZone;
+import java.util.UUID;
 
 @Controller
 public class BanHangTaiQuayController {
@@ -106,6 +123,15 @@ public class BanHangTaiQuayController {
         return "redirect:/admin/ban-hang";
     }
 
+    @RequestMapping("/admin/ban-hang-tai-quay/huy-hoa-don/{maHD}")
+    @Transactional
+    public String huyHoaDon(@PathVariable("maHD") String maHD) {
+        HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
+        hoaDon.setTrangthai(4);
+        hoaDonRepo.createHoaDon(hoaDon);
+        return "redirect:/admin/ban-hang";
+    }
+
     // tìm kiếm hóa đơn theo mã hoặc theo tên khách hàng
     @RequestMapping("/admin/ban-hang-tai-quay/tim-kiem-hoa-don")
     public String locGiamGiaHoaDonTheoTen(@RequestParam(value = "keyword", required = false) String keyword,
@@ -132,7 +158,7 @@ public class BanHangTaiQuayController {
         hoaDon.setHinh_thuc_thanh_toan(0);
         hoaDon.setSo_tien_giam(BigDecimal.ZERO);
         hoaDon.setPhi_ship(BigDecimal.ZERO);
-        hoaDon.setTrangthai(1);
+        hoaDon.setTrangthai(0);
         hoaDonRepo.createHoaDon(hoaDon);
         redirectAttributes.addAttribute("maHD", maHoaDonMoi);
         return "redirect:/admin/ban-hang-tai-quay/view-cart/{maHD}";
@@ -171,7 +197,7 @@ public class BanHangTaiQuayController {
         if (hoaDon.getKhachHang() != null) {
             model.addAttribute("KhachHangDetail", hoaDon.getKhachHang());
             List<DiaChi> diaChiList = diachiDao.getdiachibyma(hoaDon.getKhachHang().getMa());
-            model.addAttribute("ListDiaChi", diaChiList);
+            model.addAttribute("ListDiaChicuaKH", diaChiList);
         }
 
         String diaChiGop = hoaDon.getDia_chi();
@@ -460,10 +486,19 @@ public class BanHangTaiQuayController {
         KhachHang khachHang = khachHangRepo.getBykhachhangma(maKH);
         hoaDon.setKhachHang(khachHang);
         DiaChi diaChi = diachiDao.getDiaChiByKhachHangMaAndTrangthai(maKH);
-        String diaChiGop = diaChi.getTendiachi() + ", " + diaChi.getXa() + ", " + diaChi.getHuyen() + ", " + diaChi.getThanhpho();
-        hoaDon.setDia_chi(diaChiGop);
-        hoaDon.setTen_nguoi_nhan(diaChi.getTen_nguoi_nhan());
-        hoaDon.setSdt_nguoi_nhan(diaChi.getSdt_nguoi_nhan());
+        if(diaChi != null)
+        {
+            String diaChiGop = diaChi.getTendiachi() + ", " + diaChi.getXa() + ", " + diaChi.getHuyen() + ", " + diaChi.getThanhpho();
+            hoaDon.setDia_chi(diaChiGop);
+            hoaDon.setTen_nguoi_nhan(diaChi.getTen_nguoi_nhan());
+            hoaDon.setSdt_nguoi_nhan(diaChi.getSdt_nguoi_nhan());
+            hoaDonRepo.createHoaDon(hoaDon);
+        }
+        else
+        {
+            String diaChiNull = "";
+            hoaDon.setDia_chi(diaChiNull);
+        }
         hoaDonRepo.createHoaDon(hoaDon);
         redirectAttributes.addAttribute("maHD", maHD);
         return "redirect:/admin/ban-hang-tai-quay/view-cart/{maHD}";
