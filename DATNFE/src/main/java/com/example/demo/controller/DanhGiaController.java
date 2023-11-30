@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.DanhGia;
+import com.example.demo.entity.PageDTO;
 import com.example.demo.repository.DanhGiaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +27,8 @@ public class DanhGiaController {
     public String danhGia(Model model, @RequestParam(defaultValue = "0") String number){
         Pageable pageable= PageRequest.of(Integer.valueOf(number),10);
         numberCurrent=Integer.valueOf(number);
-        model.addAttribute("page",danhGiaDAO.findDanhGiasByTrangThai0(pageable));
+        model.addAttribute("page",new PageDTO<>(danhGiaDAO.findDanhGiasByTrangThai0(pageable)));
+        model.addAttribute("number",Integer.valueOf(number));
         return "danh_gia/danh_gia";
     }
 
@@ -61,4 +63,5 @@ public class DanhGiaController {
         danhGiaDAO.deleteById(UUID.fromString(id));
         return "redirect:/admin/danh-gia?number="+numberCurrent;
     }
+
 }

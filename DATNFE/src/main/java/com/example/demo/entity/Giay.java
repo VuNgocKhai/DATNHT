@@ -115,7 +115,8 @@ public class Giay implements Serializable {
        return isNewItem;
    }
 
-   public Integer getTongDanhGia(){
-       return danhGias.size();
+   public Long getTongDanhGia(){
+       Long sl=danhGias.stream().filter(item->item.getTrangThai()==1).count();
+       return sl;
    }
 }
