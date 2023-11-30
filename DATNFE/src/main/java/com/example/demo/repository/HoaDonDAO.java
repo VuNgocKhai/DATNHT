@@ -71,6 +71,14 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "ORDER BY thang")
     List<Object[]> getHoaDonByTongTienTheoThangTrongNam();
 
+    // tính tổng tiền theo tháng trong năm
+    @Query("SELECT MONTH(ngay_thanh_toan) AS thang, SUM(tong_tien) AS tong_tien_thang\n" +
+            "FROM HoaDon \n" +
+            "WHERE YEAR(ngay_thanh_toan) = ?1 and trangthai =3\n" +
+            "GROUP BY MONTH(ngay_thanh_toan)\n" +
+            "ORDER BY thang")
+    List<Object[]> getHoaDonByTongTienTheoThangTrongNam(Integer nam);
+
     // Tìm tất cả hóa đơn theo trạng thái
     Integer countByTrangthai(int trangthai);
 
@@ -107,13 +115,13 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
 //    Tổng Số Người mua kiều online
     @Query("SELECT COUNT(*) AS TongSoHinhThucMuaOn\n" +
             "FROM HoaDon\n" +
-            "WHERE hinh_thuc_mua = 0\n")
+            "WHERE hinh_thuc_mua = 1\n")
     Integer tongsomuaonline();
 
     //    Tổng Số Người mua kiều Trức tiếp
     @Query("SELECT COUNT(*) AS TongSoHinhThucMuaTrucTiep\n" +
             "FROM HoaDon\n" +
-            "WHERE hinh_thuc_mua = 1\n")
+            "WHERE hinh_thuc_mua = 0\n")
     Integer tongsomuatructiep();
 
 
@@ -198,6 +206,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "ORDER BY so_luong_ban DESC", nativeQuery = true)
     List<Object[]> top10SanPhamBanChaytrongthangnay();
 
+//    Top 10 khách hàng mua nhiều nhất trong năm
     @Query(value = "SELECT TOP 10\n" +
             "    kh.id AS khach_hang_id,\n" +
             "    kh.ho_ten AS ten_khach_hang,\n" +
@@ -217,7 +226,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "    tong_tien_mua DESC", nativeQuery = true)
     List<Object[]> top10khachhangmuanhieunhattrongnam();
 
-
+    //    Top 10 khách hàng mua nhiều nhất 7 ngày qua
     @Query(value = "\tSELECT TOP 10\n" +
             "    kh.id AS khach_hang_id,\n" +
             "    kh.ho_ten AS ten_khach_hang,\n" +
@@ -237,7 +246,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "    tong_tien_mua DESC", nativeQuery = true)
     List<Object[]> top10khachhangmuanhieunhat7ngayqua();
 
-
+    //    Top 10 khách hàng mua nhiều nhất trong Hôm qua
     @Query(value = "\n" +
             "\tSELECT TOP 10\n" +
             "    kh.id AS khach_hang_id,\n" +
@@ -258,6 +267,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "    tong_tien_mua DESC", nativeQuery = true)
     List<Object[]> top10khachhangmuanhieunhathomqua();
 
+    //    Top 10 khách hàng mua nhiều nhất trong Tháng trc
     @Query(value = "SELECT TOP 10\n" +
             "    kh.id AS khach_hang_id,\n" +
             "    kh.ho_ten AS ten_khach_hang,\n" +
@@ -278,6 +288,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "    tong_tien_mua DESC", nativeQuery = true)
     List<Object[]> top10khachhangmuanhieunhatthangtruoc();
 
+    //    Top 10 khách hàng mua nhiều nhất trong tháng này
     @Query(value = "SELECT TOP 10\n" +
             "    kh.id AS khach_hang_id,\n" +
             "    kh.ho_ten AS ten_khach_hang,\n" +
@@ -298,8 +309,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "    tong_tien_mua DESC", nativeQuery = true)
     List<Object[]> top10khachhangmuanhieunhatthangnay();
 
-
-
+    //    Top 10 Nhân viên bán được nhiều nhất trong năm
     @Query(value = "SELECT TOP 10\n" +
             "    NV.id AS NhanVienID,\n" +
             "    NV.ho_ten AS HoTen,\n" +
@@ -309,7 +319,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "INNER JOIN\n" +
             "    hoa_don HD ON NV.id = HD.id_nhan_vien\n" +
             "WHERE\n" +
-            "    HD.trangthai = 3\n" +
+            "    HD.trangthai = 3 AND HD.hinh_thuc_mua = 0\n" +
             "    AND YEAR(HD.ngay_tao) = YEAR(GETDATE()) -- Filter for the current year\n" +
             "GROUP BY\n" +
             "    NV.id, NV.ho_ten\n" +
@@ -317,8 +327,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "    SoHoaDonBanDuoc DESC\n", nativeQuery = true)
     List<Object[]> top10nhanvienbannhieunhattrongnam();
 
-
-
+    //    Top 10 Nhân viên bán được nhiều nhất trong tháng này
     @Query(value = "SELECT TOP 10\n" +
             "    NV.id AS NhanVienID,\n" +
             "    NV.ho_ten AS HoTen,\n" +
@@ -328,7 +337,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "INNER JOIN\n" +
             "    hoa_don HD ON NV.id = HD.id_nhan_vien\n" +
             "WHERE\n" +
-            "    HD.trangthai = 3\n" +
+            "    HD.trangthai = 3 AND HD.hinh_thuc_mua = 0 \n" +
             "    AND YEAR(HD.ngay_tao) = YEAR(GETDATE()) -- Filter for the current year\n" +
             "    AND MONTH(HD.ngay_tao) = MONTH(GETDATE()) -- Filter for the current month\n" +
             "GROUP BY\n" +
@@ -337,7 +346,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "    SoHoaDonBanDuoc DESC\n", nativeQuery = true)
     List<Object[]> top10nhanvienbannhieunhatthangnay();
 
-
+    //    Top 10 Nhân viên bán được nhiều nhất trong tháng trc
     @Query(value = "SELECT TOP 10\n" +
             "    NV.id AS NhanVienID,\n" +
             "    NV.ho_ten AS HoTen,\n" +
@@ -347,7 +356,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "INNER JOIN\n" +
             "    hoa_don HD ON NV.id = HD.id_nhan_vien\n" +
             "WHERE\n" +
-            "    HD.trangthai = 3\n" +
+            "    HD.trangthai = 3 AND HD.hinh_thuc_mua = 0\n" +
             "    AND YEAR(HD.ngay_tao) = YEAR(DATEADD(MONTH, -1, GETDATE())) -- Filter for the previous year\n" +
             "    AND MONTH(HD.ngay_tao) = MONTH(DATEADD(MONTH, -1, GETDATE())) -- Filter for the previous month\n" +
             "GROUP BY\n" +
@@ -356,6 +365,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "    SoHoaDonBanDuoc DESC\n", nativeQuery = true)
     List<Object[]> top10nhanvienbannhieunhatthangtruoc();
 
+    //    Top 10 Nhân viên bán được nhiều nhất trong hôm qua
     @Query(value = "SELECT TOP 10\n" +
             "    NV.id AS NhanVienID,\n" +
             "    NV.ho_ten AS HoTen,\n" +
@@ -365,7 +375,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "INNER JOIN\n" +
             "    hoa_don HD ON NV.id = HD.id_nhan_vien\n" +
             "WHERE\n" +
-            "    HD.trangthai = 3\n" +
+            "    HD.trangthai = 3 AND HD.hinh_thuc_mua = 0\n" +
             "    AND CAST(HD.ngay_tao AS DATE) = CAST(GETDATE() - 1 AS DATE) -- Filter for yesterday\n" +
             "GROUP BY\n" +
             "    NV.id, NV.ho_ten\n" +
@@ -373,7 +383,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "    SoHoaDonBanDuoc DESC\n", nativeQuery = true)
     List<Object[]> top10nhanvienbannhieunhathomqua();
 
-
+    //    Top 10 Nhân viên bán được nhiều nhất trong 7 ngày qua
     @Query(value = "SELECT TOP 10\n" +
             "    NV.id AS NhanVienID,\n" +
             "    NV.ho_ten AS HoTen,\n" +
@@ -383,7 +393,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "INNER JOIN\n" +
             "    hoa_don HD ON NV.id = HD.id_nhan_vien\n" +
             "WHERE\n" +
-            "    HD.trangthai = 3\n" +
+            "    HD.trangthai = 3 AND HD.hinh_thuc_mua = 0\n" +
             "    AND HD.ngay_tao >= DATEADD(DAY, -6, GETDATE()) -- Filter for the last 7 days\n" +
             "GROUP BY\n" +
             "    NV.id, NV.ho_ten\n" +
@@ -391,6 +401,25 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "    SoHoaDonBanDuoc DESC\n", nativeQuery = true)
     List<Object[]> top10nhanvienbannhieunhat7ngayqua();
 
+    // Tổng tiền lợi nhuận hàng tháng trong năm
+    @Query(value = "SELECT MONTH(ngay_thanh_toan) AS Thang,\n" +
+            "       YEAR(ngay_thanh_toan) AS Nam,\n" +
+            "       SUM((hdc.don_gia - hdc.gia_nhap) * hdc.so_luong) AS LoiNhuanThang\n" +
+            "FROM hoa_don hd\n" +
+            "INNER JOIN hoa_don_chi_tiet hdc ON hd.id = hdc.id_hoa_don\n" +
+            "WHERE YEAR(ngay_thanh_toan) = YEAR(GETDATE()) AND hd.trangthai = 3\n" +
+            "GROUP BY YEAR(ngay_thanh_toan), MONTH(ngay_thanh_toan)",nativeQuery = true)
+    List<Object[]> getHoaDonByTongTienloinhuanTheoThangTrongNam();
+
+    // Tổng tiền lợi nhuận hàng tháng trong năm
+    @Query(value = "SELECT MONTH(ngay_thanh_toan) AS Thang,\n" +
+            "       YEAR(ngay_thanh_toan) AS Nam,\n" +
+            "       SUM((hdc.don_gia - hdc.gia_nhap) * hdc.so_luong) AS LoiNhuanThang\n" +
+            "FROM hoa_don hd\n" +
+            "INNER JOIN hoa_don_chi_tiet hdc ON hd.id = hdc.id_hoa_don\n" +
+            "WHERE YEAR(ngay_thanh_toan) = ?1 AND hd.trangthai = 3\n" +
+            "GROUP BY YEAR(ngay_thanh_toan), MONTH(ngay_thanh_toan)",nativeQuery = true)
+    List<Object[]> getHoaDonByTongTienloinhuanTheoThangTrongNam(Integer nam);
 
 
 }

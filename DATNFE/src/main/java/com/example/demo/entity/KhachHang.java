@@ -52,6 +52,10 @@ public class KhachHang implements Serializable {
 
     @Column(name = "trangthai")
     private Integer trangthai = 1;
+
+    @ManyToOne
+    @JoinColumn(name = "id_hkh")
+    private HangKhachHang hang_khach_hang;
     @JsonIgnore
     @OneToOne(mappedBy = "khach_hang")
     private GioHang gio_hang;

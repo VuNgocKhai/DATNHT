@@ -62,6 +62,12 @@ public class GioHangController {
     @Autowired
     AnhGiayDAO anhGiayDAO;
     @Autowired
+    QuyDoiDiemDAO quyDoiDiemDAO;
+    @Autowired
+    ViDiemDAO viDiemDAO;
+    @Autowired
+    LichSuTieuDiemDAO lichSuTieuDiemDAO;
+    @Autowired
     private GiamGiaHoaDonRepo giamGiaHoaDonRepo;
 
     @Autowired
@@ -196,7 +202,8 @@ public class GioHangController {
         Integer phan_tramGGHD = 0;
         BigDecimal so_tienGGHD = BigDecimal.valueOf(0);
         BigDecimal so_tienMinHD = BigDecimal.valueOf(0);
-        List<GiamGiaHoaDon> listGGHD = gghddao.getGiamGiaHoaDonByDk(LocalDate.now());
+        Date currentDate1 = new Date();
+        List<GiamGiaHoaDon> listGGHD = gghddao.getGiamGiaHoaDonByDk(currentDate1);
         for (GiamGiaHoaDon x : listGGHD
         ) {
             if (x.getMa().equals(maVC)) {
@@ -382,13 +389,21 @@ public class GioHangController {
 //                giaoHangNhanh.setInsurance_value(tongTien.intValue());
             }
         }
+        ViDiem viDiem = viDiemDAO.getViDiemByMaKH(khachHang.getMa());
         String phiShip = callAPIGHN.getAPIGHN(giaoHangNhanh);
+        BigDecimal tienPhaiTT = tongTien.add(BigDecimal.valueOf(Double.valueOf(phiShip))).subtract(tienGGHD);
+        QuyDoiDiem quyDoiDiem = quyDoiDiemDAO.getQuyDoiDiemByTT1();
+        Integer diemTichLuy = tienPhaiTT.divide(quyDoiDiem.getSo_tien_tuong_ung()).multiply(new BigDecimal(quyDoiDiem.getSo_diem_tuong_ung())).intValue();
+        model.addAttribute("tien_tuong_ung",quyDoiDiem.getSo_tien_tuong_ung());
+        model.addAttribute("diem_tuong_ung",quyDoiDiem.getSo_diem_tuong_ung());
+        model.addAttribute("tongDiemQuyDoiHienCo",viDiem.getTong_diem());
         model.addAttribute("phiShip", phiShip);
         model.addAttribute("tienGGHD", tienGGHD);
         model.addAttribute("tongTien", tongTien);
-        model.addAttribute("tienThanhToan", tongTien.add(BigDecimal.valueOf(Double.valueOf(phiShip))).subtract(tienGGHD));
+        model.addAttribute("tienThanhToan", tienPhaiTT);
         model.addAttribute("listGiay", listvalue1);
         model.addAttribute("maGGHD", maGGHD);
+        model.addAttribute("diemTichLuy", diemTichLuy);
         model.addAttribute("maVC", maVC);
         model.addAttribute("listGHCT", gioHangChiTietList1);
         model.addAttribute("list_dia_chi", diaChiList);
@@ -397,7 +412,7 @@ public class GioHangController {
     }
 
     @PostMapping("/pay")
-    public void getPay(HttpServletRequest request, HttpServletResponse resp, @RequestParam("ghichu") String ghichu,@RequestParam("maVC") String maVC, @RequestParam("payment_method") String pttt, @RequestParam("tienThanhToan") BigDecimal tienTT,@RequestParam("phiShip") BigDecimal phiShip,@RequestParam("tienGGHD") BigDecimal tienGGHD, @RequestParam("dc") String dc) throws IOException {
+    public void getPay(HttpServletRequest request, HttpServletResponse resp, @RequestParam("ghichu") String ghichu, @RequestParam(value = "soTienQuyDoi",defaultValue = "0.00") BigDecimal soTienQuyDoi, @RequestParam(value = "soDiemCong",defaultValue = "0") Integer soDiemCong, @RequestParam(value = "soDiemDaDung",defaultValue = "0") Integer soDiemDaDung, @RequestParam("maVC") String maVC, @RequestParam("payment_method") String pttt, @RequestParam("tienThanhToan") BigDecimal tienTT, @RequestParam("phiShip") BigDecimal phiShip, @RequestParam("tienGGHD") BigDecimal tienGGHD, @RequestParam("dc") String dc) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         KhachHang khachHang = khachHangDao.getKhByEmail(username);
@@ -496,8 +511,24 @@ public class GioHangController {
             hoaDon.setSo_tien_giam(tienGGHD);
             hoaDon.setHinh_thuc_mua(1); //online
             hoaDon.setHinh_thuc_thanh_toan(1); //vnpay
+            hoaDon.setSo_diem_su_dung(soDiemDaDung);
+            hoaDon.setSo_tien_quy_doi(soTienQuyDoi);
             hoaDon.setTrangthai(1); //chờ giao
             HoaDon hoaDon1 = hoaDonDAO.save(hoaDon);
+            ViDiem viDiem = viDiemDAO.getViDiemByMaKH(khachHang.getMa());
+            LichSuTieuDiem lichSuTieuDiem = new LichSuTieuDiem();
+            lichSuTieuDiem.setTrangthai(1);
+            lichSuTieuDiem.setVi_diem(viDiem);
+            lichSuTieuDiem.setHoa_don(hoaDon1);
+            lichSuTieuDiem.setNgay_su_dung(LocalDate.now());
+            lichSuTieuDiem.setQuy_doi_diem(quyDoiDiemDAO.getQuyDoiDiemByTT1());
+            lichSuTieuDiem.setSo_diem_da_dung(soDiemDaDung);
+            lichSuTieuDiem.setSo_diem_cong(soDiemCong);
+            lichSuTieuDiemDAO.save(lichSuTieuDiem);
+            viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong()+soDiemCong);
+            viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung()+soDiemDaDung);
+            viDiem.setTong_diem(viDiem.getSo_diem_da_cong()-viDiem.getSo_diem_da_dung());
+            viDiemDAO.save(viDiem);
             if (!maVC.equals("")){
                 GiamGiaHoaDon giamGiaHoaDon = giamGiaHoaDonRepo.getGiamGiaHoaDonByMa(maVC);
                 GiamGiaChiTietHoaDon giamGiaChiTietHoaDon = new GiamGiaChiTietHoaDon();
@@ -557,8 +588,24 @@ public class GioHangController {
             hoaDon.setSo_tien_giam(tienGGHD);
             hoaDon.setHinh_thuc_mua(1); //online
             hoaDon.setHinh_thuc_thanh_toan(0); //khi nhan hang
+            hoaDon.setSo_diem_su_dung(soDiemDaDung);
+            hoaDon.setSo_tien_quy_doi(soTienQuyDoi);
             hoaDon.setTrangthai(0);
             HoaDon hoaDon1 = hoaDonDAO.save(hoaDon);
+            ViDiem viDiem = viDiemDAO.getViDiemByMaKH(khachHang.getMa());
+            LichSuTieuDiem lichSuTieuDiem = new LichSuTieuDiem();
+            lichSuTieuDiem.setTrangthai(1);
+            lichSuTieuDiem.setVi_diem(viDiem);
+            lichSuTieuDiem.setHoa_don(hoaDon1);
+            lichSuTieuDiem.setNgay_su_dung(LocalDate.now());
+            lichSuTieuDiem.setQuy_doi_diem(quyDoiDiemDAO.getQuyDoiDiemByTT1());
+            lichSuTieuDiem.setSo_diem_da_dung(soDiemDaDung);
+            lichSuTieuDiem.setSo_diem_cong(soDiemCong);
+            lichSuTieuDiemDAO.save(lichSuTieuDiem);
+            viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong()+soDiemCong);
+            viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung()+soDiemDaDung);
+            viDiem.setTong_diem(viDiem.getSo_diem_da_cong()-viDiem.getSo_diem_da_dung());
+            viDiemDAO.save(viDiem);
             if (!maVC.equals("")){
                 GiamGiaHoaDon giamGiaHoaDon = giamGiaHoaDonRepo.getGiamGiaHoaDonByMa(maVC);
                 GiamGiaChiTietHoaDon giamGiaChiTietHoaDon = new GiamGiaChiTietHoaDon();
