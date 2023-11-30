@@ -412,7 +412,7 @@ public class GioHangController {
     }
 
     @PostMapping("/pay")
-    public void getPay(HttpServletRequest request, HttpServletResponse resp, @RequestParam("ghichu") String ghichu, @RequestParam(value = "soTienQuyDoi",defaultValue = "0.00") BigDecimal soTienQuyDoi, @RequestParam(value = "soDiemCong",defaultValue = "0") Integer soDiemCong, @RequestParam(value = "soDiemDaDung",defaultValue = "0") Integer soDiemDaDung, @RequestParam("maVC") String maVC, @RequestParam("payment_method") String pttt, @RequestParam("tienThanhToan") BigDecimal tienTT, @RequestParam("phiShip") BigDecimal phiShip, @RequestParam("tienGGHD") BigDecimal tienGGHD, @RequestParam("dc") String dc) throws IOException {
+    public String getPay(HttpServletRequest request, HttpServletResponse resp, @RequestParam("ghichu") String ghichu, @RequestParam(value = "soTienQuyDoi",defaultValue = "0.00") BigDecimal soTienQuyDoi, @RequestParam(value = "soDiemCong",defaultValue = "0") Integer soDiemCong, @RequestParam(value = "soDiemDaDung",defaultValue = "0") Integer soDiemDaDung, @RequestParam("maVC") String maVC, @RequestParam("payment_method") String pttt, @RequestParam("tienThanhToan") BigDecimal tienTT, @RequestParam("phiShip") BigDecimal phiShip, @RequestParam("tienGGHD") BigDecimal tienGGHD, @RequestParam("dc") String dc) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         KhachHang khachHang = khachHangDao.getKhByEmail(username);
@@ -644,13 +644,13 @@ public class GioHangController {
                         getListGHCT(khachHang.getGio_hang().getGioHangChiTiets());
                 for (GioHangChiTiet a:gioHangChiTietList){
                     if (a.getGiay_chi_tiet().getId().equals(x.getId())){
-                        System.out.println("Ma xoa"+x.getId());
-                        System.out.println("Ma xoa 2"+a.getGiay_chi_tiet().getId());
                         gioHangChiTietDAO.deleteSPInGHCT(a.getId());
                     }
                 }
             }
+            return "redirect:/trangchu";
         }
+        return "redirect:/trangchu";
     }
 
     @GetMapping("/hoadon/{x}")

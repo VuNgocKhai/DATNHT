@@ -91,6 +91,7 @@ public class TrangChuController {
 
         model.addAttribute("itemsNew", giayDAO.top20SpMoiNhat());
         model.addAttribute("itemsHot", giayDAO.top20SpHotNhat());
+        model.addAttribute("active", "trangchu");
 
         if (khachHang != null) {
             model.addAttribute("khachHang", khachHang);
@@ -164,6 +165,7 @@ public class TrangChuController {
             }
         }
         model.addAttribute("items", giayList);
+        model.addAttribute("active", "sanpham");
         return "home/sanpham";
     }
 
@@ -172,6 +174,7 @@ public class TrangChuController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
         model.addAttribute("khachHang", khachHang);
+        model.addAttribute("active", "lienhe");
         return "home/contact";
     }
 

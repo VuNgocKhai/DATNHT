@@ -930,6 +930,9 @@
             var thanhPho = $("#province option:selected").text();
             var huyen = $("#district option:selected").text();
             var xa = $("#ward option:selected").text();
+            console.log(thanhPho);
+            console.log(huyen);
+            console.log(thanhPho);
             $.ajax({
                 type: "POST",
                 url: "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create", // Đường dẫn của bạn để lấy thông tin chi tiết
