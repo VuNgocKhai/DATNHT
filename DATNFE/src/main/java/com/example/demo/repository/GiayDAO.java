@@ -47,9 +47,9 @@ public interface GiayDAO extends JpaRepository<Giay, UUID> {
     @Query("select g from Giay g where g.mau_sac.ten = :mausac")
     Page<Giay> getAllGiayByMauSac(String mausac, Pageable pageable);
 
-    @Query(value = "SELECT TOP 20 * FROM giay ORDER BY ngay_nhap DESC",nativeQuery = true)
+    @Query(value = "SELECT TOP 20 * FROM giay where trangthai=1 ORDER BY ngay_nhap DESC",nativeQuery = true)
     List<Giay> top20SpMoiNhat();
 
-    @Query(value = "SELECT TOP 20 * FROM giay ORDER BY do_hot DESC",nativeQuery = true)
+    @Query(value = "SELECT TOP 20 * FROM giay where trangthai=1 ORDER BY do_hot DESC",nativeQuery = true)
     List<Giay> top20SpHotNhat();
 }

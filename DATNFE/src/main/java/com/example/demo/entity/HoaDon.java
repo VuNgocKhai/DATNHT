@@ -82,24 +82,22 @@ public class HoaDon implements Serializable {
     @JsonIgnore
     private List<GiamGiaChiTietHoaDon> list1;
 
-    @OneToMany(mappedBy = "hoaDon",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "hoaDon", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<HoaDonChiTiet> listHdct;
 
     public String convertTrangThai() {
         switch (this.trangthai) {
-            case 1:
+            case 0:
                 return "Chờ xác nhận";
+            case 1:
+                return "Chờ giao";
             case 2:
-                return "Đang chuẩn bị";
+                return "Vận chuyển";
             case 3:
-                return "Đang giao hàng";
-            case 4:
                 return "Hoàn thành";
-            case 5:
-                return "Đã hủy";
-            case 6:
-                return "Trả hàng/Hoàn tiền";
+            case 4:
+                return "Hủy";
             default:
                 return null;
         }

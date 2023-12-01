@@ -187,12 +187,11 @@ public class QuanLyTaiKhoanKhController {
     static {
         trangThaiDonHang = new HashMap<String, Integer>();
         trangThaiDonHang.put("tat-ca", null);
-        trangThaiDonHang.put("cho-xac-nhan", 1);
-        trangThaiDonHang.put("dang-chuan-bi", 2);
-        trangThaiDonHang.put("dang-giao-hang", 3);
-        trangThaiDonHang.put("hoan-thanh", 4);
-        trangThaiDonHang.put("da-huy", 5);
-        trangThaiDonHang.put("tra-hang-hoan-tien", 6);
+        trangThaiDonHang.put("cho-xac-nhan", 0);
+        trangThaiDonHang.put("cho-giao", 1);
+        trangThaiDonHang.put("van-chuyen", 2);
+        trangThaiDonHang.put("hoan-thanh", 3);
+        trangThaiDonHang.put("huy", 4);
     }
 
     @GetMapping("/qltk-kh/don-hang")
@@ -202,7 +201,7 @@ public class QuanLyTaiKhoanKhController {
                           ) {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
-        Pageable pageable= PageRequest.of(Integer.valueOf(number),2);
+        Pageable pageable= PageRequest.of(Integer.valueOf(number),6);
         Page<HoaDon>page=hoaDonDAO.findHdByMaKhAndTt(khachHang.getMa(),trangThaiDonHang.get(trangThaiDon),pageable);
         PageDTO<HoaDon> pageDTO=new PageDTO<>(page);
         model.addAttribute("pageHd",pageDTO);
