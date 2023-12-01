@@ -70,7 +70,7 @@
                             <small class="fas fa-star-half-alt"></small>
                             <small class="far fa-star"></small>
                         </div>
-                        <small class="pt-1">(99)</small>
+                        <small class="pt-1">([[${item.getTongDanhGia()}]])</small>
                         <a style="margin-left: 20px; color: #6C757D" href="">Viết Đánh Giá</a>
                     </div>
                     </div>
@@ -537,7 +537,7 @@
                             <div class="tab-pane fade" id="tab-pane-3">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h4 class="mb-4">[[${totalDg}]] đáng giá cho "[[${item.ten}]]"</h4>
+                                        <h4 class="mb-4">[[${totalDg}]] đánh giá cho "[[${item.ten}]]"</h4>
                                         <div class="media mb-4" th:each="dg:${pageDg.content}">
                                             <div class="media-body">
                                                 <h6>[[${dg.tenNguoiDanhGia}]]</h6>
@@ -551,7 +551,7 @@
                                             </div>
                                         </div>
                                         <nav aria-label="Page navigation example">
-                                            <ul class="pagination">
+                                            <ul class="pagination" th:if="${pageDg.totalPages>0}">
                                                 <li class="page-item">
                                                     <a class="page-link"
                                                        th:href="@{|/ctsp/${x}?numberDg=0|}" th:if="${pageDg.number>0}">
