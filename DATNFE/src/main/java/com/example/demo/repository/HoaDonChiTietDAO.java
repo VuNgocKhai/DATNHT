@@ -18,5 +18,6 @@ public interface HoaDonChiTietDAO extends JpaRepository<HoaDonChiTiet, UUID> {
     @Query("SELECT h FROM HoaDonChiTiet h WHERE h.hoaDon.ma = :hoaDonMa")
     Page<HoaDonChiTiet> findByHoaDonMaPage(@Param("hoaDonMa") String hoaDonMa, Pageable pageable);
 
-
+    @Query("SELECT h FROM HoaDonChiTiet h WHERE h.hoaDon.ma = :hoaDonMa")
+    List<HoaDonChiTiet> findHoaDonChiTietByMaHD(@Param("hoaDonMa") String hoaDonMa);
 }

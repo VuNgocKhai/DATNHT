@@ -28,7 +28,6 @@ public class Giay implements Serializable {
 
     private String ten;
 
-
     @ManyToOne
     @JoinColumn(name = "id_chat_lieu")
     private ChatLieu chat_lieu;
@@ -73,15 +72,15 @@ public class Giay implements Serializable {
 
     private BigDecimal giaban;
 
+    @OneToMany(mappedBy = "giay", fetch = FetchType.EAGER)
+    private Set<DanhGia> danhGias;
+
+
     @Column(name = "gia_sau_khuyen_mai")
     private BigDecimal gia_sau_khuyen_mai;
     private Integer do_hot = 1;
     private LocalDate ngay_nhap;
     private Integer trangthai = 1;
-
-    @OneToMany(mappedBy = "giay", fetch = FetchType.EAGER)
-    private Set<DanhGia> danhGias;
-
     @JsonIgnore
     @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER)
     Set<ChuongTrinhGiamGiaChiTietSP> chuongTrinhGiamGiaChiTietSP;

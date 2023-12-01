@@ -326,9 +326,9 @@ GO
 INSERT [dbo].[quy_doi_diem] ([id], [so_tien_tuong_ung], [so_diem_tuong_ung], [trangthai]) VALUES (N'1b52f69d-5508-4745-926f-a22f9907e523', 10000, 10, 1)
 
 GO
-INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [email], [mat_khau], [trangthai]) VALUES (N'bb772ace-91ff-4cbe-83de-ea5e80fa3843', N'KH01', 'avartar.jpg', N'Nguyễn Danh', CAST(N'2003-09-09' AS Date), N'0385090080', N'kh01@gmail.com', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq', 1)
-INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [email], [mat_khau], [trangthai]) VALUES (N'019427f5-1e52-402f-b5dc-ec17ad5f139a', N'KH02', 'avartar.jpg', N'Nguyễn Đại', CAST(N'2003-08-08' AS Date), N'0387090080', N'kh02@gmail.com', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq', 1)
-INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [email], [mat_khau], [trangthai]) VALUES (N'22b427f5-1e52-402f-b5dc-ec17ad5f139a', N'KH03', 'avartar.jpg', N'Đào Gia Phong', CAST(N'2003-09-16' AS Date), N'0385370656', N'kh03@gmail.com', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq', 1)
+INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [email], [mat_khau], [trangthai]) VALUES (N'bb772ace-91ff-4cbe-83de-ea5e80fa3843', N'KH01', 'avatar.jpg', N'Nguyễn Danh', CAST(N'2003-09-09' AS Date), N'0385090080', N'kh01@gmail.com', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq', 1)
+INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [email], [mat_khau], [trangthai]) VALUES (N'019427f5-1e52-402f-b5dc-ec17ad5f139a', N'KH02', 'avatar.jpg', N'Nguyễn Đại', CAST(N'2003-08-08' AS Date), N'0387090080', N'kh02@gmail.com', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq', 1)
+INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [email], [mat_khau], [trangthai]) VALUES (N'22b427f5-1e52-402f-b5dc-ec17ad5f139a', N'KH03', 'avatar.jpg', N'Đào Gia Phong', CAST(N'2003-09-16' AS Date), N'0385370656', N'kh03@gmail.com', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq', 1)
 GO
 	INSERT INTO website_ban_giay.dbo.thuong_hieu (id,ma,ten,trangthai,ten_url) VALUES
 	 (N'F6F425A0-AD73-421F-B76B-09787A50808F',N'TH07',N'Gucci',1,N'Logogucci.jpg'),
@@ -338,7 +338,7 @@ GO
 	 (N'5A6426F1-A954-4F40-ACE4-47646087F8BB',N'TH04',N'Lacoste',1,N'LogoLacoste.jpg'),
 	 (N'12FB3324-EBA7-4F9F-995D-675CAD5097F3',N'TH02',N'Versace',1,N'LogoVersace.jpg'),
 	 (N'18364555-4334-4232-997D-8880592056AD',N'TH10',N'Nike',1,N'LogoNike.jpg'),
-	 (N'BD4301E2-A17E-4F4D-AAEC-A44534AA7FF5',N'TH12',N'Puma',1,N'LogoPuma.jpg'),
+	 (N'BD4301E2-A17E-4F4D-AAEC-A44534AA7FF5',N'TH12',N'Puma',1,N'LogoPuma.png'),
 	 (N'9F92ABD8-69FB-4AC0-9D81-A77C5D525252',N'TH05',N'Adidas',1,N'Logoadidas.jpg'),
 	  (N'26E76171-C2CD-4766-97B8-E814FFA80EA6',N'TH06',N'Chanel',1,N'LogoChanel.jpg'),
 	 (N'B83D14A1-57D9-4966-A111-E913E7574FD4',N'TH01',N'Dior',1,N'Logodior.jpg'),

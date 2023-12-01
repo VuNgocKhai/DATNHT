@@ -53,7 +53,6 @@ public class Giay implements Serializable {
     @JoinColumn(name = "id_thuong_hieu")
     private ThuongHieu thuong_hieu;
 
-
     @JsonIgnore
     @OneToMany(mappedBy = "giay", fetch = FetchType.EAGER) // lấy hết các thông tin
     Set<Anh> anhs;
