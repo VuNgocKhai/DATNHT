@@ -212,36 +212,54 @@
                 <tbody style="max-height: 300px; overflow-y: auto;">
                 <!-- Dữ liệu của tbody -->
                 <tr th:if="${hoaDonListchuaTT.content.isEmpty()}">
-                    <td colspan="9">Không Hóa đơn nào đang chờ</td>
+                    <td colspan="7">
+                        <i style="font-size: 3rem"
+                           class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>
+                        <div class="text-center d-flex justify-content-center align-items-center">
+                            No Data
+                        </div>
+                    </td>
                 </tr>
                 <tr th:each="hd:${hoaDonListchuaTT.content}">
-                    <th scope="row">[[${hd.ma}]]</th>
+                    <th>
+                        <span th:if="${hd.ma == null}" class="badge badge-pill badge-danger">Chưa có tt</span>
+                        <span th:if="${hd.ma != null}" th:text="${hd.ma}"></span>
+                    </th>
                     <th>
                         <span th:if="${hd.ngay_tao == null}"
-                              class="badge badge-pill badge-primary badge-sm">Đang Chờ</span>
+                              class="badge badge-pill badge-warning">Đang Chờ</span>
                         <span th:if="${hd.ngay_tao != null}" th:text="${hd.ngay_tao}"></span>
                     </th>
-                    <th>[[${hd.nhanVien.hoTen}]]</th>
                     <th>
-                        <span th:if="${hd.khachHang == null}" class="badge badge-pill badge-primary badge-sm">Chưa Có Thông Tin</span>
-                        <span th:if="${hd.khachHang != null}" th:text="${hd.khachHang.hoten}"></span>
+                        <span th:if="${hd.nhanVien == null}" class="badge badge-pill badge-warning">Chưa có tt</span>
+                        <span th:if="${hd.nhanVien != null}"
+                              th:text="${hd.nhanVien.hoTen}"></span>
                     </th>
-
+                    <th>
+                        <span th:if="${hd.khachHang == null}" class="badge badge-pill badge-primary">Khách Lẻ</span>
+                        <span th:if="${hd.khachHang != null}"
+                              th:text="${hd.khachHang.hoten}"></span>
+                    </th>
                     <th class="giaBan" th:text="${hd.tong_tien != null ? hd.tong_tien : 0}"></th>
-                    <th >
-                        <span th:if="${hd.trangthai == 0}" class="badge badge-pill badge-sm" style="background-color: #d39cff">Chờ xác nhận</span>
-                        <span th:if="${hd.trangthai == 1}" class="badge badge-pill badge-sm" style="background-color: #4545ff">Chờ giao</span>
-                        <span th:if="${hd.trangthai == 2}" class="badge badge-pill badge-sm" style="background-color: yellow">Vận chuyển</span>
-                        <span th:if="${hd.trangthai == 3}" class="badge badge-pill badge-sm" style="background-color: #00a219">Hoàn thành</span>
-                        <span th:if="${hd.trangthai == 4}" class="badge badge-pill badge-sm" style="background-color: orangered">Đã hủy</span>
+                    <th>
+                        <span th:if="${hd.trangthai == 0}" class="badge badge-pill badge-sm"
+                              style="background-color: #d39cff">Chờ xác nhận</span>
+                        <span th:if="${hd.trangthai == 1}" class="badge badge-pill badge-sm"
+                              style="background-color: #4545ff">Chờ giao</span>
+                        <span th:if="${hd.trangthai == 2}" class="badge badge-pill badge-sm"
+                              style="background-color: yellow">Vận chuyển</span>
+                        <span th:if="${hd.trangthai == 3}" class="badge badge-pill badge-sm"
+                              style="background-color: #00a219">Hoàn thành</span>
+                        <span th:if="${hd.trangthai == 4}" class="badge badge-pill badge-sm"
+                              style="background-color: orangered">Đã hủy</span>
                     </th>
 
                     <th>
                         <a onclick="return confirm('Bạn có chắc chắn muốn hủy?')"
-                           th:href="@{|/admin/ban-hang-tai-quay/delete/${hd.id}|}"><i style="color: red" class="bi bi-trash"></i></a>
-                        <a
-                                th:href="@{|/admin/ban-hang-tai-quay/view-cart/${hd.ma}|}"><i style="color: #a2a237"
-                                class="bi bi-pencil-square"></i></a>
+                           th:href="@{|/admin/ban-hang-tai-quay/delete/${hd.id}|}"><i style="color: red"
+                                                                                      class="bi bi-trash"></i></a>
+                        <a th:href="@{|/admin/ban-hang-tai-quay/view-cart/${hd.ma}|}"><i style="color: #a2a237"
+                                                                                         class="bi bi-pencil-square"></i></a>
                     </th>
                 </tr>
                 </tbody>
@@ -287,7 +305,6 @@
         integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!--<script src="/assets/js/jquery.min.js"></script>-->
 <script src="/assets/js/popper.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>

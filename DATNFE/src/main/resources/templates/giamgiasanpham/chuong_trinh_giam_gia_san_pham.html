@@ -22,10 +22,7 @@
 
 </head>
 <body>
-
-
 <div class="wrapper d-flex align-items-stretch">
-
     <!--    START SILDEBAR      -->
     <nav id="sidebar">
         <div class="custom-menu">
@@ -141,9 +138,7 @@
         </div>
     </nav>
     <!--    END SILDEBAR      -->
-
-
-    <div id="content" class="p-4 p-md-5 pt-5">
+    <div id="content" class="p-4 p-md-5 pt-5 bg-secondary">
         <!-- Start Page Content  -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: -50px;">
             <div class="container-fluid" style="display: flex;justify-content: end;">
@@ -166,214 +161,216 @@
         </nav>
         <!--        End Page Content    -->
 
-
-        <!--        START FORM ADD MODAL      -->
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tạo khuyến mại</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div>
-                            <div class="list-group">
-                                <!--        START FORM ADD      -->
-                                <div class="container"
-                                     style="border: 1px solid black;border-radius: 10px;padding: 20px; background-color: #E4F4F7">
-                                    <form action="/admin/chuong-trinh-giam-gia-sp/create" method="post"
-                                          th:object="${voucherForm}" id="voucherForm1">
-                                        <!--                <input type="text" hidden th:field="*{id}">-->
-                                        <table class="table table-borderless">
-                                            <tr>
-                                                <input hidden type="text" th:field="*{maKhuyenMai}" class="form-control"
-                                                       id="formGroupExampleInput" th:text="${valMaKM}">
-                                                <td><label for="formGroupExampleInput2">Tên khuyến mại</label></td>
-                                                <td>
-                                                    <input type="text" th:field="*{tenKhuyenMai}" class="form-control"
-                                                           id="tenKhuyenMaiInput"
-                                                           placeholder="Nhập tên">
-                                                    <small class="text-danger" id="tenKhuyenMaiError"></small>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><label for="formGroupExampleInput2">Ngày bắt đầu</label></td>
-                                                <td>
-                                                    <input type="date" th:field="*{ngayBatDau}" class="form-control"
-                                                           id="ngayBatDauInput"
-                                                           placeholder="Nhập ngày bắt đầu">
-                                                    <small class="text-danger" id="ngayBatDauError"></small>
-                                                </td>
-                                                <td><label for="formGroupExampleInput2">Ngày kết thúc</label></td>
-                                                <td>
-                                                    <input type="date" th:field="*{ngayKetThuc}" class="form-control"
-                                                           id="ngayKetThucInput"
-                                                           placeholder="Nhập ngày kết thúc">
-                                                    <small class="text-danger" id="ngayKetThucError"></small>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><label for="formGroupExampleInput2">Phần trăm giảm</label></td>
-                                                <td>
-                                                    <input type="number" th:field="*{phanTramGiam}" class="form-control"
-                                                           id="formGroupExampleInput2"
-                                                           placeholder="Nhập số %">
-                                                </td>
-                                                <td>
-                                                    <lable>Trạng Thái :</lable>
-                                                </td>
-                                                <td rowspan="2">
-                                                    <div>
-                                                        <input class="form-check-input" type="radio"
-                                                               th:field="*{trangThai}" id="gridRadios1"
-                                                               th:value="1">Hoạt động
-                                                    </div>
-                                                    <div>
-                                                        <input class="form-check-input" type="radio"
-                                                               th:field="*{trangThai}" id="gridRadios2"
-                                                               th:value="0">Ngừng hoạt động
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
-<!--                                        <button class="btn btn-primary" type="submit" style="margin: 20px;">Tạo-->
-<!--                                        </button>-->
-                                        <button class="btn btn-primary" type="button" onclick="validateForm()" style="margin: 20px;">Tạo
-                                        </button>
-                                        <button th:href="@{|/admin/chuong-trinh-giam-gia-sp|}" type="button"
-                                                class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close
-                                        </button>
-                                    </form>
-                                </div>
-                                <!--        END FORM ADD      -->
+        <div class="container-lg bg-light border">
+            <div style="padding: 15px">
+                <h4 class="text-center">DANH SÁCH CHƯƠNG TRÌNH KHUYẾN MÃI SẢN PHẨM</h4>
+                <hr>
+                <!--        START FORM ADD MODAL      -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content bg-light">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Tạo khuyến mại</h5>
                             </div>
+                            <div class="modal-body">
+                                <div>
+                                    <div class="list-group">
+                                        <!--        START FORM ADD      -->
+                                        <div class="container"
+                                             style="border: 1px solid black;border-radius: 10px;padding: 20px; background-color: #E4F4F7">
+                                            <form action="/admin/chuong-trinh-giam-gia-sp/create" method="post"
+                                                  th:object="${voucherForm}" id="voucherForm1">
+                                                <!--                <input type="text" hidden th:field="*{id}">-->
+                                                <table class="table table-borderless">
+                                                    <tr>
+                                                        <input hidden type="text" th:field="*{maKhuyenMai}"
+                                                               class="form-control"
+                                                               id="formGroupExampleInput" th:text="${valMaKM}">
+                                                        <td><label for="formGroupExampleInput2">Tên khuyến mại</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" th:field="*{tenKhuyenMai}"
+                                                                   class="form-control"
+                                                                   id="tenKhuyenMaiInput"
+                                                                   placeholder="Nhập tên">
+                                                            <small class="text-danger" id="tenKhuyenMaiError"></small>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label for="formGroupExampleInput2">Ngày bắt đầu</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="date" th:field="*{ngayBatDau}"
+                                                                   class="form-control"
+                                                                   id="ngayBatDauInput"
+                                                                   placeholder="Nhập ngày bắt đầu">
+                                                            <small class="text-danger" id="ngayBatDauError"></small>
+                                                        </td>
+                                                        <td><label for="formGroupExampleInput2">Ngày kết thúc</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="date" th:field="*{ngayKetThuc}"
+                                                                   class="form-control"
+                                                                   id="ngayKetThucInput"
+                                                                   placeholder="Nhập ngày kết thúc">
+                                                            <small class="text-danger" id="ngayKetThucError"></small>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label for="formGroupExampleInput2">Phần trăm giảm</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" th:field="*{phanTramGiam}"
+                                                                   class="form-control"
+                                                                   id="formGroupExampleInput2"
+                                                                   placeholder="Nhập số %">
+                                                        </td>
+                                                        <td>
+                                                            <lable>Trạng Thái :</lable>
+                                                        </td>
+                                                        <td rowspan="2">
+                                                            <div>
+                                                                <input class="form-check-input" type="radio"
+                                                                       th:field="*{trangThai}" id="gridRadios1"
+                                                                       th:value="1">Hoạt động
+                                                            </div>
+                                                            <div>
+                                                                <input class="form-check-input" type="radio"
+                                                                       th:field="*{trangThai}" id="gridRadios2"
+                                                                       th:value="0">Ngừng hoạt động
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <!--                                        <button class="btn btn-primary" type="submit" style="margin: 20px;">Tạo-->
+                                                <!--                                        </button>-->
+                                                <button class="btn btn-primary" type="button" onclick="validateForm()"
+                                                        style="margin: 20px;">Tạo
+                                                </button>
+                                                <button th:href="@{|/admin/chuong-trinh-giam-gia-sp|}" type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <!--        END FORM ADD      -->
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-
                 </div>
-            </div>
-        </div>
-
-        <!--            END MODAL       -->
-
-
-        <!--        START FORM SEARCH      -->
-        <div style="padding: 20px">
-            <form class="form-inline" action="/admin/chuong-trinh-giam-gia-sp" method="get">
-                <div class="form-group mx-sm-3">
-                    <input type="text" name="keyword" placeholder="Nhập mã hoặc tên khuyến mại" class="form-control">
-                </div>
-                <div class="form-group mx-sm-3 ">
-                    <button type="submit" class="btn btn-primary bi bi-search"></button>
-                </div>
-                <div class="form-group mx-sm-3">
-                    <button style="margin-left: 10px" type="button" class="btn btn-primary bi bi-plus-circle-fill"
-                            data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                        Tạo khuyến mại
-                    </button>
-                </div>
+                <!--        END FORM ADD MODAL MODAL       -->
+                <!--        START FORM SEARCH      -->
+                <div style="padding: 20px">
+                    <form class="form-inline" action="/admin/chuong-trinh-giam-gia-sp" method="get">
+                        <div class="form-group mx-sm-3">
+                            <input type="text" name="keyword" placeholder="Nhập mã hoặc tên khuyến mại"
+                                   class="form-control">
+                        </div>
+                        <div class="form-group mx-sm-3 ">
+                            <button type="submit" class="btn btn-primary bi bi-search"></button>
+                        </div>
+                        <div class="form-group mx-sm-3">
+                            <button style="margin-left: 10px" type="button"
+                                    class="btn btn-primary bi bi-plus-circle-fill"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                Tạo khuyến mại
+                            </button>
+                        </div>
 
 
-            </form>
-            <div style="padding: 20px">
-                <form class="form-inline" action="/admin/chuong-trinh-giam-gia-sp" method="get">
-                    <div>
-                        <button type="submit" class="btn btn-light">
-                            <input name="keyword" type="radio" value="0">Ngừng hoạt động
-                        </button>
+                    </form>
+                    <div style="padding: 20px">
+                        <form class="form-inline" action="/admin/chuong-trinh-giam-gia-sp" method="get">
+                            <div>
+                                <button type="submit" class="btn btn-light">
+                                    <input name="keyword" type="radio" value="0">Ngừng hoạt động
+                                </button>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-light">
+                                    <input name="keyword" type="radio" value="1">Đang hoạt động
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <div>
-                        <button type="submit" class="btn btn-light">
-                            <input name="keyword" type="radio" value="1">Đang hoạt động
-                        </button>
+
+
+                </div>
+                <!--        END FORM SEARCH      -->
+                <!--        START FILL TABLE      -->
+                <table class="table table-hover" style="margin: 20px 0;">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Mã</th>
+                        <th scope="col">Tên Khuyến Mại</th>
+                        <th scope="col">Phần trăm</th>
+                        <th scope="col">Ngày bắt đầu</th>
+                        <th scope="col">Ngày kết thúc</th>
+                        <th scope="col">Trạng Thái</th>
+                        <th scope="col">Sự Kiện</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item,state:${voucherTable.content}">
+                        <td scope="row">[[${item.maKhuyenMai}]]</td>
+                        <td>[[${item.tenKhuyenMai}]]</td>
+                        <td>[[${item.phanTramGiam}]]</td>
+                        <td>[[${item.ngayBatDau}]]</td>
+                        <td>[[${item.ngayKetThuc}]]</td>
+
+                        <td>
+                            <span th:if="${item.trangThai == 1}">Đang hoạt động</span>
+                            <span th:if="${item.trangThai == 0}">Ngừng hoạt động</span>
+                        </td>
+                        <td>
+                            <a class="btn-sm btn-warning"
+                               th:href="@{|/admin/chuong-trinh-giam-gia-sp/detail/${item.maKhuyenMai}|}">
+                                <i style="color: white" class="bi bi-eye"></i>
+                            </a>
+                            <a class="btn-detail btn-sm btn-danger" href="#" data-bs-toggle="modal"
+                               data-bs-target="#exampleModal1" th:maKhuyenMai="${item.maKhuyenMai}">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--        END FILL TABLE      -->
+                <!--        START PAGEABLE      -->
+                <nav aria-label="Page navigation example" style="display: flex;justify-content: space-between;">
+                    <div style="margin-left: 20px">
+                        <p>Bạn đang xem trang [[${voucherTable.number+1}]] / [[${voucherTable.totalPages}]]</p>
                     </div>
-                </form>
+                    <ul class="pagination" style="margin-right: 24px;">
+                        <li class="page-item">
+                            <a class="page-link"
+                               th:href="@{|/admin/chuong-trinh-giam-gia-sp?page=${voucherTable.number-1}&keyword=${keyword}|}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+
+                        <li th:each="tongtrang,status:${#numbers.sequence(1, voucherTable.totalPages)}"
+                            class="page-item">
+                            <a class="page-link"
+                               th:href="@{|/admin/chuong-trinh-giam-gia-sp?page=${status.index}&keyword=${keyword}|}">[[${status.index+1}]]</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link"
+                               th:href="@{|/admin/chuong-trinh-giam-gia-sp?page=${voucherTable.number+1}&keyword=${keyword}|}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!--        END PAGEABLE      -->
             </div>
-
-
         </div>
-        <!--        END FORM SEARCH      -->
-
-
-        <!--        START FILL TABLE      -->
-        <div style="margin: 20px">
-            <h1 style="text-transform: uppercase;
-    color: black;font-family: 'Lora';text-align: center;">Danh Sách Khuyến mại</h1>
-            <table class="table" style="margin: 20px 0;">
-                <thead class="thead-light">
-                <tr>
-                    <th scope="col">Mã</th>
-                    <th scope="col">Tên Khuyến Mại</th>
-                    <th scope="col">Phần trăm</th>
-                    <th scope="col">Ngày bắt đầu</th>
-                    <th scope="col">Ngày kết thúc</th>
-                    <th scope="col">Trạng Thái</th>
-                    <th scope="col">Sự Kiện</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="item,state:${voucherTable.content}">
-                    <td scope="row">[[${item.maKhuyenMai}]]</td>
-                    <td>[[${item.tenKhuyenMai}]]</td>
-                    <td>[[${item.phanTramGiam}]]</td>
-                    <!--                    <td th:text="${#dates.format(item.ngayBatDau, 'dd-MM-yyyy')}>Ngay BD</td>-->
-                    <td>[[${item.ngayBatDau}]]</td>
-                    <td>[[${item.ngayKetThuc}]]</td>
-
-                    <td>
-                        <span th:if="${item.trangThai == 1}">Đang hoạt động</span>
-                        <span th:if="${item.trangThai == 0}">Ngừng hoạt động</span>
-                    </td>
-                    <!--                        <td th:text="${item.trangThai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>-->
-                    <td>
-                        <a th:href="@{|/admin/chuong-trinh-giam-gia-sp/detail/${item.maKhuyenMai}|}"
-                           class="bi bi-eye"></a>
-                        <a th:href="@{|/admin/chuong-trinh-giam-gia-sp/viewupdate/${item.maKhuyenMai}|}"
-                           style="color: #b1b108" class="bi bi-pencil-square"></a>
-                        <a href="#" class="btn-detail" data-bs-toggle="modal" data-bs-target="#exampleModal1"
-                           th:maKhuyenMai="${item.maKhuyenMai}">
-                            <i style="color: #4DC7A0" class="bi bi-pencil-square"></i>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <!--        END FILL TABLE      -->
-
-
-        <!--        START PAGEABLE      -->
-        <nav aria-label="Page navigation example" style="display: flex;justify-content: space-between;">
-            <div style="margin-left: 20px">
-                <p>Bạn đang xem trang [[${voucherTable.number+1}]] / [[${voucherTable.totalPages}]]</p>
-            </div>
-            <ul class="pagination" style="margin-right: 24px;">
-                <li class="page-item">
-                    <a class="page-link"
-                       th:href="@{|/admin/chuong-trinh-giam-gia-sp?page=${voucherTable.number-1}&keyword=${keyword}|}"
-                       aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-
-                <li th:each="tongtrang,status:${#numbers.sequence(1, voucherTable.totalPages)}" class="page-item">
-                    <a class="page-link"
-                       th:href="@{|/admin/chuong-trinh-giam-gia-sp?page=${status.index}&keyword=${keyword}|}">[[${status.index+1}]]</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link"
-                       th:href="@{|/admin/chuong-trinh-giam-gia-sp?page=${voucherTable.number+1}&keyword=${keyword}|}"
-                       aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!--        END PAGEABLE      -->
-
     </div>
     <!--    Phần modal update giảm giá sản phẩm: -->
     <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -487,16 +484,16 @@
     function validateForm() {
         // Làm sạch thông báo lỗi
         document.getElementById("tenKhuyenMaiError").innerHTML = "";
-        var isErr=false;
+        var isErr = false;
 
         // Kiểm tra lỗi cho từng trường
         var tenKhuyenMai = document.getElementById("tenKhuyenMaiInput").value;
         if (tenKhuyenMai.trim() === "") {
             document.getElementById("tenKhuyenMaiError").innerHTML = "Không được để trống!";
-            isErr=true;
+            isErr = true;
         }
 
-        if(!isErr){
+        if (!isErr) {
             document.getElementById("voucherForm1").submit();
         }
     }
@@ -505,16 +502,16 @@
         // Làm sạch thông báo lỗi
         document.getElementById("tenKhuyenMaiError").innerHTML = "";
 
-        var isErr=false;
+        var isErr = false;
 
         // Kiểm tra lỗi cho từng trường
         var hoTen = document.getElementById("hoTenInput2").value;
         if (hoTen.trim() === "") {
             document.getElementById("hoTenError2").innerHTML = "Vui lòng nhập Họ tên.";
-            isErr=true;
+            isErr = true;
         }
 
-        if(!isErr){
+        if (!isErr) {
             document.getElementById("voucherForm2").submit();
         }
     }

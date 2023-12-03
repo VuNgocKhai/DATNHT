@@ -166,9 +166,9 @@
                 <div style="margin: 20px">
                     <div class="row">
                         <div class="col-8">
-                            <h3 style="text-transform: uppercase; color: black; text-align: left;">
+                            <h4 style="text-transform: uppercase; color: black; text-align: left;">
                                 Danh Sách Các CT Giảm Giá Hóa Đơn
-                            </h3>
+                            </h4>
                         </div>
                         <!--                    NÚT THÊM MỚI HÓA ĐƠN-->
                         <div class="col-4 text-right">
@@ -185,10 +185,12 @@
                         <div class="modal-dialog modal-xl">
                             <div class="modal-content bg-light">
                                 <div class="modal-header">
-                                    <h5 class="modal-title text-center" id="exampleModalLabel">Thêm Mới Giảm Giá Hóa Đơn</h5>
+                                    <h5 class="modal-title text-center" id="exampleModalLabel">Thêm Mới Giảm Giá Hóa
+                                        Đơn</h5>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="myForm" action="/admin/giamgiahoadon/create" method="post" th:object="${giamgiahoadon}">
+                                    <form id="myForm" action="/admin/giamgiahoadon/create" method="post"
+                                          th:object="${giamgiahoadon}">
                                         <input type="text" hidden th:field="*{id}">
                                         <div class="row p-3">
                                             <div class="col-4">
@@ -206,7 +208,9 @@
                                             </div>
                                             <div class="col-4">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInputTen">Tên<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></label>
+                                                    <label for="formGroupExampleInputTen">Tên<abbr
+                                                            style="color: red;text-decoration: none"
+                                                            title="Bắt buộc">*</abbr></label>
                                                     <input type="text" th:field="*{ten}"
                                                            class="form-control bg-secondary"
                                                            id="formGroupExampleInputTen">
@@ -216,7 +220,9 @@
                                             </div>
                                             <div class="col-4">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInputDieuKien">Điều Kiện<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></label>
+                                                    <label for="formGroupExampleInputDieuKien">Điều Kiện<abbr
+                                                            style="color: red;text-decoration: none"
+                                                            title="Bắt buộc">*</abbr></label>
                                                     <input type="number" th:field="*{dieu_kien}"
                                                            class="form-control bg-secondary"
                                                            id="formGroupExampleInputDieuKien">
@@ -226,7 +232,9 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInputNgayBatDau">Ngày Bắt Đầu<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></label>
+                                                    <label for="formGroupExampleInputNgayBatDau">Ngày Bắt Đầu<abbr
+                                                            style="color: red;text-decoration: none"
+                                                            title="Bắt buộc">*</abbr></label>
                                                     <input type="date" th:field="*{ngay_bat_dau}"
                                                            class="form-control bg-secondary"
                                                            id="formGroupExampleInputNgayBatDau">
@@ -236,7 +244,9 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInputNgayKetThuc">Ngày Kết Thúc<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></label>
+                                                    <label for="formGroupExampleInputNgayKetThuc">Ngày Kết Thúc<abbr
+                                                            style="color: red;text-decoration: none"
+                                                            title="Bắt buộc">*</abbr></label>
                                                     <input type="date" th:field="*{ngay_ket_thuc}"
                                                            class="form-control bg-secondary"
                                                            id="formGroupExampleInputNgayKetThuc">
@@ -247,7 +257,8 @@
                                             <div class="col-4">
                                                 <div class="form-group">
                                                     <label for="formGroupExampleInputSoTienGiamMax">Số Tiền Giảm
-                                                        Max<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></label>
+                                                        Max<abbr style="color: red;text-decoration: none"
+                                                                 title="Bắt buộc">*</abbr></label>
                                                     <input type="number" th:field="*{so_tien_giam_max}"
                                                            class="form-control bg-secondary"
                                                            id="formGroupExampleInputSoTienGiamMax"
@@ -259,7 +270,8 @@
                                             <div class="col-4">
                                                 <div class="form-group">
                                                     <label for="formGroupExampleInputPhanTramGiam">Phần Trăm
-                                                        Giảm<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></label>
+                                                        Giảm<abbr style="color: red;text-decoration: none"
+                                                                  title="Bắt buộc">*</abbr></label>
                                                     <input type="number" th:field="*{phan_tram_giam}"
                                                            class="form-control bg-secondary"
                                                            id="formGroupExampleInputPhanTramGiam"
@@ -270,7 +282,9 @@
                                             </div>
                                             <div class="col-4">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInputSoLuong">Số Lượng<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></label>
+                                                    <label for="formGroupExampleInputSoLuong">Số Lượng<abbr
+                                                            style="color: red;text-decoration: none"
+                                                            title="Bắt buộc">*</abbr></label>
                                                     <input type="number" th:field="*{so_luong}"
                                                            class="form-control bg-secondary"
                                                            id="formGroupExampleInputSoLuong">
@@ -281,7 +295,9 @@
                                             <div class="col-6">
                                                 <fieldset class="form-group">
                                                     <div class="row">
-                                                        <legend class="col-form-label col-sm-3 pt-0">Trạng Thái<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr>
+                                                        <legend class="col-form-label col-sm-3 pt-0">Trạng Thái<abbr
+                                                                style="color: red;text-decoration: none"
+                                                                title="Bắt buộc">*</abbr>
                                                         </legend>
                                                         <div class="col-sm-9">
                                                             <div class="form-check">
@@ -377,19 +393,24 @@
                     <!--                end lọc theo trạng thái-->
                     <!--                lọc theo tên-->
                     <div class="col-4" style="display: flex; align-items: center;">
-                        <form th:action="@{/admin/giamgiahoadon/loc-theo-ten}" method="get" style="margin-bottom: 20px; flex: 1;">
+                        <form th:action="@{/admin/giamgiahoadon/loc-theo-ten}" method="get"
+                              style="margin-bottom: 20px; flex: 1;">
                             <div class="form-group row">
                                 <div class="col-sm-9">
-                                    <label for="ten" style="margin-top: 0.5rem; margin-right: 0.5rem;">Tìm Theo Tên</label>
-                                    <input type="text" class="form-control" id="ten" name="ten" th:value="${loctheotenDetail}" placeholder="Nhập tên cần tìm kiếm">
+                                    <label for="ten" style="margin-top: 0.5rem; margin-right: 0.5rem;">Tìm Theo
+                                        Tên</label>
+                                    <input type="text" class="form-control" id="ten" name="ten"
+                                           th:value="${loctheotenDetail}" placeholder="Nhập tên cần tìm kiếm">
                                 </div>
                                 <div class="col-sm-3" style="display: flex; align-items: flex-end;">
                                     <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
                                 </div>
                             </div>
                         </form>
-                        <button class="btn btn-primary" type="submit" style="display: inline;margin-left: 10px;margin-top: 0.5rem">
-                            <a href="/admin/giamgiahoadon" style="text-decoration: none;color: white;"><i class="bi bi-arrow-clockwise"></i></a>
+                        <button class="btn btn-primary" type="submit"
+                                style="display: inline;margin-left: 10px;margin-top: 0.5rem">
+                            <a href="/admin/giamgiahoadon" style="text-decoration: none;color: white;"><i
+                                    class="bi bi-arrow-clockwise"></i></a>
                         </button>
                     </div>
                     <!--                end lọc theo tên-->
@@ -426,13 +447,15 @@
                         <td class="align-middle"
                             th:text="${item.trangthai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>
                         <td class="align-middle">
-                            <a th:href="@{|/admin/giamgiahoadon/detail/${item.ma}|}"><i class="bi bi-eye"></i></a>
-                            <a href="#" class="btn-detail" data-bs-toggle="modal" data-bs-target="#exampleModal1"
-                               th:ma="${item.ma}">
-                                <i style="color: #b1b108" class="bi bi-pencil-square"></i>
+                            <a class="btn-sm btn-warning" th:href="@{|/admin/giamgiahoadon/detail/${item.ma}|}">
+                                <i style="color: white" class="bi bi-eye"></i>
                             </a>
-                            <a href="" id="delete-btn" class="delete-btn" th:data-id="${item.id}">
-                                <i style="color: red" class="bi bi-trash"></i>
+                            <a class="btn-detail btn-sm btn-success" href="#" data-bs-toggle="modal"
+                               data-bs-target="#exampleModal1" th:ma="${item.ma}">
+                                <i style="color: white" class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="" id="delete-btn" class="delete-btn btn-sm btn-danger" th:data-id="${item.id}">
+                                <i style="color: white" class="bi bi-trash"></i>
                             </a>
                         </td>
                     </tr>
@@ -479,12 +502,15 @@
                             <h5 class="modal-title" id="exampleModalLabel1">Update Giảm Giá Hóa Đơn</h5>
                         </div>
                         <div class="modal-body">
-                            <form id="myFormUpdate" action="/admin/giamgiahoadon/update" method="post" th:object="${giamgiahoadon}">
+                            <form id="myFormUpdate" action="/admin/giamgiahoadon/update" method="post"
+                                  th:object="${giamgiahoadon}">
                                 <input type="text" hidden th:field="*{id}">
                                 <div class="row p-3">
                                     <div class="col-4">
                                         <div class="form-group">
-                                            <label for="formGroupExampleInputMaUpdate">Mã<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></label>
+                                            <label for="formGroupExampleInputMaUpdate">Mã<abbr
+                                                    style="color: red;text-decoration: none"
+                                                    title="Bắt buộc">*</abbr></label>
                                             <input type="text" th:field="*{ma}" class="form-control bg-secondary"
                                                    id="formGroupExampleInputMaUpdate" readonly>
                                             <div id="maUpdateError" class="text-danger"></div>
@@ -492,7 +518,9 @@
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
-                                            <label for="formGroupExampleInputTenUpdate">Tên<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></label>
+                                            <label for="formGroupExampleInputTenUpdate">Tên<abbr
+                                                    style="color: red;text-decoration: none"
+                                                    title="Bắt buộc">*</abbr></label>
                                             <input type="text" th:field="*{ten}" class="form-control bg-secondary"
                                                    id="formGroupExampleInputTenUpdate">
                                             <div id="tenUpdateError" class="text-danger"></div>
@@ -500,7 +528,9 @@
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
-                                            <label for="formGroupExampleInputDieuKienUpdate">Điều Kiện<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></label>
+                                            <label for="formGroupExampleInputDieuKienUpdate">Điều Kiện<abbr
+                                                    style="color: red;text-decoration: none"
+                                                    title="Bắt buộc">*</abbr></label>
                                             <input type="text" th:field="*{dieu_kien}" class="form-control bg-secondary"
                                                    id="formGroupExampleInputDieuKienUpdate">
                                             <div id="dieuKienUpdateError" class="text-danger"></div>
@@ -509,7 +539,9 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="formGroupExampleInputNgayBatDauUpdate">Ngày Bắt Đầu<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></label>
+                                            <label for="formGroupExampleInputNgayBatDauUpdate">Ngày Bắt Đầu<abbr
+                                                    style="color: red;text-decoration: none"
+                                                    title="Bắt buộc">*</abbr></label>
                                             <input type="date" th:field="*{ngay_bat_dau}"
                                                    class="form-control bg-secondary"
                                                    id="formGroupExampleInputNgayBatDauUpdate">
@@ -519,7 +551,9 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="formGroupExampleInputNgayKetThucUpdate">Ngày Kết Thúc<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></label>
+                                            <label for="formGroupExampleInputNgayKetThucUpdate">Ngày Kết Thúc<abbr
+                                                    style="color: red;text-decoration: none"
+                                                    title="Bắt buộc">*</abbr></label>
                                             <input type="date" th:field="*{ngay_ket_thuc}"
                                                    class="form-control bg-secondary"
                                                    id="formGroupExampleInputNgayKetThucUpdate">
@@ -529,7 +563,9 @@
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
-                                            <label for="formGroupExampleInputSoTienGiamMaxUpdate">Số Tiền Giảm Max<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></label>
+                                            <label for="formGroupExampleInputSoTienGiamMaxUpdate">Số Tiền Giảm Max<abbr
+                                                    style="color: red;text-decoration: none"
+                                                    title="Bắt buộc">*</abbr></label>
                                             <input type="number" th:field="*{so_tien_giam_max}"
                                                    class="form-control bg-secondary"
                                                    id="formGroupExampleInputSoTienGiamMaxUpdate"
@@ -540,7 +576,9 @@
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
-                                            <label for="formGroupExampleInputPhanTramGiamUpdate">Phần Trăm Giảm<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></label>
+                                            <label for="formGroupExampleInputPhanTramGiamUpdate">Phần Trăm Giảm<abbr
+                                                    style="color: red;text-decoration: none"
+                                                    title="Bắt buộc">*</abbr></label>
                                             <input type="number" th:field="*{phan_tram_giam}"
                                                    class="form-control bg-secondary"
                                                    id="formGroupExampleInputPhanTramGiamUpdate"
@@ -551,7 +589,9 @@
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
-                                            <label for="formGroupExampleInputSoLuongUpdate">Số Lượng<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></label>
+                                            <label for="formGroupExampleInputSoLuongUpdate">Số Lượng<abbr
+                                                    style="color: red;text-decoration: none"
+                                                    title="Bắt buộc">*</abbr></label>
                                             <input type="number" th:field="*{so_luong}"
                                                    class="form-control bg-secondary"
                                                    id="formGroupExampleInputSoLuongUpdate">
@@ -562,7 +602,9 @@
                                     <div class="col-6">
                                         <fieldset class="form-group">
                                             <div class="row">
-                                                <legend class="col-form-label col-sm-2 pt-0">Trạng Thái<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr></legend>
+                                                <legend class="col-form-label col-sm-2 pt-0">Trạng Thái<abbr
+                                                        style="color: red;text-decoration: none"
+                                                        title="Bắt buộc">*</abbr></legend>
                                                 <div class="col-sm-10">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
@@ -615,15 +657,18 @@
         integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="/assets/js/popper.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+<!--Begin confirm delete giảm giá hóa đơn-->
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Xử lý sự kiện khi người dùng click vào nút "Xóa"
-        $(document).on('click', '.delete-btn', function(e) {
+        $(document).on('click', '.delete-btn', function (e) {
             e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
 
             var itemId = $(this).data('id');
@@ -640,14 +685,14 @@
                         $.ajax({
                             url: '/admin/giamgiahoadon/delete/' + itemId,
                             method: 'DELETE',
-                            success: function(response) {
+                            success: function (response) {
                                 swal("Xóa thành công!", {
                                     icon: "success",
                                 });
                                 // Tải lại bảng dữ liệu sau khi xóa
                                 $('#TableGGHD').load(location.href + ' #TableGGHD');
                             },
-                            error: function(xhr, status, error) {
+                            error: function (xhr, status, error) {
                                 // Sử dụng SweetAlert trong else khi xóa thất bại
                                 swal({
                                     title: "Xóa thất bại!",
@@ -673,6 +718,7 @@
         });
     });
 </script>
+<!--End confirm delete giảm giá hóa đơn-->
 
 <!--Begin script cho phần update-->
 <script>

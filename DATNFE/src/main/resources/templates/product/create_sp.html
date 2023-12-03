@@ -10,12 +10,11 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-
 <div class="wrapper d-flex align-items-stretch">
     <nav id="sidebar">
         <div class="custom-menu">
@@ -138,10 +137,8 @@
 
         </div>
     </nav>
-
     <!-- Page Content  -->
-
-    <div id="content" class="p-4 p-md-5 pt-5">
+    <div id="content" class="p-4 p-md-5 pt-5 bg-secondary">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: -50px;">
             <div class="container-fluid" style="display: flex;justify-content: end;">
                 <ul class="navbar-nav">
@@ -160,129 +157,126 @@
                 </ul>
             </div>
         </nav>
-        <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px">
-            <h3 style="text-align: center">THÊM SẢN PHẨM</h3>
-            <form id="kichcoForm" action="/admin/sanpham/create" method="post" th:object="${sanpham}">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label class="required">Mã Sản Phẩm :</label>
-                        <input type="text" class="form-control" disabled id="formGroupExampleInput" placeholder="Mã Sản Phẩm"  th:field="*{ma}" >
+        <div class="container-lg bg-light border">
+            <div style="padding: 15px">
+                <h3 style="text-align: center">THÊM SẢN PHẨM</h3>
+                <form id="kichcoForm" action="/admin/sanpham/create" method="post" th:object="${sanpham}">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="required">Mã Sản Phẩm :</label>
+                            <input type="text" class="form-control" disabled id="formGroupExampleInput" placeholder="Mã Sản Phẩm"  th:field="*{ma}" >
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="required">Tên Sản Phẩm :</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput1" placeholder="Tên Sản Phẩm"   th:field="*{ten}">
+                            <span id="tenError" class="error-message"></span>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label class="required">Tên Sản Phẩm :</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput1" placeholder="Tên Sản Phẩm"   th:field="*{ten}">
-                        <span id="tenError" class="error-message"></span>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="required">Giá Nhập :</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Giá Nhập Sản Phẩm"  th:field="*{gianhap}">
+                            <span id="giaNhapError" class="error-message"></span>
 
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="required">Giá Bán :</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput3" placeholder="Giá Bán Sản Phẩm"  th:field="*{giaban}">
+                            <span id="giaBanError" class="error-message"></span>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label class="required">Giá Nhập :</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Giá Nhập Sản Phẩm"  th:field="*{gianhap}">
-                        <span id="giaNhapError" class="error-message"></span>
-
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label class="required">Thương Hiệu :</label>
+                            <select class="form-control" th:field="*{thuong_hieu.id}">
+                                <option th:each="cg:${listThuongHieu}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="required">Chất Liệu :</label>
+                            <select class="form-control" th:field="*{chat_lieu.id}">
+                                <option th:each="cg:${listChatLieu}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="required">Xuất Xứ :</label>
+                            <select class="form-control" th:field="*{xuat_xu.id}">
+                                <option th:each="cg:${listXuatXu}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="required">Màu Sắc :</label>
+                            <select class="form-control" th:field="*{mau_sac.id}">
+                                <option th:each="cg:${listMauSac}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label class="required">Giá Bán :</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput3" placeholder="Giá Bán Sản Phẩm"  th:field="*{giaban}">
-                        <span id="giaBanError" class="error-message"></span>
-
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label class="required">Kiểu Dáng :</label>
+                            <select class="form-control" th:field="*{kieu_dang.id}">
+                                <option th:each="cg:${listKieuDang}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="required">Đế Giày :</label>
+                            <select class="form-control" th:field="*{de_giay.id}">
+                                <option th:each="cg:${listDeGiay}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="required">Gioi Tinh :</label>
+                            <select class="form-control" th:field="*{gioi_tinh.id}">
+                                <option th:each="cg:${listGioiTinh}" th:value="${cg.id}">[[${cg.ten}]]</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label class="required">Thương Hiệu :</label>
-                        <select class="form-control" th:field="*{thuong_hieu.id}">
-                            <option th:each="cg:${listThuongHieu}" th:value="${cg.id}">[[${cg.ten}]]</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="required">Chất Liệu :</label>
-                        <select class="form-control" th:field="*{chat_lieu.id}">
-                            <option th:each="cg:${listChatLieu}" th:value="${cg.id}">[[${cg.ten}]]</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label class="required">Xuất Xứ :</label>
-                        <select class="form-control" th:field="*{xuat_xu.id}">
-                            <option th:each="cg:${listXuatXu}" th:value="${cg.id}">[[${cg.ten}]]</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="required">Màu Sắc :</label>
-                        <select class="form-control" th:field="*{mau_sac.id}">
-                            <option th:each="cg:${listMauSac}" th:value="${cg.id}">[[${cg.ten}]]</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label class="required">Kiểu Dáng :</label>
-                        <select class="form-control" th:field="*{kieu_dang.id}">
-                            <option th:each="cg:${listKieuDang}" th:value="${cg.id}">[[${cg.ten}]]</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label class="required">Đế Giày :</label>
-                        <select class="form-control" th:field="*{de_giay.id}">
-                            <option th:each="cg:${listDeGiay}" th:value="${cg.id}">[[${cg.ten}]]</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label class="required">Gioi Tinh :</label>
-                        <select class="form-control" th:field="*{gioi_tinh.id}">
-                            <option th:each="cg:${listGioiTinh}" th:value="${cg.id}">[[${cg.ten}]]</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label class="required">Mô Tả :</label>
-                        <textarea class="form-control" id="formGroupExampleInput4" style="height: 140px !important;"  rows="30"   th:field="*{mota}"></textarea>
-                        <span id="moTaError" class="error-message"></span>
-                    </div>
-                    <fieldset class="form-group col-md-6">
-                        <div class="row">
-                            <legend class="col-form-label col-sm-2 pt-0 required" >Trạng Thái : </legend>
-                            <div class="col-sm-10">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="gridRadios1" th:value="1"  th:field="*{trangthai}">
-                                    <label class="form-check-label" for="gridRadios1">
-                                        Hoạt Động
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio"  id="gridRadios2" th:value="0"  th:field="*{trangthai}">
-                                    <label class="form-check-label" for="gridRadios2">
-                                        Không Hoạt Động
-                                    </label>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="required">Mô Tả :</label>
+                            <textarea class="form-control" id="formGroupExampleInput4" style="height: 140px !important;"  rows="30"   th:field="*{mota}"></textarea>
+                            <span id="moTaError" class="error-message"></span>
+                        </div>
+                        <fieldset style="margin-top: 30px" class="form-group col-md-6">
+                            <div class="row">
+                                <legend class="col-form-label col-sm-3 pt-0 required" >Trạng Thái : </legend>
+                                <div class="col-sm-9">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="gridRadios1" th:value="1"  th:field="*{trangthai}">
+                                        <label class="form-check-label" for="gridRadios1">
+                                            Hoạt Động
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"  id="gridRadios2" th:value="0"  th:field="*{trangthai}">
+                                        <label class="form-check-label" for="gridRadios2">
+                                            Không Hoạt Động
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <legend class="col-form-label col-sm-2 pt-0 required" >Độ Hot : </legend>
-                            <div class="col-sm-10">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio"  th:value="1"  th:field="*{do_hot}">
-                                    <label class="form-check-label" for="gridRadios1">
-                                        Đang Hot
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio"  th:value="0"  th:field="*{do_hot}">
-                                    <label class="form-check-label" for="gridRadios2">
-                                        Bình Thường
-                                    </label>
+                            <div class="row">
+                                <legend class="col-form-label col-sm-3 pt-0 required" >Độ Hot : </legend>
+                                <div class="col-sm-9">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"  th:value="1"  th:field="*{do_hot}">
+                                        <label class="form-check-label" for="gridRadios1">
+                                            Đang Hot
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"  th:value="0"  th:field="*{do_hot}">
+                                        <label class="form-check-label" for="gridRadios2">
+                                            Bình Thường
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <button type="submit" class="btn btn-primary">Xác Nhận</button>
-            </form>
+                        </fieldset>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Xác Nhận</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
