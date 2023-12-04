@@ -163,7 +163,6 @@ create table khach_hang (
 	foreign key (id_hkh) references hang_khach_hang(id)
 )
 
-drop table y_kien_dong_gop
 create table y_kien_dong_gop (
 	id uniqueidentifier primary key default newid(),
 	ma varchar(20) unique,
@@ -176,8 +175,6 @@ create table y_kien_dong_gop (
 	foreign key (id_khach_hang) references khach_hang(id),
 	)
   
-  select * from y_kien_dong_gop
-
 create table vi_diem (
 	id uniqueidentifier primary key default newid(),
 	id_khach_hang uniqueidentifier unique,
