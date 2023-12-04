@@ -162,6 +162,22 @@ create table khach_hang (
 	trangthai int null,
 	foreign key (id_hkh) references hang_khach_hang(id)
 )
+
+drop table y_kien_dong_gop
+create table y_kien_dong_gop (
+	id uniqueidentifier primary key default newid(),
+	ma varchar(20) unique,
+	id_khach_hang uniqueidentifier,
+	ten_nguoi_dg nvarchar(50) null,
+	so_dien_thoai nvarchar(20) null,
+	email nvarchar(255) null,
+	noi_dung nvarchar(255) null,
+	trangthai int null,
+	foreign key (id_khach_hang) references khach_hang(id),
+	)
+  
+  select * from y_kien_dong_gop
+
 create table vi_diem (
 	id uniqueidentifier primary key default newid(),
 	id_khach_hang uniqueidentifier unique,
