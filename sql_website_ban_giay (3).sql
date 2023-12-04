@@ -162,6 +162,22 @@ create table khach_hang (
 	trangthai int null,
 	foreign key (id_hkh) references hang_khach_hang(id)
 )
+
+drop table y_kien_dong_gop
+create table y_kien_dong_gop (
+	id uniqueidentifier primary key default newid(),
+	ma varchar(20) unique,
+	id_khach_hang uniqueidentifier,
+	ten_nguoi_dg nvarchar(50) null,
+	so_dien_thoai nvarchar(20) null,
+	email nvarchar(255) null,
+	noi_dung nvarchar(255) null,
+	trangthai int null,
+	foreign key (id_khach_hang) references khach_hang(id),
+	)
+  
+  select * from y_kien_dong_gop
+
 create table vi_diem (
 	id uniqueidentifier primary key default newid(),
 	id_khach_hang uniqueidentifier unique,
@@ -1009,3 +1025,5 @@ INSERT [dbo].[anh_giay] ([id], [ten_url], [id_giay], [trangthai]) VALUES (N'c913
 INSERT [dbo].[anh_giay] ([id], [ten_url], [id_giay], [trangthai]) VALUES (N'b28d3cfa-9f19-9a49-9dd4-fe0abcf42cf9', N'nike2_3.jpg', N'12300a57-8b03-2846-927e-6cfc2ae3b52e', NULL)
 INSERT [dbo].[anh_giay] ([id], [ten_url], [id_giay], [trangthai]) VALUES (N'07267569-3361-5a47-ad78-fecfd9c220e4', N'ysl3_2.jpg', N'3af55b31-a9a6-e548-a8f7-6e598f233d98', NULL)
 GO
+
+select * from hoa_don
