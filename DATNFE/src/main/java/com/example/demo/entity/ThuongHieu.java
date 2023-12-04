@@ -12,7 +12,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@ToString
+//@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class ThuongHieu implements Serializable {

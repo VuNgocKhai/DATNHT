@@ -13,7 +13,6 @@ import java.util.*;
 @Entity
 @Getter
 @Setter
-@ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -59,11 +58,11 @@ public class Giay implements Serializable {
     private ThuongHieu thuong_hieu;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "giay", fetch = FetchType.EAGER) // lấy hết các thông tin
+    @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER) // lấy hết các thông tin
     Set<Anh> anhs;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "giay", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER)
     Set<GiayChiTiet> giayChiTiets;
 
     private String mota;
@@ -72,7 +71,7 @@ public class Giay implements Serializable {
 
     private BigDecimal giaban;
 
-    @OneToMany(mappedBy = "giay", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER)
     private Set<DanhGia> danhGias;
 
 
@@ -121,4 +120,14 @@ public class Giay implements Serializable {
        }
        return Long.parseLong("0");
    }
+
+    @Override
+    public String toString() {
+        return "Giay{" +
+                "id=" + id +
+                ", ma='" + ma + '\'' +
+                ", ten='" + ten + '\'' +
+                ", thuong_hieu=" + thuong_hieu.getTen() +
+                '}';
+    }
 }

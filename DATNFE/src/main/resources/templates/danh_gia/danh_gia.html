@@ -152,7 +152,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px;margin: 20px">
+        <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px;margin: 20px;padding-bottom: 200px">
             <div>
 
                 <h1 style="text-transform: uppercase;
@@ -213,25 +213,7 @@
                     </tbody>
                 </table>
 
-                <div class="float-right">
-                    <a th:href="@{|/admin/danh-gia/duyet-tat-ca|}">
-                        <button class="btn btn-success" style="margin-top: 5px">Duyệt tất cả đánh giá</button>
-                    </a>
-                    <br>
-                    <a href="#">
-                        <button class="btn btn-success" id="duyet-nhieu" style="margin-top: 5px">Duyệt tất cả đánh giá
-                            đã chọn
-                        </button>
-                    </a>
-                    <br>
-                    <a href="#">
-                        <button class="btn btn-danger" id="xoa-nhieu" style="margin-top: 5px">Xóa tất cả đánh giá đã
-                            chọn
-                        </button>
-                    </a>
-                </div>
-
-                <div style="clear: both" th:if="${page.totalPages>0}">
+                <div th:if="${page.totalPages>0}">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
                              <span>
@@ -266,9 +248,29 @@
                 </div>
 
             </div>
+
+            <div class="float-right">
+                <a th:href="@{|/admin/danh-gia/duyet-tat-ca|}">
+                    <button class="btn btn-success" style="margin-top: 5px">Duyệt tất cả đánh giá</button>
+                </a>
+                <br>
+                <a href="#">
+                    <button class="btn btn-success" id="duyet-nhieu" style="margin-top: 5px">Duyệt tất cả đánh giá
+                        đã chọn
+                    </button>
+                </a>
+                <br>
+                <a href="#">
+                    <button class="btn btn-danger" id="xoa-nhieu" style="margin-top: 5px">Xóa tất cả đánh giá đã
+                        chọn
+                    </button>
+                </a>
+            </div>
         </div>
+
     </div>
 </div>
+
 
 <!-- Bao gồm thư viện jQuery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>

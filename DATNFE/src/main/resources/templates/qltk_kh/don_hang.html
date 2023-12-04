@@ -166,16 +166,14 @@
                                         nhận</a>
                                 </li>
 
-                                <li class="nav-item " id="dang-chuan-bi">
+                                <li class="nav-item " id="cho-giao">
                                     <a class="nav-link"
-                                       href="/qltk-kh/don-hang?trangThaiDon=dang-chuan-bi">Đang chuẩn
-                                        bị</a>
+                                       href="/qltk-kh/don-hang?trangThaiDon=cho-giao">Chờ giao</a>
                                 </li>
 
-                                <li class="nav-item " id="dang-giao-hang">
+                                <li class="nav-item " id="van-chuyen">
                                     <a class="nav-link"
-                                       href="/qltk-kh/don-hang?trangThaiDon=dang-giao-hang">Đang giao
-                                        hàng</a>
+                                       href="/qltk-kh/don-hang?trangThaiDon=van-chuyen">Vận chuyển</a>
                                 </li>
 
                                 <li class="nav-item " id="hoan-thanh">
@@ -183,15 +181,10 @@
                                        href="/qltk-kh/don-hang?trangThaiDon=hoan-thanh">Hoàn thành</a>
                                 </li>
 
-                                <li class="nav-item " id="da-huy">
-                                    <a class="nav-link" href="/qltk-kh/don-hang?trangThaiDon=da-huy">Đã
-                                        hủy</a>
+                                <li class="nav-item " id="huy">
+                                    <a class="nav-link" href="/qltk-kh/don-hang?trangThaiDon=huy">Hủy</a>
                                 </li>
 
-                                <li class="nav-item " id="tra-hang-hoan-tien">
-                                    <a class="nav-link" href="/qltk-kh/don-hang?trangThaiDon=tra-hang-hoan-tien">Trả hàng/Hoàn
-                                        tiền</a>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -238,7 +231,7 @@
                     </div>
                     <div style="margin: 0 auto;text-align: center">
                         <nav aria-label="Page navigation example">
-                            <ul class="pagination" style="display: inline-block;">
+                            <ul class="pagination" style="display: inline-block;" th:if="${pageHd.totalPages>0}">
                                 <li class="page-item" style="display: inline-block;"
                                     >
                                     <a class="page-link"

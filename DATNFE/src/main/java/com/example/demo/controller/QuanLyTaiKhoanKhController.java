@@ -187,12 +187,11 @@ public class QuanLyTaiKhoanKhController {
     static {
         trangThaiDonHang = new HashMap<String, Integer>();
         trangThaiDonHang.put("tat-ca", null);
-        trangThaiDonHang.put("cho-xac-nhan", 1);
-        trangThaiDonHang.put("dang-chuan-bi", 2);
-        trangThaiDonHang.put("dang-giao-hang", 3);
-        trangThaiDonHang.put("hoan-thanh", 4);
-        trangThaiDonHang.put("da-huy", 5);
-        trangThaiDonHang.put("tra-hang-hoan-tien", 6);
+        trangThaiDonHang.put("cho-xac-nhan", 0);
+        trangThaiDonHang.put("cho-giao", 1);
+        trangThaiDonHang.put("van-chuyen", 2);
+        trangThaiDonHang.put("hoan-thanh", 3);
+        trangThaiDonHang.put("huy", 4);
     }
 
     @GetMapping("/qltk-kh/don-hang")
@@ -202,7 +201,7 @@ public class QuanLyTaiKhoanKhController {
                           ) {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
-        Pageable pageable= PageRequest.of(Integer.valueOf(number),2);
+        Pageable pageable= PageRequest.of(Integer.valueOf(number),6);
         Page<HoaDon>page=hoaDonDAO.findHdByMaKhAndTt(khachHang.getMa(),trangThaiDonHang.get(trangThaiDon),pageable);
         PageDTO<HoaDon> pageDTO=new PageDTO<>(page);
         model.addAttribute("pageHd",pageDTO);
@@ -223,17 +222,16 @@ public class QuanLyTaiKhoanKhController {
         model.addAttribute("khachHang",khachHang);
         KhachHang kh=khachHangDao.getKhByEmail(khachHang.getEmail().trim());
         if(kh==null){
-            emailService.sendOtp(khachHang.getEmail());
+            emailService.sendOtpDangKy(khachHang.getEmail());
             return "qltk_kh/otp";
         }
         else {
-            model.addAttribute("email","Email đã tồn tại");
             return "qltk_kh/dang_ky";
         }
     }
 
     @PostMapping("/otp")
-    public String otpPost(Model model,
+    public String otpPostDangKy(Model model,
                                       @ModelAttribute KhachHang khachHang,
                                       @RequestParam String OTP){
         if(emailService.isValidOtp(khachHang.getEmail(),OTP)){
@@ -256,13 +254,39 @@ public class QuanLyTaiKhoanKhController {
         return "redirect:/login";
     }
 
+    @GetMapping("/quen-mk")
+    public String quenMk(){
+        return "qltk_kh/quen_mk";
+    }
+
+    @PostMapping("/quen-mk")
+    public String quenMkPost(@RequestParam String email,Model model){
+        emailService.sendOtpQuenMk(email);
+        model.addAttribute("email",email);
+        return "qltk_kh/otp_quenmk";
+    }
+
+    @PostMapping("/otp-quen-mk")
+    public String otpPostQuenMk(@RequestParam String OTP,
+                                @RequestParam String email,
+                                Model model){
+        if(emailService.isValidOtp(email,OTP)){
+            emailService.sendPass(email);
+        }
+        else {
+            model.addAttribute("email",email);
+            model.addAttribute("otp","OTP không đúng hoặc hết hiệu lực");
+            return "qltk_kh/otp_quenmk";
+        }
+        return "redirect:/login";
+    }
     @Autowired
     private EmailService emailService;
 
     @ResponseBody
     @GetMapping("/gui-otp/{email}")
     public Boolean guiOtp(@PathVariable String email){
-        emailService.sendOtp(email);
+        emailService.sendOtpDangKy(email);
         return true;
     }
 

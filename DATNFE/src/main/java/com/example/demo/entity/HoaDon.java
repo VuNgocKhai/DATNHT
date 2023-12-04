@@ -82,7 +82,7 @@ public class HoaDon implements Serializable {
     @JsonIgnore
     private List<GiamGiaChiTietHoaDon> list1;
 
-    @OneToMany(mappedBy = "hoaDon",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "hoaDon", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<HoaDonChiTiet> listHdct;
 
@@ -97,7 +97,7 @@ public class HoaDon implements Serializable {
             case 3:
                 return "Hoàn thành";
             case 4:
-                return "Đã hủy";
+                return "Hủy";
             default:
                 return null;
         }
