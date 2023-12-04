@@ -7,6 +7,8 @@ import com.example.demo.service.CallAPIGHN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -38,7 +40,6 @@ import java.util.UUID;
 @Controller
 public class BanHangTaiQuayController {
 
-
     @Autowired
     private HoaDonRepo hoaDonRepo;
 
@@ -56,6 +57,9 @@ public class BanHangTaiQuayController {
 
     @Autowired
     private KhachHangRepo khachHangRepo;
+
+    @Autowired
+    private NhanVienDAO nhanVienDAO;
 
     @Autowired
     private DiaChiRepo diaChiRepo;
@@ -132,11 +136,17 @@ public class BanHangTaiQuayController {
 
     @PostMapping("/admin/ban-hang-tai-quay/tao-don-hang")
     public String taoHoaDonTaiQuay(RedirectAttributes redirectAttributes) {
-        NhanVien nhanVien = nhanVienRepository.getByMa("NV02");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv = nhanVienDAO.getNVByEmail(authentication.getName());
         HoaDon hoaDon = new HoaDon();
+        if(nv == null)
+        {
+            return "redirect:/admin/ban-hang";
+        }
+
         String maHoaDonMoi = hoaDonDAO.generateNextMaHoaDon();
         hoaDon.setMa(maHoaDonMoi);
-        hoaDon.setNhanVien(nhanVien);
+        hoaDon.setNhanVien(nv);
         LocalDate currentDate = LocalDate.now();
         hoaDon.setNgay_tao(currentDate);
         hoaDon.setNgay_tao(currentDate);

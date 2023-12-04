@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-public class    SanPhamController {
+public class SanPhamController {
     @Autowired
     AnhGiayDAO anhGiayDAO;
     @Autowired
@@ -152,7 +152,7 @@ public class    SanPhamController {
     public String productCreateAct(Model model, @ModelAttribute("giaychitiet") GiayChiTiet giayChiTiet,@RequestParam("idsp")UUID idsp){
         giayChiTiet.setGiay(Giay.builder().id(idsp).build());
         giayChiTietDAO.save(giayChiTiet);
-      String ma=  giayDAO.findById(giayChiTiet.getGiay().getId()).get().getMa();
+        String ma = giayDAO.findById(giayChiTiet.getGiay().getId()).get().getMa();
         return "redirect:/admin/sanpham/update/"+ma;
     }
     @PostMapping("/admin/sanpham/createanh")
