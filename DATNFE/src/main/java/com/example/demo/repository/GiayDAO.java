@@ -52,4 +52,9 @@ public interface GiayDAO extends JpaRepository<Giay, UUID> {
 
     @Query(value = "SELECT TOP 20 * FROM giay where trangthai=1 ORDER BY do_hot DESC",nativeQuery = true)
     List<Giay> top20SpHotNhat();
+
+    @Query(value = "SELECT * " +
+            " FROM giay " +
+            " WHERE ma LIKE 'SP%' ORDER BY CAST(SUBSTRING(ma, 3, LEN(ma) - 2) AS INT) DESC",nativeQuery = true)
+    List<Giay> allGiay();
 }

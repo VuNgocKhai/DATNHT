@@ -9,4 +9,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ThuongHieuDAO extends JpaRepository<ThuongHieu, UUID> {
+    ThuongHieu getThuongHieuByTen(String ten);
 }

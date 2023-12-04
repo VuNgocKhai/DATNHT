@@ -28,7 +28,8 @@
             <h1><a href="kieu_dang.html" class="logo">DLFV</a></h1>
             <ul class="list-unstyled components mb-5">
                 <li class="active">
-                    <a href="#homeSubmenu"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-home mr-3"></span>Thống Kê</a>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-home mr-3"></span>Thống Kê</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
                             <a href="#">Home 1</a>
@@ -42,7 +43,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#homeSubmenu1"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-user mr-3"></span> Quản Lý Đơn Hàng</a>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-user mr-3"></span> Quản Lý Đơn Hàng</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu1">
                         <li>
                             <a href="#">Home 1</a>
@@ -59,7 +61,8 @@
                     <a href="#"><span class="fa fa-briefcase mr-3"></span> Bán Hàng Tại Quầy</a>
                 </li>
                 <li>
-                    <a href="#homeSubmenu2"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
+                    <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu2">
                         <li>
                             <a href="/admin/sanpham">Sản Phẩm</a>
@@ -97,7 +100,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#homeSubmenu3"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
+                    <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu3">
                         <li>
                             <a href="#">Nhân Viên</a>
@@ -108,7 +112,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#homeSubmenu4"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-cubes mr-3"></span>Khuyến Mại</a>
+                    <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-cubes mr-3"></span>Khuyến Mại</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu4">
                         <li>
                             <a href="#">Sản Phẩm</a>
@@ -132,7 +137,9 @@
 
             <div class="footer">
                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a
+                            href="https://colorlib.com" target="_blank">Colorlib.com</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
             </div>
 
@@ -147,10 +154,11 @@
                 <ul class="navbar-nav">
                     <!-- Avatar -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink"
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                           id="navbarDropdownMenuLink"
                            role="button" data-toggle="dropdown" aria-expanded="false">
                             <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" class="rounded-circle"
-                                 height="72" alt="Avatar" loading="lazy" />
+                                 height="72" alt="Avatar" loading="lazy"/>
                         </a>
                         <div class="dropdown-menu" style="margin-left: -88px;">
                             <a class="dropdown-item" href="#">Đăng Xuất</a>
@@ -160,62 +168,99 @@
                 </ul>
             </div>
         </nav>
+        <div class="row">
+            <div class="col-7"></div>
+            <div class="col-2">
+                <a href="/admin/sanpham/export" class="btn btn-primary mb-2 " download="example.xlsx">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    Xuất excel
+                </a>
+            </div>
+            <form id="fileUploadForm" class="col-3 row">
+                <label for="ip">Chọn file</label>
+                <input type="file" name="file" id="ip"  style="display: none"/>
+                <button type="button" class="btn btn-primary mb-2" onclick="uploadFile()">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                    Nhập từ Excel
+                </button>
+            </form>
+            <script>
+                function uploadFile() {
+                    // Lấy ra form và file từ form
+                    var formData = new FormData(document.getElementById('fileUploadForm'));
+
+                    // Gửi yêu cầu POST đến API
+                    fetch('/admin/sanpham/import', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Xử lý kết quả từ server (nếu cần)
+                            console.log(data);
+                        })
+                        .catch(error => {
+                            console.error('Lỗi khi gửi yêu cầu:', error);
+                        });
+                }
+            </script>
+        </div>
         <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px;">
             <form class="form-inline" action="/admin/sanpham" method="post" th:object="${searchform}">
                 <div class="form-group mx-sm-3 mb-2">
-                    <input type="text" class="form-control" th:field="*{tensp}"  placeholder="Tìm Kiếm ">
+                    <input type="text" class="form-control" th:field="*{tensp}" placeholder="Tìm Kiếm ">
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
-                    <label >Thương Hiệu :</label>
+                    <label>Thương Hiệu :</label>
                     <select class="form-control" th:field="*{thuong_hieu}">
-                        <option   value="">Tất cả</option>
-                        <option  th:each="x:${listThuongHieu}" th:value="${x.ten}">[[${x.ten}]]</option>
+                        <option value="">Tất cả</option>
+                        <option th:each="x:${listThuongHieu}" th:value="${x.ten}">[[${x.ten}]]</option>
                     </select>
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
-                    <label >Chất Liệu :</label>
+                    <label>Chất Liệu :</label>
                     <select class="form-control" th:field="*{chat_lieu}">
-                        <option   value="">Tất cả</option>
-                        <option  th:each="x:${listChatLieu}" th:value="${x.ten}">[[${x.ten}]]</option>
+                        <option value="">Tất cả</option>
+                        <option th:each="x:${listChatLieu}" th:value="${x.ten}">[[${x.ten}]]</option>
                     </select>
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
-                    <label >Xuất Xứ :</label>
+                    <label>Xuất Xứ :</label>
                     <select class="form-control" th:field="*{xuat_xu}">
-                        <option   value="">Tất cả</option>
-                        <option  th:each="x:${listXuatXu}" th:value="${x.ten}">[[${x.ten}]]</option>
+                        <option value="">Tất cả</option>
+                        <option th:each="x:${listXuatXu}" th:value="${x.ten}">[[${x.ten}]]</option>
                     </select>
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
-                    <label >Màu Sắc :</label>
+                    <label>Màu Sắc :</label>
                     <select class="form-control" th:field="*{mau_sac}">
-                        <option   value="">Tất cả</option>
-                        <option  th:each="x:${listMauSac}" th:value="${x.ten}">[[${x.ten}]]</option>
+                        <option value="">Tất cả</option>
+                        <option th:each="x:${listMauSac}" th:value="${x.ten}">[[${x.ten}]]</option>
                     </select>
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
-                    <label >Giới Tính :</label>
+                    <label>Giới Tính :</label>
                     <select class="form-control" th:field="*{gioi_tinh}">
-                        <option   value="">Tất cả</option>
-                        <option  th:each="x:${listGioiTinh}" th:value="${x.ten}">[[${x.ten}]]</option>
+                        <option value="">Tất cả</option>
+                        <option th:each="x:${listGioiTinh}" th:value="${x.ten}">[[${x.ten}]]</option>
                     </select>
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
-                    <label >Đế Giày :</label>
+                    <label>Đế Giày :</label>
                     <select class="form-control" th:field="*{de_giay}">
-                        <option   value="">Tất cả</option>
-                        <option  th:each="x:${listDeGiay}" th:value="${x.ten}">[[${x.ten}]]</option>
+                        <option value="">Tất cả</option>
+                        <option th:each="x:${listDeGiay}" th:value="${x.ten}">[[${x.ten}]]</option>
                     </select>
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
-                    <label >Kiểu Dáng :</label>
+                    <label>Kiểu Dáng :</label>
                     <select class="form-control" th:field="*{kieu_dang}">
-                        <option   value="">Tất cả</option>
-                        <option  th:each="x:${listKieuDang}" th:value="${x.ten}">[[${x.ten}]]</option>
+                        <option value="">Tất cả</option>
+                        <option th:each="x:${listKieuDang}" th:value="${x.ten}">[[${x.ten}]]</option>
                     </select>
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
-                    <label >Khoảng Giá :</label>
+                    <label>Khoảng Giá :</label>
                     <input type="text" placeholder="đ Từ" th:field="*{tien_min}">
                     <input type="text" placeholder="đ Đến" th:field="*{tien_max}">
                 </div>
@@ -238,17 +283,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="sp:${items.content}">
-                        <th scope="row">[[${sp.ma}]]</th>
-                        <th><img style="width: 100px" th:src="@{|/images/${sp.getAnhDau(sp.anhs)}|}" alt=""></th>
-                        <th>[[${sp.ten}]]</th>
-                        <th>[[*{#numbers.formatDecimal(sp.gianhap, 0, 'COMMA', 0, 'POINT')}]] ₫</th>
-                        <th>[[*{#numbers.formatDecimal(sp.giaban, 0, 'COMMA', 0, 'POINT')}]] ₫</th>
-                        <th>[[${sp.chat_lieu.ten}]]</th>
-                        <th>[[${sp.gioi_tinh.ten}]]</th>
-                        <th>[[${sp.trangthai==1?'Hoạt Động':'Ngừng Hoạt Động'}]]</th>
-                        <th><a th:href="@{|/admin/sanpham/update/${sp.ma}|}">Chi Tiết</a></th>
-                    </tr>
+                <tr th:each="sp:${items.content}">
+                    <th scope="row">[[${sp.ma}]]</th>
+                    <th><img style="width: 100px" th:src="@{|/images/${sp.getAnhDau(sp.anhs)}|}" alt=""></th>
+                    <th>[[${sp.ten}]]</th>
+                    <th>[[*{#numbers.formatDecimal(sp.gianhap, 0, 'COMMA', 0, 'POINT')}]] ₫</th>
+                    <th>[[*{#numbers.formatDecimal(sp.giaban, 0, 'COMMA', 0, 'POINT')}]] ₫</th>
+                    <th>[[${sp.chat_lieu.ten}]]</th>
+                    <th>[[${sp.gioi_tinh.ten}]]</th>
+                    <th>[[${sp.trangthai==1?'Hoạt Động':'Ngừng Hoạt Động'}]]</th>
+                    <th><a th:href="@{|/admin/sanpham/update/${sp.ma}|}">Chi Tiết</a></th>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -263,9 +308,11 @@
                     </a>
                 </li>
 
-                <li th:each="tongtrang,status:${#numbers.sequence(1, items.totalPages)}" class="page-item"><a class="page-link" th:href="@{|/admin/kichco?page=${status.index}|}">[[${status.index+1}]]</a></li>
+                <li th:each="tongtrang,status:${#numbers.sequence(1, items.totalPages)}" class="page-item"><a
+                        class="page-link" th:href="@{|/admin/kichco?page=${status.index}|}">[[${status.index+1}]]</a>
+                </li>
                 <li class="page-item">
-                    <a class="page-link" th:href="@{|/admin/kichco?page=${items.number+1}|}"  aria-label="Next">
+                    <a class="page-link" th:href="@{|/admin/kichco?page=${items.number+1}|}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
@@ -278,5 +325,9 @@
 <script src="/assets/js/popper.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
+
+<!--nhap xuat file-->
+
+
 </body>
 </html>

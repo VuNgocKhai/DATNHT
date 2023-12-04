@@ -222,17 +222,16 @@ public class QuanLyTaiKhoanKhController {
         model.addAttribute("khachHang",khachHang);
         KhachHang kh=khachHangDao.getKhByEmail(khachHang.getEmail().trim());
         if(kh==null){
-            emailService.sendOtp(khachHang.getEmail());
+            emailService.sendOtpDangKy(khachHang.getEmail());
             return "qltk_kh/otp";
         }
         else {
-            model.addAttribute("email","Email đã tồn tại");
             return "qltk_kh/dang_ky";
         }
     }
 
     @PostMapping("/otp")
-    public String otpPost(Model model,
+    public String otpPostDangKy(Model model,
                                       @ModelAttribute KhachHang khachHang,
                                       @RequestParam String OTP){
         if(emailService.isValidOtp(khachHang.getEmail(),OTP)){
@@ -255,13 +254,39 @@ public class QuanLyTaiKhoanKhController {
         return "redirect:/login";
     }
 
+    @GetMapping("/quen-mk")
+    public String quenMk(){
+        return "qltk_kh/quen_mk";
+    }
+
+    @PostMapping("/quen-mk")
+    public String quenMkPost(@RequestParam String email,Model model){
+        emailService.sendOtpQuenMk(email);
+        model.addAttribute("email",email);
+        return "qltk_kh/otp_quenmk";
+    }
+
+    @PostMapping("/otp-quen-mk")
+    public String otpPostQuenMk(@RequestParam String OTP,
+                                @RequestParam String email,
+                                Model model){
+        if(emailService.isValidOtp(email,OTP)){
+            emailService.sendPass(email);
+        }
+        else {
+            model.addAttribute("email",email);
+            model.addAttribute("otp","OTP không đúng hoặc hết hiệu lực");
+            return "qltk_kh/otp_quenmk";
+        }
+        return "redirect:/login";
+    }
     @Autowired
     private EmailService emailService;
 
     @ResponseBody
     @GetMapping("/gui-otp/{email}")
     public Boolean guiOtp(@PathVariable String email){
-        emailService.sendOtp(email);
+        emailService.sendOtpDangKy(email);
         return true;
     }
 
