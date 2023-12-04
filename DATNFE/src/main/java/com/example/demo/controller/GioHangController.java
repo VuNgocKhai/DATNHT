@@ -525,7 +525,7 @@ public class GioHangController {
             lichSuTieuDiem.setSo_diem_da_dung(soDiemDaDung);
             lichSuTieuDiem.setSo_diem_cong(soDiemCong);
             lichSuTieuDiemDAO.save(lichSuTieuDiem);
-            viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong()+soDiemCong);
+//            viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong()+soDiemCong);
             viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung()+soDiemDaDung);
             viDiem.setTong_diem(viDiem.getSo_diem_da_cong()-viDiem.getSo_diem_da_dung());
             viDiemDAO.save(viDiem);
@@ -587,7 +587,7 @@ public class GioHangController {
             hoaDon.setPhi_ship(phiShip);
             hoaDon.setSo_tien_giam(tienGGHD);
             hoaDon.setHinh_thuc_mua(1); //online
-            hoaDon.setHinh_thuc_thanh_toan(0); //khi nhan hang
+            hoaDon.setHinh_thuc_thanh_toan(3); //khi nhan hang
             hoaDon.setSo_diem_su_dung(soDiemDaDung);
             hoaDon.setSo_tien_quy_doi(soTienQuyDoi);
             hoaDon.setTrangthai(0);
@@ -602,7 +602,7 @@ public class GioHangController {
             lichSuTieuDiem.setSo_diem_da_dung(soDiemDaDung);
             lichSuTieuDiem.setSo_diem_cong(soDiemCong);
             lichSuTieuDiemDAO.save(lichSuTieuDiem);
-            viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong()+soDiemCong);
+//            viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong()+soDiemCong);
             viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung()+soDiemDaDung);
             viDiem.setTong_diem(viDiem.getSo_diem_da_cong()-viDiem.getSo_diem_da_dung());
             viDiemDAO.save(viDiem);

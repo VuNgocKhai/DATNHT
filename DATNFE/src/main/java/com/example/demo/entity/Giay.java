@@ -115,7 +115,10 @@ public class Giay implements Serializable {
    }
 
    public Long getTongDanhGia(){
-       Long sl=danhGias.stream().filter(item->item.getTrangThai()==1).count();
-       return sl;
+       if(danhGias!=null){
+           Long sl=danhGias.stream().filter(item->item.getTrangThai()==1).count();
+            return sl;
+       }
+       return Long.parseLong("0");
    }
 }

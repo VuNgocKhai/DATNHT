@@ -727,13 +727,25 @@
                                         <input class="form-control giaBan" name="soTienGiam" id="soTienGiam"
                                                th:value="${soTienGiam}" readonly>
                                     </div>
+                                    <div class="col-12" style="margin-top: 10px" th:hidden="${tongDiemQuyDoiHienCo <= 0}">
+                                        <label>Số điểm hiện có là [[${tongDiemQuyDoiHienCo}]] nhập số điểm muốn sử dụng: </label>
+                                        <input class="form-control giaBan" name="sodiemsudung" id="sodiemsudung" th:value="${sodiemsudung}">
+                                    </div>
+                                    <div class="col-6" style="margin-top: 10px" th:hidden="${tongDiemQuyDoiHienCo <= 0}">
+                                        <label>Số tiền giảm từ sử dụng điểm: </label>
+                                        <input class="form-control giaBan"  readonly name="sotienquydoi" id="sotienquydoi" th:value="${sotienquydoi}">
+                                    </div>
                                     <div class="col-6" style="margin-top: 10px;display: none" id="divPhiShip">
                                         <label>Phí vận chuyển: </label>
                                         <input class="form-control giaBan" name="phiShip" id="phiShip"
                                                th:value="${phiShip}">
                                     </div>
+                                    <div class="col-6" style="margin-top: 10px;" th:hidden="${KhachHangcheck == null}">
+                                        <label>Số điểm tích: </label>
+                                        <input class="form-control giaBan" readonly name="diemTichLuy" th:value="${diemTichLuy}">
+                                    </div>
                                     <div class="col-6" style="margin-top: 10px">
-                                        <label style="color:red;">Tổng số tiền:</label>
+                                        <label style="color:red;">Tổng thanh toán:</label>
                                         <input style="border: 2px solid black" class="form-control giaBan"
                                                name="tongTienSauGiam" id="tongTienSauGiam"
                                                th:value="${TongTienSauGiam}" readonly>
@@ -924,6 +936,24 @@
 <!--Lọc địa chỉ-->
 
 <script>
+    var inputField = document.getElementById('sodiemsudung');
+    var inputField2= document.getElementById('sotienquydoi');
+
+    // Thêm sự kiện 'input' vào phần tử input
+    inputField.addEventListener('input', function() {
+        if (Number.parseInt(inputField.value) > 1000){
+            // Hành động bạn muốn thực hiện khi có sự kiện input (người dùng nhập thông tin)
+            let phiShip = document.getElementById('phiShip').value;
+            let tongTienTruocGiam = document.getElementById('tongTienTruocGiam').value;
+            let soTienGiam = document.getElementById('soTienGiam').value;
+            inputField2.setAttribute('value', inputField.value);
+            inputField2.value = inputField.value;
+            document.getElementById('tongTienSauGiam').setAttribute('value', String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - Number.parseInt(inputField.value))));
+            document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - Number.parseInt(inputField.value)));
+
+            console.log('Đã nhập: ' + inputField.value);
+        }
+    });
     function callAPIGHN() {
         var divPhiShip = document.getElementById("divPhiShip");
         if (divPhiShip.style.display === "block") {
@@ -985,6 +1015,7 @@
                     let phiShip = document.getElementById('phiShip').value;
                     let tongTienTruocGiam = document.getElementById('tongTienTruocGiam').value;
                     let soTienGiam = document.getElementById('soTienGiam').value;
+                    1
                     document.getElementById('tongTienSauGiam').setAttribute('value', String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam))));
                     document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam)));
                     fetch('/admin/ban-hang-tai-quay/tao-don-hang/add-dia-chi1', {
@@ -1205,25 +1236,6 @@
         checkValue(input);
     }
 </script>
-<!--end nút tăng giảm số lượng-->
-
-<!--Định dạng số tiền VNĐ-->
-<!--<script>-->
-<!--    document.addEventListener("DOMContentLoaded", function () {-->
-<!--        var giaBanElements = document.querySelectorAll('.giaBan');-->
-<!--        giaBanElements.forEach(function (element) {-->
-<!--            var giaBanText = element.textContent.trim();-->
-<!--            var giaBan = parseFloat(giaBanText.replace('Giá Bán:', '').trim());-->
-<!--            var giaBanFormatted = giaBan.toLocaleString('vi-VN'); // Định dạng giá-->
-
-<!--            // Cập nhật lại văn bản đã định dạng trong phần tử-->
-<!--            element.textContent = giaBanFormatted + " VNĐ";-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
-<!--End định dạng số tiền VNĐ-->
-
-<!--// Ngăn chuyển trang khi chuyển page trong modal-->
 <script>
     $(document).ready(function () {
         // Bắt sự kiện click trên các nút nav
