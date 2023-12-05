@@ -169,6 +169,7 @@ public class GioHangController {
     @PostMapping("/getlistGiay")
     public String getlistvalue(Model model, HttpServletRequest request, @RequestParam("maVC") String maVC) {
 
+
         String[] listvalue = request.getParameterValues("listGiay");
         List<UUID> listvalue1 = new ArrayList<>();
         List<GiayChiTiet> giayChiTietList = new ArrayList<>();
@@ -184,6 +185,7 @@ public class GioHangController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         KhachHang khachHang = khachHangDao.getKhByEmail(username);
+        model.addAttribute("khachHang", khachHang);
         List<GioHangChiTiet> gioHangChiTietList = khachHang.getGio_hang().
                 getListGHCT(khachHang.getGio_hang().getGioHangChiTiets());
         BigDecimal tongTien = BigDecimal.valueOf(0);
@@ -239,6 +241,7 @@ public class GioHangController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         KhachHang khachHang = khachHangDao.getKhByEmail(username);
+        model.addAttribute("khachHang", khachHang);
         List<UUID> listUUIDGiay = new ArrayList<>();
         List<GioHangChiTiet> gioHangChiTietList = khachHang.getGio_hang().
                 getListGHCT(khachHang.getGio_hang().getGioHangChiTiets());
@@ -298,12 +301,13 @@ public class GioHangController {
 
     @RequestMapping("/checkout")
     public String checkout(Model model) {
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
+        model.addAttribute("khachHang", khachHang);
         return "home/checkout";
     }
 
     @PostMapping("/checkout")
-
     public String checkout1(Model model, HttpServletRequest request, @RequestParam(value = "maVC", defaultValue = "") String maVC, @RequestParam(value = "ma_giay", defaultValue = "") String ma_giay, @RequestParam(value = "size_giay", defaultValue = "") String size_giay, @RequestParam(value = "so_luong", defaultValue = "") Integer so_luong) {
 
         String[] listvalue = null;
@@ -315,6 +319,7 @@ public class GioHangController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         KhachHang khachHang = khachHangDao.getKhByEmail(username);
+        model.addAttribute("khachHang", khachHang);
         BigDecimal tongTien = BigDecimal.valueOf(0);
         if (listvalue != null) {
             for (String x : listvalue

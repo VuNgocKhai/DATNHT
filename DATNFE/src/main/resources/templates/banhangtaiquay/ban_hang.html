@@ -206,6 +206,13 @@
                                     Đã hủy
                                 </button>
                             </li>
+                            <li class="nav-item navbar-expand-lg" role="presentation">
+                                <button class="nav-link" id="tab-waiting-for-payment" data-bs-toggle="tab"
+                                        data-bs-target="#tab-waiting-for-payment-pane" type="button" role="tab"
+                                        aria-controls="tab-waiting-for-payment-pane" aria-selected="false">
+                                    Chờ Thanh Toán
+                                </button>
+                            </li>
                         </ul>
                         <div class="tab-content" id="myTabListContent">
                             <div class="tab-pane fade show active" id="confirm-tab-pane" role="tabpanel"
@@ -1674,6 +1681,168 @@
                                 </nav>
                                 <!--            nav-->
                             </div>
+                            <div class="tab-pane fade" id="tab-waiting-for-payment-pane" role="tabpanel"
+                                 aria-labelledby="tab-waiting-for" tabindex="0">
+                                <!--                                Tìm kiếm-->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-inline mt-3" style="display: flex;">
+                                            <form th:action="@{/admin/ban-hang/tim-kiem-hoa-don5}" method="get">
+                                                <select class="form-control" name="timTheo">
+                                                    <option value="HD" th:selected="${timTheo5 == 'HD'}">Mã hóa đơn
+                                                    </option>
+                                                    <option value="KH" th:selected="${timTheo5 == 'KH'}">Khách hàng
+                                                    </option>
+                                                    <option value="NV" th:selected="${timTheo5 == 'NV'}">Nhân viên
+                                                    </option>
+                                                    <option value="4" th:selected="${timTheo5 == '4'}">Tổng tiền(VNĐ)
+                                                    </option>
+                                                </select>
+                                                <input type="hidden" name="trangThai" value="5">
+                                                <input type="text" name="keyword" th:value="${keyword5}"
+                                                       placeholder="Tìm kiếm hóa đơn"
+                                                       class="form-control form-control-lg"
+                                                       style="width: 300px; height: 40px; margin-right: 10px;margin-left: 5px"/>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <span class="btn-label"><i class="bi bi-search"></i></span>
+                                                </button>
+                                            </form>
+                                            <button class="btn btn-primary" type="submit" style="margin-left: 5px">
+                                                <span class="btn-label">
+                                                    <a href="/admin/ban-hang"
+                                                       style="text-decoration: none; color: white;">
+                                                        <i class="bi bi-arrow-clockwise"></i>
+                                                    </a>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--                                End Tìm kiếm-->
+                                <div style="margin-top: 30px"></div>
+                                <!--                                Table hóa đơn đang chờ-->
+                                <form class="form-xacnhan" th:action="@{/admin/ban-hang/xac-nhan-don-hang}"
+                                      method="post">
+                                    <table id="table-chothanhtoan"
+                                           class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                                           style="border-collapse: collapse; border-spacing: 0px; height: 200%;"
+                                           role="grid" aria-describedby="datatable-buttons_info">
+                                        <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">
+                                                <input type="checkbox" id="selectAllCheckbox1"
+                                                       style="width: 30px; height: 30px;display: flex; justify-content: center; align-items: center">
+                                            </th>
+                                            <th scope="col">Mã HĐ</th>
+                                            <th scope="col">Ngày Tạo</th>
+                                            <th scope="col">Nhân Viên</th>
+                                            <th scope="col">Khách Hàng</th>
+                                            <th scope="col">Loại HĐ</th>
+                                            <th scope="col">Tổng tiền(VNĐ)</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:if="${PageHoaDonTT5.content.isEmpty()}">
+                                            <td colspan="8">
+                                                <i style="font-size: 3rem"
+                                                   class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>
+                                                <div class="text-center d-flex justify-content-center align-items-center">
+                                                    No Data
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr th:each="hd:${PageHoaDonTT5.content}">
+                                            <th>
+                                                <input type="checkbox"
+                                                       style="width: 30px; height: 30px;display: flex; justify-content: center; align-items: center"
+                                                       th:value="${hd.ma}" th:name="selectedMa1">
+                                            </th>
+                                            <th scope="row">[[${hd.ma}]]</th>
+                                            <th>
+                                            <span th:if="${hd.ngay_tao == null}"
+                                                  class="badge badge-pill badge-primary badge-danger">Đang Chờ</span>
+                                                <span th:if="${hd.ngay_tao != null}" th:text="${hd.ngay_tao}"></span>
+                                            </th>
+                                            <th>
+                                                <span th:if="${hd.nhanVien == null}"
+                                                      class="badge badge-pill badge-primary badge-warning">Chưa có tt</span>
+                                                <span th:if="${hd.nhanVien != null}"
+                                                      th:text="${hd.nhanVien.hoTen}"></span>
+                                            </th>
+                                            <th>
+                                                <span th:if="${hd.khachHang == null}"
+                                                      class="badge badge-pill badge-primary badge-primary">Khách Lẻ</span>
+                                                <span th:if="${hd.khachHang != null}"
+                                                      th:text="${hd.khachHang.hoten}"></span>
+                                            </th>
+                                            <th>
+                                                 <span th:if="${hd.hinh_thuc_mua == null}"
+                                                       class="badge badge-pill badge-warning">Chưa Có Thông Tin</span>
+                                                <span th:if="${hd.hinh_thuc_mua != null}">
+                                                    [[${hd.hinh_thuc_mua == 0 ? 'Tại cửa hàng':'Online'}]]
+                                                </span>
+                                            </th>
+                                            <th class="giaBan"
+                                                th:text="${hd.tong_tien != null ? hd.tong_tien : 0}"></th>
+                                            <th class="text-center">
+                                                <a class="btn-accept btn-sm btn-success" style="text-align: center"
+                                                   th:href="@{|/admin/ban-hang/cho-giao-don-hang/${hd.ma}|}">
+                                                    <i style="color: white" class="bi bi-check-lg"></i>
+                                                </a>
+                                                <a class="btn-sm btn-warning" style="text-align: center"
+                                                   th:href="@{|/admin/ban-hang-tai-quay/view-cart/${hd.ma}|}">
+                                                    <i style="color: white" class="bi bi-pencil"></i>
+                                                </a>
+                                                <a class="btn-delete btn-sm btn-danger" style="text-align: center"
+                                                   th:href="@{|/admin/ban-hang-tai-quay/delete/${hd.id}|}">
+                                                    <i style="color: white" class="bi bi-trash"></i>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <input type="hidden" name="huyxacnhan1" value="huy" disabled>
+                                    <button id="huyXacNhanButton" style="float: right" type="submit"
+                                            onclick="enableHuyInput1()" class="btn btn-danger">Hủy
+                                    </button>
+                                    <button id="xacNhanButton" style="float: right; margin-right: 10px" type="submit"
+                                            class="btn btn-success">Xác nhận
+                                    </button>
+                                </form>
+                                <!--                                End table hóa đơn đang chờ-->
+                                <!--            nav-->
+                                <nav aria-label="Page navigation example"
+                                     style="display: flex;justify-content: space-between;">
+                                    <div style="margin-left: 20px">
+                                        <p>Bạn đang xem [[${PageHoaDonTT5.numberOfElements}]] trên tổng số
+                                            [[${PageHoaDonTT5.totalElements}]]</p>
+                                    </div>
+                                    <ul class="pagination" style="margin-right: 24px;">
+                                        <li class="page-item">
+                                            <a class="page-link" th:if="${PageHoaDonTT5.number > 0}"
+                                               th:href="@{|/admin/ban-hang?page5=${PageHoaDonTT5.number-1}|}"
+                                               aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+
+                                        <li th:each="tongtrang,status:${#numbers.sequence(1, PageHoaDonTT5.totalPages)}"
+                                            class="page-item"><a class="page-link"
+                                                                 th:href="@{|/admin/ban-hang?page5=${status.index}|}">[[${status.index+1}]]</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:if="${PageHoaDonTT0.number < PageHoaDonTT5.totalPages - 1}"
+                                               th:href="@{|/admin/ban-hang?page5=${PageHoaDonTT5.number+1}|}"
+                                               aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <!--            nav-->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1713,6 +1882,8 @@
                     $('#table-vanchuyen').html($(data).find('#table-vanchuyen').html());
                     $('#table-hoanthanh').html($(data).find('#table-hoanthanh').html());
                     $('#table-dahuy').html($(data).find('#table-dahuy').html());
+                    $('#table-chothanhtoan').html($(data).find('#table-chothanhtoan').html());
+
                 },
                 error: function () {
                     alert('Có lỗi xảy ra khi tải dữ liệu.');
@@ -1781,6 +1952,8 @@
                     $('#table-vanchuyen').html($(data).find('#table-vanchuyen').html());
                     $('#table-hoanthanh').html($(data).find('#table-hoanthanh').html());
                     $('#table-dahuy').html($(data).find('#table-dahuy').html());
+                    $('#table-chothanhtoan').html($(data).find('#table-chothanhtoan').html());
+
                 }
             });
         });
@@ -1944,6 +2117,8 @@
                     $('#table-vanchuyen').load(location.href + ' #table-vanchuyen');
                     $('#table-hoanthanh').load(location.href + ' #table-hoanthanh');
                     $('#table-dahuy').load(location.href + ' #table-dahuy');
+                    $('#table-chothanhtoan').load(location.href + ' #table-chothanhtoan');
+
                 },
                 error: function(xhr, status, error) {
                     toastr["error"]("Đã xảy ra lỗi khi xóa: " + error);

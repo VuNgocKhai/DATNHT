@@ -230,7 +230,6 @@
                         <td>[[${item.email}]]</td>
                         <td>[[${item.noidung}]]</td>
                         <td>
-                            <a th:href="@{|/admin/khachhang/detail/${item.ma}|}"><i class="bi bi-eye"></i></a>
                             <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')" th:href="@{|/admin/delete/${item.id}|}"><i style="color: red" class="bi bi-trash"></i></a>
                         </td>
                     </tr>

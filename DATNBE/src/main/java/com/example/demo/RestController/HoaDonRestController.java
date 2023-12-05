@@ -46,7 +46,7 @@ public class HoaDonRestController {
     @GetMapping("/pagehdctt")
     public PageDTO<HoaDon> getPageHDchuaThanhToan(@RequestParam("page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.orElse(0), 5);
-        return new PageDTO<>(hoaDonDAO.findAll(pageable));
+        return new PageDTO<>(hoaDonDAO.getHoaDonByXapXep(pageable));
     }
 
     // tìm hóa đơn theo id
@@ -117,11 +117,8 @@ public class HoaDonRestController {
 
         Pageable pageable = PageRequest.of(page.orElse(0), 5);
         Page<HoaDon> hoaDonPage;
-        if (keyword != null) {
             hoaDonPage = hoaDonDAO.searchHoaDon(keyword, "%" + timTheo + "%", trangthai, PageRequest.of(0, 5));
-        } else {
-            hoaDonPage = hoaDonDAO.searchHoaDon(keyword, "%" + timTheo + "%", trangthai, PageRequest.of(0, 5));
-        }
+
         return new PageDTO<>(hoaDonPage);
     }
 
