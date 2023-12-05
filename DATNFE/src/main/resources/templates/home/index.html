@@ -157,9 +157,9 @@
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                             </div>
                         </div>
-                        <a href="" style="position: absolute;
-    bottom: 197px;
-    left: 145px;    text-decoration: underline;">[[${item.thuong_hieu.ten}]]</a>
+                        <div class="text-center">
+                            <a th:href="@{|/sanpham?thuong_hieu=${item.thuong_hieu.ten}|}" style="text-decoration: underline;">[[${item.thuong_hieu.ten}]]</a>
+                        </div>
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate" th:href="@{|/ctsp/*{ma}-*{thuong_hieu.ten}-*{mau_sac.ten}|}"><p style="margin: auto;
     text-align: center;
@@ -231,9 +231,10 @@
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                             </div>
                         </div>
-                        <a href="" style="position: absolute;
-    bottom: 197px;
-    left: 145px;    text-decoration: underline;">[[${item.thuong_hieu.ten}]]</a>
+                        <div class="text-center">
+                            <a th:href="@{|/sanpham?thuong_hieu=${item.thuong_hieu.ten}|}" style="text-decoration: underline;">[[${item.thuong_hieu.ten}]]</a>
+                        </div>
+
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate" th:href="@{|/ctsp/*{ma}-*{thuong_hieu.ten}-*{mau_sac.ten}|}"><p style="margin: auto;
     text-align: center;

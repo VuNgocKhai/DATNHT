@@ -45,13 +45,14 @@ public class AuthConfig extends WebSecurityConfigurerAdapter  {
         http.authorizeRequests()
                 .antMatchers("/assets/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/admin/login").permitAll()
                 .antMatchers("/cart/view").hasRole("USER")
                 .antMatchers("/checkout").hasRole("USER")
                 .antMatchers("/cart/add").hasRole("USER");
         http.formLogin()
-                .loginPage("/login")
+                .loginPage("/login") // Trang đăng nhập mặc định cho khách hàng
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/trangchu",false)
+                .defaultSuccessUrl("/trangchu", false)
                 .failureUrl("/login?error=true")
                 .usernameParameter("username")
                 .passwordParameter("password")

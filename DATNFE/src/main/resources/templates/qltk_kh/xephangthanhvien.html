@@ -333,10 +333,14 @@
                             <div class="general-content-top">
                                 <div class="username-box">
                                     <span>Số tiền bạn đã chi tiêu</span>
-                                    <span class="user-money">0 đ</span>
+                                    <span class="user-money">[[${tongTienChiTieu}]]</span>
                                 </div><div class="username-point">
                                 <span>Thành viên</span>
-                                <img height="48" width="48"  src="/images/hangthanhvien.png" alt="Hạng Thành viên">
+                                <img th:if="${mahkh=='HKH1'}" height="48" width="48"  src="/images/hangthanhvien.png" alt="Hạng Thành viên">
+                                <img th:if="${mahkh=='HKH2'}" height="48" width="48"  src="/images/dong.png" alt="Hạng Đồng">
+                                <img th:if="${mahkh=='HKH3'}" height="48" width="48"  src="/images/bac.png" alt="Hạng Bạc">
+                                <img th:if="${mahkh=='HKH4'}" height="48" width="48"  src="/images/vang.png" alt="Hạng Vàng">
+                                <img th:if="${mahkh=='HKH5'}" height="48" width="48"  src="/images/bachkim.png" alt="Hạng Bạch Kim">
                             </div>
                             </div>
                             <div class="general-content-bottom">
@@ -351,7 +355,7 @@
                                     </div>
                                     <div class="ranking-target-money"> Bạn cần chi tiêu thêm
                                         <strong style="color: red">
-                                            10.000.000 đ
+                                            [[${tienchenhlech}]]
                                         </strong>
                                         <span>
                                             để lên
@@ -427,7 +431,7 @@
                                     </td><td>
                                         <span>Mức chi tiêu 100 triệu</span>
                                     </td></tr><tr>
-                                        <td class="rank-name">Freeship</td>
+                                        <td class="rank-name">Tích điểm</td>
                                         <td>
                                             <svg class="member-check" fill="#2dc26d" height="22" viewBox="0 0 16 16" width="22" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z">
@@ -467,18 +471,23 @@
                                     <tr>
                                         <td class="rank-name">Ưu đãi</td>
                                         <td>
+                                            Mã KM lên đến 5% Hóa Đơn
 
                                         </td>
                                         <td>
+                                            Mã KM lên đến 7% Hóa Đơn
 
                                         </td>
                                         <td>
+                                            Mã KM lên đến 10% Hóa Đơn
 
                                         </td>
                                         <td>
+                                            Mã KM lên đến 12% Hóa Đơn
 
                                         </td>
                                         <td>
+                                            Mã KM lên đến 15% Hóa Đơn
 
                                         </td>
                                     </tr>

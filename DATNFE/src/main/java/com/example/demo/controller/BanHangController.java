@@ -1,14 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.*;
 import com.example.demo.entity.GiayDTO;
-import com.example.demo.entity.HoaDon;
-import com.example.demo.entity.HoaDonChiTiet;
-import com.example.demo.entity.PageDTO;
-import com.example.demo.repository.HoaDonChiTietDAO;
-import com.example.demo.repository.HoaDonChiTietRepo;
-import com.example.demo.repository.HoaDonDAO;
-import com.example.demo.repository.HoaDonRepo;
+import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,6 +39,12 @@ public class BanHangController {
 
     @Autowired
     private HoaDonChiTietDAO hoaDonChiTietDAO;
+
+    @Autowired
+    private KhachHangDao khachHangDao;
+
+    @Autowired
+    private HangKhachHangDAO hangKhachHangDAO;
 
     //Hiển thị all
     @RequestMapping("/admin/ban-hang")
@@ -173,6 +177,31 @@ public class BanHangController {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
                     hoaDon.setTrangthai(3);
                     hoaDonRepo.createHoaDon(hoaDon);
+                    if (hoaDon.getKhachHang()!=null){
+                        List<HoaDon> hoaDons = hoaDonDAO.getHoaDonByMaKh(hoaDon.getKhachHang().getMa());
+                        BigDecimal tongTienChiTieu = BigDecimal.ZERO;
+                        for (HoaDon x:hoaDons
+                        ) {
+                            if (x.getTrangthai()==3){
+                                tongTienChiTieu=tongTienChiTieu.add(x.getTong_tien());
+                            }
+                        }
+                        KhachHang khachHang = khachHangDao.getKhByEmail(hoaDon.getKhachHang().getEmail());
+                        if (tongTienChiTieu.compareTo(new BigDecimal(10000000))>0){
+                            khachHang.setHang_khach_hang(hangKhachHangDAO.getHangKhachHangByMa("HKH1"));
+                        }
+                        if (tongTienChiTieu.compareTo(new BigDecimal(25000000))>0){
+                            khachHang.setHang_khach_hang(hangKhachHangDAO.getHangKhachHangByMa("HKH2"));
+                        }
+                        if (tongTienChiTieu.compareTo(new BigDecimal(50000000))>0){
+                            khachHang.setHang_khach_hang(hangKhachHangDAO.getHangKhachHangByMa("HKH3"));
+                        }
+                        if (tongTienChiTieu.compareTo(new BigDecimal(100000000))>0){
+                            khachHang.setHang_khach_hang(hangKhachHangDAO.getHangKhachHangByMa("HKH4"));
+                        }
+                        khachHangDao.save(khachHang);
+                    }
+
                 }
             } else if ("huy".equals(huyxacnhan3)) {
                 for (String maHD : selectedMa3) {

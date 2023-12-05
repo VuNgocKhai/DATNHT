@@ -63,11 +63,18 @@ public class TrangChuController {
         return "layout/login";
     }
 
-    @RequestMapping("/admin1/login")
-    public String loginadmin() {
-        return "layout/loginadmin";
-    }
-
+//    @RequestMapping("/admin/login")
+//    public String loginadmin() {
+//        return "layout/loginadmin";
+//    }
+//    @RequestMapping(value = "/admin/login", params = "error")
+//    public String loginfailadmin() {
+//        return "layout/login";
+//    }
+//    @RequestMapping(value = "/admin/login", params = "logout")
+//    public String logoutadmin() {
+//        return "layout/logout";
+//    }
     @RequestMapping(value = "/login", params = "error")
     public String loginfail() {
         return "layout/login";
@@ -176,18 +183,6 @@ public class TrangChuController {
         model.addAttribute("khachHang", khachHang);
         model.addAttribute("active", "lienhe");
         return "home/contact";
-    }
-
-    @PostMapping("/contact/send-your-opininon")
-    public String guiphanhoi(@RequestParam("ten") String ten,
-                             @RequestParam("email")
-                             @Email(message = "Địa chỉ Email không hợp lệ") String email,
-                             @RequestParam("ykienphanhoi") String ykienphanhoi,
-                             @RequestParam("agree") Integer agree) {
-        if (ten != null && email != null && ykienphanhoi != null && agree != null) {
-            System.out.println(ten + email + ykienphanhoi + agree);
-        }
-        return "redirect:/contact";
     }
 
     @RequestMapping("/pdf")

@@ -728,8 +728,9 @@
                                                th:value="${soTienGiam}" readonly>
                                     </div>
                                     <div class="col-12" style="margin-top: 10px" th:hidden="${tongDiemQuyDoiHienCo <= 0}">
-                                        <label>Số điểm hiện có là [[${tongDiemQuyDoiHienCo}]] nhập số điểm muốn sử dụng: </label>
+                                        <label> <span>Số điểm hiện có là</span>  <input type="text" class="form-control" id="diemHienCo" readonly th:value="${tongDiemQuyDoiHienCo}"> <span>nhập số điểm muốn sử dụng:</span>  </label>
                                         <input class="form-control giaBan" name="sodiemsudung" id="sodiemsudung" th:value="${sodiemsudung}">
+                                        <span id="Error" class="error-message"></span>
                                     </div>
                                     <div class="col-6" style="margin-top: 10px" th:hidden="${tongDiemQuyDoiHienCo <= 0}">
                                         <label>Số tiền giảm từ sử dụng điểm: </label>
@@ -936,11 +937,13 @@
 
 <script>
     var inputField = document.getElementById('sodiemsudung');
+    var inputField1 = document.getElementById('diemHienCo');
     var inputField2= document.getElementById('sotienquydoi');
 
     // Thêm sự kiện 'input' vào phần tử input
     inputField.addEventListener('input', function() {
-        if (Number.parseInt(inputField.value) > 1000){
+        clearErrorMessages();
+        if (Number.parseInt(inputField.value) > 5000 && Number.parseInt(inputField.value) < Number.parseInt(inputField1.value)){
             // Hành động bạn muốn thực hiện khi có sự kiện input (người dùng nhập thông tin)
             let phiShip = document.getElementById('phiShip').value;
             let tongTienTruocGiam = document.getElementById('tongTienTruocGiam').value;
@@ -949,10 +952,29 @@
             inputField2.value = inputField.value;
             document.getElementById('tongTienSauGiam').setAttribute('value', String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - Number.parseInt(inputField.value))));
             document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - Number.parseInt(inputField.value)));
-
             console.log('Đã nhập: ' + inputField.value);
         }
+        if (Number.parseInt(inputField.value) < 0){
+            displayErrorMessage('Error', 'Số điểm sử dụng phải là số nguyên');
+        }
+        if (Number.parseInt(inputField.value) < 5000){
+            displayErrorMessage('Error', 'Số điểm sử dụng tối thiểu là 5000');
+        }
+        if (Number.parseInt(inputField.value) > Number.parseInt(inputField1.value)){
+            displayErrorMessage('Error', 'Số điểm sử dụng vượt quá số điểm hiện có');
+        }
     });
+    function displayErrorMessage(elementId, message) {
+        var errorElement = document.getElementById(elementId);
+        errorElement.innerText = message;
+        errorElement.style.color = 'red';
+    }
+    function clearErrorMessages() {
+        var errorElements = document.querySelectorAll('.error-message');
+        errorElements.forEach(function (element) {
+            element.innerText = '';
+        });
+    }
     function callAPIGHN() {
         var divPhiShip = document.getElementById("divPhiShip");
         if (divPhiShip.style.display === "block") {

@@ -27,6 +27,9 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "and hd.trangthai = 0")
     Page<HoaDon> searchHoaDonByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
+    @Query("select p from HoaDon p where p.khachHang.ma=?1")
+    List<HoaDon> getHoaDonByMaKh(String makh);
+
     @Query("SELECT hd FROM HoaDon hd WHERE hd.ma LIKE %:keyword% AND hd.trangthai = :trangThai")
     Page<HoaDon> searchHoaDon(@Param("keyword") String keyword, @Param("trangThai") Integer trangThai, Pageable pageable);
 

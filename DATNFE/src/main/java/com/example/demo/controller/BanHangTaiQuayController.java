@@ -537,10 +537,11 @@ public class BanHangTaiQuayController {
                                                 @RequestParam("phiShip") String phiShip,
                                                 @RequestParam("soTienGiam") String soTienGiam,
                                                 @RequestParam("sodiemsudung") Integer sodiemsudung,
+                                                @RequestParam("diemHienco") Integer diemHienCo,
                                                 @RequestParam("sotienquydoi") BigDecimal sotienquydoi,
                                                 HttpServletRequest request,
                                                 RedirectAttributes redirectAttributes) {
-        if(sodiemsudung<5000){
+        if(sodiemsudung<5000 || sodiemsudung>diemHienCo){
             sodiemsudung=0;
         }
         System.out.println("in tien ra" + tongTienSauGiam + phiShip + soTienGiam);
@@ -658,7 +659,7 @@ public class BanHangTaiQuayController {
     }
 
     @PostMapping("/admin/ban-hang-tai-quay/xac-nhan-don-hang")
-    public void xacNhan(HttpServletRequest request,
+    public String xacNhan(HttpServletRequest request,
                           HttpServletResponse resp,
                           @RequestParam("maHD") String maHD,
                           RedirectAttributes redirectAttributes) throws IOException {
@@ -685,6 +686,8 @@ public class BanHangTaiQuayController {
                 viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung()+hoaDon.getSo_diem_su_dung());
                 viDiem.setTong_diem(viDiem.getSo_diem_da_cong()-viDiem.getSo_diem_da_dung());
                 viDiemDAO.save(viDiem);
+                return "redirect:/admin/ban-hang";
+
             }
         } else if (hoaDon.getHinh_thuc_thanh_toan() == 1 && hoaDon.getHinh_thuc_mua() == 0){
             BigDecimal newTotal = calculateTotal(hoaDon);
@@ -800,6 +803,8 @@ public class BanHangTaiQuayController {
                 viDiem.setTong_diem(viDiem.getSo_diem_da_cong()-viDiem.getSo_diem_da_dung());
                 viDiemDAO.save(viDiem);
             }
+            return "redirect:/admin/ban-hang";
+
         }else if(hoaDon.getHinh_thuc_thanh_toan() == 1 && hoaDon.getHinh_thuc_mua() == 1){
             LocalDate currentDate = LocalDate.now();
             hoaDon.setNgay_thanh_toan(currentDate);
@@ -823,6 +828,9 @@ public class BanHangTaiQuayController {
                 viDiem.setTong_diem(viDiem.getSo_diem_da_cong()-viDiem.getSo_diem_da_dung());
                 viDiemDAO.save(viDiem);
             }
+            return "redirect:/admin/ban-hang";
+
         }
+        return "redirect:/admin/ban-hang";
     }
 }
