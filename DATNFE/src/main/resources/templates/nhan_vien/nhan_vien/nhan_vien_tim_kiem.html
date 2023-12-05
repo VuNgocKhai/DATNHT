@@ -119,12 +119,6 @@
                 isErr=true;
             }
 
-            var ngayNghiViec = document.getElementById("ngayNghiViecInput").value;
-            if (ngayNghiViec.trim() === "") {
-                document.getElementById("ngayNghiViecError").innerHTML = "Vui lòng chọn ngày nghỉ việc.";
-                isErr = true;
-            }
-
             if(!isErr){
                 document.getElementById("nhanVienForm").submit();
             }
@@ -564,25 +558,19 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-group col-3">
+                                    <div class="form-group col-4">
                                         <label for="formGroupExampleInput2">Ngày sinh <span style="color: red">*</span></label>
                                         <input type="date" th:field="*{ngaySinh}" class="form-control" id="ngaySinhInput">
                                         <small class="text-danger" id="ngaySinhError"></small>
                                     </div>
 
-                                    <div class="form-group col-3">
+                                    <div class="form-group col-4">
                                         <label for="formGroupExampleInput2">Ngày vào làm <span style="color: red">*</span></label>
                                         <input type="date" th:field="*{ngayVaoLam}" class="form-control" id="ngayVaoLamInput">
                                         <small class="text-danger" id="ngayVaoLamError"></small>
                                     </div>
 
-                                    <div class="form-group col-3">
-                                        <label for="formGroupExampleInput2">Ngày nghỉ việc <span style="color: red">*</span></label>
-                                        <input type="date" th:field="*{ngayNghiViec}" class="form-control" id="ngayNghiViecInput">
-                                        <small class="text-danger" id="ngayNghiViecError"></small>
-                                    </div>
-
-                                    <div class="form-group col-3">
+                                    <div class="form-group col-4">
                                         <label for="formGroupExampleInput2">Chức vụ <span style="color: red">*</span></label>
                                         <select class="form-control" id="chucVuInput" th:field="*{chucVu.id}">
                                             <option th:each="cv : ${listChucVu}" th:value="${cv.id}" th:text="${cv.ten}"></option>

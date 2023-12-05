@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface ChatLieuDAO extends JpaRepository<ChatLieu,UUID> {
-    ChatLieu findChatLieuByTen(String ten);
+    ChatLieu findChatLieuByMa(String ma);
 }

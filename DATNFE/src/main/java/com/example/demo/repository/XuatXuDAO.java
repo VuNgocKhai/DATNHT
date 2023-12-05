@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface XuatXuDAO extends JpaRepository<XuatXu,UUID> {
-    XuatXu findXuatXuByTen(String ten);
+    XuatXu findXuatXuByMa(String ma);
 }

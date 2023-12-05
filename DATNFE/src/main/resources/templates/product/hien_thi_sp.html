@@ -157,8 +157,10 @@
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
                            id="navbarDropdownMenuLink"
                            role="button" data-toggle="dropdown" aria-expanded="false">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" class="rounded-circle"
-                                 height="72" alt="Avatar" loading="lazy"/>
+                            <img
+                                    class="rounded-circle"
+                                    th:src="@{|/images/${nhanVienLogin.anh}|}"
+                                    height="72" alt="Avatar" loading="lazy"/>
                         </a>
                         <div class="dropdown-menu" style="margin-left: -88px;">
                             <a class="dropdown-item" href="#">Đăng Xuất</a>
@@ -171,18 +173,32 @@
         <div class="row">
             <div class="col-7"></div>
             <div class="col-2">
-                <a href="/admin/sanpham/export" class="btn btn-primary mb-2 " download="example.xlsx">
+                <a href="/admin/sanpham/export" class="btn btn-primary mb-2 " id="exportBtn" download="example.xlsx">
                     <i class="fa fa-sign-out" aria-hidden="true"></i>
                     Xuất excel
                 </a>
             </div>
-            <form id="fileUploadForm" class="col-3 row">
-                <label for="ip">Chọn file</label>
-                <input type="file" name="file" id="ip"  style="display: none"/>
-                <button type="button" class="btn btn-primary mb-2" onclick="uploadFile()">
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                $(document).ready(function (){
+                    $('#exportBtn').click(function (){
+                        console.log(1111);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công!',
+                            text: 'File excel đã được tải về trình duyệt của bạn',
+                        })
+                    })
+                })
+            </script>
+            <form id="fileUploadForm" class="col-3">
+                <button type="button" class="btn btn-primary mb-2" id="importBtn" onclick="uploadFile()">
                     <i class="fa fa-sign-in" aria-hidden="true"></i>
                     Nhập từ Excel
                 </button>
+                <p></p>
+                <input type="file" name="file" id="iip"/>
             </form>
             <script>
                 function uploadFile() {
@@ -196,8 +212,19 @@
                     })
                         .then(response => response.json())
                         .then(data => {
-                            // Xử lý kết quả từ server (nếu cần)
-                            console.log(data);
+                            if(data){
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Thành công!',
+                                    text: 'Import thành công.',
+                                })
+                            }else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Lỗi!',
+                                    text: 'Lỗi trong quá trình import.',
+                                })
+                            }
                         })
                         .catch(error => {
                             console.error('Lỗi khi gửi yêu cầu:', error);
@@ -326,7 +353,6 @@
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
 
-<!--nhap xuat file-->
 
 
 </body>

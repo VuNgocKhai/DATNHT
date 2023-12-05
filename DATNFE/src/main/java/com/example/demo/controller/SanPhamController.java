@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -218,10 +220,11 @@ public class SanPhamController {
                 item.setMa(giayDAO.generateNextMaGiay());
                 giayDAO.save(item);
             });
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return true;
+        return false;
     }
 
 
@@ -275,32 +278,32 @@ public class SanPhamController {
             String ten = row.getCell(0).toString();
             giay.setTen(ten);
 
-            String tenTh = row.getCell(1).toString();
-            ThuongHieu thuongHieu = thuongHieuDAO.getThuongHieuByTen(tenTh);
+            String maTh = row.getCell(1).toString();
+            ThuongHieu thuongHieu = thuongHieuDAO.findThuongHieuByMa(maTh);
             giay.setThuong_hieu(thuongHieu);
 
-            String tenGt = row.getCell(2).toString();
-            GioiTinh gioiTinh = gioiTinhDAO.getGioiTinhByTen(tenGt);
+            String maGt = row.getCell(2).toString();
+            GioiTinh gioiTinh = gioiTinhDAO.findGioiTinhByMa(maGt);
             giay.setGioi_tinh(gioiTinh);
 
-            String tenCl = row.getCell(3).toString();
-            ChatLieu chatLieu = chatLieuDAO.findChatLieuByTen(tenCl);
+            String maCl = row.getCell(3).toString();
+            ChatLieu chatLieu = chatLieuDAO.findChatLieuByMa(maCl);
             giay.setChat_lieu(chatLieu);
 
-            String tenDg = row.getCell(4).toString();
-            DeGiay deGiay = deGiayDAO.findDeGiayByTen(tenDg);
+            String maDg = row.getCell(4).toString();
+            DeGiay deGiay = deGiayDAO.findDeGiayByMa(maDg);
             giay.setDe_giay(deGiay);
 
-            String tenMs = row.getCell(5).toString();
-            MauSac mauSac = mauSacDAO.findMauSacByTen(tenMs);
+            String maMs = row.getCell(5).toString();
+            MauSac mauSac = mauSacDAO.findMauSacByMa(maMs);
             giay.setMau_sac(mauSac);
 
-            String tenXx = row.getCell(6).toString();
-            XuatXu xuatXu = xuatXuDAO.findXuatXuByTen(tenXx);
+            String maXx = row.getCell(6).toString();
+            XuatXu xuatXu = xuatXuDAO.findXuatXuByMa(maXx);
             giay.setXuat_xu(xuatXu);
 
-            String tenKd = row.getCell(7).toString();
-            KieuDang kieuDang = kieuDangDAO.findKieuDangByTen(tenKd);
+            String maKd = row.getCell(7).toString();
+            KieuDang kieuDang = kieuDangDAO.findKieuDangByMa(maKd);
             giay.setKieu_dang(kieuDang);
 
             String mota = row.getCell(8).toString();
@@ -401,5 +404,14 @@ public class SanPhamController {
         }
 
         // Đóng workbook
+    }
+
+    @Autowired NhanVienDAO nhanVienDAO;
+    private Authentication authentication;
+    @ModelAttribute("nhanVienLogin")
+    public NhanVien nhanVienLogin() {
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv=nhanVienDAO.getNVByEmail(authentication.getName());
+        return nv;
     }
 }

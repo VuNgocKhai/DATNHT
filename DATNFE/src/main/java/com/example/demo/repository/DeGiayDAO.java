@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface DeGiayDAO extends JpaRepository<DeGiay,UUID> {
-    DeGiay findDeGiayByTen(String ten);
+    DeGiay findDeGiayByMa(String ma);
 }

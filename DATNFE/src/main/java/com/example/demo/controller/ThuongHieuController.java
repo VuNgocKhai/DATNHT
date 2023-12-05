@@ -1,13 +1,13 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Anh;
-import com.example.demo.entity.Giay;
-import com.example.demo.entity.ThuongHieu;
-import com.example.demo.entity.PageDTO;
+import com.example.demo.entity.*;
+import com.example.demo.repository.NhanVienDAO;
 import com.example.demo.repository.ThuongHieuDAO;
 import com.example.demo.repository.ThuongHieuRepo;
 import com.example.demo.repository.ThuongHieuRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -89,5 +89,15 @@ public class ThuongHieuController {
        ThuongHieu thuongHieu = thuongHieuDAO.findById(idth).get();
         thuongHieu.setTen_url(file.getOriginalFilename());
         return "product/thuong_hieu";
+    }
+
+    @Autowired
+    NhanVienDAO nhanVienDAO;
+    private Authentication authentication;
+    @ModelAttribute("nhanVienLogin")
+    public NhanVien nhanVienLogin() {
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv=nhanVienDAO.getNVByEmail(authentication.getName());
+        return nv;
     }
 }

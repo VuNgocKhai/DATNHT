@@ -1,12 +1,16 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.DanhGia;
+import com.example.demo.entity.NhanVien;
 import com.example.demo.entity.PageDTO;
 import com.example.demo.repository.DanhGiaDAO;
+import com.example.demo.repository.NhanVienDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -64,4 +68,13 @@ public class DanhGiaController {
         return "redirect:/admin/danh-gia?number="+numberCurrent;
     }
 
+    @Autowired
+    NhanVienDAO nhanVienDAO;
+    private Authentication authentication;
+    @ModelAttribute("nhanVienLogin")
+    public NhanVien nhanVienLogin() {
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv=nhanVienDAO.getNVByEmail(authentication.getName());
+        return nv;
+    }
 }

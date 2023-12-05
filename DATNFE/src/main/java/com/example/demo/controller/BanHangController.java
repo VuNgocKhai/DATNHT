@@ -1,23 +1,14 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.*;
 import com.example.demo.entity.GiayDTO;
-import com.example.demo.entity.HoaDon;
-import com.example.demo.entity.HoaDonChiTiet;
-import com.example.demo.entity.PageDTO;
-import com.example.demo.repository.HoaDonChiTietDAO;
-import com.example.demo.repository.HoaDonChiTietRepo;
-import com.example.demo.repository.HoaDonDAO;
-import com.example.demo.repository.HoaDonRepo;
+import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
@@ -310,4 +301,13 @@ public class BanHangController {
         return "banhangtaiquay/ban_hang";
     }
 
+    @Autowired
+    NhanVienDAO nhanVienDAO;
+    private Authentication authentication;
+    @ModelAttribute("nhanVienLogin")
+    public NhanVien nhanVienLogin() {
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv=nhanVienDAO.getNVByEmail(authentication.getName());
+        return nv;
+    }
 }

@@ -11,31 +11,17 @@ import com.example.demo.entity.HoaDonChiTiet;
 import com.example.demo.entity.KhachHang;
 import com.example.demo.entity.NhanVien;
 import com.example.demo.entity.PageDTO;
-import com.example.demo.repository.DiaChiRepo;
-import com.example.demo.repository.DiachiDao;
-import com.example.demo.repository.GiamGiaChiTietHoaDonRepo;
-import com.example.demo.repository.GiamGiaHoaDonRepo;
-import com.example.demo.repository.GiayChiTietDAO;
-import com.example.demo.repository.GiayChiTietRepo;
-import com.example.demo.repository.GiayDAO;
-import com.example.demo.repository.HoaDonChiTietDAO;
-import com.example.demo.repository.HoaDonChiTietRepo;
-import com.example.demo.repository.HoaDonDAO;
-import com.example.demo.repository.HoaDonRepo;
-import com.example.demo.repository.KhachHangRepo;
-import com.example.demo.repository.KichCoRepo;
-import com.example.demo.repository.NhanVienRepository;
+import com.example.demo.repository.*;
 import com.example.demo.service.CallAPIGHN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -765,5 +751,15 @@ public class BanHangTaiQuayController {
             hoaDon.setTrangthai(1);
             hoaDonRepo.createHoaDon(hoaDon);
         }
+    }
+
+    @Autowired
+    NhanVienDAO nhanVienDAO;
+    private Authentication authentication;
+    @ModelAttribute("nhanVienLogin")
+    public NhanVien nhanVienLogin() {
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv=nhanVienDAO.getNVByEmail(authentication.getName());
+        return nv;
     }
 }
