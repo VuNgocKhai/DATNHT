@@ -161,7 +161,7 @@ public class SanPhamController {
         giayChiTiet.setGiay(Giay.builder().id(idsp).build());
         giayChiTietDAO.save(giayChiTiet);
         String ma = giayDAO.findById(giayChiTiet.getGiay().getId()).get().getMa();
-        return "redirect:/admin/sanpham/update/" + ma;
+        return "redirect:/admin/sanpham/update/"+ma;
     }
 
     @PostMapping("/admin/sanpham/createanh")

@@ -35,7 +35,6 @@ public class KhachHang implements Serializable {
     private String avatar;
 
     @Column(name = "ho_ten")
-    @NotBlank(message = "Không được để trống họ tên")
     private String hoten;
 
     @Column(name = "ngay_sinh")

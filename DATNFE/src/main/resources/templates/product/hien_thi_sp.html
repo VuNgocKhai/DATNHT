@@ -10,9 +10,15 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        .custom-placeholder::placeholder {
+            color: #535353;
+        }
+    </style>
 </head>
 <body>
 
@@ -145,10 +151,8 @@
 
         </div>
     </nav>
-
     <!-- Page Content  -->
-
-    <div id="content" class="p-4 p-md-5 pt-5">
+    <div id="content" class="p-4 p-md-5 pt-5 bg-secondary">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: -50px;">
             <div class="container-fluid" style="display: flex;justify-content: end;">
                 <ul class="navbar-nav">
@@ -157,10 +161,8 @@
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
                            id="navbarDropdownMenuLink"
                            role="button" data-toggle="dropdown" aria-expanded="false">
-                            <img
-                                    class="rounded-circle"
-                                    th:src="@{|/images/${nhanVienLogin.anh}|}"
-                                    height="72" alt="Avatar" loading="lazy"/>
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" class="rounded-circle"
+                                 height="72" alt="Avatar" loading="lazy"/>
                         </a>
                         <div class="dropdown-menu" style="margin-left: -88px;">
                             <a class="dropdown-item" href="#">Đăng Xuất</a>
@@ -170,176 +172,191 @@
                 </ul>
             </div>
         </nav>
-        <div class="row">
-            <div class="col-7"></div>
-            <div class="col-2">
-                <a href="/admin/sanpham/export" class="btn btn-primary mb-2 " id="exportBtn" download="example.xlsx">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    Xuất excel
-                </a>
-            </div>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script>
-                $(document).ready(function (){
-                    $('#exportBtn').click(function (){
-                        console.log(1111);
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Thành công!',
-                            text: 'File excel đã được tải về trình duyệt của bạn',
+        <div class="container-lg bg-light border">
+            <div class="row">
+                <div class="col-7"></div>
+                <div class="col-2">
+                    <a href="/admin/sanpham/export" class="btn btn-primary mb-2 " id="exportBtn" download="example.xlsx">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        Xuất excel
+                    </a>
+                </div>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                    $(document).ready(function (){
+                        $('#exportBtn').click(function (){
+                            console.log(1111);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Thành công!',
+                                text: 'File excel đã được tải về trình duyệt của bạn',
+                            })
                         })
                     })
-                })
-            </script>
-            <form id="fileUploadForm" class="col-3">
-                <button type="button" class="btn btn-primary mb-2" id="importBtn" onclick="uploadFile()">
-                    <i class="fa fa-sign-in" aria-hidden="true"></i>
-                    Nhập từ Excel
-                </button>
-                <p></p>
-                <input type="file" name="file" id="iip"/>
-            </form>
-            <script>
-                function uploadFile() {
-                    // Lấy ra form và file từ form
-                    var formData = new FormData(document.getElementById('fileUploadForm'));
+                </script>
+                <form id="fileUploadForm" class="col-3">
+                    <button type="button" class="btn btn-primary mb-2" id="importBtn" onclick="uploadFile()">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        Nhập từ Excel
+                    </button>
+                    <p></p>
+                    <input type="file" name="file" id="iip"/>
+                </form>
+                <script>
+                    function uploadFile() {
+                        // Lấy ra form và file từ form
+                        var formData = new FormData(document.getElementById('fileUploadForm'));
 
-                    // Gửi yêu cầu POST đến API
-                    fetch('/admin/sanpham/import', {
-                        method: 'POST',
-                        body: formData
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if(data){
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Thành công!',
-                                    text: 'Import thành công.',
-                                })
-                            }else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Lỗi!',
-                                    text: 'Lỗi trong quá trình import.',
-                                })
-                            }
+                        // Gửi yêu cầu POST đến API
+                        fetch('/admin/sanpham/import', {
+                            method: 'POST',
+                            body: formData
                         })
-                        .catch(error => {
-                            console.error('Lỗi khi gửi yêu cầu:', error);
-                        });
-                }
-            </script>
+                            .then(response => response.json())
+                            .then(data => {
+                                if(data){
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Thành công!',
+                                        text: 'Import thành công.',
+                                    })
+                                }else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Lỗi!',
+                                        text: 'Lỗi trong quá trình import.',
+                                    })
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Lỗi khi gửi yêu cầu:', error);
+                            });
+                    }
+                </script>
+            </div>
+            <div style="padding: 15px">
+                <h3 class="text-center m-b-5">Quản lý Sản Phẩm</h3>
+                <hr>
+                <form class="form-inline" action="/admin/sanpham" method="post" th:object="${searchform}">
+                    <div class="row">
+                        <div class="form-group col-3 mb-2">
+                            <label>Thương Hiệu : </label>
+                            <select style="margin-left: 5px" class="form-control col-6" th:field="*{thuong_hieu}">
+                                <option value="">Tất cả</option>
+                                <option th:each="x:${listThuongHieu}" th:value="${x.ten}">[[${x.ten}]]</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-3 mb-2">
+                            <label>Chất Liệu : </label>
+                            <select style="margin-left: 12px" class="form-control col-6" th:field="*{chat_lieu}">
+                                <option value="">Tất cả</option>
+                                <option th:each="x:${listChatLieu}" th:value="${x.ten}">[[${x.ten}]]</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-3 mb-2">
+                            <label>Xuất Xứ :</label>
+                            <select style="margin-left: 5px" class="form-control col-6" th:field="*{xuat_xu}">
+                                <option value="">Tất cả</option>
+                                <option th:each="x:${listXuatXu}" th:value="${x.ten}">[[${x.ten}]]</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-3 mb-2">
+                            <label>Màu Sắc : </label>
+                            <select style="margin-left: 5px" class="form-control col-6" th:field="*{mau_sac}">
+                                <option value="">Tất cả</option>
+                                <option th:each="x:${listMauSac}" th:value="${x.ten}">[[${x.ten}]]</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-3 mb-2">
+                            <label>Giới Tính : </label>
+                            <select style="margin-left: 32px" class="form-control col-6" th:field="*{gioi_tinh}">
+                                <option value="">Tất cả</option>
+                                <option th:each="x:${listGioiTinh}" th:value="${x.ten}">[[${x.ten}]]</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-3 mb-2">
+                            <label>Kiểu Dáng : </label>
+                            <select style="margin-left: 5px" class="form-control col-6" th:field="*{kieu_dang}">
+                                <option value="">Tất cả</option>
+                                <option th:each="x:${listKieuDang}" th:value="${x.ten}">[[${x.ten}]]</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-4 mb-2">
+                            <label>Đế Giày : </label>
+                            <select style="margin-left: 5px" class="form-control col-6" th:field="*{de_giay}">
+                                <option value="">Tất cả</option>
+                                <option th:each="x:${listDeGiay}" th:value="${x.ten}">[[${x.ten}]]</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-4 mb-2">
+                            <label>Khoảng Giá : </label>
+                            <input style="margin-left: 10px" type="text" class="form-control col-4 custom-placeholder" placeholder="đ Từ"
+                                   th:field="*{tien_min}">
+                            <input type="text" style="margin-left: 10px" class="form-control col-4 custom-placeholder"
+                                   placeholder="đ Đến" th:field="*{tien_max}">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control custom-placeholder" th:field="*{tensp}" placeholder="Tìm theo tên">
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                            <button type="submit" class=" btn btn-warning" style="margin: 0 3px"><i
+                                    class="bi bi-arrow-clockwise"></i></button>
+                            <a href="/admin/sanpham/create" class=" btn btn-primary"> + Tạo Sản Phẩm</a>
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-hover" style="margin: 20px 0;">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Mã</th>
+                        <th scope="col">Ảnh</th>
+                        <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Giá nhập</th>
+                        <th scope="col">Giá bán</th>
+                        <th scope="col">Chất liệu</th>
+                        <th scope="col">Giới tính</th>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col">Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="sp:${items.content}">
+                        <th scope="row">[[${sp.ma}]]</th>
+                        <th><img style="width: 100px" th:src="@{|/images/${sp.getAnhDau(sp.anhs)}|}" alt=""></th>
+                        <th>[[${sp.ten}]]</th>
+                        <th>[[*{#numbers.formatDecimal(sp.gianhap, 0, 'COMMA', 0, 'POINT')}]] ₫</th>
+                        <th>[[*{#numbers.formatDecimal(sp.giaban, 0, 'COMMA', 0, 'POINT')}]] ₫</th>
+                        <th>[[${sp.chat_lieu.ten}]]</th>
+                        <th>[[${sp.gioi_tinh.ten}]]</th>
+                        <th>[[${sp.trangthai==1?'Hoạt Động':'Ngừng Hoạt Động'}]]</th>
+                        <th>
+                            <a class="btn-sm btn-warning" style="text-align: center"
+                               th:href="@{|/admin/sanpham/update/${sp.ma}|}">
+                                <i style="color: white" class="bi bi-eye"></i>
+                            </a>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px;">
-            <form class="form-inline" action="/admin/sanpham" method="post" th:object="${searchform}">
-                <div class="form-group mx-sm-3 mb-2">
-                    <input type="text" class="form-control" th:field="*{tensp}" placeholder="Tìm Kiếm ">
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <label>Thương Hiệu :</label>
-                    <select class="form-control" th:field="*{thuong_hieu}">
-                        <option value="">Tất cả</option>
-                        <option th:each="x:${listThuongHieu}" th:value="${x.ten}">[[${x.ten}]]</option>
-                    </select>
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <label>Chất Liệu :</label>
-                    <select class="form-control" th:field="*{chat_lieu}">
-                        <option value="">Tất cả</option>
-                        <option th:each="x:${listChatLieu}" th:value="${x.ten}">[[${x.ten}]]</option>
-                    </select>
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <label>Xuất Xứ :</label>
-                    <select class="form-control" th:field="*{xuat_xu}">
-                        <option value="">Tất cả</option>
-                        <option th:each="x:${listXuatXu}" th:value="${x.ten}">[[${x.ten}]]</option>
-                    </select>
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <label>Màu Sắc :</label>
-                    <select class="form-control" th:field="*{mau_sac}">
-                        <option value="">Tất cả</option>
-                        <option th:each="x:${listMauSac}" th:value="${x.ten}">[[${x.ten}]]</option>
-                    </select>
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <label>Giới Tính :</label>
-                    <select class="form-control" th:field="*{gioi_tinh}">
-                        <option value="">Tất cả</option>
-                        <option th:each="x:${listGioiTinh}" th:value="${x.ten}">[[${x.ten}]]</option>
-                    </select>
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <label>Đế Giày :</label>
-                    <select class="form-control" th:field="*{de_giay}">
-                        <option value="">Tất cả</option>
-                        <option th:each="x:${listDeGiay}" th:value="${x.ten}">[[${x.ten}]]</option>
-                    </select>
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <label>Kiểu Dáng :</label>
-                    <select class="form-control" th:field="*{kieu_dang}">
-                        <option value="">Tất cả</option>
-                        <option th:each="x:${listKieuDang}" th:value="${x.ten}">[[${x.ten}]]</option>
-                    </select>
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <label>Khoảng Giá :</label>
-                    <input type="text" placeholder="đ Từ" th:field="*{tien_min}">
-                    <input type="text" placeholder="đ Đến" th:field="*{tien_max}">
-                </div>
-                <button type="submit" class="btn btn-primary mb-2">Tìm Kiếm</button>
-                <button type="submit" class=" btn btn-warning mb-2" style="margin: 0 20px">Làm Mới</button>
-                <a href="/admin/sanpham/create" class=" btn btn-primary mb-2"> + Tạo Sản Phẩm</a>
-            </form>
-            <table class="table" style="margin: 20px 0;">
-                <thead class="thead-light">
-                <tr>
-                    <th scope="col">Mã</th>
-                    <th scope="col">Ảnh</th>
-                    <th scope="col">Tên Sản Phẩm</th>
-                    <th scope="col">Giá Nhập</th>
-                    <th scope="col">Giá Bán</th>
-                    <th scope="col">Chất Liệu</th>
-                    <th scope="col">Gioi Tinh</th>
-                    <th scope="col">Trạng Thái</th>
-                    <th scope="col">Thao Tác</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="sp:${items.content}">
-                    <th scope="row">[[${sp.ma}]]</th>
-                    <th><img style="width: 100px" th:src="@{|/images/${sp.getAnhDau(sp.anhs)}|}" alt=""></th>
-                    <th>[[${sp.ten}]]</th>
-                    <th>[[*{#numbers.formatDecimal(sp.gianhap, 0, 'COMMA', 0, 'POINT')}]] ₫</th>
-                    <th>[[*{#numbers.formatDecimal(sp.giaban, 0, 'COMMA', 0, 'POINT')}]] ₫</th>
-                    <th>[[${sp.chat_lieu.ten}]]</th>
-                    <th>[[${sp.gioi_tinh.ten}]]</th>
-                    <th>[[${sp.trangthai==1?'Hoạt Động':'Ngừng Hoạt Động'}]]</th>
-                    <th><a th:href="@{|/admin/sanpham/update/${sp.ma}|}">Chi Tiết</a></th>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <br>
         <nav aria-label="Page navigation example" style="display: flex;justify-content: space-between;">
             <div style="margin-left: 20px">
                 <p>Bạn đang xem [[${items.numberOfElements}]] trên tổng số [[${items.totalElements}]]</p>
             </div>
             <ul class="pagination" style="margin-right: 24px;">
                 <li class="page-item">
-                    <a class="page-link" th:href="@{|/admin/kichco?page=${items.number-1}|}" aria-label="Previous">
+                    <a class="page-link" th:href="@{|/admin/sanpham?page=${items.number-1}|}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
 
                 <li th:each="tongtrang,status:${#numbers.sequence(1, items.totalPages)}" class="page-item"><a
-                        class="page-link" th:href="@{|/admin/kichco?page=${status.index}|}">[[${status.index+1}]]</a>
+                        class="page-link" th:href="@{|/admin/sanpham?page=${status.index}|}">[[${status.index+1}]]</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" th:href="@{|/admin/kichco?page=${items.number+1}|}" aria-label="Next">
+                    <a class="page-link" th:href="@{|/admin/sanpham?page=${items.number+1}|}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
@@ -353,6 +370,7 @@
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
 
+<!--nhap xuat file-->
 
 
 </body>

@@ -156,7 +156,8 @@
         <ul class="nav nav-tabs" id="mainTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="list-tab" data-bs-toggle="tab" data-bs-target="#list-tab-pane"
-                        type="button" role="tab" aria-controls="list-tab-pane" aria-selected="false">Danh sách hóa đơn
+                        type="button" role="tab" aria-controls="list-tab-pane" aria-selected="false">
+                    Danh sách hóa đơn
                 </button>
             </li>
             <li class="nav-item" role="presentation">
@@ -175,31 +176,36 @@
                             <li class="nav-item navbar-expand-lg" role="presentation">
                                 <button class="nav-link active" id="confirm-tab" data-bs-toggle="tab"
                                         data-bs-target="#confirm-tab-pane" type="button" role="tab"
-                                        aria-controls="confirm-tab-pane" aria-selected="true">Chờ xác nhận
+                                        aria-controls="confirm-tab-pane" aria-selected="true">
+                                    Chờ xác nhận
                                 </button>
                             </li>
                             <li class="nav-item navbar-expand-lg" role="presentation">
                                 <button class="nav-link" id="prepare-tab" data-bs-toggle="tab"
                                         data-bs-target="#prepare-tab-pane" type="button" role="tab"
-                                        aria-controls="prepare-tab-pane" aria-selected="false">Chờ giao
+                                        aria-controls="prepare-tab-pane" aria-selected="false">
+                                    Chờ giao
                                 </button>
                             </li>
                             <li class="nav-item navbar-expand-lg" role="presentation">
                                 <button class="nav-link" id="deliver-tab" data-bs-toggle="tab"
                                         data-bs-target="#deliver-tab-pane" type="button" role="tab"
-                                        aria-controls="deliver-tab-pane" aria-selected="false">Vận chuyển
+                                        aria-controls="deliver-tab-pane" aria-selected="false">
+                                    Vận chuyển
                                 </button>
                             </li>
                             <li class="nav-item navbar-expand-lg" role="presentation">
                                 <button class="nav-link" id="complete-tab" data-bs-toggle="tab"
                                         data-bs-target="#complete-tab-pane" type="button" role="tab"
-                                        aria-controls="complete-tab-pane" aria-selected="false">Hoàn thành
+                                        aria-controls="complete-tab-pane" aria-selected="false">
+                                    Hoàn thành
                                 </button>
                             </li>
                             <li class="nav-item navbar-expand-lg" role="presentation">
                                 <button class="nav-link" id="cancel-tab" data-bs-toggle="tab"
                                         data-bs-target="#cancel-tab-pane" type="button" role="tab"
-                                        aria-controls="cancel-tab-pane" aria-selected="false">Đã hủy
+                                        aria-controls="cancel-tab-pane" aria-selected="false">
+                                    Đã hủy
                                 </button>
                             </li>
                         </ul>
@@ -284,18 +290,24 @@
                                             <th scope="row">[[${hd.ma}]]</th>
                                             <th>
                                             <span th:if="${hd.ngay_tao == null}"
-                                                  class="badge badge-pill badge-primary badge-sm">Đang Chờ</span>
+                                                  class="badge badge-pill badge-primary badge-danger">Đang Chờ</span>
                                                 <span th:if="${hd.ngay_tao != null}" th:text="${hd.ngay_tao}"></span>
                                             </th>
-                                            <th>[[${hd.nhanVien.hoTen}]]</th>
                                             <th>
-                                                <span th:if="${hd.khachHang == null}">Khách Lẻ</span>
+                                                <span th:if="${hd.nhanVien == null}"
+                                                      class="badge badge-pill badge-primary badge-warning">Chưa có tt</span>
+                                                <span th:if="${hd.nhanVien != null}"
+                                                      th:text="${hd.nhanVien.hoTen}"></span>
+                                            </th>
+                                            <th>
+                                                <span th:if="${hd.khachHang == null}"
+                                                      class="badge badge-pill badge-primary badge-primary">Khách Lẻ</span>
                                                 <span th:if="${hd.khachHang != null}"
                                                       th:text="${hd.khachHang.hoten}"></span>
                                             </th>
                                             <th>
                                                  <span th:if="${hd.hinh_thuc_mua == null}"
-                                                       class="badge badge-pill badge-primary badge-sm">Chưa Có Thông Tin</span>
+                                                       class="badge badge-pill badge-warning">Chưa Có Thông Tin</span>
                                                 <span th:if="${hd.hinh_thuc_mua != null}">
                                                     [[${hd.hinh_thuc_mua == 0 ? 'Tại cửa hàng':'Online'}]]
                                                 </span>
@@ -303,7 +315,7 @@
                                             <th class="giaBan"
                                                 th:text="${hd.tong_tien != null ? hd.tong_tien : 0}"></th>
                                             <th class="text-center">
-                                                <a class="btn-sm btn-success" style="text-align: center"
+                                                <a class="btn-accept btn-sm btn-success" style="text-align: center"
                                                    th:href="@{|/admin/ban-hang/cho-giao-don-hang/${hd.ma}|}">
                                                     <i style="color: white" class="bi bi-check-lg"></i>
                                                 </a>
@@ -311,7 +323,7 @@
                                                    th:href="@{|/admin/ban-hang-tai-quay/view-cart/${hd.ma}|}">
                                                     <i style="color: white" class="bi bi-pencil"></i>
                                                 </a>
-                                                <a class="btn-sm btn-danger" style="text-align: center"
+                                                <a class="btn-delete btn-sm btn-danger" style="text-align: center"
                                                    th:href="@{|/admin/ban-hang-tai-quay/delete/${hd.id}|}">
                                                     <i style="color: white" class="bi bi-trash"></i>
                                                 </a>
@@ -396,7 +408,6 @@
                                 </div>
                                 <!--                                End Tìm kiếm-->
                                 <div style="margin-top: 30px"></div>
-
                                 <!--                                Table hóa đơn chờ giao-->
                                 <form class="form-xacnhan" th:action="@{/admin/ban-hang/xac-nhan-don-hang}"
                                       method="post">
@@ -406,8 +417,9 @@
                                            role="grid" aria-describedby="datatable-buttons_info">
                                         <thead class="thead-light">
                                         <tr>
-                                            <th scope="col"><input type="checkbox" id="selectAllCheckbox2"
-                                                                   style="width: 30px; height: 30px;display: flex; justify-content: center; align-items: center">
+                                            <th scope="col">
+                                                <input type="checkbox" id="selectAllCheckbox2"
+                                                       style="width: 30px; height: 30px;display: flex; justify-content: center; align-items: center">
                                             </th>
                                             <th scope="col">Mã HĐ</th>
                                             <th scope="col">Ngày Tạo</th>
@@ -431,30 +443,40 @@
                                         </tr>
                                         <tr th:each="hd:${PageHoaDonTT1.content}">
                                             <th>
-                                                <input type="checkbox"
+                                                <input th:if="${hd.ma != null}" type="checkbox"
                                                        style="width: 30px; height: 30px;display: flex; justify-content: center; align-items: center"
                                                        th:value="${hd.ma}" th:name="selectedMa2">
                                             </th>
-                                            <th scope="row">[[${hd.ma}]]</th>
+                                            <th>
+                                                <span th:if="${hd.ma == null}" class="badge badge-pill badge-danger">Chưa có tt</span>
+                                                <span th:if="${hd.ma != null}" th:text="${hd.ma}"></span>
+                                            </th>
                                             <th>
                                                 <span th:if="${hd.ngay_tao == null}"
-                                                      class="badge badge-pill badge-primary badge-sm">Đang Chờ</span>
+                                                      class="badge badge-pill badge-warning">Đang Chờ</span>
                                                 <span th:if="${hd.ngay_tao != null}" th:text="${hd.ngay_tao}"></span>
                                             </th>
                                             <th>
                                                 <span th:if="${hd.ngay_thanh_toan == null}"
-                                                      class="badge badge-pill badge-primary badge-sm">Đang Chờ</span>
+                                                      class="badge badge-pill badge-danger">Đang Chờ</span>
                                                 <span th:if="${hd.ngay_thanh_toan != null}"
                                                       th:text="${hd.ngay_thanh_toan}"></span>
                                             </th>
-                                            <th>[[${hd.nhanVien.hoTen}]]</th>
                                             <th>
-                                                <span th:if="${hd.khachHang == null}">Khách Lẻ</span>
+                                                <span th:if="${hd.nhanVien == null}"
+                                                      class="badge badge-pill badge-warning">Chưa có tt</span>
+                                                <span th:if="${hd.nhanVien != null}"
+                                                      th:text="${hd.nhanVien.hoTen}"></span>
+                                            </th>
+                                            <th>
+                                                <span th:if="${hd.khachHang == null}"
+                                                      class="badge badge-pill badge-primary">Khách Lẻ</span>
                                                 <span th:if="${hd.khachHang != null}"
                                                       th:text="${hd.khachHang.hoten}"></span>
                                             </th>
                                             <th>
-                                                <span th:if="${hd.hinh_thuc_mua == null}">Chưa có thông tin</span>
+                                                <span th:if="${hd.hinh_thuc_mua == null}"
+                                                      class="badge badge-pill badge-warning">Chưa có thông tin</span>
                                                 <span th:if="${hd.hinh_thuc_mua != null}">
                                                     [[${hd.hinh_thuc_mua == 0 ? 'Tại cửa hàng':'Online'}]]
                                                 </span>
@@ -462,17 +484,16 @@
                                             <th class="giaBan"
                                                 th:text="${hd.tong_tien != null ? hd.tong_tien : 0}"></th>
                                             <th class="text-center">
-                                                <a class="btn-sm btn-success"
+                                                <a class="btn-accept btn-sm btn-success"
                                                    th:href="@{|/admin/ban-hang/van-chuyen-don-hang/${hd.ma}|}">
                                                     <i style="color: white" class="bi bi-check-lg"></i>
                                                 </a>
-                                                <a class="btn-sm btn-warning btn-detail"
-                                                   th:ma="${hd.ma}"
+                                                <a class="btn-sm btn-warning btn-detail" th:ma="${hd.ma}"
                                                    data-bs-toggle="modal"
                                                    th:attr="data-bs-target='#ModalDetailHoaDon' + ${hd.ma}" href="#">
                                                     <i style="color: white" class="bi bi-eye"></i>
                                                 </a>
-                                                <a class="btn-sm btn-danger"
+                                                <a class="btn-delete btn-sm btn-danger"
                                                    th:href="@{|/admin/ban-hang-tai-quay/huy-hoa-don/${hd.ma}|}">
                                                     <i style="color: white" class="bi bi-x-lg"></i>
                                                 </a>
@@ -496,31 +517,70 @@
                                                             <div class="col-6">
                                                                 <div class="row p-3">
                                                                     <div style="margin-bottom: 10px" class="col-12">
-                                                                        <h6 style="font-weight: bold;">Thông tin Hóa Đơn</h6></div>
+                                                                        <h6 style="font-weight: bold;">Thông tin Hóa
+                                                                            Đơn</h6></div>
                                                                     <div class="col-4">
-                                                                        <label class="p-l-5" style="font-weight: bold">Mã HĐ:</label>
-                                                                        <input type="text" th:value="${hd.ma}" class="form-control" readonly>
+                                                                        <label class="p-l-5" style="font-weight: bold">Mã
+                                                                            HĐ:</label>
+                                                                        <input type="text" th:if="${hd.ma != null}"
+                                                                               th:value="${hd.ma}" class="form-control"
+                                                                               readonly>
+                                                                        <input type="text" th:if="${hd.ma == null}"
+                                                                               value="Chưa có" class="form-control"
+                                                                               readonly>
                                                                     </div>
                                                                     <div class="col-4">
-                                                                        <label class="p-l-5" style="font-weight: bold">Ngày tạo:</label>
-                                                                        <input type="date" th:value="${hd.ngay_tao}" class="form-control" readonly>
+                                                                        <label class="p-l-5" style="font-weight: bold">Ngày
+                                                                            tạo:</label>
+                                                                        <input type="date"
+                                                                               th:if="${hd.ngay_tao != null}"
+                                                                               th:value="${hd.ngay_tao}"
+                                                                               class="form-control" readonly>
+                                                                        <input type="date"
+                                                                               th:if="${hd.ngay_tao == null}"
+                                                                               value="Chưa có" class="form-control"
+                                                                               readonly>
                                                                     </div>
                                                                     <div class="col-4">
-                                                                        <label class="p-l-5" style="font-weight: bold">Ngày thanh toán:</label>
-                                                                        <input type="date" th:value="${hd.ngay_thanh_toan}" class="form-control" readonly>
+                                                                        <label class="p-l-5" style="font-weight: bold">Ngày
+                                                                            thanh toán:</label>
+                                                                        <input type="date"
+                                                                               th:if="${hd.ngay_thanh_toan != null}"
+                                                                               th:value="${hd.ngay_thanh_toan}"
+                                                                               class="form-control" readonly>
+                                                                        <input type="date"
+                                                                               th:if="${hd.ngay_thanh_toan == null}"
+                                                                               value="Chưa có" class="form-control"
+                                                                               readonly>
                                                                     </div>
                                                                     <div style="margin-top: 10px" class="col-6">
-                                                                        <label class="p-l-5" style="font-weight: bold">Nhân viên:</label>
-                                                                        <input type="text" th:value="${hd.nhanVien.hoTen}" class="form-control" readonly>
+                                                                        <label class="p-l-5" style="font-weight: bold">Nhân
+                                                                            viên:</label>
+                                                                        <input type="text"
+                                                                               th:if="${hd.nhanVien != null}"
+                                                                               th:value="${hd.nhanVien.hoTen}"
+                                                                               class="form-control" readonly>
+                                                                        <input type="text"
+                                                                               th:if="${hd.nhanVien == null}"
+                                                                               value="Chưa có" class="form-control"
+                                                                               readonly>
                                                                     </div>
                                                                     <div style="margin-top: 10px" class="col-6">
-                                                                        <label class="p-l-5" style="font-weight: bold">Tổng tiền:</label>
-                                                                        <input type="text" style="border: 1px solid red" th:value="${hd.tong_tien}" class="form-control" readonly>
+                                                                        <label class="p-l-5" style="font-weight: bold">Tổng
+                                                                            tiền:</label>
+                                                                        <input type="text" style="border: 1px solid red"
+                                                                               th:value="${hd.tong_tien != null ? hd.tong_tien : 0}"
+                                                                               class="form-control" readonly>
                                                                     </div>
                                                                     <div style="margin-top: 25px" class="col-12">
                                                                         <label class="p-l-5">
-                                                                            <span style="font-weight: bold">Phương thức mua: </span>[[${hd.hinh_thuc_mua == 0 ? 'Tại cửa hàng' : 'Online'}]] -
-                                                                            <span style="font-weight: bold">Thanh toán bằng: </span>[[${hd.hinh_thuc_thanh_toan == 0 ? 'Tiền mặt' : 'Online'}]]
+                                                                            <span style="font-weight: bold">Phương thức mua: </span>
+                                                                            <span th:if="${hd.hinh_thuc_mua != null}"> [[${hd.hinh_thuc_mua == 0 ? 'Tại cửa hàng' : 'Online'}]]</span>
+                                                                            <span th:if="${hd.hinh_thuc_mua == null}">...</span>
+                                                                            -
+                                                                            <span style="font-weight: bold">Thanh toán bằng: </span>
+                                                                            <span th:if="${hd.hinh_thuc_thanh_toan != null}">[[${hd.hinh_thuc_thanh_toan == 0 ? 'Tiền mặt' : 'Online'}]]</span>
+                                                                            <span th:if="${hd.hinh_thuc_thanh_toan == null}">...</span>
                                                                         </label>
                                                                     </div>
                                                                 </div>
@@ -528,24 +588,53 @@
                                                             <div class="col-6">
                                                                 <div class="row p-3">
                                                                     <div style="margin-bottom: 10px" class="col-12">
-                                                                        <h6 style="font-weight: bold;">Thông tin Khách Hàng</h6>
+                                                                        <h6 style="font-weight: bold;">Thông tin Khách
+                                                                            Hàng</h6>
                                                                     </div>
                                                                     <div class="col-12">
-                                                                        <label class="p-l-5" style="font-weight: bold">Khách Hàng:</label>
-                                                                        <input type="text" th:if="${hd.khachHang == null}" value="Khách Lẻ" class="form-control" readonly>
-                                                                        <input type="text" th:if="${hd.khachHang != null}" th:value="${hd.khachHang.hoten + ' - ' + hd.khachHang.email + ' - ' + hd.khachHang.sdt}" class="form-control" readonly>
+                                                                        <label class="p-l-5" style="font-weight: bold">Khách
+                                                                            Hàng:</label>
+                                                                        <input type="text"
+                                                                               th:if="${hd.khachHang == null}"
+                                                                               value="Khách Lẻ" class="form-control"
+                                                                               readonly>
+                                                                        <input type="text"
+                                                                               th:if="${hd.khachHang != null}"
+                                                                               th:value="${hd.khachHang.hoten + ' - ' + hd.khachHang.email + ' - ' + hd.khachHang.sdt}"
+                                                                               class="form-control" readonly>
                                                                     </div>
                                                                     <div class="col-6" style="margin-top: 10px">
-                                                                        <label class="p-l-5" style="font-weight: bold">Tên người nhận:</label>
-                                                                        <input type="text" th:value="${hd.ten_nguoi_nhan}" class="form-control" readonly>
+                                                                        <label class="p-l-5" style="font-weight: bold">Tên
+                                                                            người nhận:</label>
+                                                                        <input type="text"
+                                                                               th:if="${hd.ten_nguoi_nhan != null}"
+                                                                               th:value="${hd.ten_nguoi_nhan}"
+                                                                               class="form-control" readonly>
+                                                                        <input type="text"
+                                                                               th:if="${hd.ten_nguoi_nhan == null}"
+                                                                               value="No data" class="form-control"
+                                                                               readonly>
                                                                     </div>
                                                                     <div class="col-6" style="margin-top: 10px">
                                                                         <label class="p-l-5" style="font-weight: bold">SĐT:</label>
-                                                                        <input type="text" th:value="${hd.sdt_nguoi_nhan}" class="form-control" readonly>
+                                                                        <input type="text"
+                                                                               th:if="${hd.sdt_nguoi_nhan != null}"
+                                                                               th:value="${hd.sdt_nguoi_nhan}"
+                                                                               class="form-control" readonly>
+                                                                        <input type="text"
+                                                                               th:if="${hd.sdt_nguoi_nhan == null}"
+                                                                               value="No data" class="form-control"
+                                                                               readonly>
                                                                     </div>
                                                                     <div style="margin-top: 10px" class="col-12">
-                                                                        <label class="p-l-5" style="font-weight: bold">Địa chỉ:</label>
-                                                                        <textarea cols="75" rows="3">[[${hd.dia_chi}]]</textarea>
+                                                                        <label class="p-l-5" style="font-weight: bold">Địa
+                                                                            chỉ:</label>
+                                                                        <textarea th:if="${hd.dia_chi != null}"
+                                                                                  cols="70"
+                                                                                  rows="3">[[${hd.dia_chi}]]</textarea>
+                                                                        <textarea th:if="${hd.dia_chi == null}"
+                                                                                  cols="70"
+                                                                                  rows="3">[[${hd.dia_chi}]]</textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -698,38 +787,48 @@
                                         </tr>
                                         <tr th:each="hd:${PageHoaDonTT2.content}">
                                             <th>
-                                                <input type="checkbox"
+                                                <input th:if="${hd.ma != null}" type="checkbox"
                                                        style="width: 30px; height: 30px;display: flex; justify-content: center; align-items: center"
                                                        th:value="${hd.ma}" th:name="selectedMa3">
                                             </th>
-                                            <th scope="row">[[${hd.ma}]]</th>
+                                            <th>
+                                                <span th:if="${hd.ma == null}" class="badge badge-pill badge-danger">Chưa có tt</span>
+                                                <span th:if="${hd.ma != null}" th:text="${hd.ma}"></span>
+                                            </th>
                                             <th>
                                                 <span th:if="${hd.ngay_tao == null}"
-                                                      class="badge badge-pill badge-primary badge-sm">Đang Chờ</span>
+                                                      class="badge badge-pill badge-warning">Đang Chờ</span>
                                                 <span th:if="${hd.ngay_tao != null}" th:text="${hd.ngay_tao}"></span>
                                             </th>
                                             <th>
                                                 <span th:if="${hd.ngay_thanh_toan == null}"
-                                                      class="badge badge-pill badge-primary badge-sm">Đang Chờ</span>
+                                                      class="badge badge-pill badge-danger">Đang Chờ</span>
                                                 <span th:if="${hd.ngay_thanh_toan != null}"
                                                       th:text="${hd.ngay_thanh_toan}"></span>
                                             </th>
-                                            <th>[[${hd.nhanVien.hoTen}]]</th>
                                             <th>
-                                                <span th:if="${hd.khachHang == null}">Khách Lẻ</span>
+                                                <span th:if="${hd.nhanVien == null}"
+                                                      class="badge badge-pill badge-warning">Chưa có tt</span>
+                                                <span th:if="${hd.nhanVien != null}"
+                                                      th:text="${hd.nhanVien.hoTen}"></span>
+                                            </th>
+                                            <th>
+                                                <span th:if="${hd.khachHang == null}"
+                                                      class="badge badge-pill badge-primary">Khách Lẻ</span>
                                                 <span th:if="${hd.khachHang != null}"
                                                       th:text="${hd.khachHang.hoten}"></span>
                                             </th>
                                             <th>
                                                 <span th:if="${hd.hinh_thuc_mua == null}"
-                                                      class="badge badge-pill badge-primary badge-sm">Chưa Có Thông Tin</span>
-                                                <span th:if="${hd.hinh_thuc_mua != null}">[[${hd.hinh_thuc_mua == 0 ? 'Tại cửa hàng':'Online'}]]
+                                                      class="badge badge-pill badge-warning">Chưa có thông tin</span>
+                                                <span th:if="${hd.hinh_thuc_mua != null}">
+                                                    [[${hd.hinh_thuc_mua == 0 ? 'Tại cửa hàng':'Online'}]]
                                                 </span>
                                             </th>
                                             <th class="giaBan"
                                                 th:text="${hd.tong_tien != null ? hd.tong_tien : 0}"></th>
                                             <th class="text-center">
-                                                <a class="btn-sm btn-success" style="text-align: center"
+                                                <a class="btn-accept btn-sm btn-success" style="text-align: center"
                                                    th:href="@{|/admin/ban-hang/hoan-thanh-don-hang/${hd.ma}|}">
                                                     <i style="color: white" class="bi bi-check-lg"></i>
                                                 </a>
@@ -739,7 +838,7 @@
                                                    th:attr="data-bs-target='#ModalDetailHoaDon' + ${hd.ma}" href="#">
                                                     <i style="color: white" class="bi bi-eye"></i>
                                                 </a>
-                                                <a class="btn-sm btn-danger" style="text-align: center"
+                                                <a class="btn-delete btn-sm btn-danger" style="text-align: center"
                                                    th:href="@{|/admin/ban-hang-tai-quay/huy-hoa-don/${hd.ma}|}">
                                                     <i style="color: white" class="bi bi-x-lg"></i>
                                                 </a>
@@ -762,31 +861,70 @@
                                                             <div class="col-6">
                                                                 <div class="row p-3">
                                                                     <div style="margin-bottom: 10px" class="col-12">
-                                                                        <h6 style="font-weight: bold;">Thông tin Hóa Đơn</h6></div>
+                                                                        <h6 style="font-weight: bold;">Thông tin Hóa
+                                                                            Đơn</h6></div>
                                                                     <div class="col-4">
-                                                                        <label class="p-l-5" style="font-weight: bold">Mã HĐ:</label>
-                                                                        <input type="text" th:value="${hd.ma}" class="form-control" readonly>
+                                                                        <label class="p-l-5" style="font-weight: bold">Mã
+                                                                            HĐ:</label>
+                                                                        <input type="text" th:if="${hd.ma != null}"
+                                                                               th:value="${hd.ma}" class="form-control"
+                                                                               readonly>
+                                                                        <input type="text" th:if="${hd.ma == null}"
+                                                                               value="Chưa có" class="form-control"
+                                                                               readonly>
                                                                     </div>
                                                                     <div class="col-4">
-                                                                        <label class="p-l-5" style="font-weight: bold">Ngày tạo:</label>
-                                                                        <input type="date" th:value="${hd.ngay_tao}" class="form-control" readonly>
+                                                                        <label class="p-l-5" style="font-weight: bold">Ngày
+                                                                            tạo:</label>
+                                                                        <input type="date"
+                                                                               th:if="${hd.ngay_tao != null}"
+                                                                               th:value="${hd.ngay_tao}"
+                                                                               class="form-control" readonly>
+                                                                        <input type="date"
+                                                                               th:if="${hd.ngay_tao == null}"
+                                                                               value="Chưa có" class="form-control"
+                                                                               readonly>
                                                                     </div>
                                                                     <div class="col-4">
-                                                                        <label class="p-l-5" style="font-weight: bold">Ngày thanh toán:</label>
-                                                                        <input type="date" th:value="${hd.ngay_thanh_toan}" class="form-control" readonly>
+                                                                        <label class="p-l-5" style="font-weight: bold">Ngày
+                                                                            thanh toán:</label>
+                                                                        <input type="date"
+                                                                               th:if="${hd.ngay_thanh_toan != null}"
+                                                                               th:value="${hd.ngay_thanh_toan}"
+                                                                               class="form-control" readonly>
+                                                                        <input type="date"
+                                                                               th:if="${hd.ngay_thanh_toan == null}"
+                                                                               value="Chưa có" class="form-control"
+                                                                               readonly>
                                                                     </div>
                                                                     <div style="margin-top: 10px" class="col-6">
-                                                                        <label class="p-l-5" style="font-weight: bold">Nhân viên:</label>
-                                                                        <input type="text" th:value="${hd.nhanVien.hoTen}" class="form-control" readonly>
+                                                                        <label class="p-l-5" style="font-weight: bold">Nhân
+                                                                            viên:</label>
+                                                                        <input type="text"
+                                                                               th:if="${hd.nhanVien != null}"
+                                                                               th:value="${hd.nhanVien.hoTen}"
+                                                                               class="form-control" readonly>
+                                                                        <input type="text"
+                                                                               th:if="${hd.nhanVien == null}"
+                                                                               value="Chưa có" class="form-control"
+                                                                               readonly>
                                                                     </div>
                                                                     <div style="margin-top: 10px" class="col-6">
-                                                                        <label class="p-l-5" style="font-weight: bold">Tổng tiền:</label>
-                                                                        <input type="text" style="border: 1px solid red" th:value="${hd.tong_tien}" class="form-control" readonly>
+                                                                        <label class="p-l-5" style="font-weight: bold">Tổng
+                                                                            tiền:</label>
+                                                                        <input type="text" style="border: 1px solid red"
+                                                                               th:value="${hd.tong_tien != null ? hd.tong_tien : 0}"
+                                                                               class="form-control" readonly>
                                                                     </div>
                                                                     <div style="margin-top: 25px" class="col-12">
                                                                         <label class="p-l-5">
-                                                                            <span style="font-weight: bold">Phương thức mua:</span>[[${hd.hinh_thuc_mua == 0 ? 'Tại cửa hàng' : 'Online'}]] -
-                                                                            <span style="font-weight: bold">Thanh toán bằng:</span>[[${hd.hinh_thuc_thanh_toan == 0 ? 'Tiền mặt' : 'Online'}]]
+                                                                            <span style="font-weight: bold">Phương thức mua: </span>
+                                                                            <span th:if="${hd.hinh_thuc_mua != null}"> [[${hd.hinh_thuc_mua == 0 ? 'Tại cửa hàng' : 'Online'}]]</span>
+                                                                            <span th:if="${hd.hinh_thuc_mua == null}">...</span>
+                                                                            -
+                                                                            <span style="font-weight: bold">Thanh toán bằng: </span>
+                                                                            <span th:if="${hd.hinh_thuc_thanh_toan != null}">[[${hd.hinh_thuc_thanh_toan == 0 ? 'Tiền mặt' : 'Online'}]]</span>
+                                                                            <span th:if="${hd.hinh_thuc_thanh_toan == null}">...</span>
                                                                         </label>
                                                                     </div>
                                                                 </div>
@@ -794,24 +932,53 @@
                                                             <div class="col-6">
                                                                 <div class="row p-3">
                                                                     <div style="margin-bottom: 10px" class="col-12">
-                                                                        <h6 style="font-weight: bold;">Thông tin Khách Hàng</h6>
+                                                                        <h6 style="font-weight: bold;">Thông tin Khách
+                                                                            Hàng</h6>
                                                                     </div>
                                                                     <div class="col-12">
-                                                                        <label class="p-l-5" style="font-weight: bold">Khách Hàng:</label>
-                                                                        <input type="text" th:if="${hd.khachHang == null}" value="Khách Lẻ" class="form-control" readonly>
-                                                                        <input type="text" th:if="${hd.khachHang != null}" th:value="${hd.khachHang.hoten + ' - ' + hd.khachHang.email + ' - ' + hd.khachHang.sdt}" class="form-control" readonly>
+                                                                        <label class="p-l-5" style="font-weight: bold">Khách
+                                                                            Hàng:</label>
+                                                                        <input type="text"
+                                                                               th:if="${hd.khachHang == null}"
+                                                                               value="Khách Lẻ" class="form-control"
+                                                                               readonly>
+                                                                        <input type="text"
+                                                                               th:if="${hd.khachHang != null}"
+                                                                               th:value="${hd.khachHang.hoten + ' - ' + hd.khachHang.email + ' - ' + hd.khachHang.sdt}"
+                                                                               class="form-control" readonly>
                                                                     </div>
                                                                     <div class="col-6" style="margin-top: 10px">
-                                                                        <label class="p-l-5" style="font-weight: bold">Tên người nhận:</label>
-                                                                        <input type="text" th:value="${hd.ten_nguoi_nhan}" class="form-control" readonly>
+                                                                        <label class="p-l-5" style="font-weight: bold">Tên
+                                                                            người nhận:</label>
+                                                                        <input type="text"
+                                                                               th:if="${hd.ten_nguoi_nhan != null}"
+                                                                               th:value="${hd.ten_nguoi_nhan}"
+                                                                               class="form-control" readonly>
+                                                                        <input type="text"
+                                                                               th:if="${hd.ten_nguoi_nhan == null}"
+                                                                               value="No data" class="form-control"
+                                                                               readonly>
                                                                     </div>
                                                                     <div class="col-6" style="margin-top: 10px">
                                                                         <label class="p-l-5" style="font-weight: bold">SĐT:</label>
-                                                                        <input type="text" th:value="${hd.sdt_nguoi_nhan}" class="form-control" readonly>
+                                                                        <input type="text"
+                                                                               th:if="${hd.sdt_nguoi_nhan != null}"
+                                                                               th:value="${hd.sdt_nguoi_nhan}"
+                                                                               class="form-control" readonly>
+                                                                        <input type="text"
+                                                                               th:if="${hd.sdt_nguoi_nhan == null}"
+                                                                               value="No data" class="form-control"
+                                                                               readonly>
                                                                     </div>
                                                                     <div style="margin-top: 10px" class="col-12">
-                                                                        <label class="p-l-5" style="font-weight: bold">Địa chỉ:</label>
-                                                                        <textarea cols="75" rows="3">[[${hd.dia_chi}]]</textarea>
+                                                                        <label class="p-l-5" style="font-weight: bold">Địa
+                                                                            chỉ:</label>
+                                                                        <textarea th:if="${hd.dia_chi != null}"
+                                                                                  cols="70"
+                                                                                  rows="3">[[${hd.dia_chi}]]</textarea>
+                                                                        <textarea th:if="${hd.dia_chi == null}"
+                                                                                  cols="70"
+                                                                                  rows="3">[[${hd.dia_chi}]]</textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -957,27 +1124,35 @@
                                         </td>
                                     </tr>
                                     <tr th:each="hd:${PageHoaDonTT3.content}">
-                                        <th scope="row">[[${hd.ma}]]</th>
                                         <th>
-                                            <span th:if="${hd.ngay_tao == null}"
-                                                  class="badge badge-pill badge-primary badge-sm">Đang Chờ</span>
+                                            <span th:if="${hd.ma == null}" class="badge badge-pill badge-danger">Chưa có tt</span>
+                                            <span th:if="${hd.ma != null}" th:text="${hd.ma}"></span>
+                                        </th>
+                                        <th>
+                                                <span th:if="${hd.ngay_tao == null}"
+                                                      class="badge badge-pill badge-warning">Đang Chờ</span>
                                             <span th:if="${hd.ngay_tao != null}" th:text="${hd.ngay_tao}"></span>
                                         </th>
                                         <th>
-                                            <span th:if="${hd.ngay_thanh_toan == null}"
-                                                  class="badge badge-pill badge-primary badge-sm">Đang Chờ</span>
+                                                <span th:if="${hd.ngay_thanh_toan == null}"
+                                                      class="badge badge-pill badge-danger">Đang Chờ</span>
                                             <span th:if="${hd.ngay_thanh_toan != null}"
                                                   th:text="${hd.ngay_thanh_toan}"></span>
                                         </th>
-                                        <th>[[${hd.nhanVien.hoTen}]]</th>
                                         <th>
-                                            <span th:if="${hd.khachHang == null}">Khách Lẻ</span>
+                                            <span th:if="${hd.nhanVien == null}" class="badge badge-pill badge-warning">Chưa có tt</span>
+                                            <span th:if="${hd.nhanVien != null}"
+                                                  th:text="${hd.nhanVien.hoTen}"></span>
+                                        </th>
+                                        <th>
+                                            <span th:if="${hd.khachHang == null}"
+                                                  class="badge badge-pill badge-primary">Khách Lẻ</span>
                                             <span th:if="${hd.khachHang != null}"
                                                   th:text="${hd.khachHang.hoten}"></span>
                                         </th>
                                         <th>
-                                                 <span th:if="${hd.hinh_thuc_mua == null}"
-                                                       class="badge badge-pill badge-primary badge-sm">Chưa Có Thông Tin</span>
+                                            <span th:if="${hd.hinh_thuc_mua == null}"
+                                                  class="badge badge-pill badge-warning">Chưa có thông tin</span>
                                             <span th:if="${hd.hinh_thuc_mua != null}">
                                                     [[${hd.hinh_thuc_mua == 0 ? 'Tại cửa hàng':'Online'}]]
                                                 </span>
@@ -1010,31 +1185,68 @@
                                                         <div class="col-6">
                                                             <div class="row p-3">
                                                                 <div style="margin-bottom: 10px" class="col-12">
-                                                                    <h6 style="font-weight: bold;">Thông tin Hóa Đơn</h6></div>
+                                                                    <h6 style="font-weight: bold;">Thông tin Hóa
+                                                                        Đơn</h6></div>
                                                                 <div class="col-4">
-                                                                    <label class="p-l-5" style="font-weight: bold">Mã HĐ:</label>
-                                                                    <input type="text" th:value="${hd.ma}" class="form-control" readonly>
+                                                                    <label class="p-l-5" style="font-weight: bold">Mã
+                                                                        HĐ:</label>
+                                                                    <input type="text" th:if="${hd.ma != null}"
+                                                                           th:value="${hd.ma}" class="form-control"
+                                                                           readonly>
+                                                                    <input type="text" th:if="${hd.ma == null}"
+                                                                           value="Chưa có" class="form-control"
+                                                                           readonly>
                                                                 </div>
                                                                 <div class="col-4">
-                                                                    <label class="p-l-5" style="font-weight: bold">Ngày tạo:</label>
-                                                                    <input type="date" th:value="${hd.ngay_tao}" class="form-control" readonly>
+                                                                    <label class="p-l-5" style="font-weight: bold">Ngày
+                                                                        tạo:</label>
+                                                                    <input type="date" th:if="${hd.ngay_tao != null}"
+                                                                           th:value="${hd.ngay_tao}"
+                                                                           class="form-control" readonly>
+                                                                    <input type="date" th:if="${hd.ngay_tao == null}"
+                                                                           value="Chưa có" class="form-control"
+                                                                           readonly>
                                                                 </div>
                                                                 <div class="col-4">
-                                                                    <label class="p-l-5" style="font-weight: bold">Ngày thanh toán:</label>
-                                                                    <input type="date" th:value="${hd.ngay_thanh_toan}" class="form-control" readonly>
+                                                                    <label class="p-l-5" style="font-weight: bold">Ngày
+                                                                        thanh toán:</label>
+                                                                    <input type="date"
+                                                                           th:if="${hd.ngay_thanh_toan != null}"
+                                                                           th:value="${hd.ngay_thanh_toan}"
+                                                                           class="form-control" readonly>
+                                                                    <input type="date"
+                                                                           th:if="${hd.ngay_thanh_toan == null}"
+                                                                           value="Chưa có" class="form-control"
+                                                                           readonly>
                                                                 </div>
                                                                 <div style="margin-top: 10px" class="col-6">
-                                                                    <label class="p-l-5" style="font-weight: bold">Nhân viên:</label>
-                                                                    <input type="text" th:value="${hd.nhanVien.hoTen}" class="form-control" readonly>
+                                                                    <label class="p-l-5" style="font-weight: bold">Nhân
+                                                                        viên:</label>
+                                                                    <input type="text"
+                                                                           th:if="${hd.nhanVien != null}"
+                                                                           th:value="${hd.nhanVien.hoTen}"
+                                                                           class="form-control" readonly>
+                                                                    <input type="text"
+                                                                           th:if="${hd.nhanVien == null}"
+                                                                           value="Chưa có" class="form-control"
+                                                                           readonly>
                                                                 </div>
                                                                 <div style="margin-top: 10px" class="col-6">
-                                                                    <label class="p-l-5" style="font-weight: bold">Tổng tiền:</label>
-                                                                    <input type="text" style="border: 1px solid red" th:value="${hd.tong_tien}" class="form-control" readonly>
+                                                                    <label class="p-l-5" style="font-weight: bold">Tổng
+                                                                        tiền:</label>
+                                                                    <input type="text" style="border: 1px solid red"
+                                                                           th:value="${hd.tong_tien != null ? hd.tong_tien : 0}"
+                                                                           class="form-control" readonly>
                                                                 </div>
                                                                 <div style="margin-top: 25px" class="col-12">
                                                                     <label class="p-l-5">
-                                                                        <span style="font-weight: bold">Phương thức mua: </span>[[${hd.hinh_thuc_mua == 0 ? 'Tại cửa hàng' : 'Online'}]] -
-                                                                        <span style="font-weight: bold">Thanh toán bằng: </span>[[${hd.hinh_thuc_thanh_toan == 0 ? 'Tiền mặt' : 'Online'}]]
+                                                                        <span style="font-weight: bold">Phương thức mua: </span>
+                                                                        <span th:if="${hd.hinh_thuc_mua != null}"> [[${hd.hinh_thuc_mua == 0 ? 'Tại cửa hàng' : 'Online'}]]</span>
+                                                                        <span th:if="${hd.hinh_thuc_mua == null}">...</span>
+                                                                        -
+                                                                        <span style="font-weight: bold">Thanh toán bằng: </span>
+                                                                        <span th:if="${hd.hinh_thuc_thanh_toan != null}">[[${hd.hinh_thuc_thanh_toan == 0 ? 'Tiền mặt' : 'Online'}]]</span>
+                                                                        <span th:if="${hd.hinh_thuc_thanh_toan == null}">...</span>
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -1042,24 +1254,50 @@
                                                         <div class="col-6">
                                                             <div class="row p-3">
                                                                 <div style="margin-bottom: 10px" class="col-12">
-                                                                    <h6 style="font-weight: bold;">Thông tin Khách Hàng</h6>
+                                                                    <h6 style="font-weight: bold;">Thông tin Khách
+                                                                        Hàng</h6>
                                                                 </div>
                                                                 <div class="col-12">
-                                                                    <label class="p-l-5" style="font-weight: bold">Khách Hàng:</label>
-                                                                    <input type="text" th:if="${hd.khachHang == null}" value="Khách Lẻ" class="form-control" readonly>
-                                                                    <input type="text" th:if="${hd.khachHang != null}" th:value="${hd.khachHang.hoten + ' - ' + hd.khachHang.email + ' - ' + hd.khachHang.sdt}" class="form-control" readonly>
+                                                                    <label class="p-l-5" style="font-weight: bold">Khách
+                                                                        Hàng:</label>
+                                                                    <input type="text" th:if="${hd.khachHang == null}"
+                                                                           value="Khách Lẻ" class="form-control"
+                                                                           readonly>
+                                                                    <input type="text" th:if="${hd.khachHang != null}"
+                                                                           th:value="${hd.khachHang.hoten + ' - ' + hd.khachHang.email + ' - ' + hd.khachHang.sdt}"
+                                                                           class="form-control" readonly>
                                                                 </div>
                                                                 <div class="col-6" style="margin-top: 10px">
-                                                                    <label class="p-l-5" style="font-weight: bold">Tên người nhận:</label>
-                                                                    <input type="text" th:value="${hd.ten_nguoi_nhan}" class="form-control" readonly>
+                                                                    <label class="p-l-5" style="font-weight: bold">Tên
+                                                                        người nhận:</label>
+                                                                    <input type="text"
+                                                                           th:if="${hd.ten_nguoi_nhan != null}"
+                                                                           th:value="${hd.ten_nguoi_nhan}"
+                                                                           class="form-control" readonly>
+                                                                    <input type="text"
+                                                                           th:if="${hd.ten_nguoi_nhan == null}"
+                                                                           value="No data" class="form-control"
+                                                                           readonly>
                                                                 </div>
                                                                 <div class="col-6" style="margin-top: 10px">
-                                                                    <label class="p-l-5" style="font-weight: bold">SĐT:</label>
-                                                                    <input type="text" th:value="${hd.sdt_nguoi_nhan}" class="form-control" readonly>
+                                                                    <label class="p-l-5"
+                                                                           style="font-weight: bold">SĐT:</label>
+                                                                    <input type="text"
+                                                                           th:if="${hd.sdt_nguoi_nhan != null}"
+                                                                           th:value="${hd.sdt_nguoi_nhan}"
+                                                                           class="form-control" readonly>
+                                                                    <input type="text"
+                                                                           th:if="${hd.sdt_nguoi_nhan == null}"
+                                                                           value="No data" class="form-control"
+                                                                           readonly>
                                                                 </div>
                                                                 <div style="margin-top: 10px" class="col-12">
-                                                                    <label class="p-l-5" style="font-weight: bold">Địa chỉ:</label>
-                                                                    <textarea cols="75" rows="3">[[${hd.dia_chi}]]</textarea>
+                                                                    <label class="p-l-5" style="font-weight: bold">Địa
+                                                                        chỉ:</label>
+                                                                    <textarea th:if="${hd.dia_chi != null}" cols="70"
+                                                                              rows="3">[[${hd.dia_chi}]]</textarea>
+                                                                    <textarea th:if="${hd.dia_chi == null}" cols="70"
+                                                                              rows="3">[[${hd.dia_chi}]]</textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1194,27 +1432,35 @@
                                         </td>
                                     </tr>
                                     <tr th:each="hd:${PageHoaDonTT4.content}">
-                                        <th scope="row">[[${hd.ma}]]</th>
+                                        <th>
+                                            <span th:if="${hd.ma == null}" class="badge badge-pill badge-danger">Chưa có tt</span>
+                                            <span th:if="${hd.ma != null}" th:text="${hd.ma}"></span>
+                                        </th>
                                         <th>
                                             <span th:if="${hd.ngay_tao == null}"
-                                                  class="badge badge-pill badge-primary badge-sm">Đang Chờ</span>
+                                                  class="badge badge-pill badge-warning">Đang Chờ</span>
                                             <span th:if="${hd.ngay_tao != null}" th:text="${hd.ngay_tao}"></span>
                                         </th>
                                         <th>
-                                            <span th:if="${hd.ngay_thanh_toan == null}"
-                                                  class="badge badge-pill badge-primary badge-sm">Đang Chờ</span>
+                                                <span th:if="${hd.ngay_thanh_toan == null}"
+                                                      class="badge badge-pill badge-danger">Đang Chờ</span>
                                             <span th:if="${hd.ngay_thanh_toan != null}"
                                                   th:text="${hd.ngay_thanh_toan}"></span>
                                         </th>
-                                        <th>[[${hd.nhanVien.hoTen}]]</th>
                                         <th>
-                                            <span th:if="${hd.khachHang == null}">Khách Lẻ</span>
+                                            <span th:if="${hd.nhanVien == null}" class="badge badge-pill badge-warning">Chưa có tt</span>
+                                            <span th:if="${hd.nhanVien != null}"
+                                                  th:text="${hd.nhanVien.hoTen}"></span>
+                                        </th>
+                                        <th>
+                                            <span th:if="${hd.khachHang == null}"
+                                                  class="badge badge-pill badge-primary">Khách Lẻ</span>
                                             <span th:if="${hd.khachHang != null}"
                                                   th:text="${hd.khachHang.hoten}"></span>
                                         </th>
                                         <th>
-                                                 <span th:if="${hd.hinh_thuc_mua == null}"
-                                                       class="badge badge-pill badge-primary badge-sm">Chưa Có Thông Tin</span>
+                                            <span th:if="${hd.hinh_thuc_mua == null}"
+                                                  class="badge badge-pill badge-warning">Chưa có thông tin</span>
                                             <span th:if="${hd.hinh_thuc_mua != null}">
                                                     [[${hd.hinh_thuc_mua == 0 ? 'Tại cửa hàng':'Online'}]]
                                                 </span>
@@ -1247,31 +1493,68 @@
                                                         <div class="col-6">
                                                             <div class="row p-3">
                                                                 <div style="margin-bottom: 10px" class="col-12">
-                                                                    <h6 style="font-weight: bold;">Thông tin Hóa Đơn</h6></div>
+                                                                    <h6 style="font-weight: bold;">Thông tin Hóa
+                                                                        Đơn</h6></div>
                                                                 <div class="col-4">
-                                                                    <label class="p-l-5" style="font-weight: bold">Mã HĐ:</label>
-                                                                    <input type="text" th:value="${hd.ma}" class="form-control" readonly>
+                                                                    <label class="p-l-5" style="font-weight: bold">Mã
+                                                                        HĐ:</label>
+                                                                    <input type="text" th:if="${hd.ma != null}"
+                                                                           th:value="${hd.ma}" class="form-control"
+                                                                           readonly>
+                                                                    <input type="text" th:if="${hd.ma == null}"
+                                                                           value="Chưa có" class="form-control"
+                                                                           readonly>
                                                                 </div>
                                                                 <div class="col-4">
-                                                                    <label class="p-l-5" style="font-weight: bold">Ngày tạo:</label>
-                                                                    <input type="date" th:value="${hd.ngay_tao}" class="form-control" readonly>
+                                                                    <label class="p-l-5" style="font-weight: bold">Ngày
+                                                                        tạo:</label>
+                                                                    <input type="date" th:if="${hd.ngay_tao != null}"
+                                                                           th:value="${hd.ngay_tao}"
+                                                                           class="form-control" readonly>
+                                                                    <input type="date" th:if="${hd.ngay_tao == null}"
+                                                                           value="Chưa có" class="form-control"
+                                                                           readonly>
                                                                 </div>
                                                                 <div class="col-4">
-                                                                    <label class="p-l-5" style="font-weight: bold">Ngày thanh toán:</label>
-                                                                    <input type="date" th:value="${hd.ngay_thanh_toan}" class="form-control" readonly>
+                                                                    <label class="p-l-5" style="font-weight: bold">Ngày
+                                                                        thanh toán:</label>
+                                                                    <input type="date"
+                                                                           th:if="${hd.ngay_thanh_toan != null}"
+                                                                           th:value="${hd.ngay_thanh_toan}"
+                                                                           class="form-control" readonly>
+                                                                    <input type="date"
+                                                                           th:if="${hd.ngay_thanh_toan == null}"
+                                                                           value="Chưa có" class="form-control"
+                                                                           readonly>
                                                                 </div>
                                                                 <div style="margin-top: 10px" class="col-6">
-                                                                    <label class="p-l-5" style="font-weight: bold">Nhân viên:</label>
-                                                                    <input type="text" th:value="${hd.nhanVien.hoTen}" class="form-control" readonly>
+                                                                    <label class="p-l-5" style="font-weight: bold">Nhân
+                                                                        viên:</label>
+                                                                    <input type="text"
+                                                                           th:if="${hd.nhanVien != null}"
+                                                                           th:value="${hd.nhanVien.hoTen}"
+                                                                           class="form-control" readonly>
+                                                                    <input type="text"
+                                                                           th:if="${hd.nhanVien == null}"
+                                                                           value="Chưa có" class="form-control"
+                                                                           readonly>
                                                                 </div>
                                                                 <div style="margin-top: 10px" class="col-6">
-                                                                    <label class="p-l-5" style="font-weight: bold">Tổng tiền:</label>
-                                                                    <input type="text" style="border: 1px solid red" th:value="${hd.tong_tien}" class="form-control" readonly>
+                                                                    <label class="p-l-5" style="font-weight: bold">Tổng
+                                                                        tiền:</label>
+                                                                    <input type="text" style="border: 1px solid red"
+                                                                           th:value="${hd.tong_tien != null ? hd.tong_tien : 0}"
+                                                                           class="form-control" readonly>
                                                                 </div>
                                                                 <div style="margin-top: 25px" class="col-12">
                                                                     <label class="p-l-5">
-                                                                        <span style="font-weight: bold">Phương thức mua: </span>[[${hd.hinh_thuc_mua == 0 ? 'Tại cửa hàng' : 'Online'}]] -
-                                                                        <span style="font-weight: bold">Thanh toán bằng: </span>[[${hd.hinh_thuc_thanh_toan == 0 ? 'Tiền mặt' : 'Online'}]]
+                                                                        <span style="font-weight: bold">Phương thức mua: </span>
+                                                                        <span th:if="${hd.hinh_thuc_mua != null}"> [[${hd.hinh_thuc_mua == 0 ? 'Tại cửa hàng' : 'Online'}]]</span>
+                                                                        <span th:if="${hd.hinh_thuc_mua == null}">...</span>
+                                                                        -
+                                                                        <span style="font-weight: bold">Thanh toán bằng: </span>
+                                                                        <span th:if="${hd.hinh_thuc_thanh_toan != null}">[[${hd.hinh_thuc_thanh_toan == 0 ? 'Tiền mặt' : 'Online'}]]</span>
+                                                                        <span th:if="${hd.hinh_thuc_thanh_toan == null}">...</span>
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -1279,24 +1562,50 @@
                                                         <div class="col-6">
                                                             <div class="row p-3">
                                                                 <div style="margin-bottom: 10px" class="col-12">
-                                                                    <h6 style="font-weight: bold;">Thông tin Khách Hàng</h6>
+                                                                    <h6 style="font-weight: bold;">Thông tin Khách
+                                                                        Hàng</h6>
                                                                 </div>
                                                                 <div class="col-12">
-                                                                    <label class="p-l-5" style="font-weight: bold">Khách Hàng:</label>
-                                                                    <input type="text" th:if="${hd.khachHang == null}" value="Khách Lẻ" class="form-control" readonly>
-                                                                    <input type="text" th:if="${hd.khachHang != null}" th:value="${hd.khachHang.hoten + ' - ' + hd.khachHang.email + ' - ' + hd.khachHang.sdt}" class="form-control" readonly>
+                                                                    <label class="p-l-5" style="font-weight: bold">Khách
+                                                                        Hàng:</label>
+                                                                    <input type="text" th:if="${hd.khachHang == null}"
+                                                                           value="Khách Lẻ" class="form-control"
+                                                                           readonly>
+                                                                    <input type="text" th:if="${hd.khachHang != null}"
+                                                                           th:value="${hd.khachHang.hoten + ' - ' + hd.khachHang.email + ' - ' + hd.khachHang.sdt}"
+                                                                           class="form-control" readonly>
                                                                 </div>
                                                                 <div class="col-6" style="margin-top: 10px">
-                                                                    <label class="p-l-5" style="font-weight: bold">Tên người nhận:</label>
-                                                                    <input type="text" th:value="${hd.ten_nguoi_nhan}" class="form-control" readonly>
+                                                                    <label class="p-l-5" style="font-weight: bold">Tên
+                                                                        người nhận:</label>
+                                                                    <input type="text"
+                                                                           th:if="${hd.ten_nguoi_nhan != null}"
+                                                                           th:value="${hd.ten_nguoi_nhan}"
+                                                                           class="form-control" readonly>
+                                                                    <input type="text"
+                                                                           th:if="${hd.ten_nguoi_nhan == null}"
+                                                                           value="No data" class="form-control"
+                                                                           readonly>
                                                                 </div>
                                                                 <div class="col-6" style="margin-top: 10px">
-                                                                    <label class="p-l-5" style="font-weight: bold">SĐT:</label>
-                                                                    <input type="text" th:value="${hd.sdt_nguoi_nhan}" class="form-control" readonly>
+                                                                    <label class="p-l-5"
+                                                                           style="font-weight: bold">SĐT:</label>
+                                                                    <input type="text"
+                                                                           th:if="${hd.sdt_nguoi_nhan != null}"
+                                                                           th:value="${hd.sdt_nguoi_nhan}"
+                                                                           class="form-control" readonly>
+                                                                    <input type="text"
+                                                                           th:if="${hd.sdt_nguoi_nhan == null}"
+                                                                           value="No data" class="form-control"
+                                                                           readonly>
                                                                 </div>
                                                                 <div style="margin-top: 10px" class="col-12">
-                                                                    <label class="p-l-5" style="font-weight: bold">Địa chỉ:</label>
-                                                                    <textarea cols="75" rows="3">[[${hd.dia_chi}]]</textarea>
+                                                                    <label class="p-l-5" style="font-weight: bold">Địa
+                                                                        chỉ:</label>
+                                                                    <textarea th:if="${hd.dia_chi != null}" cols="70"
+                                                                              rows="3">[[${hd.dia_chi}]]</textarea>
+                                                                    <textarea th:if="${hd.dia_chi == null}" cols="70"
+                                                                              rows="3">[[${hd.dia_chi}]]</textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1393,22 +1702,19 @@
 <!--Ngăn chuyển trang nút nav-->
 <script>
     $(document).ready(function () {
-
         $('.page-link').on('click', function (e) {
             e.preventDefault();
             var url = $(this).attr('href');
-
             $.ajax({
                 type: 'GET',
                 url: url,
                 dataType: 'html',
                 success: function (data) {
                     $('#table-dangcho').html($(data).find('#table-dangcho').html());
-                    $('#table-dangchuanbi').html($(data).find('#table-dangchuanbi').html());
-                    $('#table-danggiao').html($(data).find('#table-danggiao').html());
+                    $('#table-chogiao').html($(data).find('#table-chogiao').html());
+                    $('#table-vanchuyen').html($(data).find('#table-vanchuyen').html());
                     $('#table-hoanthanh').html($(data).find('#table-hoanthanh').html());
                     $('#table-dahuy').html($(data).find('#table-dahuy').html());
-                    $('#table-hoantra').html($(data).find('#table-hoantra').html());
                 },
                 error: function () {
                     alert('Có lỗi xảy ra khi tải dữ liệu.');
@@ -1484,35 +1790,25 @@
 </script>
 <!--ngăn chuyển trang nút xác nhận-->
 
-<!--nút hủy hóa đơn 1-->
+<!--nút hủy hóa đơn 123-->
 <script>
     function enableHuyInput1() {
         var huyxacnhanInput = document.querySelector('input[name="huyxacnhan1"]');
         huyxacnhanInput.removeAttribute('disabled');
         huyxacnhanInput.value = 'huy'; // Gán giá trị 'huy' cho trường huyxacnhan
     }
-</script>
-<!-- end nút hủy hóa đơn 1-->
-
-<!--nút hủy hóa đơn 2-->
-<script>
     function enableHuyInput2() {
         var huyxacnhanInput = document.querySelector('input[name="huyxacnhan2"]');
         huyxacnhanInput.removeAttribute('disabled');
         huyxacnhanInput.value = 'huy'; // Gán giá trị 'huy' cho trường huyxacnhan
     }
-</script>
-<!-- end nút hủy hóa đơn 2-->
-
-<!--nút hủy hóa đơn 3-->
-<script>
     function enableHuyInput3() {
         var huyxacnhanInput = document.querySelector('input[name="huyxacnhan3"]');
         huyxacnhanInput.removeAttribute('disabled');
         huyxacnhanInput.value = 'huy'; // Gán giá trị 'huy' cho trường huyxacnhan
     }
 </script>
-<!-- end nút hủy hóa đơn 3-->
+<!-- end nút hủy hóa đơn 123-->
 
 <!--nút giao hàng-->
 <script>
@@ -1534,7 +1830,7 @@
 </script>
 <!--end nút hoàn thành-->
 
-<!--chọn tất cả checkbox 1-->
+<!--chọn tất cả checkbox 123-->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const selectAllCheckbox = document.getElementById("selectAllCheckbox1");
@@ -1545,11 +1841,7 @@
             });
         });
     });
-</script>
-<!--end chọn tất cả checkbox 1-->
 
-<!--chọn tất cả checkbox 2-->
-<script>
     document.addEventListener("DOMContentLoaded", function () {
         const selectAllCheckbox = document.getElementById("selectAllCheckbox2");
         const checkboxes = document.querySelectorAll("input[type='checkbox'][name='selectedMa2']");
@@ -1559,11 +1851,7 @@
             });
         });
     });
-</script>
-<!--end chọn tất cả checkbox 2-->
 
-<!--chọn tất cả checkbox 3-->
-<script>
     document.addEventListener("DOMContentLoaded", function () {
         const selectAllCheckbox = document.getElementById("selectAllCheckbox3");
         const checkboxes = document.querySelectorAll("input[type='checkbox'][name='selectedMa3']");
@@ -1574,25 +1862,29 @@
         });
     });
 </script>
-<!--end chọn tất cả checkbox 3-->
+<!--end chọn tất cả checkbox 123-->
 
 <!--ajax get data hóa đơn chi tiết-->
 <script>
-    $(document).ready(function() {
-        $('.btn-detail').on('click', function(e) {
+    $(document).ready(function () {
+        $('.btn-detail').on('click', function (e) {
             e.preventDefault();
             var ma = $(this).attr("ma");
 
             $.ajax({
                 url: '/admin/ban-hang/getHoaDonChiTiet/' + ma,
                 method: 'GET',
-                success: function(data) {
+                success: function (data) {
                     $('#table-hdct tbody').empty();
 
                     if (data.length === 0) {
-                        $('#table-hdct tbody').append('<tr><td colspan="5">Không có dữ liệu</td></tr>');
+                        $('#table-hdct tbody').append('<tr><td colspan="5"> <i style="font-size: 3rem"\n' +
+                            '                                                   class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>\n' +
+                            '                                                <div class="text-center d-flex justify-content-center align-items-center">\n' +
+                            '                                                    No Data\n' +
+                            '                                                </div></td></tr>');
                     } else {
-                        $.each(data, function(index, item) {
+                        $.each(data, function (index, item) {
                             var row = '<tr>' +
                                 '<td><img style="width: 80px" src="/images/' + item.anhDau + '" alt=""></td>' +
                                 '<td>' + item.ten + '</td>' +
@@ -1605,7 +1897,7 @@
                         });
                     }
                 },
-                error: function(error) {
+                error: function (error) {
                     console.log('Error:', error);
                 }
             });
@@ -1614,5 +1906,53 @@
 
 </script>
 <!--end ajax get data hóa đơn chi tiết-->
+
+<script>
+    // nút xóa
+    $(document).ready(function () {
+        $('.btn-delete').click(function (e) {
+            e.preventDefault();
+            var deleteURL = $(this).attr('href');
+            $.ajax({
+                type: 'POST',
+                url: deleteURL,
+                success: function(response) {
+                    toastr["success"]("Xóa thành công!");
+                    $('#table-dangcho').load(location.href + ' #table-dangcho');
+                    $('#table-chogiao').load(location.href + ' #table-chogiao');
+                    $('#table-vanchuyen').load(location.href + ' #table-vanchuyen');
+                    $('#table-hoanthanh').load(location.href + ' #table-hoanthanh');
+                    $('#table-dahuy').load(location.href + ' #table-dahuy');
+                },
+                error: function(xhr, status, error) {
+                    toastr["error"]("Đã xảy ra lỗi khi xóa: " + error);
+                }
+            });
+        });
+    });
+
+    //nút xác nhận
+    $(document).ready(function () {
+        $('.btn-accept').click(function (e) {
+            e.preventDefault();
+            var deleteURL = $(this).attr('href');
+            $.ajax({
+                type: 'POST',
+                url: deleteURL,
+                success: function(response) {
+                    toastr["success"]("Xác nhận thành công!");
+                    $('#table-dangcho').load(location.href + ' #table-dangcho');
+                    $('#table-chogiao').load(location.href + ' #table-chogiao');
+                    $('#table-vanchuyen').load(location.href + ' #table-vanchuyen');
+                    $('#table-hoanthanh').load(location.href + ' #table-hoanthanh');
+                    $('#table-dahuy').load(location.href + ' #table-dahuy');
+                },
+                error: function(xhr, status, error) {
+                    toastr["error"]("Đã xảy ra lỗi khi xóa: " + error);
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
