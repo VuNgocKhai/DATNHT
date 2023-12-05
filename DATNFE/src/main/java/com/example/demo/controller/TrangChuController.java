@@ -117,6 +117,9 @@ public class TrangChuController {
 
     @RequestMapping("/sanpham")
     public String sanpham(Model model, @ModelAttribute("searchform") SearchForm searchForm) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
+        model.addAttribute("khachHang", khachHang);
         System.out.println("Thuong hieu la" + searchForm.thuong_hieu);
         List<GiayChiTiet> giayChiTietList;
         if (searchForm.tien_min == null && searchForm.tien_max == null) {
