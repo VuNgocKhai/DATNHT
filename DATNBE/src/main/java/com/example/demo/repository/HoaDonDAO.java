@@ -31,7 +31,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
     Page<HoaDon> findHoaDonChuaThanhToan(Pageable pageable);
 
     // Query getall hóa đơn theo trạng thái
-    @Query("SELECT hd FROM HoaDon hd WHERE hd.trangthai = ?1")
+    @Query("SELECT hd FROM HoaDon hd WHERE hd.trangthai = ?1 order by hd.ma desc ")
     Page<HoaDon> findHoaDonbyTrangThai(Integer trangthai, Pageable pageable);
 
     //Query tìm kiếm hóa đơn theo mã hóa đơn hoặc tên khách hàng hoặc tổng tiền
@@ -39,10 +39,14 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "AND (hd.ma LIKE %:keyword% OR hd.khachHang.hoten LIKE %:keyword%)")
     Page<HoaDon> searchHoaDonByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
-    @Query("SELECT hd FROM HoaDon hd WHERE ((hd.ma LIKE %:keyword% and hd.ma like :timTheo ) " +
-            "or (hd.khachHang.hoten LIKE %:keyword% and hd.khachHang.ma like :timTheo) " +
-            "or (hd.nhanVien.hoTen LIKE %:keyword% and hd.nhanVien.ma like :timTheo) or (hd.tong_tien LIKE %:keyword%)) " +
+    @Query("SELECT hd FROM HoaDon hd LEFT JOIN hd.khachHang kh LEFT JOIN hd.nhanVien nv WHERE " +
+            "((hd.ma LIKE %:keyword% and hd.ma like :timTheo ) " +
+            "or (COALESCE(kh.hoten, '') LIKE %:keyword% and hd.khachHang.ma like :timTheo) " +
+            "or (COALESCE(nv.hoTen, '') LIKE %:keyword% and hd.nhanVien.ma like :timTheo) " +
+            "or (COALESCE(hd.tong_tien, '') LIKE %:keyword%)) " +
             "AND hd.trangthai = :trangThai")
     Page<HoaDon> searchHoaDon(@Param("keyword") String keyword, @Param("timTheo") String timtheo, @Param("trangThai") Integer trangThai, Pageable pageable);
 
+    @Query("select HD from HoaDon HD order by HD.ma desc ")
+    Page<HoaDon> getHoaDonByXapXep(Pageable pageable);
 }
