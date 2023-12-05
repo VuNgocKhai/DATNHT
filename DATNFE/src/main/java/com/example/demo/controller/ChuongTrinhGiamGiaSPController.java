@@ -1,17 +1,11 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.ChuongTrinhGiamGiaChiTietSP;
-import com.example.demo.entity.ChuongTrinhGiamGiaSP;
-import com.example.demo.entity.GiamGiaHoaDon;
-import com.example.demo.entity.Giay;
-import com.example.demo.entity.PageDTO;
-import com.example.demo.repository.CTrinhKMSPDTO;
-import com.example.demo.repository.ChuongTrinhGiamGiaChiTietSPRepo;
-import com.example.demo.repository.ChuongTrinhGiamGiaChitietSanPhamDTO;
-import com.example.demo.repository.ChuongTrinhGiamGiaSPRepo;
+import com.example.demo.entity.*;
+import com.example.demo.repository.*;
 import com.example.demo.repository.GiayDTO;
-import com.example.demo.repository.GiayRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -172,4 +166,13 @@ public class ChuongTrinhGiamGiaSPController {
         return "giamgiasanpham/chi_tiet_khuyen_mai";
     }
 
+    @Autowired
+    NhanVienDAO nhanVienDAO;
+    private Authentication authentication;
+    @ModelAttribute("nhanVienLogin")
+    public NhanVien nhanVienLogin() {
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv=nhanVienDAO.getNVByEmail(authentication.getName());
+        return nv;
+    }
 }

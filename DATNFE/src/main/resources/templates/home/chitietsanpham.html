@@ -554,34 +554,34 @@
                                             <ul class="pagination" th:if="${pageDg.totalPages>0}">
                                                 <li class="page-item">
                                                     <a class="page-link"
-                                                       th:href="@{|/ctsp/${x}?numberDg=0|}" th:if="${pageDg.number>0}">
+                                                       th:href="@{|/ctsp/${x}-${giaythuonghieu}-${giaymausac}?numberDg=0|}" th:if="${pageDg.number>0}">
                                                         First
                                                     </a>
                                                 </li>
                                                 <li class=" page-item">
                                                     <a class="page-link"
-                                                       th:href="@{|/ctsp/${x}?numberDg=${pageDg.number-1}|}"
+                                                       th:href="@{|/ctsp/${x}-${giaythuonghieu}-${giaymausac}?numberDg=${pageDg.number-1}|}"
                                                        th:if="${pageDg.number-1>=0}">
                                                         [[${pageDg.number}]]
                                                     </a>
                                                 </li>
                                                 <li class="page-item">
                                                     <a class="page-link"
-                                                       th:href="@{|/ctsp/${x}?numberDg=${pageDg.number}|}"
+                                                       th:href="@{|/ctsp/${x}-${giaythuonghieu}-${giaymausac}?numberDg=${pageDg.number}|}"
                                                        th:if="${pageDg.number>=0}">
                                                         [[${pageDg.number+1}]]
                                                     </a>
                                                 </li>
                                                 <li class="page-item">
                                                     <a class="page-link"
-                                                       th:href="@{|/ctsp/${x}?numberDg=${pageDg.number+1}|}"
+                                                       th:href="@{|/ctsp/${x}-${giaythuonghieu}-${giaymausac}?numberDg=${pageDg.number+1}|}"
                                                        th:if="${pageDg.number+1<=pageDg.totalPages-1}">
                                                         [[${pageDg.number+2}]]
                                                     </a>
                                                 </li>
                                                 <li class="page-item">
                                                     <a class="page-link"
-                                                       th:href="@{|/ctsp/${x}?numberDg=${pageDg.totalPages-1}|}"
+                                                       th:href="@{|/ctsp/${x}-${giaythuonghieu}-${giaymausac}?numberDg=${pageDg.totalPages-1}|}"
                                                        th:if="${pageDg.number<pageDg.totalPages-1}">
                                                         Last
                                                     </a>

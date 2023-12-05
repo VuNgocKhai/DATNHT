@@ -1,6 +1,16 @@
 package com.example.demo.controller;
 
 import com.example.demo.config.Config;
+import com.example.demo.entity.DiaChi;
+import com.example.demo.entity.GiamGiaChiTietHoaDon;
+import com.example.demo.entity.GiamGiaHoaDon;
+import com.example.demo.entity.GiaoHangNhanh;
+import com.example.demo.entity.GiayChiTiet;
+import com.example.demo.entity.HoaDon;
+import com.example.demo.entity.HoaDonChiTiet;
+import com.example.demo.entity.KhachHang;
+import com.example.demo.entity.NhanVien;
+import com.example.demo.entity.PageDTO;
 import com.example.demo.entity.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.CallAPIGHN;
@@ -12,10 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -832,5 +839,13 @@ public class BanHangTaiQuayController {
 
         }
         return "redirect:/admin/ban-hang";
+    }
+
+    private Authentication authentication;
+    @ModelAttribute("nhanVienLogin")
+    public NhanVien nhanVienLogin() {
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv=nhanVienDAO.getNVByEmail(authentication.getName());
+        return nv;
     }
 }

@@ -1,10 +1,14 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.GioiTinh;
+import com.example.demo.entity.NhanVien;
 import com.example.demo.entity.PageDTO;
 import com.example.demo.repository.GioiTinhRepo;
 import com.example.demo.repository.GioiTinhRepo;
+import com.example.demo.repository.NhanVienDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -51,5 +55,15 @@ public class GioiTinhController {
     @ModelAttribute("listGioiTinh")
     public List<GioiTinh> getListGioiTinh() {
         return gioiTinhRepo.getListGioiTinh();
+    }
+
+    @Autowired
+    NhanVienDAO nhanVienDAO;
+    private Authentication authentication;
+    @ModelAttribute("nhanVienLogin")
+    public NhanVien nhanVienLogin() {
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv=nhanVienDAO.getNVByEmail(authentication.getName());
+        return nv;
     }
 }

@@ -51,7 +51,6 @@ public class NhanVienController {
     @Autowired
     private NhanVienDAO nhanVienDAO;
 
-    private Authentication authentication;
 
     private int numberCurrent=0;
 
@@ -117,6 +116,7 @@ public class NhanVienController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        model.addAttribute("successMessage", "Thêm mới thành công!");
         nhanVienService.create(nhanVien);
         return "redirect:/admin/nhan-vien";
     }
@@ -162,6 +162,7 @@ public class NhanVienController {
         return nhanVienService.getAll();
     }
 
+    private Authentication authentication;
     @ModelAttribute("nhanVienLogin")
     public NhanVien nhanVienLogin() {
         authentication = SecurityContextHolder.getContext().getAuthentication();

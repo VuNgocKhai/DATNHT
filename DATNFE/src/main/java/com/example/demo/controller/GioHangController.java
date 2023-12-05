@@ -104,6 +104,8 @@ public class GioHangController {
         model.addAttribute("pageDg", new PageDTO<>(danhGiaDAO.findDanhGiasByMaSpAndTt(ma, pageable)));
         model.addAttribute("totalDg", danhGiaDAO.countGiayByMaGiayAndTt(ma));
         model.addAttribute("x", ma);
+        model.addAttribute("giaythuonghieu", thuonghieu);
+        model.addAttribute("giaymausac", mausac);
         model.addAttribute("dg", DanhGia.builder().giay(giayDAO.getGiayByMa(ma)).trangThai(0).build());
 
         return "home/chitietsanpham";

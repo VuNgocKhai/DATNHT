@@ -261,7 +261,9 @@ public class QuanLyTaiKhoanKhController {
 
     @PostMapping("/quen-mk")
     public String quenMkPost(@RequestParam String email,Model model){
-        emailService.sendOtpQuenMk(email);
+        if(khachHangDao.getKhByEmail(email)!=null){
+            emailService.sendOtpQuenMk(email);
+        }
         model.addAttribute("email",email);
         return "qltk_kh/otp_quenmk";
     }

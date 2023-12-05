@@ -155,8 +155,10 @@
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
                            id="navbarDropdownMenuLink"
                            role="button" data-toggle="dropdown" aria-expanded="false">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" class="rounded-circle"
-                                 height="72" alt="Avatar" loading="lazy"/>
+                            <img
+                                    class="rounded-circle"
+                                    th:src="@{|/images/${nhanVienLogin.anh}|}"
+                                    height="72" alt="Avatar" loading="lazy"/>
                         </a>
                         <div class="dropdown-menu" style="margin-left: -88px;">
                             <a class="dropdown-item" href="#">Đăng Xuất</a>
@@ -166,8 +168,73 @@
                 </ul>
             </div>
         </nav>
+
         <div class="container-lg bg-light border">
             <div style="padding: 15px">
+                <div class="row">
+                    <div class="col-7"></div>
+                    <div class="col-2">
+                        <a href="/admin/chatlieu/export" class="btn btn-primary mb-2 " id="exportBtn" download="example.xlsx">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                            Xuất excel
+                        </a>
+                    </div>
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    <script>
+                        $(document).ready(function (){
+                            $('#exportBtn').click(function (){
+                                console.log(1111);
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Thành công!',
+                                    text: 'File excel đã được tải về trình duyệt của bạn',
+                                })
+                            })
+                        })
+                    </script>
+                    <form id="fileUploadForm" class="col-3">
+                        <button type="button" class="btn btn-primary mb-2" id="importBtn" onclick="uploadFile()">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            Nhập từ Excel
+                        </button>
+                        <p></p>
+                        <input type="file" name="file" id="iip"/>
+                    </form>
+                    <script>
+                        function uploadFile() {
+                            // Lấy ra form và file từ form
+                            var formData = new FormData(document.getElementById('fileUploadForm'));
+
+                            // Gửi yêu cầu POST đến API
+                            fetch('/admin/chatlieu/import', {
+                                method: 'POST',
+                                body: formData
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if(data){
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Thành công!',
+                                            text: 'Import thành công.',
+                                        })
+                                        window.location.reload();
+                                    }else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Lỗi!',
+                                            text: 'Lỗi trong quá trình import.',
+                                        })
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Lỗi khi gửi yêu cầu:', error);
+                                });
+                        }
+                    </script>
+                </div>
+
                 <h4 class="text-center">QUẢN LÝ CHẤT LIỆU</h4>
                 <hr>
                 <form id="kichcoForm" action="/admin/chatlieu/create" method="post" th:object="${chatlieu}">

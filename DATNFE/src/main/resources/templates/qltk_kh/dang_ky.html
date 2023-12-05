@@ -220,19 +220,35 @@
     }
 
     function checkEmail(email) {
-        return new Promise((resolve, reject) => {
-            $.ajax({
-                url: '/khIsExist/' + email,
-                type: 'GET',
-                success: function (data) {
-                    resolve(data);
-                },
-                error: function (error) {
-                    reject(error);
-                }
-            });
+        var result;
+        $.ajax({
+            url: '/khIsExist/' + email,
+            type: 'GET',
+            async: false, // Make the request synchronous
+            success: function (data) {
+                result = data;
+            },
+            error: function (error) {
+                throw new Error(error);
+            }
         });
+        return result;
     }
+
+    //  function checkEmail(email) {
+    //     return new Promise((resolve, reject) => {
+    //         $.ajax({
+    //             url: '/khIsExist/' + email,
+    //             type: 'GET',
+    //             success: function (data) {
+    //                 resolve(data);
+    //             },
+    //             error: function (error) {
+    //                 reject(error);
+    //             }
+    //         });
+    //     });
+    // }
 
     function validateForm() {
         event.preventDefault();
@@ -266,14 +282,11 @@
                 emailErr.innerText = "Email không hợp lệ.";
                 isErr = true;
             } else {
-                checkEmail(email.value.trim()).then(data => {
-                    if (data) {
-                        emailErr.innerText = "Email đã tồn tại.";
-                        isErr = true;
-                    }
-                }).catch(error => {
-                    console.log(error); // lỗi từ yêu cầu AJAX
-                });
+                var data = checkEmail(email.value.trim());
+                if (data) {
+                    emailErr.innerText = "Email đã tồn tại.";
+                    isErr = true;
+                }
             }
         }
 
@@ -294,9 +307,17 @@
         }
 
         if (!isErr) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: 'OTP đã được gửi tới email của bạn',
+            })
             formDk.submit();
         }
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 </body>
 </html>

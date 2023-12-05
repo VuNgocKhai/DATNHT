@@ -119,13 +119,12 @@
                 isErr=true;
             }
 
-            var ngayNghiViec = document.getElementById("ngayNghiViecInput").value;
-            if (ngayNghiViec.trim() === "") {
-                document.getElementById("ngayNghiViecError").innerHTML = "Vui lòng chọn ngày nghỉ việc.";
-                isErr = true;
-            }
-
             if(!isErr){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công!',
+                    text: 'Thêm thành công.',
+                })
                 document.getElementById("nhanVienForm").submit();
             }
         }
@@ -238,6 +237,11 @@
             }
 
             if(!isErr){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công!',
+                    text: 'Cập nhật thành công.',
+                })
                 document.getElementById("nhanVienForm2").submit();
             }
         }
@@ -564,25 +568,19 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-group col-3">
+                                    <div class="form-group col-4">
                                         <label for="formGroupExampleInput2">Ngày sinh <span style="color: red">*</span></label>
                                         <input type="date" th:field="*{ngaySinh}" class="form-control" id="ngaySinhInput">
                                         <small class="text-danger" id="ngaySinhError"></small>
                                     </div>
 
-                                    <div class="form-group col-3">
+                                    <div class="form-group col-4">
                                         <label for="formGroupExampleInput2">Ngày vào làm <span style="color: red">*</span></label>
                                         <input type="date" th:field="*{ngayVaoLam}" class="form-control" id="ngayVaoLamInput">
                                         <small class="text-danger" id="ngayVaoLamError"></small>
                                     </div>
 
-                                    <div class="form-group col-3">
-                                        <label for="formGroupExampleInput2">Ngày nghỉ việc <span style="color: red">*</span></label>
-                                        <input type="date" th:field="*{ngayNghiViec}" class="form-control" id="ngayNghiViecInput">
-                                        <small class="text-danger" id="ngayNghiViecError"></small>
-                                    </div>
-
-                                    <div class="form-group col-3">
+                                    <div class="form-group col-4">
                                         <label for="formGroupExampleInput2">Chức vụ <span style="color: red">*</span></label>
                                         <select class="form-control" id="chucVuInput" th:field="*{chucVu.id}">
                                             <option th:each="cv : ${listChucVu}" th:value="${cv.id}" th:text="${cv.ten}"></option>
@@ -781,7 +779,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a th:href=" @{|/admin/nhan-vien/delete/${item.ma}|}" title="Xóa">
+                            <a th:href=" @{|/admin/nhan-vien/delete/${item.ma}|}" title="Xóa" class="btn-xoa">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </a>
                             <a th:href=" @{|/admin/nhan-vien/findHoaDon/${item.ma}|}"
@@ -800,6 +798,7 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/assets/js/popper.js"></script>
@@ -1006,6 +1005,33 @@ var emGlo;
         });
     }
 
+
+    //popup xoa
+    $(document).ready(function (){
+        $('.btn-xoa').click(function (){
+            event.preventDefault();
+            Swal.fire({
+                title: 'Bạn chắc chắn xóa?',
+                text: "Bạn sẽ không thể khôi phục lại điều này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Hủy',
+                confirmButtonText: 'Có, xóa đi!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Đã xóa!',
+                        'Nhân viên đã bị xóa.',
+                        'success'
+                    )
+                    window.location.href = $(this).attr('href');
+
+                }
+            })
+        })
+    })
 </script>
 </body>
 </html>

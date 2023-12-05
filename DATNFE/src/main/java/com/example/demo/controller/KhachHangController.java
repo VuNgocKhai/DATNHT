@@ -2,12 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.DiaChi;
 import com.example.demo.entity.KhachHang;
+import com.example.demo.entity.NhanVien;
 import com.example.demo.entity.PageDTO;
-import com.example.demo.repository.DiaChiRepo;
-import com.example.demo.repository.DiachiDao;
-import com.example.demo.repository.KhachHangDao;
-import com.example.demo.repository.KhachHangRepo;
+import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -140,5 +140,13 @@ public class KhachHangController {
     }
 
 
-
+    @Autowired
+    NhanVienDAO nhanVienDAO;
+    private Authentication authentication;
+    @ModelAttribute("nhanVienLogin")
+    public NhanVien nhanVienLogin() {
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv=nhanVienDAO.getNVByEmail(authentication.getName());
+        return nv;
+    }
 }

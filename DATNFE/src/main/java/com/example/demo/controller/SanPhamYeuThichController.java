@@ -103,5 +103,11 @@ public class SanPhamYeuThichController {
         return "redirect:/ctsp/" + encodedUrl;
     }
 
-
+    @Autowired NhanVienDAO nhanVienDAO;
+    @ModelAttribute("nhanVienLogin")
+    public NhanVien nhanVienLogin() {
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv=nhanVienDAO.getNVByEmail(authentication.getName());
+        return nv;
+    }
 }

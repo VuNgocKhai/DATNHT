@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface GioiTinhDAO extends JpaRepository<GioiTinh,UUID> {
-    GioiTinh getGioiTinhByTen(String ten);
+    GioiTinh findGioiTinhByMa(String ma);
 }
