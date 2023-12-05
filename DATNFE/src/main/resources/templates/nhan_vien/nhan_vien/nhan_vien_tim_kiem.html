@@ -120,6 +120,11 @@
             }
 
             if(!isErr){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công!',
+                    text: 'Thêm thành công.',
+                })
                 document.getElementById("nhanVienForm").submit();
             }
         }
@@ -232,6 +237,11 @@
             }
 
             if(!isErr){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công!',
+                    text: 'Cập nhật thành công.',
+                })
                 document.getElementById("nhanVienForm2").submit();
             }
         }
@@ -769,7 +779,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a th:href=" @{|/admin/nhan-vien/delete/${item.ma}|}" title="Xóa">
+                            <a th:href=" @{|/admin/nhan-vien/delete/${item.ma}|}" title="Xóa" class="btn-xoa">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </a>
                             <a th:href=" @{|/admin/nhan-vien/findHoaDon/${item.ma}|}"
@@ -788,6 +798,7 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/assets/js/popper.js"></script>
@@ -994,6 +1005,33 @@ var emGlo;
         });
     }
 
+
+    //popup xoa
+    $(document).ready(function (){
+        $('.btn-xoa').click(function (){
+            event.preventDefault();
+            Swal.fire({
+                title: 'Bạn chắc chắn xóa?',
+                text: "Bạn sẽ không thể khôi phục lại điều này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Hủy',
+                confirmButtonText: 'Có, xóa đi!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Đã xóa!',
+                        'Nhân viên đã bị xóa.',
+                        'success'
+                    )
+                    window.location.href = $(this).attr('href');
+
+                }
+            })
+        })
+    })
 </script>
 </body>
 </html>

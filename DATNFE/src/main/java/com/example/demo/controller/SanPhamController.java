@@ -194,7 +194,6 @@ public class SanPhamController {
 
 
     final String exportFilePath = "src/main/resources/excel/export.xlsx";
-
     @RequestMapping("/admin/sanpham/export")
     public void downFileExport(HttpServletResponse response) throws IOException {
         exportFileSp();
@@ -348,7 +347,6 @@ public class SanPhamController {
 
     void exportFileSp() {
         List<Giay> giays = giayDAO.allGiay();
-        System.out.println(giays.get(0).getMa() + "kkk");
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Giay");
 
