@@ -41,6 +41,9 @@ public class BanHangController {
     @Autowired
     private HangKhachHangDAO hangKhachHangDAO;
 
+    @Autowired
+    private NhanVienDAO nhanVienDAO;
+
     //Hiển thị all
     @RequestMapping("/admin/ban-hang")
     public String hienThiAll(@RequestParam("page0") Optional<Integer> page0,
@@ -378,6 +381,7 @@ public class BanHangController {
         model.addAttribute("keyword5", keyword);
         return "banhangtaiquay/ban_hang";
     }
+
     private Authentication authentication;
     @ModelAttribute("nhanVienLogin")
     public NhanVien nhanVienLogin() {
