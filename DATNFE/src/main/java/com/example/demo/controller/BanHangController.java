@@ -33,7 +33,8 @@ public class BanHangController {
 
     @Autowired
     private HoaDonChiTietDAO hoaDonChiTietDAO;
-
+    @Autowired
+    private NhanVienDAO nhanVienDAO;
     @Autowired
     private KhachHangDao khachHangDao;
 
@@ -377,5 +378,11 @@ public class BanHangController {
         model.addAttribute("keyword5", keyword);
         return "banhangtaiquay/ban_hang";
     }
-
+    private Authentication authentication;
+    @ModelAttribute("nhanVienLogin")
+    public NhanVien nhanVienLogin() {
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv=nhanVienDAO.getNVByEmail(authentication.getName());
+        return nv;
+    }
 }
