@@ -342,7 +342,7 @@ GO
 INSERT [dbo].[quy_doi_diem] ([id], [so_tien_tuong_ung], [so_diem_tuong_ung], [trangthai]) VALUES (N'1b52f69d-5508-4745-926f-a22f9907e523', 1000, 10, 1)
 
 GO
-INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [email], [mat_khau],[id_hkh] [trangthai]) VALUES (N'bb772ace-91ff-4cbe-83de-ea5e80fa3843', N'KH01', 'avatar.jpg', N'Nguyễn Danh', CAST(N'2003-09-09' AS Date), N'0385090080', N'kh01@gmail.com', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',N'5b52f69d-5508-4745-926f-a22f9907e523', 1)
+INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [email], [mat_khau],[id_hkh], [trangthai]) VALUES (N'bb772ace-91ff-4cbe-83de-ea5e80fa3843', N'KH01', 'avatar.jpg', N'Nguyễn Danh', CAST(N'2003-09-09' AS Date), N'0385090080', N'kh01@gmail.com', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',N'5b52f69d-5508-4745-926f-a22f9907e523', 1)
 INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [email], [mat_khau],[id_hkh], [trangthai]) VALUES (N'019427f5-1e52-402f-b5dc-ec17ad5f139a', N'KH02', 'avatar.jpg', N'Nguyễn Đại', CAST(N'2003-08-08' AS Date), N'0387090080', N'kh02@gmail.com', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',N'5b52f69d-5508-4745-926f-a22f9907e523', 1)
 INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [email], [mat_khau],[id_hkh], [trangthai]) VALUES (N'22b427f5-1e52-402f-b5dc-ec17ad5f139a', N'KH03', 'avatar.jpg', N'Đào Gia Phong', CAST(N'2003-09-16' AS Date), N'0385370656', N'kh03@gmail.com', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',N'5b52f69d-5508-4745-926f-a22f9907e523', 1)
 GO
@@ -1026,4 +1026,4 @@ INSERT [dbo].[anh_giay] ([id], [ten_url], [id_giay], [trangthai]) VALUES (N'b28d
 INSERT [dbo].[anh_giay] ([id], [ten_url], [id_giay], [trangthai]) VALUES (N'07267569-3361-5a47-ad78-fecfd9c220e4', N'ysl3_2.jpg', N'3af55b31-a9a6-e548-a8f7-6e598f233d98', NULL)
 GO
 
-select * from hoa_don
+select * from gio_hang
