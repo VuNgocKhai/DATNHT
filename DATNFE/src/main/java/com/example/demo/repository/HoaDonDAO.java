@@ -63,7 +63,7 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
     // tổng số hóa đơn đang chờ xác nhận
     @Query("SELECT COUNT(*) AS TongSoLuongTrangThai1\n" +
             "FROM HoaDon\n" +
-            "WHERE trangthai = 1\n")
+            "WHERE trangthai = 0\n")
     Integer tongsohoadondangchoxanhan();
 
     // tính tổng tiền theo tháng trong năm

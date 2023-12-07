@@ -230,11 +230,13 @@ public class BanHangController {
         PageDTO<HoaDon> hoaDonTrangThai2 = hoaDonRepo.getPageHDByTrangThai(2, page2.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai3 = hoaDonRepo.getPageHDByTrangThai(3, page3.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai4 = hoaDonRepo.getPageHDByTrangThai(4, page4.orElse(0));
+        PageDTO<HoaDon> hoaDonTrangThai5 = hoaDonRepo.getPageHDByTrangThai(4, page4.orElse(0));
         model.addAttribute("PageHoaDonTT0", hoaDonTrangThai0);
         model.addAttribute("PageHoaDonTT1", hoaDonTrangThai1);
         model.addAttribute("PageHoaDonTT2", hoaDonTrangThai2);
         model.addAttribute("PageHoaDonTT3", hoaDonTrangThai3);
         model.addAttribute("PageHoaDonTT4", hoaDonTrangThai4);
+        model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5);
         // Đặt các thuộc tính khác cần thiết và trả về view tìm kiếm
         model.addAttribute("timTheo", timTheo);
         model.addAttribute("keyword", keyword);
@@ -250,6 +252,7 @@ public class BanHangController {
                                  @RequestParam("page2") Optional<Integer> page2,
                                  @RequestParam("page3") Optional<Integer> page3,
                                  @RequestParam("page4") Optional<Integer> page4,
+                                 @RequestParam("page5") Optional<Integer> page5,
                                  Model model) {
 
         PageDTO<HoaDon> hoaDonTrangThai1 = hoaDonRepo.getPageHDByTrangThai1(trangThai, keyword, timTheo, page1.orElse(0));
@@ -257,6 +260,8 @@ public class BanHangController {
         PageDTO<HoaDon> hoaDonTrangThai2 = hoaDonRepo.getPageHDByTrangThai(2, page2.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai3 = hoaDonRepo.getPageHDByTrangThai(3, page3.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai4 = hoaDonRepo.getPageHDByTrangThai(4, page4.orElse(0));
+        PageDTO<HoaDon> hoaDonTrangThai5 = hoaDonRepo.getPageHDByTrangThai(5, page5.orElse(0));
+        model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5);
         model.addAttribute("PageHoaDonTT0", hoaDonTrangThai0);
         model.addAttribute("PageHoaDonTT1", hoaDonTrangThai1); // Page hóa đơn chuẩn bị
         model.addAttribute("PageHoaDonTT2", hoaDonTrangThai2);
@@ -277,6 +282,7 @@ public class BanHangController {
                                  @RequestParam("page2") Optional<Integer> page2,
                                  @RequestParam("page3") Optional<Integer> page3,
                                  @RequestParam("page4") Optional<Integer> page4,
+                                 @RequestParam("page5") Optional<Integer> page5,
                                  Model model) {
 
         PageDTO<HoaDon> hoaDonTrangThai2 = hoaDonRepo.getPageHDByTrangThai1(trangThai, keyword, timTheo, page2.orElse(0));
@@ -284,6 +290,8 @@ public class BanHangController {
         PageDTO<HoaDon> hoaDonTrangThai1 = hoaDonRepo.getPageHDByTrangThai(1, page1.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai3 = hoaDonRepo.getPageHDByTrangThai(3, page3.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai4 = hoaDonRepo.getPageHDByTrangThai(4, page4.orElse(0));
+        PageDTO<HoaDon> hoaDonTrangThai5 = hoaDonRepo.getPageHDByTrangThai(5, page5.orElse(0));
+        model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5);
         model.addAttribute("PageHoaDonTT0", hoaDonTrangThai0);
         model.addAttribute("PageHoaDonTT1", hoaDonTrangThai1);
         model.addAttribute("PageHoaDonTT2", hoaDonTrangThai2);
@@ -304,6 +312,7 @@ public class BanHangController {
                                  @RequestParam("page2") Optional<Integer> page2,
                                  @RequestParam("page3") Optional<Integer> page3,
                                  @RequestParam("page4") Optional<Integer> page4,
+                                 @RequestParam("page5") Optional<Integer> page5,
                                  Model model) {
 
         PageDTO<HoaDon> hoaDonTrangThai3 = hoaDonRepo.getPageHDByTrangThai1(trangThai, keyword, timTheo, page3.orElse(0));
@@ -311,6 +320,8 @@ public class BanHangController {
         PageDTO<HoaDon> hoaDonTrangThai1 = hoaDonRepo.getPageHDByTrangThai(1, page1.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai2 = hoaDonRepo.getPageHDByTrangThai(2, page2.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai4 = hoaDonRepo.getPageHDByTrangThai(4, page4.orElse(0));
+        PageDTO<HoaDon> hoaDonTrangThai5 = hoaDonRepo.getPageHDByTrangThai(5, page5.orElse(0));
+        model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5);
         model.addAttribute("PageHoaDonTT0", hoaDonTrangThai0);
         model.addAttribute("PageHoaDonTT1", hoaDonTrangThai1);
         model.addAttribute("PageHoaDonTT2", hoaDonTrangThai2);
@@ -331,6 +342,7 @@ public class BanHangController {
                                  @RequestParam("page2") Optional<Integer> page2,
                                  @RequestParam("page3") Optional<Integer> page3,
                                  @RequestParam("page4") Optional<Integer> page4,
+                                 @RequestParam("page5") Optional<Integer> page5,
                                  Model model) {
 
         PageDTO<HoaDon> hoaDonTrangThai4 = hoaDonRepo.getPageHDByTrangThai1(trangThai, keyword, timTheo, page4.orElse(0));
@@ -338,6 +350,8 @@ public class BanHangController {
         PageDTO<HoaDon> hoaDonTrangThai1 = hoaDonRepo.getPageHDByTrangThai(1, page1.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai2 = hoaDonRepo.getPageHDByTrangThai(2, page2.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai3 = hoaDonRepo.getPageHDByTrangThai(3, page3.orElse(0));
+        PageDTO<HoaDon> hoaDonTrangThai5 = hoaDonRepo.getPageHDByTrangThai(5, page5.orElse(0));
+        model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5);
         model.addAttribute("PageHoaDonTT0", hoaDonTrangThai0);
         model.addAttribute("PageHoaDonTT1", hoaDonTrangThai1);
         model.addAttribute("PageHoaDonTT2", hoaDonTrangThai2);
