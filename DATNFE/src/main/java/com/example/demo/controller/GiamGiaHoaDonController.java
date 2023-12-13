@@ -59,8 +59,7 @@ public class GiamGiaHoaDonController {
         if (result.hasErrors()) {
             model.addAttribute("message", "Không được để trống thông tin");
             return "redirect:/admin/giamgiahoadon";
-        }
-        else if (checkma != null) {
+        } else if (checkma != null) {
             result.rejectValue("ma", "error.giamGiaHoaDon", "Mã đã tồn tại");
             return "redirect:/admin/giamgiahoadon";
         }
@@ -87,10 +86,42 @@ public class GiamGiaHoaDonController {
     public String updateGiamGiaHoaDon(@Valid @ModelAttribute("giamgiahoadon") GiamGiaHoaDon giamGiaHoaDon,
                                       BindingResult result,
                                       Model model) {
-        if(result.hasErrors())
-        {
+        if (result.hasErrors()) {
             model.addAttribute("message", "Không được để trống thông tin");
             return "redirect:/admin/giamgiahoadon";
+        }
+        if (giamGiaHoaDon.getTrangthai() == 0) {
+            List<GiamGiaChiTietHoaDon> giamGiaChiTietHoaDons = giamGiaChiTietHoaDonRepo.getAllGGCTHDbyGGHD(giamGiaHoaDon.getId());
+            giamGiaChiTietHoaDons.forEach(x ->
+            {
+                HoaDon hoaDon = x.getHd();
+                BigDecimal tongTienKhongGiamGia = hoaDon.getTong_tien().add(hoaDon.getSo_tien_giam());
+                hoaDon.setTong_tien(tongTienKhongGiamGia);
+                hoaDon.setSo_tien_giam(BigDecimal.ZERO);
+                hoaDonRepo.createHoaDon(hoaDon);
+            });
+        }
+        else if(giamGiaHoaDon.getTrangthai() == 1)
+        {
+            List<GiamGiaChiTietHoaDon> giamGiaChiTietHoaDons = giamGiaChiTietHoaDonRepo.getAllGGCTHDbyGGHD(giamGiaHoaDon.getId());
+            giamGiaChiTietHoaDons.forEach(x ->
+            {
+                HoaDon hoaDon = x.getHd();
+                BigDecimal tongTienCoShip = hoaDon.getTong_tien();
+                Integer phanTramGiam = giamGiaHoaDon.getPhan_tram_giam();
+                BigDecimal phiShip = hoaDon.getPhi_ship();
+                BigDecimal tongTienChuaShip = tongTienCoShip.subtract(phiShip);
+                BigDecimal soTienGiamMax = giamGiaHoaDon.getSo_tien_giam_max();
+                BigDecimal soTienGiam = tongTienChuaShip.multiply(new BigDecimal(phanTramGiam)).divide(new BigDecimal(100));
+
+                // Nếu số tiền giảm vượt quá số tiền giảm tối đa, sử dụng số tiền giảm tối đa
+                if (soTienGiam.compareTo(soTienGiamMax) > 0) {
+                    soTienGiam = soTienGiamMax;
+                }
+                hoaDon.setSo_tien_giam(soTienGiam);
+                hoaDon.setTong_tien(hoaDon.getTong_tien().subtract(soTienGiam));
+                hoaDonRepo.createHoaDon(hoaDon);
+            });
         }
         giamGiaHoaDonRepo.createGGHD(giamGiaHoaDon);
         return "redirect:/admin/giamgiahoadon";
@@ -98,8 +129,17 @@ public class GiamGiaHoaDonController {
 
     @PostMapping("/admin/giamgiahoadon/set-ngung-hoat-dong")
     public String ngungHoatDongGiamGiaHoaDon(@RequestParam("idGGHD") UUID idGGHD,
-            Model model) {
+                                             Model model) {
         GiamGiaHoaDon giamGiaHoaDon = giamGiaHoaDonRepo.getGiamGiaHoaDonById(idGGHD);
+        List<GiamGiaChiTietHoaDon> giamGiaChiTietHoaDons = giamGiaChiTietHoaDonRepo.getAllGGCTHDbyGGHD(giamGiaHoaDon.getId());
+        giamGiaChiTietHoaDons.forEach(x ->
+        {
+            HoaDon hoaDon = x.getHd();
+            BigDecimal tongTienKhongGiamGia = hoaDon.getTong_tien().add(hoaDon.getSo_tien_giam());
+            hoaDon.setTong_tien(tongTienKhongGiamGia);
+            hoaDon.setSo_tien_giam(BigDecimal.ZERO);
+            hoaDonRepo.createHoaDon(hoaDon);
+        });
         giamGiaHoaDon.setTrangthai(0);
         giamGiaHoaDonRepo.createGGHD(giamGiaHoaDon);
         return "redirect:/admin/giamgiahoadon";
@@ -147,18 +187,6 @@ public class GiamGiaHoaDonController {
         return "giamgiahoadon/giam_gia_hoa_don";
     }
 
-//    @RequestMapping("/admin/giam-gia-hoa-don/tim-kiem-hoa-don-chua-ap-ma")
-//    public String timHoaDonChuaApMa(@RequestParam("keyword") String keyword,
-//                                    @RequestParam("timTheo") String timTheo,
-//                                    @RequestParam("page") Optional<Integer> page,
-//                                    @RequestParam("maGGHD") String maGGHD,
-//                                    Model model) {
-//
-//        PageDTO<HoaDon> hoaDonPageDTOchuaGGFind = hoaDonRepo.getPageHDByTrangThai1chuaApMa(keyword,timTheo,page.orElse(0));
-//        model.addAttribute("listHoaDon", hoaDonPageDTOchuaGGFind);
-//        return "redirect:/admin/giamgiahoadon/detail/" + maGGHD;
-//    }
-
     @RequestMapping("/admin/giamgiahoadon/loc-theo-ten")
     public String locGiamGiaHoaDonTheoTen(@RequestParam(value = "ten", required = false) String ten,
                                           @RequestParam("page") Optional<Integer> page,
@@ -167,7 +195,7 @@ public class GiamGiaHoaDonController {
 
         PageDTO<GiamGiaHoaDon> pageResult = giamGiaHoaDonRepo.getPageGGHDByTen(ten, page.orElse(0));
         model.addAttribute("listPGiamGiaHoaDon", pageResult);
-        model.addAttribute("loctheotenDetail",ten);
+        model.addAttribute("loctheotenDetail", ten);
         return "giamgiahoadon/giam_gia_hoa_don";
     }
 

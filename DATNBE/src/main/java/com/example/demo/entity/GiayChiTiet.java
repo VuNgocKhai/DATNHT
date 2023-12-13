@@ -26,6 +26,10 @@ public class GiayChiTiet implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_giay")
     private Giay giay;
+
+    private String qr_code;
+
     private Integer so_luong_ton;
+
     private Integer trangthai;
 }

@@ -22,7 +22,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -146,8 +150,7 @@ public class BanHangTaiQuayController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         NhanVien nv = nhanVienDAO.getNVByEmail(authentication.getName());
         HoaDon hoaDon = new HoaDon();
-        if(nv == null)
-        {
+        if (nv == null) {
             return "redirect:/admin/ban-hang";
         }
 
@@ -205,7 +208,7 @@ public class BanHangTaiQuayController {
             List<DiaChi> diaChiList = diachiDao.getdiachibyma(hoaDon.getKhachHang().getMa());
             model.addAttribute("ListDiaChicuaKH", diaChiList);
             ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
-            model.addAttribute("tongDiemQuyDoiHienCo",viDiem.getTong_diem());
+            model.addAttribute("tongDiemQuyDoiHienCo", viDiem.getTong_diem());
             QuyDoiDiem quyDoiDiem = quyDoiDiemDAO.getQuyDoiDiemByTT1();
             Integer diemTichLuy = hoaDon.getTong_tien().divide(quyDoiDiem.getSo_tien_tuong_ung()).multiply(new BigDecimal(quyDoiDiem.getSo_diem_tuong_ung())).intValue();
             model.addAttribute("diemTichLuy", diemTichLuy);
@@ -255,6 +258,55 @@ public class BanHangTaiQuayController {
         return "banhangtaiquay/tao_don_hang";
     }
 
+    @PostMapping("/admin/ban-hang-tai-quay/tao-don-hang/add-to-cart-by-qr")
+    public String addGiayChiTietToHoaDonQRcode(
+            @RequestParam("maHD") String maHoaDon,
+            @RequestParam("qrcode") String qrCode,
+            RedirectAttributes redirectAttributes) {
+
+        GiayChiTiet giayChiTiet = giayChiTietRepo.getGCTbyQRCode(qrCode);
+        HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHoaDon);
+
+        if (giayChiTiet != null && hoaDon != null) {
+            List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietRepo.getListHDCTbyMaHD(hoaDon.getMa());
+            if (!hoaDonChiTietList.isEmpty()) {
+                for (HoaDonChiTiet x : hoaDonChiTietList) {
+                    if (x.getGiayChiTiet().getQr_code().equals(qrCode)) {
+                        x.setSo_luong(x.getSo_luong() + 1);
+                        hoaDonChiTietRepo.createHDCT(x);
+                        BigDecimal tongTien = tinhTongTienHoaDon(hoaDonChiTietList);
+                        hoaDon.setTong_tien(tongTien);
+                        hoaDonRepo.createHoaDon(hoaDon);
+                        redirectAttributes.addAttribute("maHD", maHoaDon);
+                        return "redirect:/admin/ban-hang-tai-quay/view-cart/{maHD}";
+                    }
+                }
+            }
+            else
+            {
+                HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+                hoaDonChiTiet.setGiayChiTiet(giayChiTiet);
+                hoaDonChiTiet.setHoaDon(hoaDon);
+                hoaDonChiTiet.setSo_luong(1);
+                hoaDonChiTiet.setGia_nhap(giayChiTiet.getGiay().getGianhap());
+                hoaDonChiTiet.setDon_gia(giayChiTiet.getGiay().getGia_sau_khuyen_mai());
+                hoaDonChiTiet.setTrangthai(1);
+                hoaDonChiTietRepo.createHDCT(hoaDonChiTiet);
+            }
+            List<HoaDonChiTiet> hoaDonChiTietList2 = hoaDonChiTietRepo.getListHDCTbyMaHD(hoaDon.getMa());
+            BigDecimal tongTien = tinhTongTienHoaDon(hoaDonChiTietList2);
+            hoaDon.setTong_tien(tongTien);
+            hoaDonRepo.createHoaDon(hoaDon);
+
+            redirectAttributes.addAttribute("maHD", maHoaDon);
+            return "redirect:/admin/ban-hang-tai-quay/view-cart/{maHD}";
+        } else {
+            redirectAttributes.addAttribute("maHD", maHoaDon);
+            return "redirect:/admin/ban-hang-tai-quay/view-cart/{maHD}";
+        }
+    }
+
+
     @PostMapping("/admin/ban-hang-tai-quay/tao-don-hang/add-to-cart")
     public String themGiayVaoHoaDonChiTiet(@RequestParam("maHD") String maHD,
                                            @RequestParam("selectedIds") List<UUID> selectedIds,
@@ -267,15 +319,10 @@ public class BanHangTaiQuayController {
             GiayChiTiet giayChiTiet = giayChiTietRepo.getGiayChiTietById(idctsp);
             boolean foundExistingChiTiet = false;
             int soLuong = Integer.parseInt(quantities.get("quantity[" + idctsp + "]"));
-
-            // Truy xuất số lượng tồn từ GiayChiTiet
             Integer soLuongTon = giayChiTiet.getSo_luong_ton();
 
             if (soLuong <= soLuongTon) {
-                // Số lượng tồn đủ, trừ đi số lượng tồn
                 soLuongTon -= soLuong;
-
-                // Cập nhật số lượng tồn trong giayChiTiet
                 giayChiTiet.setSo_luong_ton(soLuongTon);
                 giayChiTietDAO.save(giayChiTiet);
 
@@ -322,7 +369,6 @@ public class BanHangTaiQuayController {
         redirectAttributes.addAttribute("maHD", maHD);
         return "redirect:/admin/ban-hang-tai-quay/view-cart/{maHD}";
     }
-
 
     @PostMapping("/add/so-luong-hoa-don")
     public String addsoluonghd(@RequestParam("maHD") String maHD,
@@ -458,8 +504,7 @@ public class BanHangTaiQuayController {
         KhachHang khachHang = khachHangRepo.getBykhachhangma(maKH);
         hoaDon.setKhachHang(khachHang);
         DiaChi diaChi = diachiDao.getDiaChiByKhachHangMaAndTrangthai(maKH);
-        if(diaChi != null)
-        {
+        if (diaChi != null) {
             String diaChiGop = diaChi.getTendiachi() + ", " + diaChi.getXa() + ", " + diaChi.getHuyen() + ", " + diaChi.getThanhpho();
             hoaDon.setDia_chi(diaChiGop);
             hoaDon.setTen_nguoi_nhan(diaChi.getTen_nguoi_nhan());
@@ -471,9 +516,7 @@ public class BanHangTaiQuayController {
             String phiShip = callAPIGHN.getAPIGHN(giaoHangNhanh);
             hoaDon.setPhi_ship(new BigDecimal(phiShip));
             hoaDonRepo.createHoaDon(hoaDon);
-        }
-        else
-        {
+        } else {
             String diaChiNull = "";
             hoaDon.setDia_chi(diaChiNull);
         }
@@ -550,6 +593,7 @@ public class BanHangTaiQuayController {
                                                 RedirectAttributes redirectAttributes) {
         if(sodiemsudung<5000 || sodiemsudung>diemHienCo){
             sodiemsudung=0;
+
         }
         System.out.println("in tien ra" + tongTienSauGiam + phiShip + soTienGiam);
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
@@ -677,7 +721,7 @@ public class BanHangTaiQuayController {
             hoaDon.setTrangthai(3);
             hoaDonRepo.createHoaDon(hoaDon);
             QuyDoiDiem quyDoiDiem = quyDoiDiemDAO.getQuyDoiDiemByTT1();
-            if (hoaDon.getKhachHang()!=null){
+            if (hoaDon.getKhachHang() != null) {
                 ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
                 LichSuTieuDiem lichSuTieuDiem = new LichSuTieuDiem();
                 lichSuTieuDiem.setTrangthai(1);
@@ -689,14 +733,14 @@ public class BanHangTaiQuayController {
                 Integer soDiemCong = hoaDon.getTong_tien().divide(quyDoiDiem.getSo_tien_tuong_ung()).multiply(new BigDecimal(quyDoiDiem.getSo_diem_tuong_ung())).intValue();
                 lichSuTieuDiem.setSo_diem_cong(soDiemCong);
                 lichSuTieuDiemDAO.save(lichSuTieuDiem);
-                viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong()+soDiemCong);
-                viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung()+hoaDon.getSo_diem_su_dung());
-                viDiem.setTong_diem(viDiem.getSo_diem_da_cong()-viDiem.getSo_diem_da_dung());
+                viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong() + soDiemCong);
+                viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() + hoaDon.getSo_diem_su_dung());
+                viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
                 viDiemDAO.save(viDiem);
                 return "redirect:/admin/ban-hang";
 
             }
-        } else if (hoaDon.getHinh_thuc_thanh_toan() == 1 && hoaDon.getHinh_thuc_mua() == 0){
+        } else if (hoaDon.getHinh_thuc_thanh_toan() == 1 && hoaDon.getHinh_thuc_mua() == 0) {
             BigDecimal newTotal = calculateTotal(hoaDon);
             String vnp_Version = "2.1.0";
             String vnp_Command = "pay";
@@ -769,7 +813,7 @@ public class BanHangTaiQuayController {
             hoaDon.setTrangthai(3);
             hoaDonRepo.createHoaDon(hoaDon);
             QuyDoiDiem quyDoiDiem = quyDoiDiemDAO.getQuyDoiDiemByTT1();
-            if (hoaDon.getKhachHang()!=null){
+            if (hoaDon.getKhachHang() != null) {
                 ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
                 LichSuTieuDiem lichSuTieuDiem = new LichSuTieuDiem();
                 lichSuTieuDiem.setTrangthai(1);
@@ -781,19 +825,19 @@ public class BanHangTaiQuayController {
                 Integer soDiemCong = hoaDon.getTong_tien().divide(quyDoiDiem.getSo_tien_tuong_ung()).multiply(new BigDecimal(quyDoiDiem.getSo_diem_tuong_ung())).intValue();
                 lichSuTieuDiem.setSo_diem_cong(soDiemCong);
                 lichSuTieuDiemDAO.save(lichSuTieuDiem);
-                viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong()+soDiemCong);
-                viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung()+hoaDon.getSo_diem_su_dung());
-                viDiem.setTong_diem(viDiem.getSo_diem_da_cong()-viDiem.getSo_diem_da_dung());
+                viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong() + soDiemCong);
+                viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() + hoaDon.getSo_diem_su_dung());
+                viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
                 viDiemDAO.save(viDiem);
             }
 
-        } else if(hoaDon.getHinh_thuc_thanh_toan() == 0 && hoaDon.getHinh_thuc_mua() == 1){
+        } else if (hoaDon.getHinh_thuc_thanh_toan() == 0 && hoaDon.getHinh_thuc_mua() == 1) {
             LocalDate currentDate = LocalDate.now();
             hoaDon.setNgay_thanh_toan(currentDate);
             hoaDon.setTrangthai(5);
             hoaDonRepo.createHoaDon(hoaDon);
             QuyDoiDiem quyDoiDiem = quyDoiDiemDAO.getQuyDoiDiemByTT1();
-            if (hoaDon.getKhachHang()!=null){
+            if (hoaDon.getKhachHang() != null) {
                 ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
                 LichSuTieuDiem lichSuTieuDiem = new LichSuTieuDiem();
                 lichSuTieuDiem.setTrangthai(1);
@@ -806,8 +850,8 @@ public class BanHangTaiQuayController {
                 lichSuTieuDiem.setSo_diem_cong(soDiemCong);
                 lichSuTieuDiemDAO.save(lichSuTieuDiem);
 //                viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong()+soDiemCong);
-                viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung()+hoaDon.getSo_diem_su_dung());
-                viDiem.setTong_diem(viDiem.getSo_diem_da_cong()-viDiem.getSo_diem_da_dung());
+                viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() + hoaDon.getSo_diem_su_dung());
+                viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
                 viDiemDAO.save(viDiem);
             }
             return "redirect:/admin/ban-hang";
@@ -818,7 +862,7 @@ public class BanHangTaiQuayController {
             hoaDon.setTrangthai(5);
             hoaDonRepo.createHoaDon(hoaDon);
             QuyDoiDiem quyDoiDiem = quyDoiDiemDAO.getQuyDoiDiemByTT1();
-            if (hoaDon.getKhachHang()!=null){
+            if (hoaDon.getKhachHang() != null) {
                 ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
                 LichSuTieuDiem lichSuTieuDiem = new LichSuTieuDiem();
                 lichSuTieuDiem.setTrangthai(1);
@@ -831,8 +875,8 @@ public class BanHangTaiQuayController {
                 lichSuTieuDiem.setSo_diem_cong(soDiemCong);
                 lichSuTieuDiemDAO.save(lichSuTieuDiem);
 //                viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong()+soDiemCong);
-                viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung()+hoaDon.getSo_diem_su_dung());
-                viDiem.setTong_diem(viDiem.getSo_diem_da_cong()-viDiem.getSo_diem_da_dung());
+                viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() + hoaDon.getSo_diem_su_dung());
+                viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
                 viDiemDAO.save(viDiem);
             }
             return "redirect:/admin/ban-hang";

@@ -23,8 +23,8 @@ public interface ChuongTrinhGiamGiaSPRepository extends JpaRepository<ChuongTrin
     @Query("select ctggsp from ChuongTrinhGiamGiaSP  ctggsp where ctggsp.maKhuyenMai = ?1 ")
     ChuongTrinhGiamGiaSP findByMa(String maKM);
 
-    @Query("select ctggsp from ChuongTrinhGiamGiaSP  ctggsp where ctggsp.trangThai = ?1")
-    Page<ChuongTrinhGiamGiaSP> searchByTrangThai(String trangthai, Pageable pageable);
+    @Query("select ctggsp from ChuongTrinhGiamGiaSP ctggsp where ctggsp.trangThai = ?1")
+    Page<ChuongTrinhGiamGiaSP> searchByTrangThai(Integer trangthai, Pageable pageable);
 
     @Query("select ctggsp from ChuongTrinhGiamGiaSP  ctggsp where ctggsp.maKhuyenMai like ?1 or ctggsp.tenKhuyenMai like ?1 or ctggsp.trangThai like ?1")
     Page<ChuongTrinhGiamGiaSP> searchMaOrTenOrTrangThai(String keyword, Pageable pageable);

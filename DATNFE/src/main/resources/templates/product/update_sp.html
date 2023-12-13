@@ -152,7 +152,8 @@
         </nav>
         <div class="container-lg bg-light border">
             <div style="padding: 15px">
-                <h3 style="text-align: center">UPDATE SẢN PHẨM</h3>
+                <h4 style="text-transform: uppercase; color: black; font-family: 'Lora'; text-align: center;">UPDATE SẢN
+                    PHẨM</h4>
                 <form id="kichcoForm" th:action="@{|/admin/sanpham/update/${sanpham.ma}|}" method="post"
                       th:object="${sanpham}">
                     <input type="text" hidden th:filed="*{id}" th:value="${sanpham.id}">
@@ -283,7 +284,9 @@
         <div class="container-lg bg-light border">
             <div style="padding: 15px">
                 <div class="row">
-                    <div class="col-12"><h3 style="text-align: center">Kích Cỡ Và Số Lượng</h3></div>
+                    <div class="col-12"><h4
+                            style="text-transform: uppercase; color: black; font-family: 'Lora'; text-align: center;">
+                        Kích Cỡ Và Số Lượng</h4></div>
                     <div class="col-5">
                         <form id="kichCoForm2" action="/admin/sanpham/createact" method="post"
                               th:object="${giaychitiet}">
@@ -332,6 +335,8 @@
                                     data-target="#exampleModal">Thêm
                                 Kích Cỡ
                             </button>
+                            <img th:src="@{'https://api.qrserver.com/v1/create-qr-code/?data=' + ${giaychitiet.qr_code}}"
+                                 alt="QR Code">
                         </form>
                     </div>
                     <div class="col-7">
@@ -349,7 +354,8 @@
                                         <div class="modal-body">
                                             <input type="text" hidden th:name="idsp" th:value="${sanpham.id}">
                                             <div class="table-container" style="max-height: 300px; overflow-y: auto;">
-                                                <table id="tableKichCo2" class="table" style="overflow: auto; max-height: 600px;">
+                                                <table id="tableKichCo2" class="table"
+                                                       style="overflow: auto; max-height: 600px;">
                                                     <thead class="thead-light"
                                                            style="position: sticky; top: 0; z-index: 1; background-color: #999999;">
                                                     <tr>
@@ -361,7 +367,8 @@
                                                     <tbody class="align-middle">
                                                     <tr th:each="cg:${listKichCo}">
                                                         <td class="text-center">
-                                                            <input style="width: 20px; height: 20px" type="checkbox" th:value="${cg.id}" name="listKC">
+                                                            <input style="width: 20px; height: 20px" type="checkbox"
+                                                                   th:value="${cg.id}" name="listKC">
                                                         </td>
                                                         <td class="text-center">[[${cg.ten}]]</td>
                                                         <td class="align-middle">
@@ -401,7 +408,9 @@
                                     <td>[[${act.so_luong_ton}]]</td>
                                     <td>[[${act.trangthai==1?'Kích Hoạt':'Ngưng Kích Hoạt'}]]</td>
                                     <td>
-                                        <a class="btn-sm btn-warning" th:href="@{|/admin/sanpham/update/${act.giay.ma}?spct=${act.kich_co.ten}|}"><i class="bi bi-eye"></i></a>
+                                        <a class="btn-sm btn-warning"
+                                           th:href="@{|/admin/sanpham/update/${act.giay.ma}?spct=${act.kich_co.ten}|}"><i
+                                                class="bi bi-eye"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -414,7 +423,8 @@
         <div style="margin-top: 15px"></div>
         <div class="container-lg bg-light border">
             <div style="padding: 15px">
-                <h3 style="text-align: center">Thêm Ảnh</h3>
+                <h4 style="text-transform: uppercase; color: black; font-family: 'Lora'; text-align: center;">Thêm
+                    Ảnh</h4>
                 <form action="/admin/sanpham/createanh" enctype="multipart/form-data" method="post">
                     <input type="text" class="form-control" hidden name="idsp" th:value="${sanpham.id}">
                     <input type="file" name="ten_url1" multiple>

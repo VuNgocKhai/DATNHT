@@ -21,25 +21,24 @@ public class ChuongTrinhGiamGiaChiTietSPRestController {
     @Autowired
     private ChuongTrinhGiamGiaChiTietSanPhamRepo chuongTrinhGiamGiaChiTietSanPhamRepo;
 
-    @GetMapping("/hien-thi")        // http://localhost:2020/rest/chuong-trinh-giam-gia-chi-tiet-sp/hien-thi
+    @GetMapping("/hien-thi")
     public ResponseEntity<?> getAllDetailVoucher(){
         return ResponseEntity.ok(chuongTrinhGiamGiaChiTietSanPhamRepo.findAll());
     }
 
-//    @GetMapping("/detail")        // http://localhost:2020/rest/chuong-trinh-giam-gia-chi-tiet-sp/hien-thi
-//    public ResponseEntity<?> getOneDetailVoucher(){
-//        return ResponseEntity.ok(chuongTrinhGiamGiaChiTietSanPhamRepo.getDetailVoucher());
-//    }
-
     @GetMapping("/detail-sp-by/{idVoucher}")
     public ResponseEntity<?> findByIdVoucher(@PathVariable UUID idVoucher){
         return ResponseEntity.ok(chuongTrinhGiamGiaChiTietSanPhamRepo.findAllSPApdung(idVoucher));
-        //List
     }
 
-    @PostMapping()        // http://localhost:2020/rest/chuong-trinh-giam-gia-sp/hien-thi
+    @PostMapping()
     public ResponseEntity<?> createCtkm(@RequestBody ChuongTrinhGiamGiaChiTietSP ctkm){
         return ResponseEntity.ok(chuongTrinhGiamGiaChiTietSanPhamRepo.save(ctkm));
+    }
+
+    @GetMapping("/tim-ggctsp-by-ggsp/{idggsp}")
+    public ResponseEntity<?> findByGGCTSPbyIdggsp(@PathVariable UUID idggsp){
+        return ResponseEntity.ok(chuongTrinhGiamGiaChiTietSanPhamRepo.findAllByChuongTrinhGiamGiaSPId(idggsp));
     }
 
 }

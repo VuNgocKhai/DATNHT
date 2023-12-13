@@ -21,7 +21,7 @@ public interface ChuongTrinhGiamGiaChitietSanPhamDTO extends JpaRepository<Chuon
 //    @Query("select ctggctsp from ChuongTrinhGiamGiaChiTietSP  ctggctsp where ctggctsp.chuongTrinhGiamGiaSP.idKhuyenMai like ?1")
 //    List<ChuongTrinhGiamGiaChiTietSP> getListSPApDungByIdKhuyenMai(UUID idKhuyenMai);
 
-    @Query(value = "select * from chuong_trinh_giam_gia_chi_tiet_san_pham   where id_chuong_trinh_giam_gia = ?", nativeQuery = true)
+    @Query(value = "select * from chuong_trinh_giam_gia_chi_tiet_san_pham where id_chuong_trinh_giam_gia = ?", nativeQuery = true)
     List<ChuongTrinhGiamGiaChiTietSP> getListSPApDungByIdKhuyenMai(UUID id);
 
     @Query(value = "select*from chuong_trinh_giam_gia_chi_tiet_san_pham ctkm\n" +

@@ -162,10 +162,12 @@
 
         <div class="container-lg bg-light border">
             <div style="padding: 15px">
-                <h4 class="text-center">DANH SÁCH CHƯƠNG TRÌNH KHUYẾN MÃI SẢN PHẨM</h4>
+                <h4 class="text-center" style="text-transform: uppercase; color: black; font-family: 'Lora';">DANH SÁCH
+                    CHƯƠNG TRÌNH KHUYẾN MÃI SẢN PHẨM</h4>
                 <hr>
                 <!--        START FORM ADD MODAL      -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content bg-light">
                             <div class="modal-header">
@@ -262,42 +264,48 @@
                 </div>
                 <!--        END FORM ADD MODAL MODAL       -->
                 <!--        START FORM SEARCH      -->
-                <div style="padding: 20px">
-                    <form class="form-inline" action="/admin/chuong-trinh-giam-gia-sp" method="get">
-                        <div class="form-group mx-sm-3">
-                            <input type="text" name="keyword" placeholder="Nhập mã hoặc tên khuyến mại"
-                                   class="form-control">
-                        </div>
-                        <div class="form-group mx-sm-3 ">
-                            <button type="submit" class="btn btn-primary bi bi-search"></button>
-                        </div>
-                        <div class="form-group mx-sm-3">
-                            <button style="margin-left: 10px" type="button"
-                                    class="btn btn-primary bi bi-plus-circle-fill"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                Tạo khuyến mại
-                            </button>
-                        </div>
-
-
-                    </form>
-                    <div style="padding: 20px">
-                        <form class="form-inline" action="/admin/chuong-trinh-giam-gia-sp" method="get">
-                            <div>
-                                <button type="submit" class="btn btn-light">
-                                    <input name="keyword" type="radio" value="0">Ngừng hoạt động
-                                </button>
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-light">
-                                    <input name="keyword" type="radio" value="1">Đang hoạt động
-                                </button>
-                            </div>
+                <div class="row">
+                    <div class="col-2">
+                        <form id="filterForm" action="/admin/chuong-trinh-giam-gia-sp/tim-theo-trang-thai" method="get">
+                            <label for="trangThai" style="margin-top: 0.5rem; margin-right: 0.5rem;">Lọc theo Trạng
+                                Thái:</label>
+                            <select class="form-control" id="trangthai" name="trangThai" onchange="submitFilterForm()">
+                                <option value="1" th:selected="${trangThaiDetail == 1}">Hoạt Động</option>
+                                <option value="0" th:selected="${trangThaiDetail == 0}">Ngừng Hoạt Động</option>
+                            </select>
                         </form>
                     </div>
-
-
+                    <div class="col-5">
+                        <div class="row">
+                            <div class="col-8">
+                                <form class="row" action="/admin/chuong-trinh-giam-gia-sp" method="get">
+                                    <div class="col-sm-9">
+                                        <label for="keyword" style="margin-top: 0.5rem; margin-right: 0.5rem;">Tìm kiếm</label>
+                                        <input type="text" id="keyword" name="keyword" placeholder="Nhập mã hoặc tên khuyến mại"
+                                               class="form-control">
+                                    </div>
+                                    <div class="col-sm-3" style="display: flex; align-items: flex-end;">
+                                        <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-4">
+                                <button class="btn btn-primary" type="submit"
+                                        style="display: inline;margin-left: 5px;margin-top: 43px">
+                                    <a href="/admin/chuong-trinh-giam-gia-sp" style="text-decoration: none;color: white;"><i
+                                            class="bi bi-arrow-clockwise"></i></a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <button style="margin-left: 10px;margin-top: 43px" type="button"
+                                class="btn btn-primary bi bi-plus-circle-fill"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                            Tạo khuyến mại
+                        </button>
+                    </div>
                 </div>
                 <!--        END FORM SEARCH      -->
                 <!--        START FILL TABLE      -->
@@ -480,6 +488,11 @@
 
 <!--Start script  validate-->
 <script>
+
+    function submitFilterForm() {
+        document.getElementById("filterForm").submit();
+    }
+
     function validateForm() {
         // Làm sạch thông báo lỗi
         document.getElementById("tenKhuyenMaiError").innerHTML = "";

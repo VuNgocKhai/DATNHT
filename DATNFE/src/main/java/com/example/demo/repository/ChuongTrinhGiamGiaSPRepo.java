@@ -88,5 +88,14 @@ public class ChuongTrinhGiamGiaSPRepo {
         return responseEntity.getBody();
     }
 
+    public PageDTO<ChuongTrinhGiamGiaSP> searchTrangThai(Integer page, Integer trangThai) {
+        ResponseEntity<PageDTO<ChuongTrinhGiamGiaSP>> responseEntity = restTemplate.exchange(
+                getUrl("tim-theo-trang-thai?page=" + page + "&trangThai=" + trangThai),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<PageDTO<ChuongTrinhGiamGiaSP>>() {}
+        );
 
+        return responseEntity.getBody();
+    }
 }

@@ -136,7 +136,7 @@
         </div>
     </nav>
     <!--    END SILDEBAR      -->
-    <div id="content" class="p-4 p-md-5 pt-5">
+    <div id="content" class="p-4 p-md-5 pt-5 bg-secondary">
         <!-- Start Page Content  -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: -50px;">
             <div class="container-fluid" style="display: flex;justify-content: end;">
@@ -161,8 +161,8 @@
         </nav>
         <!--        End Page Content    -->
         <!--        START FORM ADD      -->
-        <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px">
-
+        <div class="container-lg bg-light border">
+            <div style="padding: 15px">
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
@@ -205,9 +205,7 @@
                                                     [[${g.giaban}]]
                                                 </td>
                                                 <td th:text="${g.trangthai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>
-
                                             </tr>
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -226,9 +224,7 @@
                     </div>
                 </div>
             </div>
-
             <!--            END MODAL       -->
-
             <button class="btn btn-primary">
                 <a href="/admin/chuong-trinh-giam-gia-sp" style="text-decoration: none; color: white">
                     <i class="bi bi-arrow-bar-left"></i>
@@ -240,13 +236,13 @@
                     <td>
                         <input type="text" th:field="*{voucherForm.maKhuyenMai}" class="form-control"
                                id="formGroupExampleInput"
-                               placeholder="Nhập mã">
+                               placeholder="Nhập mã" readonly>
                     </td>
                     <td><label for="formGroupExampleInput2">Tên khuyến mại</label></td>
                     <td>
                         <input type="text" th:field="*{voucherForm.tenKhuyenMai}" class="form-control"
                                id="formGroupExampleInput2"
-                               placeholder="Nhập tên">
+                               placeholder="Nhập tên" readonly>
                     </td>
                 </tr>
                 <tr>
@@ -254,13 +250,13 @@
                     <td>
                         <input type="date" th:field="*{voucherForm.ngayBatDau}" class="form-control"
                                id="formGroupExampleInput2"
-                               placeholder="Nhập ngày bắt đầu">
+                               placeholder="Nhập ngày bắt đầu" readonly>
                     </td>
                     <td><label for="formGroupExampleInput2">Ngày kết thúc</label></td>
                     <td>
                         <input type="date" th:field="*{voucherForm.ngayKetThuc}" class="form-control"
                                id="formGroupExampleInput2"
-                               placeholder="Nhập ngày kết thúc">
+                               placeholder="Nhập ngày kết thúc" readonly>
                     </td>
                 </tr>
                 <tr>
@@ -268,15 +264,18 @@
                     <td>
                         <input type="number" th:field="*{voucherForm.phanTramGiam}" class="form-control"
                                id="formGroupExampleInput2"
-                               placeholder="Nhập số %">
+                               placeholder="Nhập số %" readonly>
+                    </td>
+                    <td><label for="formGroupExampleInput2">Trạng thái</label></td>
+                    <td>
+                        <input type="text" th:value="${voucherForm.trangThai == 1 ? 'Hoạt động' : 'Ngừng hoạt động'}" class="form-control"
+                               id="formGroupExampleInput2" readonly>
                     </td>
                 </tr>
             </table>
-
             <form class="form-inline" action="/admin/chuong-trinh-giam-gia-sp/detail/{idVoucher}" method="get">
-
                 <div class="form-group mx-sm-3">
-                    <button style="margin-left: 10px" type="button" class="btn btn-primary bi bi-plus-circle-fill"
+                    <button type="button" class="btn btn-primary bi bi-plus-circle-fill"
                             data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
                         Thêm sản phẩm
@@ -285,7 +284,6 @@
 
             </form>
             <!--        START FILL TABLE      -->
-            <div style="margin: 20px">
                 <table class="table" style="margin: 20px 0;">
                     <thead class="thead-light">
                     <tr>
@@ -307,16 +305,15 @@
                         <td>[[${item.giay.gia_sau_khuyen_mai}]]</td>
                         <td th:text="${item.trangThai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>
                         <td>
-                            <a th:href="@{|/admin/ctkm/delete/${voucherForm.idKhuyenMai}/${item.giay.id}|}" style="color: red"
-                               class="bi bi-trash"></a>
+                            <a class="btn-sm btn-danger" th:href="@{|/admin/ctkm/delete/${voucherForm.idKhuyenMai}/${item.giay.id}|}" style="color: red">
+                                <i style="color: white" class="bi bi-trash"></i>
+                            </a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-            </div>
             <!--        END FILL TABLE      -->
-
-
+            </div>
         </div>
         <!--        END FORM ADD      -->
     </div>

@@ -47,8 +47,4 @@ public class ChuongTrinhGiamGiaSP implements Serializable {
     @Column(name = "trangthai")
     private Integer trangThai;
 
-
-//    @OneToMany(mappedBy = "cuaHang", fetch = FetchType.EAGER)
-//    private List<NhanVien> listNV;
-
 }
