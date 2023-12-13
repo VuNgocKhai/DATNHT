@@ -21,9 +21,9 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
     List<HoaDon> findHoaDonChuaApDungChuongTrinhGiamGia();
 
     @Query("SELECT hd FROM HoaDon hd " +
-            "WHERE (hd.trangthai = 1 OR hd.trangthai = 2) " +
+            "WHERE (hd.trangthai = 0 OR hd.trangthai = 1) " +
             "AND hd.tong_tien >= (SELECT MIN(gghd.dieu_kien) FROM GiamGiaHoaDon gghd WHERE gghd.trangthai = 1) " +
-            "AND hd.id NOT IN (SELECT ct.hd.id FROM GiamGiaChiTietHoaDon ct WHERE ct.hd.trangthai = 1)")
+            "AND hd.id NOT IN (SELECT ct.hd.id FROM GiamGiaChiTietHoaDon ct WHERE ct.hd.trangthai = 0)")
     Page<HoaDon> findHoaDonChuaApDungChuongTrinhGiamGiaPage(Pageable pageable);
 
     // Query getall hóa đơn chưa thanh toán

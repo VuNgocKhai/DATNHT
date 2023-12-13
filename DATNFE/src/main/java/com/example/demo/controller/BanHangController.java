@@ -138,7 +138,8 @@ public class BanHangController {
             if ("huy".equals(huyxacnhan1)) {
                 for (String maHD : selectedMa1) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
-                    hoaDonRepo.deleteHD(hoaDon.getId());
+                    hoaDon.setTrangthai(4);
+                    hoaDonRepo.createHoaDon(hoaDon);
                 }
             } else if ("xac-nhan".equals(huyxacnhan1)) {
                 for (String maHD : selectedMa1) {

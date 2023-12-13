@@ -24,6 +24,11 @@ public class GiayChiTietRepo {
         return url + "/" + id;
     }
 
+    //url + string
+    private String getUrl1(String endpoint) {
+        return url + "/" + endpoint;
+    }
+
     // get all giày chi tiết
     public List<GiayChiTiet> getAll() {
         ResponseEntity<List<GiayChiTiet>> response =
@@ -51,9 +56,13 @@ public class GiayChiTietRepo {
         return response.getBody();
     }
 
-    // findGCT by mã
+    // findGCT by id
     public GiayChiTiet getGiayChiTietById(UUID id) {
         return restTemplate.getForObject(getUrl(id), GiayChiTiet.class);
+    }
+
+    public GiayChiTiet getGCTbyQRCode(String qrcode) {
+        return restTemplate.getForObject(getUrl1("findbyqrcode/" + qrcode), GiayChiTiet.class);
     }
 
 }

@@ -140,13 +140,17 @@ public class SanPhamController {
     public String productcreatekc(Model model, HttpServletRequest request, @RequestParam("idsp") UUID idsp) {
         String[] listvalue = request.getParameterValues("listKC");
         if (listvalue != null) {
-            for (String x : listvalue
-            ) {
+            for (String x : listvalue) {
                 GiayChiTiet giayChiTiet = new GiayChiTiet();
                 giayChiTiet.setKich_co(kichCoDAO.findById(UUID.fromString(x)).get());
                 giayChiTiet.setSo_luong_ton(Integer.parseInt(request.getParameter(x + "_soluong")));
                 giayChiTiet.setGiay(Giay.builder().id(idsp).build());
                 giayChiTiet.setTrangthai(1);
+
+                // Tạo mã QR ngẫu nhiên cho sản phẩm chi tiết
+                String qrCodeData = UUID.randomUUID().toString();
+                giayChiTiet.setQr_code(qrCodeData);
+
                 giayChiTietDAO.save(giayChiTiet);
             }
         }

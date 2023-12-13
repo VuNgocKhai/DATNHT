@@ -24,18 +24,15 @@ public class Giay implements Serializable {
 
     private String ma;
 
-
     private String ten;
 
     @ManyToOne
     @JoinColumn(name = "id_chat_lieu")
     private ChatLieu chat_lieu;
 
-
     @ManyToOne
     @JoinColumn(name = "id_de_giay")
     private DeGiay de_giay;
-
 
     @ManyToOne
     @JoinColumn(name = "id_gioi_tinh")
@@ -74,15 +71,16 @@ public class Giay implements Serializable {
     @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER)
     private Set<DanhGia> danhGias;
 
-
     @Column(name = "gia_sau_khuyen_mai")
     private BigDecimal gia_sau_khuyen_mai;
     private Integer do_hot = 1;
     private LocalDate ngay_nhap;
     private Integer trangthai = 1;
+
     @JsonIgnore
     @OneToMany(mappedBy = "giay",fetch = FetchType.EAGER)
     Set<ChuongTrinhGiamGiaChiTietSP> chuongTrinhGiamGiaChiTietSP;
+
     public String getAnhDau(Set<Anh> anhs1){
         List<Anh> list = new ArrayList<Anh>(anhs1);
         list.sort(Comparator.comparing(Anh::getTen_url));

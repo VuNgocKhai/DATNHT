@@ -75,7 +75,7 @@
         input[type="number"] {
             -moz-appearance: textfield; /* Firefox */
         }
-    </style>
+      </style>
 </head>
 <body>
 <div class="wrapper d-flex align-items-stretch">
@@ -424,7 +424,7 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Chọn Địa Chỉ Khách Hàng</h5>
                     </div>
-                    <div class="modal-body" >
+                    <div class="modal-body">
                         <div>
                             <div id="searchDC" class="d-flex align-items-center">
                                 <input style="border: 1px solid black" type="text" class="form-control col-6">
@@ -432,15 +432,18 @@
                                     <i class="bi bi-search"></i>
                                 </button>
                             </div>
-                            <div class="address-card" style="margin-top: 15px" th:if="${KhachHangcheck == null || ListDiaChicuaKH.isEmpty()}">
+                            <div class="address-card" style="margin-top: 15px"
+                                 th:if="${KhachHangcheck == null || ListDiaChicuaKH.isEmpty()}">
                                 <i style="font-size: 3rem"
                                    class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>
                                 <div class="text-center d-flex justify-content-center align-items-center">No Data</div>
                             </div>
-                            <div style="margin-top: 15px" th:if="${KhachHangcheck != null || ListDiaChicuaKH != null}" th:each="dc:${ListDiaChicuaKH}" class="address-card">
+                            <div style="margin-top: 15px" th:if="${KhachHangcheck != null || ListDiaChicuaKH != null}"
+                                 th:each="dc:${ListDiaChicuaKH}" class="address-card">
                                 <div class="row">
                                     <div class="col-2 d-flex justify-content-center align-items-center">
-                                        <i style="font-size: 3rem; color: cornflowerblue;" class="bi bi-geo-alt-fill bi-3x"></i>
+                                        <i style="font-size: 3rem; color: cornflowerblue;"
+                                           class="bi bi-geo-alt-fill bi-3x"></i>
                                     </div>
                                     <div class="col-8">
                                         <div>
@@ -449,7 +452,7 @@
                                         </div>
                                         <div>
                                             <span style="color: black">SĐT người nhận: </span>
-                                             [[${dc.sdt_nguoi_nhan}]]
+                                            [[${dc.sdt_nguoi_nhan}]]
                                         </div>
                                         <div>
                                             <span style="color: black">Địa chỉ:</span>
@@ -518,7 +521,8 @@
                                         Giảm [[${item.phan_tram_giam}]]% cho hóa đơn
                                     </h6>
                                     <div>
-                                        Đơn Hàng Tối Thiểu: <span style="color: #e3e308" class="giaBan">[[${item.dieu_kien}]]</span> --
+                                        Đơn Hàng Tối Thiểu: <span style="color: #e3e308" class="giaBan">[[${item.dieu_kien}]]</span>
+                                        --
                                         Giảm Tối Đa: <span style="color: #e3e308" class="giaBan">[[${item.so_tien_giam_max}]]</span>
                                     </div>
                                     <div style="color: red">
@@ -526,7 +530,8 @@
                                     </div>
                                 </div>
                                 <div class="col-3 d-flex justify-content-center align-items-center">
-                                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-voucher}" method="post" class="d-inline">
+                                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-voucher}" method="post"
+                                          class="d-inline">
                                         <input type="hidden" class="form-control" th:name="maHD"
                                                th:value="${maHD}">
                                         <input type="hidden" class="form-control" th:name="maGGHD"
@@ -537,7 +542,8 @@
                                             Chọn
                                         </button>
                                     </form>
-                                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/delete}" method="get" class="d-inline">
+                                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/delete}" method="get"
+                                          class="d-inline">
                                         <input type="hidden" class="form-control" th:name="maHD"
                                                th:value="${maHD}">
                                         <input type="hidden" class="form-control" th:name="maGGHD"
@@ -562,6 +568,28 @@
         </div>
         <!--            End Modal danh sách voucher-->
 
+        <!--        Begin modal camera-->
+        <div class="modal fade" id="qrScannerModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="background-color: #ffffff">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Quét QR Sản Phẩm</h5>
+                    </div>
+                    <div class="modal-body">
+                            <div class="video-container">
+                                <video width="460px" id="videoElement" playsinline autoplay></video>
+                                <canvas id="canvasElement" style="display: none;width: 460px"></canvas>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="scanQR" type="button" class="btn btn-primary">Scan QR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--        End modal camera-->
         <!--        Begin Thông tin hóa đơn -->
         <div class="container-lg bg-light border">
             <div class="row p-3">
@@ -595,7 +623,8 @@
                                     <div class="input-group">
                                         <div style="display: flex; align-items: center;">
                                             <input type="text" style="width: 400px" class="form-control" id="inputField"
-                                                   th:value="${KhachHangDetail.hoten + ' - ' + KhachHangDetail.email + ' - ' + KhachHangDetail.sdt}" readonly>
+                                                   th:value="${KhachHangDetail.hoten + ' - ' + KhachHangDetail.email + ' - ' + KhachHangDetail.sdt}"
+                                                   readonly>
                                             <a style="margin-left: -20px"
                                                th:href="@{|/admin/ban-hang-tai-quay/xoa-khach-hang/${maHD}|}">
                                                 <i style="font-size: 1rem" class="bi bi-x-circle"></i>
@@ -671,34 +700,39 @@
                                                 <input type="hidden" class="form-control"
                                                        name="maDC"
                                                        th:value="${maHD}">
-                                                <label>Tên Người Nhận<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr>:</label>
+                                                <label>Tên Người Nhận<abbr style="color: red;text-decoration: none"
+                                                                           title="Bắt buộc">*</abbr>:</label>
                                                 <input type="text" class="form-control"
                                                        name="ten_nguoi_nhan"
                                                        th:value="${tenNNDetail}">
                                             </div>
                                             <div class="col-6" style="margin-top: 10px">
-                                                <label>Số Điện Thoại<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr>:</label>
+                                                <label>Số Điện Thoại<abbr style="color: red;text-decoration: none"
+                                                                          title="Bắt buộc">*</abbr>:</label>
                                                 <input type="text" class="form-control"
                                                        name="sdt_nguoi_nhan"
                                                        th:value="${sdtDetail}">
                                             </div>
                                             <br>
                                             <div class="col-4" style="margin-top: 10px">
-                                                <label>Thành Phố<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr>:</label>
+                                                <label>Thành Phố<abbr style="color: red;text-decoration: none"
+                                                                      title="Bắt buộc">*</abbr>:</label>
                                                 <select class="form-control" name="province" id="province">
                                                     <option th:value="${thanhPhoDetail}">[[${thanhPhoDetail}]]</option>
                                                 </select>
                                             </div>
                                             <br>
                                             <div class="col-4" style="margin-top: 10px">
-                                                <label>Huyện<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr>:</label>
+                                                <label>Huyện<abbr style="color: red;text-decoration: none"
+                                                                  title="Bắt buộc">*</abbr>:</label>
                                                 <select class="form-control" name="district" id="district">
                                                     <option th:value="${huyenDetail}">[[${huyenDetail}]]</option>
                                                 </select>
                                             </div>
                                             <br>
                                             <div class="col-4" style="margin-top: 10px">
-                                                <label>Xã<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr>:</label>
+                                                <label>Xã<abbr style="color: red;text-decoration: none"
+                                                               title="Bắt buộc">*</abbr>:</label>
                                                 <select class="form-control" name="ward" id="ward"
                                                         onchange="callAPIGHN();">
                                                     <option th:value="${xaDetail}">[[${xaDetail}]]</option>
@@ -706,8 +740,10 @@
                                             </div>
                                             <br>
                                             <div class="col-12" style="margin-top: 10px">
-                                                <label>Địa chỉ cụ thể<abbr style="color: red;text-decoration: none" title="Bắt buộc">*</abbr>:</label>
-                                                <input type="text" class="form-control" name="dia_chi" th:value="${tenDcDetail}">
+                                                <label>Địa chỉ cụ thể<abbr style="color: red;text-decoration: none"
+                                                                           title="Bắt buộc">*</abbr>:</label>
+                                                <input type="text" class="form-control" name="dia_chi"
+                                                       th:value="${tenDcDetail}">
                                             </div>
                                             <div class="col-12" style="margin-top: 10px">
                                                 <label>Ghi chú:</label>
@@ -727,13 +763,18 @@
                                         <input class="form-control giaBan" name="soTienGiam" id="soTienGiam"
                                                th:value="${soTienGiam}" readonly>
                                     </div>
-                                    <div class="col-12" style="margin-top: 10px" th:hidden="${tongDiemQuyDoiHienCo <= 0}">
-                                        <label>Số điểm hiện có là [[${tongDiemQuyDoiHienCo}]] nhập số điểm muốn sử dụng: </label>
-                                        <input class="form-control giaBan" name="sodiemsudung" id="sodiemsudung" th:value="${sodiemsudung}">
+                                    <div class="col-12" style="margin-top: 10px"
+                                         th:hidden="${tongDiemQuyDoiHienCo <= 0}">
+                                        <label>Số điểm hiện có là [[${tongDiemQuyDoiHienCo}]] nhập số điểm muốn sử
+                                            dụng: </label>
+                                        <input class="form-control giaBan" name="sodiemsudung" id="sodiemsudung"
+                                               th:value="${sodiemsudung}">
                                     </div>
-                                    <div class="col-6" style="margin-top: 10px" th:hidden="${tongDiemQuyDoiHienCo <= 0}">
+                                    <div class="col-6" style="margin-top: 10px"
+                                         th:hidden="${tongDiemQuyDoiHienCo <= 0}">
                                         <label>Số tiền giảm từ sử dụng điểm: </label>
-                                        <input class="form-control giaBan"  readonly name="sotienquydoi" id="sotienquydoi" th:value="${sotienquydoi}">
+                                        <input class="form-control giaBan" readonly name="sotienquydoi"
+                                               id="sotienquydoi" th:value="${sotienquydoi}">
                                     </div>
                                     <div class="col-6" style="margin-top: 10px;display: none" id="divPhiShip">
                                         <label>Phí vận chuyển: </label>
@@ -742,7 +783,8 @@
                                     </div>
                                     <div class="col-6" style="margin-top: 10px;" th:hidden="${KhachHangcheck == null}">
                                         <label>Số điểm tích: </label>
-                                        <input class="form-control giaBan" readonly name="diemTichLuy" th:value="${diemTichLuy}">
+                                        <input class="form-control giaBan" readonly name="diemTichLuy"
+                                               th:value="${diemTichLuy}">
                                     </div>
                                     <div class="col-6" style="margin-top: 10px">
                                         <label style="color:red;">Tổng thanh toán:</label>
@@ -772,9 +814,12 @@
                 <div class="col-6">
                     <div class="d-flex align-items-center">
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Chọn SP
+                            Chọn SP
                         </button>
-                        <input type="text" class="form-control col-8 mx-2">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#qrScannerModal">
+                            <i class="bi bi-qr-code"></i>
+                        </button>
+                        <input type="text" class="form-control col-5 mx-2">
                         <button class="btn btn-primary">
                             <i class="bi bi-search"></i>
                         </button>
@@ -914,6 +959,7 @@
         <!--     End Thông tin hóa đơn-->
     </div>
     <!--    End Page Content-->
+    <input type="hidden" id="maHoaDon" th:value="${maHD}">
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -925,6 +971,8 @@
 <script src="/assets/js/popper.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -933,14 +981,13 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!--Lọc địa chỉ-->
-
 <script>
     var inputField = document.getElementById('sodiemsudung');
-    var inputField2= document.getElementById('sotienquydoi');
+    var inputField2 = document.getElementById('sotienquydoi');
 
     // Thêm sự kiện 'input' vào phần tử input
-    inputField.addEventListener('input', function() {
-        if (Number.parseInt(inputField.value) > 1000){
+    inputField.addEventListener('input', function () {
+        if (Number.parseInt(inputField.value) > 1000) {
             // Hành động bạn muốn thực hiện khi có sự kiện input (người dùng nhập thông tin)
             let phiShip = document.getElementById('phiShip').value;
             let tongTienTruocGiam = document.getElementById('tongTienTruocGiam').value;
@@ -953,6 +1000,7 @@
             console.log('Đã nhập: ' + inputField.value);
         }
     });
+
     function callAPIGHN() {
         var divPhiShip = document.getElementById("divPhiShip");
         if (divPhiShip.style.display === "block") {
@@ -1355,7 +1403,7 @@
         }
     });
 
-    phuongThucMuaHangSelect.addEventListener("change", function (){
+    phuongThucMuaHangSelect.addEventListener("change", function () {
         let phuongThucMuaHangSelect = document.getElementById("phuongThucMuaHang");
         let phuongThucThanhToan = document.getElementById("phuongThucThanhToan");
         let divPhiShip = document.getElementById("divPhiShip");
@@ -1492,7 +1540,7 @@
     });
 
     // hiển thị phần nhập địa chỉ khi chuyển sang hình thức mua online
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         var phuongThucMuaHang = document.getElementById("phuongThucMuaHang");
         var diaChiSection = document.getElementById("diaChiSection");
 
@@ -1504,7 +1552,7 @@
         }
 
         // Thêm sự kiện lắng nghe khi có sự thay đổi trong ô lựa chọn phương thức mua hàng
-        phuongThucMuaHang.addEventListener("change", function() {
+        phuongThucMuaHang.addEventListener("change", function () {
             if (phuongThucMuaHang.value === "1") { // Nếu chọn phương thức mua hàng online
                 diaChiSection.style.display = "block"; // Hiển thị phần nhập địa chỉ
             } else {
@@ -1516,5 +1564,98 @@
 
 </script>
 <!--End Hiển thị giao diện đơn vị vận chuyển-->
+
+<!--camera-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const video = document.getElementById("videoElement");
+        const canvasElement = document.getElementById("canvasElement");
+        const canvas = canvasElement.getContext("2d");
+
+        document.getElementById("qrScannerModal").addEventListener("show.bs.modal", function () {
+                canvasElement.style.display = "none";
+                video.style.display = "block";
+
+                navigator.mediaDevices
+                    .getUserMedia({ video: { facingMode: "environment" } })
+                    .then(function (stream) {
+                        video.srcObject = stream;
+                        video.play();
+                    })
+                    .catch(function (err) {
+                        console.error("Error accessing the camera: ", err);
+                    });
+            });
+
+        document.getElementById("qrScannerModal").addEventListener("hide.bs.modal", function () {
+                if (video.srcObject) {
+                    video.srcObject.getTracks().forEach(function (track) {
+                        track.stop();
+                    });
+                }
+            });
+
+        document.getElementById("scanQR").addEventListener("click", function () {
+                canvasElement.style.display = "block";
+                video.style.display = "none";
+                canvasElement.width = video.videoWidth;
+                canvasElement.height = video.videoHeight;
+                canvas.drawImage(
+                    video,
+                    0,
+                    0,
+                    canvasElement.width,
+                    canvasElement.height
+                );
+
+                const imageData = canvas.getImageData(
+                    0,
+                    0,
+                    canvasElement.width,
+                    canvasElement.height
+                );
+                const code = jsQR(
+                    imageData.data,
+                    imageData.width,
+                    imageData.height
+                );
+
+
+                if (code) {
+                    const qrcode = code.data;
+                    const maHD = document.getElementById("maHoaDon").value;
+
+                    var formData = new FormData();
+                    formData.append('maHD', maHD);
+                    formData.append('qrcode', qrcode);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/ban-hang-tai-quay/tao-don-hang/add-to-cart-by-qr',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (data) {
+                            swal("Success!", "Thêm sản phẩm thành công vào hóa đơn", "success")
+                                .then((value) => {
+                                    if (value) {
+                                        window.location.reload();
+                                    }
+                                });
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr.responseText);
+                            alert('An error occurred');
+                        }
+                    });
+                } else {
+                    alert("No QR Code detected!");
+                }
+
+            });
+    });
+
+</script>
+<!--end camera-->
 </body>
 </html>

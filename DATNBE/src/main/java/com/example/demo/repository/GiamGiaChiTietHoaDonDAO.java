@@ -33,4 +33,7 @@ public interface GiamGiaChiTietHoaDonDAO extends JpaRepository<GiamGiaChiTietHoa
 
     @Query("SELECT ct FROM GiamGiaChiTietHoaDon ct WHERE ct.hd.id = :hoaDonId")
     GiamGiaChiTietHoaDon getGGCTHDByHoaDonId(@Param("hoaDonId") UUID hoaDonId);
+
+    @Query("SELECT ct FROM GiamGiaChiTietHoaDon ct WHERE ct.gghd.id = :idGGHD")
+    List<GiamGiaChiTietHoaDon> getListByGGHDId(@Param("idGGHD") UUID idGGHD);
 }

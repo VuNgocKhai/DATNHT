@@ -60,4 +60,13 @@ public class GiamGiaChiTietHoaDonRepo {
     public GiamGiaChiTietHoaDon getGiamGiaCTHoaDonByHD(UUID hdid) {
         return restTemplate.getForObject(getUrl1("getGGCTHDbyHD/" + hdid), GiamGiaChiTietHoaDon.class);
     }
+
+    // find giảm giá CT hóa đơn theo id hóa đơn
+    public List<GiamGiaChiTietHoaDon> getAllGGCTHDbyGGHD(UUID gghdid) {
+        ResponseEntity<List<GiamGiaChiTietHoaDon>> response =
+                restTemplate.exchange(getUrl1("getGGCTHDbyGGHD/" + gghdid), HttpMethod.GET, null, new ParameterizedTypeReference<List<GiamGiaChiTietHoaDon>>() {
+                });
+
+        return response.getBody();
+    }
 }

@@ -322,7 +322,7 @@
                                                     <i style="color: white" class="bi bi-pencil"></i>
                                                 </a>
                                                 <a class="btn-delete btn-sm btn-danger" style="text-align: center"
-                                                   th:href="@{|/admin/ban-hang-tai-quay/delete/${hd.id}|}">
+                                                   th:href="@{|/admin/ban-hang-tai-quay/huy-hoa-don/${hd.ma}|}">
                                                     <i style="color: white" class="bi bi-trash"></i>
                                                 </a>
                                             </th>
@@ -536,7 +536,7 @@
                                                                                class="form-control" readonly>
                                                                         <input type="date"
                                                                                th:if="${hd.ngay_tao == null}"
-                                                                               value="Chưa có" class="form-control"
+                                                                               class="form-control"
                                                                                readonly>
                                                                     </div>
                                                                     <div class="col-4">
@@ -548,7 +548,7 @@
                                                                                class="form-control" readonly>
                                                                         <input type="date"
                                                                                th:if="${hd.ngay_thanh_toan == null}"
-                                                                               value="Chưa có" class="form-control"
+                                                                               class="form-control"
                                                                                readonly>
                                                                     </div>
                                                                     <div style="margin-top: 10px" class="col-6">
@@ -663,8 +663,6 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Close
-                                                        </button>
-                                                        <button type="button" class="btn btn-primary">Save changes
                                                         </button>
                                                     </div>
                                                 </div>
@@ -880,7 +878,7 @@
                                                                                class="form-control" readonly>
                                                                         <input type="date"
                                                                                th:if="${hd.ngay_tao == null}"
-                                                                               value="Chưa có" class="form-control"
+                                                                               class="form-control"
                                                                                readonly>
                                                                     </div>
                                                                     <div class="col-4">
@@ -892,7 +890,7 @@
                                                                                class="form-control" readonly>
                                                                         <input type="date"
                                                                                th:if="${hd.ngay_thanh_toan == null}"
-                                                                               value="Chưa có" class="form-control"
+                                                                               class="form-control"
                                                                                readonly>
                                                                     </div>
                                                                     <div style="margin-top: 10px" class="col-6">
@@ -1007,8 +1005,6 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Close
-                                                        </button>
-                                                        <button type="button" class="btn btn-primary">Save changes
                                                         </button>
                                                     </div>
                                                 </div>
@@ -1127,7 +1123,7 @@
                                             <span th:if="${hd.ma != null}" th:text="${hd.ma}"></span>
                                         </th>
                                         <th>
-                                                <span th:if="${hd.ngay_tao == null}"
+                                            <span th:if="${hd.ngay_tao == null}"
                                                       class="badge badge-pill badge-warning">Đang Chờ</span>
                                             <span th:if="${hd.ngay_tao != null}" th:text="${hd.ngay_tao}"></span>
                                         </th>
@@ -1201,8 +1197,7 @@
                                                                     <input type="date" th:if="${hd.ngay_tao != null}"
                                                                            th:value="${hd.ngay_tao}"
                                                                            class="form-control" readonly>
-                                                                    <input type="date" th:if="${hd.ngay_tao == null}"
-                                                                           value="Chưa có" class="form-control"
+                                                                    <input type="date" th:if="${hd.ngay_tao == null}" class="form-control"
                                                                            readonly>
                                                                 </div>
                                                                 <div class="col-4">
@@ -1214,7 +1209,7 @@
                                                                            class="form-control" readonly>
                                                                     <input type="date"
                                                                            th:if="${hd.ngay_thanh_toan == null}"
-                                                                           value="Chưa có" class="form-control"
+                                                                           class="form-control"
                                                                            readonly>
                                                                 </div>
                                                                 <div style="margin-top: 10px" class="col-6">
@@ -1326,8 +1321,6 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Close
-                                                    </button>
-                                                    <button type="button" class="btn btn-primary">Save changes
                                                     </button>
                                                 </div>
                                             </div>
@@ -1510,7 +1503,7 @@
                                                                            th:value="${hd.ngay_tao}"
                                                                            class="form-control" readonly>
                                                                     <input type="date" th:if="${hd.ngay_tao == null}"
-                                                                           value="Chưa có" class="form-control"
+                                                                           class="form-control"
                                                                            readonly>
                                                                 </div>
                                                                 <div class="col-4">
@@ -1522,7 +1515,7 @@
                                                                            class="form-control" readonly>
                                                                     <input type="date"
                                                                            th:if="${hd.ngay_thanh_toan == null}"
-                                                                           value="Chưa có" class="form-control"
+                                                                           class="form-control"
                                                                            readonly>
                                                                 </div>
                                                                 <div style="margin-top: 10px" class="col-6">
@@ -1634,8 +1627,6 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Close
-                                                    </button>
-                                                    <button type="button" class="btn btn-primary">Save changes
                                                     </button>
                                                 </div>
                                             </div>
@@ -1865,7 +1856,7 @@
 <!--ajax get data hóa đơn chi tiết-->
 <script>
     $(document).ready(function () {
-        $('.btn-detail').on('click', function (e) {
+        $(document).on('click', '.btn-detail', function (e) {
             e.preventDefault();
             var ma = $(this).attr("ma");
 
@@ -1901,7 +1892,6 @@
             });
         });
     });
-
 </script>
 <!--end ajax get data hóa đơn chi tiết-->
 
