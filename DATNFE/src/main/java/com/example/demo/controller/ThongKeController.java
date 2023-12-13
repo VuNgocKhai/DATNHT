@@ -44,7 +44,6 @@ public class ThongKeController {
         model.addAttribute("tongSoHoaDonDaHuy", hoaDonDAO.countByTrangthai(4));
         model.addAttribute("tongSoHoaDonDaHoanThanh", hoaDonDAO.countByTrangthai(3));
         model.addAttribute("tongLoiNhuan", tinhLoiNhuanTheoNgay(ngayHienTai));
-
         model.addAttribute("TongOn", hoaDonDAO.tongsomuaonline());
         model.addAttribute("Tongtructiep", hoaDonDAO.tongsomuatructiep());
         List<Object[]> tongtienthangtrongnam = hoaDonDAO.getHoaDonByTongTienTheoThangTrongNam();
