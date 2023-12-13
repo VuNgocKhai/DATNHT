@@ -742,7 +742,7 @@
                                     </div>
                                     <div class="col-6" style="margin-top: 10px;" th:hidden="${KhachHangcheck == null}">
                                         <label>Số điểm tích: </label>
-                                        <input class="form-control giaBan" readonly name="diemTichLuy" th:value="${diemTichLuy}">
+                                        <input class="form-control giaBan" readonly id="diemTichLuy" name="diemTichLuy" th:value="${diemTichLuy}">
                                     </div>
                                     <div class="col-6" style="margin-top: 10px">
                                         <label style="color:red;">Tổng thanh toán:</label>
@@ -1465,6 +1465,10 @@
                     let soTienGiam = document.getElementById('soTienGiam').value;
                     document.getElementById('tongTienSauGiam').setAttribute('value', String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam))));
                     document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam)));
+                    ;
+                    document.getElementById('diemTichLuy').setAttribute('value', String(Math.floor(Number(document.getElementById('tongTienSauGiam').value)/10000)));
+                    document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam)));
+
                     fetch('/admin/ban-hang-tai-quay/tao-don-hang/add-dia-chi1', {
                         method: 'POST',
                         body: new FormData(document.getElementById('address-form'))

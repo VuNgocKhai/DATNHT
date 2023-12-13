@@ -41,9 +41,6 @@ public class BanHangController {
     @Autowired
     private HangKhachHangDAO hangKhachHangDAO;
 
-    @Autowired
-    private NhanVienDAO nhanVienDAO;
-
     //Hiển thị all
     @RequestMapping("/admin/ban-hang")
     public String hienThiAll(@RequestParam("page0") Optional<Integer> page0,
@@ -199,6 +196,7 @@ public class BanHangController {
                         if (tongTienChiTieu.compareTo(new BigDecimal(100000000))>0){
                             khachHang.setHang_khach_hang(hangKhachHangDAO.getHangKhachHangByMa("HKH4"));
                         }
+
                         khachHangDao.save(khachHang);
                     }
 

@@ -542,10 +542,10 @@ public class BanHangTaiQuayController {
                                                 @RequestParam("mota") String moTa,
                                                 @RequestParam("tongTienSauGiam") String tongTienSauGiam,
                                                 @RequestParam("phiShip") String phiShip,
-                                                @RequestParam("soTienGiam") String soTienGiam,
-                                                @RequestParam("sodiemsudung") Integer sodiemsudung,
-                                                @RequestParam("diemHienco") Integer diemHienCo,
-                                                @RequestParam("sotienquydoi") BigDecimal sotienquydoi,
+                                                @RequestParam(value = "soTienGiam",defaultValue = "0") String soTienGiam,
+                                                @RequestParam(value = "sodiemsudung",defaultValue = "0") Integer sodiemsudung,
+                                                @RequestParam(value = "diemHienco",defaultValue = "0") Integer diemHienCo,
+                                                @RequestParam(value = "sotienquydoi",defaultValue = "0") BigDecimal sotienquydoi,
                                                 HttpServletRequest request,
                                                 RedirectAttributes redirectAttributes) {
         if(sodiemsudung<5000 || sodiemsudung>diemHienCo){

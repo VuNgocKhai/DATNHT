@@ -41,8 +41,8 @@ public class ThongKeController {
         model.addAttribute("tongTien",tongTien);
         model.addAttribute("tongTienTrongNgay",hoaDonDAO.tongTienTrongNgay(ngayHienTai));
         model.addAttribute("tongsohoadondangchoxanhan", hoaDonDAO.tongsohoadondangchoxanhan());
-        model.addAttribute("tongSoHoaDonDaHuy", hoaDonDAO.countByTrangthai(5));
-        model.addAttribute("tongSoHoaDonDaHoanThanh", hoaDonDAO.countByTrangthai(4));
+        model.addAttribute("tongSoHoaDonDaHuy", hoaDonDAO.countByTrangthai(4));
+        model.addAttribute("tongSoHoaDonDaHoanThanh", hoaDonDAO.countByTrangthai(3));
         model.addAttribute("tongLoiNhuan", tinhLoiNhuanTheoNgay(ngayHienTai));
 
         model.addAttribute("TongOn", hoaDonDAO.tongsomuaonline());
