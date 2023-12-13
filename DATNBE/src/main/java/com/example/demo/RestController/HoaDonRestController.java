@@ -106,7 +106,6 @@ public class HoaDonRestController {
         return new PageDTO<>(hoaDonDAO.findHoaDonbyTrangThai(trangthai, pageable));
     }
 
-
     //Tìm hóa đơn theo trạng thái
     @GetMapping("/tim-hd-theo-trang-thai")
     public PageDTO<HoaDon> timHDTheoTrangThai1(
