@@ -2,6 +2,7 @@
 go
 create database website_ban_giay
 go
+select *from hoa_don
 use website_ban_giay
 go
 create table thuong_hieu (
@@ -247,8 +248,10 @@ create table hoa_don (
 	sdt_nguoi_nhan nvarchar(255) null,
 	dia_chi nvarchar(255) null,
 	tong_tien decimal,
-	hinh_thuc_mua int,
-	hinh_thuc_thanh_toan int,
+	select * from hoa_don 
+	hinh_thuc_mua int,		--1 online 0 offline
+	hinh_thuc_thanh_toan int, --1 online 0 Tiền mặt 3 Khi nhận hàng
+	hinh_thuc_nhan_hang int, --0 giao hàng --1 tại quầy
 	so_tien_giam money,
 	phi_ship money,
 	so_diem_su_dung int,
