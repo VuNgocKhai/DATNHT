@@ -297,6 +297,13 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <tr th:if="${dsSPTable.isEmpty()}" class="text-center">
+                        <td colspan="7">
+                            <i style="font-size: 3rem"
+                               class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>
+                            <div class="text-center d-flex justify-content-center align-items-center">No Data</div>
+                        </td>
+                    </tr>
                     <tr th:each="item,state:${dsSPTable}">
                         <td scope="row">[[${item.giay.ma}]]</td>
                         <td>[[${item.giay.ten}]]</td>

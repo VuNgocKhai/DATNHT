@@ -10,5 +10,4 @@ import java.util.UUID;
 public interface GiayChiTietDAO extends JpaRepository<GiayChiTiet, UUID> {
     @Query("select p from GiayChiTiet p where p.giay.ma=?1")
     List<GiayChiTiet> getAllByMaGiay(String ma);
-
 }

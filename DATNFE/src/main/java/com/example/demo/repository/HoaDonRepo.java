@@ -37,7 +37,6 @@ public class HoaDonRepo {
         return response.getBody();
     }
 
-    // get all hóa đơn chưa thanh toán
     public PageDTO<HoaDon> getAllHDchuaTTPage(Integer page) {
         ResponseEntity<PageDTO<HoaDon>> response =
                 restTemplate.exchange(url + "/pagehdctt?page=" + page, HttpMethod.GET, null, new ParameterizedTypeReference<PageDTO<HoaDon>>() {

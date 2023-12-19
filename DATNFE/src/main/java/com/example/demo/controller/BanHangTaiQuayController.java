@@ -264,7 +264,7 @@ public class BanHangTaiQuayController {
         GiayChiTiet giayChiTiet = giayChiTietRepo.getGiayChiTietById(qrCode);
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHoaDon);
 
-        if(giayChiTiet != null && hoaDon != null) {
+        if(giayChiTiet != null && hoaDon != null && giayChiTiet.getGiay().getTrangthai() == 1) {
             boolean productExists = false;
 
             List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietRepo.getListHDCTbyMaHD(hoaDon.getMa());

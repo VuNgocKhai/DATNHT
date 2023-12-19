@@ -44,7 +44,7 @@ public class GiamGiaSpSchedule {
                 giay.setGia_sau_khuyen_mai(giay.getGiaban());
                 giayDAO.save(giay);
             });
-            ggsp.setTrangThai(0); // Cập nhật trạng thái thành 0
+            ggsp.setTrangThai(0);
         });
 
         ggspRepo.saveAll(updateTT);

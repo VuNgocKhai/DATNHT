@@ -99,6 +99,7 @@ public class GiamGiaHoaDonController {
                 hoaDon.setTong_tien(tongTienKhongGiamGia);
                 hoaDon.setSo_tien_giam(BigDecimal.ZERO);
                 hoaDonRepo.createHoaDon(hoaDon);
+                giamGiaChiTietHoaDonRepo.deleteGGCTHD(x.getHd().getId(),giamGiaHoaDon.getId());
             });
         }
         else if(giamGiaHoaDon.getTrangthai() == 1)
@@ -139,6 +140,7 @@ public class GiamGiaHoaDonController {
             hoaDon.setTong_tien(tongTienKhongGiamGia);
             hoaDon.setSo_tien_giam(BigDecimal.ZERO);
             hoaDonRepo.createHoaDon(hoaDon);
+            giamGiaChiTietHoaDonRepo.deleteGGCTHD(x.getHd().getId(),giamGiaHoaDon.getId());
         });
         giamGiaHoaDon.setTrangthai(0);
         giamGiaHoaDonRepo.createGGHD(giamGiaHoaDon);
