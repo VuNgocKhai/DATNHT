@@ -257,29 +257,27 @@ public class BanHangTaiQuayController {
     @PostMapping("/admin/ban-hang-tai-quay/tao-don-hang/add-to-cart-by-qr")
     public String addGiayChiTietToHoaDonQRcode(
             @RequestParam("maHD") String maHoaDon,
-            @RequestParam("qrcode") String qrCode,
+            @RequestParam("qrcode") UUID qrCode,
             RedirectAttributes redirectAttributes) {
 
-        GiayChiTiet giayChiTiet = giayChiTietRepo.getGCTbyQRCode(qrCode);
+        GiayChiTiet giayChiTiet = giayChiTietRepo.getGiayChiTietById(qrCode);
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHoaDon);
 
-        if (giayChiTiet != null && hoaDon != null) {
+        if(giayChiTiet != null && hoaDon != null) {
+            boolean productExists = false;
+
             List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietRepo.getListHDCTbyMaHD(hoaDon.getMa());
-            if (!hoaDonChiTietList.isEmpty()) {
-                for (HoaDonChiTiet x : hoaDonChiTietList) {
-                    if (x.getGiayChiTiet().getQr_code().equals(qrCode)) {
-                        x.setSo_luong(x.getSo_luong() + 1);
-                        hoaDonChiTietRepo.createHDCT(x);
-                        BigDecimal tongTien = tinhTongTienHoaDon(hoaDonChiTietList);
-                        hoaDon.setTong_tien(tongTien);
-                        hoaDonRepo.createHoaDon(hoaDon);
-                        redirectAttributes.addAttribute("maHD", maHoaDon);
-                        return "redirect:/admin/ban-hang-tai-quay/view-cart/{maHD}";
-                    }
+
+            for (HoaDonChiTiet x : hoaDonChiTietList) {
+                if (x.getGiayChiTiet().getId().equals(qrCode)) {
+                    x.setSo_luong(x.getSo_luong() + 1);
+                    hoaDonChiTietRepo.createHDCT(x);
+                    productExists = true;
+                    break;
                 }
             }
-            else
-            {
+
+            if (!productExists) {
                 HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
                 hoaDonChiTiet.setGiayChiTiet(giayChiTiet);
                 hoaDonChiTiet.setHoaDon(hoaDon);
@@ -289,8 +287,9 @@ public class BanHangTaiQuayController {
                 hoaDonChiTiet.setTrangthai(1);
                 hoaDonChiTietRepo.createHDCT(hoaDonChiTiet);
             }
-            List<HoaDonChiTiet> hoaDonChiTietList2 = hoaDonChiTietRepo.getListHDCTbyMaHD(hoaDon.getMa());
-            BigDecimal tongTien = tinhTongTienHoaDon(hoaDonChiTietList2);
+
+            List<HoaDonChiTiet> updatedHoaDonChiTietList = hoaDonChiTietRepo.getListHDCTbyMaHD(hoaDon.getMa());
+            BigDecimal tongTien = tinhTongTienHoaDon(updatedHoaDonChiTietList);
             hoaDon.setTong_tien(tongTien);
             hoaDonRepo.createHoaDon(hoaDon);
 
@@ -301,6 +300,7 @@ public class BanHangTaiQuayController {
             return "redirect:/admin/ban-hang-tai-quay/view-cart/{maHD}";
         }
     }
+
 
 
     @PostMapping("/admin/ban-hang-tai-quay/tao-don-hang/add-to-cart")

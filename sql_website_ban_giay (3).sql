@@ -1034,7 +1034,7 @@ select * from hoa_don where trangthai = 0
 select * from hoa_don_chi_tiet
 select * from giay
 select * from giay_chi_tiet
-select * from giay_chi_tiet where qr_code ='3caf9bea-959e-11ee-b9d1-0242ac120002'
+select * from giay_chi_tiet where id ='8ADF9BDF-D25B-BB4F-9875-0408037556E1'
 select * from giay where id ='A0E7FE26-C8E0-B348-AC67-6440F74B2B08'
 select * from giay_chi_tiet
 select * from kich_co

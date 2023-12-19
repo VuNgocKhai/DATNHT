@@ -207,13 +207,11 @@
                                 Danh Sách Khách Hàng
                             </h4>
                         </div>
-                        <!--                    NÚT THÊM MỚI HÓA ĐƠN-->
                         <div class="col-4 text-right">
                             <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                                 <i class="bi bi-plus-square"></i> Thêm mới
                             </button>
                         </div>
-                        <!--                    End  NÚT THÊM MỚI HÓA ĐƠN-->
                     </div>
                     <hr>
                     <!-- Modal -->
@@ -222,13 +220,18 @@
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content" style="background-color: #d4d4d4">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Thêm Khách Hàng Mới</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">
+                                        Thêm Khách Hàng Mới
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#qrScannerModal">
+                                            <i class="bi bi-qr-code"></i>
+                                        </button>
+                                    </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form id="khachHangForm"  action="/admin/khachhang/save" method="post" enctype="multipart/form-data" th:object="${khachhang}">
-                                    <div class="modal-body" >
+                                <form id="khachHangForm" action="/admin/khachhang/save" method="post" enctype="multipart/form-data" th:object="${khachhang}">
+                                    <div class="modal-body">
                                         <div class="modal-body">
                                             <div class="container-fluid">
                                                 <div class="row">
@@ -237,40 +240,29 @@
                                                         <div class="text-center"
                                                              style="margin-left: 10px;margin-right: 100px;margin-block: auto">
                                                             <div class="avatar-wrapper">
-                                                                <img id="avatarPreview" src="/images/avatar.jpg"
-                                                                     alt="Avatar" class="img-thumbnail">
-                                                                <input type="file" id="avatarInput" name="ten_url1"
-                                                                       accept=".jpg,.jpeg,.png">
+                                                                <img id="avatarPreview" src="/images/avatar.jpg" alt="Avatar" class="img-thumbnail">
+                                                                <input type="file" id="avatarInput" name="ten_url1" accept=".jpg,.jpeg,.png">
                                                             </div>
-                                                            <label for="avatarInput" class="choose-file-btn"
-                                                                   style="margin-right: 80px">Chọn ảnh</label>
+                                                            <label for="avatarInput" class="choose-file-btn" style="margin-right: 80px">Chọn ảnh</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6" style="margin-top: 120px">
-                                                        <label class="required" for="formGroupExampleInputHoten">Họ Và
-                                                            Tên</label>
-                                                        <input type="text" th:field="*{hoten}" class="form-control"
-                                                               id="formGroupExampleInputHoten" placeholder="Họ và tên">
+                                                        <label class="required" for="formGroupExampleInputHoten">Họ Và Tên</label>
+                                                        <input type="text" th:field="*{hoten}" class="form-control" id="formGroupExampleInputHoten" placeholder="Họ và tên">
                                                         <div id="hotenError" class="text-danger"></div>
                                                     </div>
                                                 </div>
                                                 <br>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <label class="required" for="formGroupExampleInputNgaySinh">Ngày
-                                                            Sinh</label>
-                                                        <input type="date" th:field="*{ngaysinh}" class="form-control"
-                                                               id="formGroupExampleInputNgaySinh"
-                                                               placeholder="Ngày Sinh">
+                                                        <label class="required" for="formGroupExampleInputNgaySinh">Ngày Sinh</label>
+                                                        <input type="date" th:field="*{ngaysinh}" class="form-control" id="formGroupExampleInputNgaySinh" placeholder="Ngày Sinh">
                                                         <div id="ngaysinhError" class="text-danger"></div>
                                                         <div id="ngaysinh1Error1" class="text-danger"></div>
                                                     </div>
-
                                                     <div class="col-md-6">
-                                                        <label class="required" for="formGroupExampleInputSdt">Số điện
-                                                            thoại</label>
-                                                        <input type="text" th:field="*{sdt}" class="form-control"
-                                                               id="formGroupExampleInputSdt"
+                                                        <label class="required" for="formGroupExampleInputSdt">Số điện thoại</label>
+                                                        <input type="text" th:field="*{sdt}" class="form-control" id="formGroupExampleInputSdt"
                                                                placeholder="Số điện thoại">
                                                         <div id="sdtError" class="text-danger"></div>
                                                         <div id="sdt1Error1" class="text-danger"></div>
@@ -365,7 +357,6 @@
                         </div>
                     </form>
                 </div>
-
                 <table id="TablKH" class="table table-hover" style="margin: 20px 0;">
                     <thead class="thead-light">
                     <tr>
@@ -387,7 +378,7 @@
                         <td th:text="${item.trangthai == 1 ? 'Đang Hoạt Động' : 'Không Hoạt Động'}"></td>
                         <td>
                             <a class="btn-sm btn-warning" th:href="@{|/admin/khachhang/detail/${item.ma}|}"><i
-                                   style="color: white" class="bi bi-eye"></i></a>
+                                    style="color: white" class="bi bi-eye"></i></a>
                             <a class="btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                                th:href="@{|/admin/khachhang/delete/${item.id}|}"><i class="bi bi-trash"></i></a>
                         </td>
@@ -421,6 +412,28 @@
                     </ul>
                 </nav>
             </div>
+            <!--            Modal quét qr-->
+            <div class="modal fade" id="qrScannerModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background-color: #ffffff">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel1">Quét QR Sản Phẩm</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="video-container">
+                                <video width="460px" id="videoElement" playsinline autoplay></video>
+                                <canvas id="canvasElement" style="display: none;width: 460px"></canvas>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button id="scanQR" type="button" class="btn btn-primary">Scan QR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--            End modal quét qr-->
         </div>
     </div>
 </div>
@@ -645,6 +658,74 @@
     });
 
 </script>
+
+<!--camera-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const video = document.getElementById("videoElement");
+        const canvasElement = document.getElementById("canvasElement");
+        const canvas = canvasElement.getContext("2d");
+
+        document.getElementById("qrScannerModal").addEventListener("show.bs.modal", function () {
+            canvasElement.style.display = "none";
+            video.style.display = "block";
+
+            navigator.mediaDevices
+                .getUserMedia({ video: { facingMode: "environment" } })
+                .then(function (stream) {
+                    video.srcObject = stream;
+                    video.play();
+                })
+                .catch(function (err) {
+                    console.error("Error accessing the camera: ", err);
+                });
+        });
+
+        document.getElementById("qrScannerModal").addEventListener("hide.bs.modal", function () {
+            if (video.srcObject) {
+                video.srcObject.getTracks().forEach(function (track) {
+                    track.stop();
+                });
+            }
+        });
+
+        document.getElementById("scanQR").addEventListener("click", function () {
+            canvasElement.style.display = "block";
+            video.style.display = "none";
+            canvasElement.width = video.videoWidth;
+            canvasElement.height = video.videoHeight;
+            canvas.drawImage(
+                video,
+                0,
+                0,
+                canvasElement.width,
+                canvasElement.height
+            );
+
+            const imageData = canvas.getImageData(
+                0,
+                0,
+                canvasElement.width,
+                canvasElement.height
+            );
+            const code = jsQR(
+                imageData.data,
+                imageData.width,
+                imageData.height
+            );
+
+
+            if (code) {
+                alert("QR Code detected! Content: " + code.data);
+            } else {
+                alert("No QR Code detected!");
+            }
+
+        });
+    });
+
+</script>
+<!--end camera-->
 
 
 <!--<script>-->
