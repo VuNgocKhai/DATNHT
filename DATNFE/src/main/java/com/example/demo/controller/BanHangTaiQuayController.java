@@ -715,11 +715,12 @@ public class BanHangTaiQuayController {
         if (hoaDon.getHinh_thuc_thanh_toan() == 0 && hoaDon.getHinh_thuc_mua() == 0) { //mua offline thanh toán tiền mặt nhận hàng tại quầy
             LocalDate currentDate = LocalDate.now();
             hoaDon.setNgay_thanh_toan(currentDate);
-            hoaDon.setTrangthai(3);
+            hoaDon.setTrangthai(1);
             hoaDonRepo.createHoaDon(hoaDon);
             QuyDoiDiem quyDoiDiem = quyDoiDiemDAO.getQuyDoiDiemByTT1();
-            if (hoaDon.getHinh_thuc_nhan_hang() == 1){
-                hoaDon.setTrangthai(1);
+            if (hoaDon.getHinh_thuc_nhan_hang() == 0){
+                hoaDon.setTrangthai(3);
+                hoaDonRepo.createHoaDon(hoaDon);
                 if (hoaDon.getKhachHang() != null) {
                     ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
                     LichSuTieuDiem lichSuTieuDiem = new LichSuTieuDiem();
@@ -811,11 +812,12 @@ public class BanHangTaiQuayController {
             resp.sendRedirect(paymentUrl);
             LocalDate currentDate = LocalDate.now();
             hoaDon.setNgay_thanh_toan(currentDate);
-            hoaDon.setTrangthai(3);
+            hoaDon.setTrangthai(1);
             hoaDonRepo.createHoaDon(hoaDon);
             QuyDoiDiem quyDoiDiem = quyDoiDiemDAO.getQuyDoiDiemByTT1();
-            if (hoaDon.getHinh_thuc_nhan_hang() == 1){
-                hoaDon.setTrangthai(1);
+            if (hoaDon.getHinh_thuc_nhan_hang() == 0){
+                hoaDon.setTrangthai(3);
+                hoaDonRepo.createHoaDon(hoaDon);
                 if (hoaDon.getKhachHang() != null) {
                     ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
                     LichSuTieuDiem lichSuTieuDiem = new LichSuTieuDiem();
