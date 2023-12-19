@@ -124,6 +124,8 @@ public class ChuongTrinhGiamGiaSPController {
                 Giay giay = x.getGiay();
                 giay.setGia_sau_khuyen_mai(giay.getGiaban());
                 giayDTO.save(giay);
+                ChuongTrinhGiamGiaChiTietSP delCTKM = ctkmDTO.selectByTwoId(giamGiaSP.getIdKhuyenMai(), x.getGiay().getId());
+                ctkmDTO.deleteById(delCTKM.getId());
             });
         }
         return "redirect:/admin/chuong-trinh-giam-gia-sp";

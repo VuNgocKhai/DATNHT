@@ -42,11 +42,10 @@ public class HoaDonRestController {
         return new PageDTO<>(hoaDonDAO.findHoaDonChuaApDungChuongTrinhGiamGiaPage(pageable));
     }
 
-    // phân trang hóa đơn trạng thái = 1
     @GetMapping("/pagehdctt")
     public PageDTO<HoaDon> getPageHDchuaThanhToan(@RequestParam("page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.orElse(0), 5);
-        return new PageDTO<>(hoaDonDAO.findAll(pageable));
+        return new PageDTO<>(hoaDonDAO.findHoaDonChoXacNhan(pageable));
     }
 
     // tìm hóa đơn theo id
@@ -82,11 +81,11 @@ public class HoaDonRestController {
     // lọc giảm giá hóa đơn theo tên
     @GetMapping("/tim-kiem-hoa-don")
     public PageDTO<HoaDon> findHoaDonByMaOrTenKH(
-            @RequestParam("keyword") String keytimHDTheoTrangThai1word,
+            @RequestParam("keyword") String keytimHDTheoTrangThai0word,
             @RequestParam("page") Optional<Integer> page) {
 
         Pageable pageable = PageRequest.of(page.orElse(0), 5);
-        return new PageDTO<>(hoaDonDAO.searchHoaDonByKeyword(keytimHDTheoTrangThai1word, pageable));
+        return new PageDTO<>(hoaDonDAO.searchHoaDonByKeyword(keytimHDTheoTrangThai0word, pageable));
     }
     @GetMapping("/tim-kiem-hoa-don-chua-ap-ma")
     public PageDTO<HoaDon> findHoaDonChuaApMa(

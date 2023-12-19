@@ -58,9 +58,4 @@ public class GiayChiTietRestController {
         return giayChiTietDAO.findById(id);
     }
 
-    @GetMapping("/findbyqrcode/{qrcode}")
-    public GiayChiTiet getGCTbyQRCode(@PathVariable("qrcode") String qrcode)
-    {
-        return giayChiTietDAO.getGCTbyQRCODE(qrcode);
-    }
 }

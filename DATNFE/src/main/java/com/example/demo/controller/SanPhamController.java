@@ -147,10 +147,6 @@ public class SanPhamController {
                 giayChiTiet.setGiay(Giay.builder().id(idsp).build());
                 giayChiTiet.setTrangthai(1);
 
-                // Tạo mã QR ngẫu nhiên cho sản phẩm chi tiết
-                String qrCodeData = UUID.randomUUID().toString();
-                giayChiTiet.setQr_code(qrCodeData);
-
                 giayChiTietDAO.save(giayChiTiet);
             }
         }

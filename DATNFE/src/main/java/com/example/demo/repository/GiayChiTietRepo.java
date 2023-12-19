@@ -38,8 +38,7 @@ public class GiayChiTietRepo {
         if (response.getBody() != null) {
             return response.getBody();
         } else {
-            // Xử lý khi dữ liệu từ API là null
-            return Collections.emptyList(); // Hoặc xử lý khác tùy theo logic ứng dụng
+            return Collections.emptyList();
         }
     }
 
@@ -59,10 +58,6 @@ public class GiayChiTietRepo {
     // findGCT by id
     public GiayChiTiet getGiayChiTietById(UUID id) {
         return restTemplate.getForObject(getUrl(id), GiayChiTiet.class);
-    }
-
-    public GiayChiTiet getGCTbyQRCode(String qrcode) {
-        return restTemplate.getForObject(getUrl1("findbyqrcode/" + qrcode), GiayChiTiet.class);
     }
 
 }

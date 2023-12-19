@@ -26,17 +26,16 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
             "AND hd.id NOT IN (SELECT ct.hd.id FROM GiamGiaChiTietHoaDon ct WHERE ct.hd.trangthai = 0)")
     Page<HoaDon> findHoaDonChuaApDungChuongTrinhGiamGiaPage(Pageable pageable);
 
-    // Query getall hóa đơn chưa thanh toán
-    @Query("SELECT hd FROM HoaDon hd WHERE hd.trangthai = 1")
-    Page<HoaDon> findHoaDonChuaThanhToan(Pageable pageable);
+    // Query getall hóa đơn chờ xác nhận và là tại quầy
+    @Query("SELECT hd FROM HoaDon hd WHERE hd.trangthai = 0 and hd.hinh_thuc_mua = 0")
+    Page<HoaDon> findHoaDonChoXacNhan(Pageable pageable);
 
     // Query getall hóa đơn theo trạng thái
     @Query("SELECT hd FROM HoaDon hd WHERE hd.trangthai = ?1")
     Page<HoaDon> findHoaDonbyTrangThai(Integer trangthai, Pageable pageable);
 
-    //Query tìm kiếm hóa đơn theo mã hóa đơn hoặc tên khách hàng hoặc tổng tiền
-    @Query("SELECT hd FROM HoaDon hd WHERE hd.trangthai = 1 or hd.trangthai = 2 " +
-            "AND (hd.ma LIKE %:keyword% OR hd.khachHang.hoten LIKE %:keyword%)")
+    @Query("SELECT hd FROM HoaDon hd WHERE hd.trangthai = 0 and hd.hinh_thuc_mua = 0" +
+            "AND hd.ma LIKE %:keyword%")
     Page<HoaDon> searchHoaDonByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
     @Query("SELECT hd FROM HoaDon hd WHERE ((hd.ma LIKE %:keyword% and hd.ma like :timTheo ) " +

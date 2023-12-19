@@ -814,14 +814,10 @@
                 <div class="col-6">
                     <div class="d-flex align-items-center">
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Chọn SP
+                            Chọn Sản phẩm
                         </button>
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#qrScannerModal">
                             <i class="bi bi-qr-code"></i>
-                        </button>
-                        <input type="text" class="form-control col-5 mx-2">
-                        <button class="btn btn-primary">
-                            <i class="bi bi-search"></i>
                         </button>
                     </div>
                     <hr>
@@ -1636,7 +1632,7 @@
                         processData: false,
                         contentType: false,
                         success: function (data) {
-                            swal("Success!", "Thêm sản phẩm thành công vào hóa đơn", "success")
+                            swal("Success!", "Thành công !", "success")
                                 .then((value) => {
                                     if (value) {
                                         window.location.reload();

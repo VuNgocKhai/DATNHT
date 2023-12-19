@@ -31,6 +31,4 @@ public interface GiayChiTietDAO extends JpaRepository<GiayChiTiet, UUID> {
                                            String kich_co,String chat_lieu,String xuat_xu,String mau_sac,
                                            String gioi_tinh,String kieu_dang,String de_giay);
 
-    @Query("select p from GiayChiTiet p where p.qr_code= ?1")
-    GiayChiTiet getGCTbyQRCODE(String qrcode);
 }
