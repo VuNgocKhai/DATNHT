@@ -518,6 +518,7 @@ public class GioHangController {
             hoaDon.setSo_tien_giam(tienGGHD);
             hoaDon.setHinh_thuc_mua(1); //online
             hoaDon.setHinh_thuc_thanh_toan(1); //vnpay
+            hoaDon.setHinh_thuc_nhan_hang(1); //vnpay
             hoaDon.setSo_diem_su_dung(soDiemDaDung);
             hoaDon.setSo_tien_quy_doi(soTienQuyDoi);
             hoaDon.setTrangthai(1); //chờ giao
@@ -595,6 +596,7 @@ public class GioHangController {
             hoaDon.setSo_tien_giam(tienGGHD);
             hoaDon.setHinh_thuc_mua(1); //online
             hoaDon.setHinh_thuc_thanh_toan(3); //khi nhan hang
+            hoaDon.setHinh_thuc_nhan_hang(1); //vnpay
             hoaDon.setSo_diem_su_dung(soDiemDaDung);
             hoaDon.setSo_tien_quy_doi(soTienQuyDoi);
             hoaDon.setTrangthai(0);

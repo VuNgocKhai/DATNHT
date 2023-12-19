@@ -41,6 +41,15 @@ public class BanHangController {
     @Autowired
     private HangKhachHangDAO hangKhachHangDAO;
 
+    @Autowired
+    QuyDoiDiemDAO quyDoiDiemDAO;
+
+    @Autowired
+    ViDiemDAO viDiemDAO;
+
+    @Autowired
+    LichSuTieuDiemDAO lichSuTieuDiemDAO;
+
     //Hiển thị all
     @RequestMapping("/admin/ban-hang")
     public String hienThiAll(@RequestParam("page0") Optional<Integer> page0,
@@ -200,7 +209,24 @@ public class BanHangController {
 
                         khachHangDao.save(khachHang);
                     }
-
+                    QuyDoiDiem quyDoiDiem = quyDoiDiemDAO.getQuyDoiDiemByTT1();
+                        if (hoaDon.getKhachHang() != null) {
+                            ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
+                            LichSuTieuDiem lichSuTieuDiem = new LichSuTieuDiem();
+                            lichSuTieuDiem.setTrangthai(1);
+                            lichSuTieuDiem.setVi_diem(viDiem);
+                            lichSuTieuDiem.setHoa_don(hoaDon);
+                            lichSuTieuDiem.setNgay_su_dung(LocalDate.now());
+                            lichSuTieuDiem.setQuy_doi_diem(quyDoiDiemDAO.getQuyDoiDiemByTT1());
+                            lichSuTieuDiem.setSo_diem_da_dung(hoaDon.getSo_diem_su_dung());
+                            Integer soDiemCong = hoaDon.getTong_tien().divide(quyDoiDiem.getSo_tien_tuong_ung()).multiply(new BigDecimal(quyDoiDiem.getSo_diem_tuong_ung())).intValue();
+                            lichSuTieuDiem.setSo_diem_cong(soDiemCong);
+                            lichSuTieuDiemDAO.save(lichSuTieuDiem);
+                            viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong() + soDiemCong);
+                            viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() + hoaDon.getSo_diem_su_dung());
+                            viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
+                            viDiemDAO.save(viDiem);
+                        }
                 }
             } else if ("huy".equals(huyxacnhan3)) {
                 for (String maHD : selectedMa3) {

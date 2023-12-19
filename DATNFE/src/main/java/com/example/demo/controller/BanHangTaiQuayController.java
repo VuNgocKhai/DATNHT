@@ -157,6 +157,7 @@ public class BanHangTaiQuayController {
         hoaDon.setNgay_tao(currentDate);
         hoaDon.setNgay_tao(currentDate);
         hoaDon.setHinh_thuc_mua(0);
+        hoaDon.setHinh_thuc_nhan_hang(0);
         hoaDon.setTong_tien(BigDecimal.ZERO);
         hoaDon.setHinh_thuc_thanh_toan(0);
         hoaDon.setSo_tien_giam(BigDecimal.ZERO);
@@ -197,7 +198,7 @@ public class BanHangTaiQuayController {
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(ma);
         model.addAttribute("trangthaicheck", hoaDon.getTrangthai());
         model.addAttribute("KhachHangcheck", hoaDon.getKhachHang());
-        model.addAttribute("htm", hoaDon.getHinh_thuc_mua());
+        model.addAttribute("htm", hoaDon.getHinh_thuc_nhan_hang());
         model.addAttribute("httt", hoaDon.getHinh_thuc_thanh_toan());
         if (hoaDon.getKhachHang() != null) {
             model.addAttribute("KhachHangDetail", hoaDon.getKhachHang());
@@ -596,7 +597,7 @@ public class BanHangTaiQuayController {
         String diaChiGop = diaChi1 + ", " + xa1 + ", " + huyen1 + ", " + thanhPho1;
         hoaDon.setDia_chi(diaChiGop);
         hoaDon.setHinh_thuc_thanh_toan(phuongThucThanhToan);
-        hoaDon.setHinh_thuc_mua(phuongThucMuaHang);
+        hoaDon.setHinh_thuc_nhan_hang(phuongThucMuaHang);
         hoaDon.setTen_nguoi_nhan(tennguoinhan);
         hoaDon.setSdt_nguoi_nhan(sdtnguoinhan);
         hoaDon.setSo_tien_giam(BigDecimal.valueOf(Double.parseDouble(soTienGiam)));
@@ -711,32 +712,36 @@ public class BanHangTaiQuayController {
                           @RequestParam("maHD") String maHD,
                           RedirectAttributes redirectAttributes) throws IOException {
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
-        if (hoaDon.getHinh_thuc_thanh_toan() == 0 && hoaDon.getHinh_thuc_mua() == 0) {
+        if (hoaDon.getHinh_thuc_thanh_toan() == 0 && hoaDon.getHinh_thuc_mua() == 0) { //mua offline thanh toán tiền mặt nhận hàng tại quầy
             LocalDate currentDate = LocalDate.now();
             hoaDon.setNgay_thanh_toan(currentDate);
             hoaDon.setTrangthai(3);
             hoaDonRepo.createHoaDon(hoaDon);
             QuyDoiDiem quyDoiDiem = quyDoiDiemDAO.getQuyDoiDiemByTT1();
-            if (hoaDon.getKhachHang() != null) {
-                ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
-                LichSuTieuDiem lichSuTieuDiem = new LichSuTieuDiem();
-                lichSuTieuDiem.setTrangthai(1);
-                lichSuTieuDiem.setVi_diem(viDiem);
-                lichSuTieuDiem.setHoa_don(hoaDon);
-                lichSuTieuDiem.setNgay_su_dung(LocalDate.now());
-                lichSuTieuDiem.setQuy_doi_diem(quyDoiDiemDAO.getQuyDoiDiemByTT1());
-                lichSuTieuDiem.setSo_diem_da_dung(hoaDon.getSo_diem_su_dung());
-                Integer soDiemCong = hoaDon.getTong_tien().divide(quyDoiDiem.getSo_tien_tuong_ung()).multiply(new BigDecimal(quyDoiDiem.getSo_diem_tuong_ung())).intValue();
-                lichSuTieuDiem.setSo_diem_cong(soDiemCong);
-                lichSuTieuDiemDAO.save(lichSuTieuDiem);
-                viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong() + soDiemCong);
-                viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() + hoaDon.getSo_diem_su_dung());
-                viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
-                viDiemDAO.save(viDiem);
-                return "redirect:/admin/ban-hang";
-
+            if (hoaDon.getHinh_thuc_nhan_hang() == 1){
+                hoaDon.setTrangthai(1);
+                if (hoaDon.getKhachHang() != null) {
+                    ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
+                    LichSuTieuDiem lichSuTieuDiem = new LichSuTieuDiem();
+                    lichSuTieuDiem.setTrangthai(1);
+                    lichSuTieuDiem.setVi_diem(viDiem);
+                    lichSuTieuDiem.setHoa_don(hoaDon);
+                    lichSuTieuDiem.setNgay_su_dung(LocalDate.now());
+                    lichSuTieuDiem.setQuy_doi_diem(quyDoiDiemDAO.getQuyDoiDiemByTT1());
+                    lichSuTieuDiem.setSo_diem_da_dung(hoaDon.getSo_diem_su_dung());
+                    Integer soDiemCong = hoaDon.getTong_tien().divide(quyDoiDiem.getSo_tien_tuong_ung()).multiply(new BigDecimal(quyDoiDiem.getSo_diem_tuong_ung())).intValue();
+                    lichSuTieuDiem.setSo_diem_cong(soDiemCong);
+                    lichSuTieuDiemDAO.save(lichSuTieuDiem);
+                    viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong() + soDiemCong);
+                    viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() + hoaDon.getSo_diem_su_dung());
+                    viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
+                    viDiemDAO.save(viDiem);
+                    return "redirect:/admin/ban-hang";
+                }
             }
-        } else if (hoaDon.getHinh_thuc_thanh_toan() == 1 && hoaDon.getHinh_thuc_mua() == 0) {
+            return "redirect:/admin/ban-hang";
+        }
+        else if (hoaDon.getHinh_thuc_thanh_toan() == 1 && hoaDon.getHinh_thuc_mua() == 0) {
             BigDecimal newTotal = calculateTotal(hoaDon);
             String vnp_Version = "2.1.0";
             String vnp_Command = "pay";
@@ -809,73 +814,27 @@ public class BanHangTaiQuayController {
             hoaDon.setTrangthai(3);
             hoaDonRepo.createHoaDon(hoaDon);
             QuyDoiDiem quyDoiDiem = quyDoiDiemDAO.getQuyDoiDiemByTT1();
-            if (hoaDon.getKhachHang() != null) {
-                ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
-                LichSuTieuDiem lichSuTieuDiem = new LichSuTieuDiem();
-                lichSuTieuDiem.setTrangthai(1);
-                lichSuTieuDiem.setVi_diem(viDiem);
-                lichSuTieuDiem.setHoa_don(hoaDon);
-                lichSuTieuDiem.setNgay_su_dung(LocalDate.now());
-                lichSuTieuDiem.setQuy_doi_diem(quyDoiDiemDAO.getQuyDoiDiemByTT1());
-                lichSuTieuDiem.setSo_diem_da_dung(hoaDon.getSo_diem_su_dung());
-                Integer soDiemCong = hoaDon.getTong_tien().divide(quyDoiDiem.getSo_tien_tuong_ung()).multiply(new BigDecimal(quyDoiDiem.getSo_diem_tuong_ung())).intValue();
-                lichSuTieuDiem.setSo_diem_cong(soDiemCong);
-                lichSuTieuDiemDAO.save(lichSuTieuDiem);
-                viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong() + soDiemCong);
-                viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() + hoaDon.getSo_diem_su_dung());
-                viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
-                viDiemDAO.save(viDiem);
+            if (hoaDon.getHinh_thuc_nhan_hang() == 1){
+                hoaDon.setTrangthai(1);
+                if (hoaDon.getKhachHang() != null) {
+                    ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
+                    LichSuTieuDiem lichSuTieuDiem = new LichSuTieuDiem();
+                    lichSuTieuDiem.setTrangthai(1);
+                    lichSuTieuDiem.setVi_diem(viDiem);
+                    lichSuTieuDiem.setHoa_don(hoaDon);
+                    lichSuTieuDiem.setNgay_su_dung(LocalDate.now());
+                    lichSuTieuDiem.setQuy_doi_diem(quyDoiDiemDAO.getQuyDoiDiemByTT1());
+                    lichSuTieuDiem.setSo_diem_da_dung(hoaDon.getSo_diem_su_dung());
+                    Integer soDiemCong = hoaDon.getTong_tien().divide(quyDoiDiem.getSo_tien_tuong_ung()).multiply(new BigDecimal(quyDoiDiem.getSo_diem_tuong_ung())).intValue();
+                    lichSuTieuDiem.setSo_diem_cong(soDiemCong);
+                    lichSuTieuDiemDAO.save(lichSuTieuDiem);
+                    viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong() + soDiemCong);
+                    viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() + hoaDon.getSo_diem_su_dung());
+                    viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
+                    viDiemDAO.save(viDiem);
+                    return "redirect:/admin/ban-hang";
+                }
             }
-
-        } else if (hoaDon.getHinh_thuc_thanh_toan() == 0 && hoaDon.getHinh_thuc_mua() == 1) {
-            LocalDate currentDate = LocalDate.now();
-            hoaDon.setNgay_thanh_toan(currentDate);
-            hoaDon.setTrangthai(5);
-            hoaDonRepo.createHoaDon(hoaDon);
-            QuyDoiDiem quyDoiDiem = quyDoiDiemDAO.getQuyDoiDiemByTT1();
-            if (hoaDon.getKhachHang() != null) {
-                ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
-                LichSuTieuDiem lichSuTieuDiem = new LichSuTieuDiem();
-                lichSuTieuDiem.setTrangthai(1);
-                lichSuTieuDiem.setVi_diem(viDiem);
-                lichSuTieuDiem.setHoa_don(hoaDon);
-                lichSuTieuDiem.setNgay_su_dung(LocalDate.now());
-                lichSuTieuDiem.setQuy_doi_diem(quyDoiDiemDAO.getQuyDoiDiemByTT1());
-                lichSuTieuDiem.setSo_diem_da_dung(hoaDon.getSo_diem_su_dung());
-                Integer soDiemCong = hoaDon.getTong_tien().divide(quyDoiDiem.getSo_tien_tuong_ung()).multiply(new BigDecimal(quyDoiDiem.getSo_diem_tuong_ung())).intValue();
-                lichSuTieuDiem.setSo_diem_cong(soDiemCong);
-                lichSuTieuDiemDAO.save(lichSuTieuDiem);
-//                viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong()+soDiemCong);
-                viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() + hoaDon.getSo_diem_su_dung());
-                viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
-                viDiemDAO.save(viDiem);
-            }
-            return "redirect:/admin/ban-hang";
-
-        }else if(hoaDon.getHinh_thuc_thanh_toan() == 1 && hoaDon.getHinh_thuc_mua() == 1){
-            LocalDate currentDate = LocalDate.now();
-            hoaDon.setNgay_thanh_toan(currentDate);
-            hoaDon.setTrangthai(5);
-            hoaDonRepo.createHoaDon(hoaDon);
-            QuyDoiDiem quyDoiDiem = quyDoiDiemDAO.getQuyDoiDiemByTT1();
-            if (hoaDon.getKhachHang() != null) {
-                ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
-                LichSuTieuDiem lichSuTieuDiem = new LichSuTieuDiem();
-                lichSuTieuDiem.setTrangthai(1);
-                lichSuTieuDiem.setVi_diem(viDiem);
-                lichSuTieuDiem.setHoa_don(hoaDon);
-                lichSuTieuDiem.setNgay_su_dung(LocalDate.now());
-                lichSuTieuDiem.setQuy_doi_diem(quyDoiDiemDAO.getQuyDoiDiemByTT1());
-                lichSuTieuDiem.setSo_diem_da_dung(hoaDon.getSo_diem_su_dung());
-                Integer soDiemCong = hoaDon.getTong_tien().divide(quyDoiDiem.getSo_tien_tuong_ung()).multiply(new BigDecimal(quyDoiDiem.getSo_diem_tuong_ung())).intValue();
-                lichSuTieuDiem.setSo_diem_cong(soDiemCong);
-                lichSuTieuDiemDAO.save(lichSuTieuDiem);
-//                viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong()+soDiemCong);
-                viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() + hoaDon.getSo_diem_su_dung());
-                viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
-                viDiemDAO.save(viDiem);
-            }
-            return "redirect:/admin/ban-hang";
 
         }
         return "redirect:/admin/ban-hang";

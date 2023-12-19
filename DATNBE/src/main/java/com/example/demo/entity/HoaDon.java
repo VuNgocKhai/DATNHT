@@ -68,6 +68,8 @@ public class HoaDon implements Serializable {
 
     private Integer hinh_thuc_thanh_toan;
 
+    private Integer hinh_thuc_nhan_hang;
+
     private BigDecimal so_tien_giam;
 
     private BigDecimal phi_ship;
