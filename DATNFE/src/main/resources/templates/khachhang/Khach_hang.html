@@ -384,6 +384,7 @@
                         <th scope="col">Ngày Sinh</th>
                         <th scope="col">Số Điện Thoại</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Điểm hiện có</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -394,6 +395,7 @@
                         <td>[[${item.ngaysinh}]]</td>
                         <td>[[${item.sdt}]]</td>
                         <td>[[${item.email}]]</td>
+                        <td th:text="${item.viDiems != null ? item.viDiems.tong_diem : '0'}"></td>
                         <td th:text="${item.trangthai == 1 ? 'Đang Hoạt Động' : 'Không Hoạt Động'}"></td>
                         <td>
                             <a class="btn-sm btn-warning" th:href="@{|/admin/khachhang/detail/${item.ma}|}"><i

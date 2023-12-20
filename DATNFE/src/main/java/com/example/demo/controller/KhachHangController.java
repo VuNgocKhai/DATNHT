@@ -6,6 +6,9 @@ import com.example.demo.entity.NhanVien;
 import com.example.demo.entity.PageDTO;
 import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -48,7 +51,8 @@ public class KhachHangController {
     public String index(@ModelAttribute("khachhang") KhachHang khachHang
                         ,@RequestParam("page") Optional<Integer> pageNumber , Model model
                         ,@RequestParam("keyword") Optional<String> keyword) {
-        PageDTO<KhachHang> page1 = khachHangRepo.searchAndPaginate(pageNumber.orElse(0),"%" +keyword.orElse("") + "%");
+        Pageable pageable = PageRequest.of(pageNumber.orElse(0), 5);
+        Page<KhachHang> page1 = khachHangDao.search("%" +keyword.orElse("") + "%",pageable);
         model.addAttribute("i", 0);
         model.addAttribute("listPKhachhang", page1);
         model.addAttribute("keyword", keyword.orElse(""));

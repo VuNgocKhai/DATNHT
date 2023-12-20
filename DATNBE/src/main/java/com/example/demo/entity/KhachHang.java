@@ -50,6 +50,6 @@ public class KhachHang implements Serializable {
     private Integer trangthai;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "khach_hang")
+    @OneToOne(mappedBy = "khach_hang", fetch = FetchType.EAGER)
     private ViDiem viDiems;
 }

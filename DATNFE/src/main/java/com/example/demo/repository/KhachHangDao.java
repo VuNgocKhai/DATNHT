@@ -55,8 +55,6 @@ public interface KhachHangDao extends JpaRepository<KhachHang, UUID> {
     @Query("select p from KhachHang p where p.hoten like ?1 or p.sdt like ?1 or p.email like ?1")
     Page<KhachHang> getSearchkhachhang(String keyword, Pageable pageable);
 
-    @Query(value = "SELECT kh.*, vd.tong_diem, vd.so_diem_da_dung, vd.so_diem_da_cong\n" +
-            "FROM khach_hang kh\n" +
-            "LEFT JOIN vi_diem vd ON kh.id = vd.id_khach_hang",nativeQuery = true)
-    List<Object[]> getKhachHangBydiem();
+    @Query("select kh from KhachHang  kh where kh.hoten like ?1 or kh.sdt like ?1 or  kh.ma like ?1")
+    Page<KhachHang> search( String keyword, Pageable pageable);
 }
