@@ -2,7 +2,6 @@
 go
 create database website_ban_giay
 go
-select *from hoa_don
 use website_ban_giay
 go
 create table thuong_hieu (
@@ -89,7 +88,7 @@ create table kich_co (
 )
 create table giay_chi_tiet (
 	id uniqueidentifier primary key default newid(),
-	qr_code nvarchar(100) unique,
+	qr_code nvarchar(100),
 	id_giay uniqueidentifier,
 	id_kich_co uniqueidentifier,
 	so_luong_ton int default null,
@@ -248,12 +247,10 @@ create table hoa_don (
 	sdt_nguoi_nhan nvarchar(255) null,
 	dia_chi nvarchar(255) null,
 	tong_tien decimal,
-	select * from hoa_don 
 	hinh_thuc_mua int,		--1 online 0 offline
 	hinh_thuc_thanh_toan int, --1 online 0 Tiền mặt 3 Khi nhận hàng
 	hinh_thuc_nhan_hang int, --0 giao hàng --1 tại quầy
 	so_tien_giam money,
-	hinh_thuc_nhan_hang int,
 	phi_ship money,
 	so_diem_su_dung int,
 	so_tien_quy_doi int,
@@ -331,17 +328,17 @@ GO
 INSERT [dbo].[nhan_vien] ([id], [ma], [ho_ten], [ngay_sinh], [dia_chi], [xa], [huyen], [thanh_pho], [anh], [sdt], [email], [id_chuc_vu], [mat_khau], [ngay_vao_lam], [ngay_nghi_viec], [trangthai]) VALUES (N'9d8372b8-aaa4-464a-a938-3c6927210010', N'NV01', N'Nguyễn Văn Đạt', CAST(N'2003-12-12' AS Date), N'Cấn Hữu-Quốc Oai-Hà Nội', NULL, NULL, NULL, 'avatar.jpg', N'0385090080', N'nv01@gmail.com', N'f09e9132-7f9e-48bd-a30c-e58c9e16717e', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq', CAST(N'2020-12-12' AS Date), NULL, 1)
 INSERT [dbo].[nhan_vien] ([id], [ma], [ho_ten], [ngay_sinh], [dia_chi], [xa], [huyen], [thanh_pho], [anh], [sdt], [email], [id_chuc_vu], [mat_khau], [ngay_vao_lam], [ngay_nghi_viec], [trangthai]) VALUES (N'5d89f310-6d41-41ee-b5b8-57f5b6db7a9a', N'NV02', N'Hoàng Đại Ka', CAST(N'2003-09-09' AS Date), N'Cấn Hữu-Quốc Oai-Hà Nội', NULL, NULL, NULL, 'avatar.jpg', N'0385090080', N'nv02@gmail.com', N'f09e9132-7f9e-48bd-a30c-e58c9e16717e', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq', CAST(N'2023-09-12' AS Date), NULL, 1)
 GO
-INSERT [dbo].[chuong_tring_giam_gia_san_pham] ([id], [ma], [ten], [phan_tram_giam], [ngay_bat_dau], [ngay_ket_thuc], [id_nhan_vien_create], [id_nhan_vien_update], [trangthai]) VALUES (N'f00c57e5-b909-4ce4-b252-2fb5db12f181', N'GGSP02', N'Mừng 8-3', 20, CAST(N'2023-11-06' AS Date), CAST(N'2023-12-12' AS Date), N'9d8372b8-aaa4-464a-a938-3c6927210010', N'5d89f310-6d41-41ee-b5b8-57f5b6db7a9a', 1)
-INSERT [dbo].[chuong_tring_giam_gia_san_pham] ([id], [ma], [ten], [phan_tram_giam], [ngay_bat_dau], [ngay_ket_thuc], [id_nhan_vien_create], [id_nhan_vien_update], [trangthai]) VALUES (N'952d1932-0bb0-4259-bad8-5e373e0bc427', N'GGSP01', N'Mừng Quốc Khánh', 10, CAST(N'2023-11-06' AS Date), CAST(N'2023-12-12' AS Date), N'9d8372b8-aaa4-464a-a938-3c6927210010', N'5d89f310-6d41-41ee-b5b8-57f5b6db7a9a', 1)
-INSERT [dbo].[chuong_tring_giam_gia_san_pham] ([id], [ma], [ten], [phan_tram_giam], [ngay_bat_dau], [ngay_ket_thuc], [id_nhan_vien_create], [id_nhan_vien_update], [trangthai]) VALUES (N'74e890cd-8e00-4094-bcda-9eedc589be4a', N'GGSP04', N'Mừng 20-11', 13, CAST(N'2023-11-06' AS Date), CAST(N'2023-12-12' AS Date), N'5d89f310-6d41-41ee-b5b8-57f5b6db7a9a', N'5d89f310-6d41-41ee-b5b8-57f5b6db7a9a', 1)
-INSERT [dbo].[chuong_tring_giam_gia_san_pham] ([id], [ma], [ten], [phan_tram_giam], [ngay_bat_dau], [ngay_ket_thuc], [id_nhan_vien_create], [id_nhan_vien_update], [trangthai]) VALUES (N'cd909688-7796-4afd-9943-a1410acd9999', N'GGSP03', N'Mừng Tết', 15, CAST(N'2023-11-06' AS Date), CAST(N'2023-12-12' AS Date), N'9d8372b8-aaa4-464a-a938-3c6927210010', N'5d89f310-6d41-41ee-b5b8-57f5b6db7a9a', 1)
-INSERT [dbo].[chuong_tring_giam_gia_san_pham] ([id], [ma], [ten], [phan_tram_giam], [ngay_bat_dau], [ngay_ket_thuc], [id_nhan_vien_create], [id_nhan_vien_update], [trangthai]) VALUES (N'b8cfdf48-7f88-40ba-a227-cc72e40a0294', N'GGSP05', N'Mừng 9-11', 17, CAST(N'2023-11-06' AS Date), CAST(N'2023-12-12' AS Date), N'5d89f310-6d41-41ee-b5b8-57f5b6db7a9a', N'5d89f310-6d41-41ee-b5b8-57f5b6db7a9a', 1)
+INSERT [dbo].[chuong_tring_giam_gia_san_pham] ([id], [ma], [ten], [phan_tram_giam], [ngay_bat_dau], [ngay_ket_thuc], [id_nhan_vien_create], [id_nhan_vien_update], [trangthai]) VALUES (N'f00c57e5-b909-4ce4-b252-2fb5db12f181', N'GGSP02', N'Mừng 8-3', 20, CAST(N'2023-11-06' AS Date), CAST(N'2024-12-12' AS Date), N'9d8372b8-aaa4-464a-a938-3c6927210010', N'5d89f310-6d41-41ee-b5b8-57f5b6db7a9a', 1)
+INSERT [dbo].[chuong_tring_giam_gia_san_pham] ([id], [ma], [ten], [phan_tram_giam], [ngay_bat_dau], [ngay_ket_thuc], [id_nhan_vien_create], [id_nhan_vien_update], [trangthai]) VALUES (N'952d1932-0bb0-4259-bad8-5e373e0bc427', N'GGSP01', N'Mừng Quốc Khánh', 10, CAST(N'2023-11-06' AS Date), CAST(N'2024-12-12' AS Date), N'9d8372b8-aaa4-464a-a938-3c6927210010', N'5d89f310-6d41-41ee-b5b8-57f5b6db7a9a', 1)
+INSERT [dbo].[chuong_tring_giam_gia_san_pham] ([id], [ma], [ten], [phan_tram_giam], [ngay_bat_dau], [ngay_ket_thuc], [id_nhan_vien_create], [id_nhan_vien_update], [trangthai]) VALUES (N'74e890cd-8e00-4094-bcda-9eedc589be4a', N'GGSP04', N'Mừng 20-11', 13, CAST(N'2023-11-06' AS Date), CAST(N'2024-12-12' AS Date), N'5d89f310-6d41-41ee-b5b8-57f5b6db7a9a', N'5d89f310-6d41-41ee-b5b8-57f5b6db7a9a', 1)
+INSERT [dbo].[chuong_tring_giam_gia_san_pham] ([id], [ma], [ten], [phan_tram_giam], [ngay_bat_dau], [ngay_ket_thuc], [id_nhan_vien_create], [id_nhan_vien_update], [trangthai]) VALUES (N'cd909688-7796-4afd-9943-a1410acd9999', N'GGSP03', N'Mừng Tết', 15, CAST(N'2023-11-06' AS Date), CAST(N'2024-12-12' AS Date), N'9d8372b8-aaa4-464a-a938-3c6927210010', N'5d89f310-6d41-41ee-b5b8-57f5b6db7a9a', 1)
+INSERT [dbo].[chuong_tring_giam_gia_san_pham] ([id], [ma], [ten], [phan_tram_giam], [ngay_bat_dau], [ngay_ket_thuc], [id_nhan_vien_create], [id_nhan_vien_update], [trangthai]) VALUES (N'b8cfdf48-7f88-40ba-a227-cc72e40a0294', N'GGSP05', N'Mừng 9-11', 17, CAST(N'2023-11-06' AS Date), CAST(N'2024-12-12' AS Date), N'5d89f310-6d41-41ee-b5b8-57f5b6db7a9a', N'5d89f310-6d41-41ee-b5b8-57f5b6db7a9a', 1)
 GO
-INSERT [dbo].[hang_khach_hang] ([id], [ma], [ten],[dieu_kien], [trangthai]) VALUES (N'5b52f69d-5508-4745-926f-a22f9907e523', N'HKH01', N'Thành Viên',0, 1)
-INSERT [dbo].[hang_khach_hang] ([id], [ma], [ten],[dieu_kien], [trangthai]) VALUES (N'4b52f69d-5508-4745-926f-a22f9907e523', N'HKH02', N'Đồng',10000000, 1)
-INSERT [dbo].[hang_khach_hang] ([id], [ma], [ten],[dieu_kien], [trangthai]) VALUES (N'3b52f69d-5508-4745-926f-a22f9907e523', N'HKH03', N'Bạc',25000000, 1)
-INSERT [dbo].[hang_khach_hang] ([id], [ma], [ten],[dieu_kien], [trangthai]) VALUES (N'3b52f69d-5508-4745-926f-a22f9907e524', N'HKH04', N'Vàng',50000000, 1)
-INSERT [dbo].[hang_khach_hang] ([id], [ma], [ten],[dieu_kien], [trangthai]) VALUES (N'3b52f69d-5508-4745-926f-a22f9907e525', N'HKH05', N'Bạch Kim',100000000, 1)
+INSERT [dbo].[hang_khach_hang] ([id], [ma], [ten],[dieu_kien], [trangthai]) VALUES (N'5b52f69d-5508-4745-926f-a22f9907e523', N'HKH1', N'Thành Viên',0, 1)
+INSERT [dbo].[hang_khach_hang] ([id], [ma], [ten],[dieu_kien], [trangthai]) VALUES (N'4b52f69d-5508-4745-926f-a22f9907e523', N'HKH2', N'Đồng',10000000, 1)
+INSERT [dbo].[hang_khach_hang] ([id], [ma], [ten],[dieu_kien], [trangthai]) VALUES (N'3b52f69d-5508-4745-926f-a22f9907e523', N'HKH3', N'Bạc',25000000, 1)
+INSERT [dbo].[hang_khach_hang] ([id], [ma], [ten],[dieu_kien], [trangthai]) VALUES (N'3b52f69d-5508-4745-926f-a22f9907e524', N'HKH4', N'Vàng',50000000, 1)
+INSERT [dbo].[hang_khach_hang] ([id], [ma], [ten],[dieu_kien], [trangthai]) VALUES (N'3b52f69d-5508-4745-926f-a22f9907e525', N'HKH5', N'Bạch Kim',100000000, 1)
 
 GO
 INSERT [dbo].[quy_doi_diem] ([id], [so_tien_tuong_ung], [so_diem_tuong_ung], [trangthai]) VALUES (N'1b52f69d-5508-4745-926f-a22f9907e523', 1000, 10, 1)
@@ -351,6 +348,7 @@ INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [
 INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [email], [mat_khau],[id_hkh], [trangthai]) VALUES (N'019427f5-1e52-402f-b5dc-ec17ad5f139a', N'KH02', 'avatar.jpg', N'Nguyễn Đại', CAST(N'2003-08-08' AS Date), N'0387090080', N'kh02@gmail.com', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',N'5b52f69d-5508-4745-926f-a22f9907e523', 1)
 INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [email], [mat_khau],[id_hkh], [trangthai]) VALUES (N'22b427f5-1e52-402f-b5dc-ec17ad5f139a', N'KH03', 'avatar.jpg', N'Đào Gia Phong', CAST(N'2003-09-16' AS Date), N'0385370656', N'kh03@gmail.com', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',N'5b52f69d-5508-4745-926f-a22f9907e523', 1)
 GO
+
 	INSERT INTO website_ban_giay.dbo.thuong_hieu (id,ma,ten,trangthai,ten_url) VALUES
 	 (N'F6F425A0-AD73-421F-B76B-09787A50808F',N'TH07',N'Gucci',1,N'Logogucci.jpg'),
 	 (N'C41E486F-1EB2-40FD-9D2A-1F8F12298488',N'TH08',N'Calvin Klein',1,N'Logocalvin klein.jpg'),
@@ -548,8 +546,8 @@ INSERT [dbo].[dia_chi] ([id], [ma], [id_khach_hang], [ten_dia_chi], [ten_nguoi_n
 INSERT [dbo].[dia_chi] ([id], [ma], [id_khach_hang], [ten_dia_chi], [ten_nguoi_nhan], [sdt_nguoi_nhan], [xa], [huyen], [thanh_pho], [trangthai]) VALUES (N'1b1d2309-170b-46ca-b4a8-60c8e78d7962', N'DC02', N'bb772ace-91ff-4cbe-83de-ea5e80fa3843', N'Xóm 3 Triều Đông', N'Nguyễn An Nhiên', N'0385090080', N'Xã Tân Minh', N'Huyện Thường Tín', N'Thành phố Hà Nội', 0)
 INSERT [dbo].[dia_chi] ([id], [ma], [id_khach_hang], [ten_dia_chi], [ten_nguoi_nhan], [sdt_nguoi_nhan], [xa], [huyen], [thanh_pho], [trangthai]) VALUES (N'db77537f-1e64-4850-b464-d570cf525128', N'DC04', N'019427f5-1e52-402f-b5dc-ec17ad5f139a', N'Xóm 4 Triều Đông', N'Nguyễn Phan Can', N'0385090080', N'Xã Tân Minh', N'Huyện Thường Tín', N'Thành phố Hà Nội', 1)
 INSERT [dbo].[dia_chi] ([id], [ma], [id_khach_hang], [ten_dia_chi], [ten_nguoi_nhan], [sdt_nguoi_nhan], [xa], [huyen], [thanh_pho], [trangthai]) VALUES (N'ffa06f58-24f6-47e5-81bf-e30725a85957', N'DC03', N'bb772ace-91ff-4cbe-83de-ea5e80fa3843', N'Xóm 5 Triều Đông', N'Nguyễn Thành Đạt', N'0385090080', N'Xã Tân Minh', N'Huyện Thường Tín', N'Thành phố Hà Nội', 0)
-INSERT [dbo].[dia_chi] ([id], [ma], [id_khach_hang], [ten_dia_chi], [ten_nguoi_nhan], [sdt_nguoi_nhan], [xa], [huyen], [thanh_pho], [trangthai]) VALUES (N'faa06f58-24f6-47e5-81bf-e30725a85957', N'DC03', N'22B427F5-1E52-402F-B5DC-EC17AD5F139A', N'Xóm 6 Triều Đông', N'Nguyễn Thị Linh', N'0385090080', N'Xã Tân Minh', N'Huyện Thường Tín', N'Thành phố Hà Nội', 0)
-INSERT [dbo].[dia_chi] ([id], [ma], [id_khach_hang], [ten_dia_chi], [ten_nguoi_nhan], [sdt_nguoi_nhan], [xa], [huyen], [thanh_pho], [trangthai]) VALUES (N'fba06f58-24f6-47e5-81bf-e30725a85957', N'DC03', N'22B427F5-1E52-402F-B5DC-EC17AD5F139A', N'Xóm 7 Triều Đông', N'Nguyễn Văn Anh', N'0385090080', N'Xã Tân Minh', N'Huyện Thường Tín', N'Thành phố Hà Nội', 1)
+INSERT [dbo].[dia_chi] ([id], [ma], [id_khach_hang], [ten_dia_chi], [ten_nguoi_nhan], [sdt_nguoi_nhan], [xa], [huyen], [thanh_pho], [trangthai]) VALUES (N'faa06f58-24f6-47e5-81bf-e30725a85957', N'DC05', N'22B427F5-1E52-402F-B5DC-EC17AD5F139A', N'Xóm 6 Triều Đông', N'Nguyễn Thị Linh', N'0385090080', N'Xã Tân Minh', N'Huyện Thường Tín', N'Thành phố Hà Nội', 0)
+INSERT [dbo].[dia_chi] ([id], [ma], [id_khach_hang], [ten_dia_chi], [ten_nguoi_nhan], [sdt_nguoi_nhan], [xa], [huyen], [thanh_pho], [trangthai]) VALUES (N'fba06f58-24f6-47e5-81bf-e30725a85957', N'DC07', N'22B427F5-1E52-402F-B5DC-EC17AD5F139A', N'Xóm 7 Triều Đông', N'Nguyễn Văn Anh', N'0385090080', N'Xã Tân Minh', N'Huyện Thường Tín', N'Thành phố Hà Nội', 1)
 GO
 INSERT [dbo].[gio_hang] ([id], [ma], [id_khach_hang], [ngay_tao], [ngay_cap_nhap], [ghi_chu], [trangthai]) VALUES (N'd40a87d4-f3ff-4f92-8394-f793f75b1639', N'GH01', N'bb772ace-91ff-4cbe-83de-ea5e80fa3843', CAST(N'2023-11-06' AS Date), CAST(N'2023-11-06' AS Date), N'1', 1)
 INSERT [dbo].[gio_hang] ([id], [ma], [id_khach_hang], [ngay_tao], [ngay_cap_nhap], [ghi_chu], [trangthai]) VALUES (N'e40a87d4-f3ff-4f92-8394-f793f75b1639', N'GH02', N'019427F5-1E52-402F-B5DC-EC17AD5F139A', CAST(N'2023-11-06' AS Date), CAST(N'2023-11-06' AS Date), N'1', 1)
@@ -806,11 +804,11 @@ GO
 INSERT [dbo].[gio_hang_chi_tiet] ([id], [id_gio_hang], [id_giay_chi_tiet], [so_luong], [ghi_chu], [trangthai]) VALUES (N'3a2e4da9-49e0-4a2c-9cd7-1531f08c007c', N'd40a87d4-f3ff-4f92-8394-f793f75b1639', N'e4f458cf-98d0-f847-bb59-07ae707f25bd', 3, N'1', 1)
 INSERT [dbo].[gio_hang_chi_tiet] ([id], [id_gio_hang], [id_giay_chi_tiet], [so_luong], [ghi_chu], [trangthai]) VALUES (N'b897ac00-69f7-4e49-8595-89124cc42e45', N'd40a87d4-f3ff-4f92-8394-f793f75b1639', N'0f034cf9-8d35-1846-bbfb-087be7ab5dc0', 5, N'1', 1)
 GO
-INSERT [dbo].[chuong_trinh_giam_gia_hoa_don] ([id], [ma], [ten], [dieu_kien], [so_tien_giam_max], [ngay_bat_dau], [ngay_ket_thuc], [phan_tram_giam], [so_luong], [trangthai]) VALUES (N'fa64aca7-fa74-444b-ba3c-240bb4557ffc', N'GGHD02', N'Giảm 9%', CAST(2000000 AS Decimal(18, 0)), CAST(200000 AS Decimal(18, 0)), CAST(N'2023-11-06' AS Date), CAST(N'2023-12-12' AS Date), 9, 20, 1)
-INSERT [dbo].[chuong_trinh_giam_gia_hoa_don] ([id], [ma], [ten], [dieu_kien], [so_tien_giam_max], [ngay_bat_dau], [ngay_ket_thuc], [phan_tram_giam], [so_luong], [trangthai]) VALUES (N'a05db32f-15a7-4684-9cff-59700bc5404b', N'GGHD05', N'Giảm 3%', CAST(2000000 AS Decimal(18, 0)), CAST(200000 AS Decimal(18, 0)), CAST(N'2023-11-06' AS Date), CAST(N'2023-12-12' AS Date), 3, 20, 1)
-INSERT [dbo].[chuong_trinh_giam_gia_hoa_don] ([id], [ma], [ten], [dieu_kien], [so_tien_giam_max], [ngay_bat_dau], [ngay_ket_thuc], [phan_tram_giam], [so_luong], [trangthai]) VALUES (N'1e6af3a2-918f-4c8d-86eb-8685ecd53a57', N'GGHD01', N'Giảm 10%', CAST(5000000 AS Decimal(18, 0)), CAST(500000 AS Decimal(18, 0)), CAST(N'2023-11-06' AS Date), CAST(N'2023-12-12' AS Date), 10, 20, 1)
-INSERT [dbo].[chuong_trinh_giam_gia_hoa_don] ([id], [ma], [ten], [dieu_kien], [so_tien_giam_max], [ngay_bat_dau], [ngay_ket_thuc], [phan_tram_giam], [so_luong], [trangthai]) VALUES (N'b8f5b69e-14af-45ac-82ac-a6802430c7ed', N'GGHD04', N'Giảm 8%', CAST(1000000 AS Decimal(18, 0)), CAST(200000 AS Decimal(18, 0)), CAST(N'2023-11-06' AS Date), CAST(N'2023-12-12' AS Date), 8, 20, 1)
-INSERT [dbo].[chuong_trinh_giam_gia_hoa_don] ([id], [ma], [ten], [dieu_kien], [so_tien_giam_max], [ngay_bat_dau], [ngay_ket_thuc], [phan_tram_giam], [so_luong], [trangthai]) VALUES (N'0b4a4dc3-8ff0-41ac-85e3-ab76a3238611', N'GGHD03', N'Giảm 5%', CAST(1000000 AS Decimal(18, 0)), CAST(100000 AS Decimal(18, 0)), CAST(N'2023-11-06' AS Date), CAST(N'2023-12-12' AS Date), 5, 20, 1)
+INSERT [dbo].[chuong_trinh_giam_gia_hoa_don] ([id], [ma], [ten], [dieu_kien], [so_tien_giam_max], [ngay_bat_dau], [ngay_ket_thuc], [phan_tram_giam], [so_luong], [trangthai]) VALUES (N'fa64aca7-fa74-444b-ba3c-240bb4557ffc', N'GGHD02', N'Giảm 9%', CAST(2000000 AS Decimal(18, 0)), CAST(200000 AS Decimal(18, 0)), CAST(N'2023-11-06' AS Date), CAST(N'2024-12-12' AS Date), 9, 20, 1)
+INSERT [dbo].[chuong_trinh_giam_gia_hoa_don] ([id], [ma], [ten], [dieu_kien], [so_tien_giam_max], [ngay_bat_dau], [ngay_ket_thuc], [phan_tram_giam], [so_luong], [trangthai]) VALUES (N'a05db32f-15a7-4684-9cff-59700bc5404b', N'GGHD05', N'Giảm 3%', CAST(2000000 AS Decimal(18, 0)), CAST(200000 AS Decimal(18, 0)), CAST(N'2023-11-06' AS Date), CAST(N'2024-12-12' AS Date), 3, 20, 1)
+INSERT [dbo].[chuong_trinh_giam_gia_hoa_don] ([id], [ma], [ten], [dieu_kien], [so_tien_giam_max], [ngay_bat_dau], [ngay_ket_thuc], [phan_tram_giam], [so_luong], [trangthai]) VALUES (N'1e6af3a2-918f-4c8d-86eb-8685ecd53a57', N'GGHD01', N'Giảm 10%', CAST(5000000 AS Decimal(18, 0)), CAST(500000 AS Decimal(18, 0)), CAST(N'2023-11-06' AS Date), CAST(N'2024-12-12' AS Date), 10, 20, 1)
+INSERT [dbo].[chuong_trinh_giam_gia_hoa_don] ([id], [ma], [ten], [dieu_kien], [so_tien_giam_max], [ngay_bat_dau], [ngay_ket_thuc], [phan_tram_giam], [so_luong], [trangthai]) VALUES (N'b8f5b69e-14af-45ac-82ac-a6802430c7ed', N'GGHD04', N'Giảm 8%', CAST(1000000 AS Decimal(18, 0)), CAST(200000 AS Decimal(18, 0)), CAST(N'2023-11-06' AS Date), CAST(N'2024-12-12' AS Date), 8, 20, 1)
+INSERT [dbo].[chuong_trinh_giam_gia_hoa_don] ([id], [ma], [ten], [dieu_kien], [so_tien_giam_max], [ngay_bat_dau], [ngay_ket_thuc], [phan_tram_giam], [so_luong], [trangthai]) VALUES (N'0b4a4dc3-8ff0-41ac-85e3-ab76a3238611', N'GGHD03', N'Giảm 5%', CAST(1000000 AS Decimal(18, 0)), CAST(100000 AS Decimal(18, 0)), CAST(N'2023-11-06' AS Date), CAST(N'2024-12-12' AS Date), 5, 20, 1)
 GO
 INSERT [dbo].[gio_hang_san_pham_yeu_thich_chi_tiet] ([id], [id_gio_hang_san_pham_yeu_thich], [id_giay], [ngay_tao], [trangthai]) VALUES (N'fc1c9ba0-01e9-b044-9e51-8ceee4eb96c5', N'72ae816c-5fe7-6b42-8971-4fd24759445c', N'c00d80a0-1adb-7845-9f3b-9ac42c2e2d1c', CAST(N'2023-11-10' AS Date), 1)
 GO
@@ -1029,23 +1027,3 @@ INSERT [dbo].[anh_giay] ([id], [ten_url], [id_giay], [trangthai]) VALUES (N'2286
 INSERT [dbo].[anh_giay] ([id], [ten_url], [id_giay], [trangthai]) VALUES (N'c9132e1f-80e1-8946-945f-fdc44e8194a8', N'Adidas2.jpg', N'6942e418-c92f-d945-85ab-74a6a381a95d', NULL)
 INSERT [dbo].[anh_giay] ([id], [ten_url], [id_giay], [trangthai]) VALUES (N'b28d3cfa-9f19-9a49-9dd4-fe0abcf42cf9', N'nike2_3.jpg', N'12300a57-8b03-2846-927e-6cfc2ae3b52e', NULL)
 INSERT [dbo].[anh_giay] ([id], [ten_url], [id_giay], [trangthai]) VALUES (N'07267569-3361-5a47-ad78-fecfd9c220e4', N'ysl3_2.jpg', N'3af55b31-a9a6-e548-a8f7-6e598f233d98', NULL)
-GO
-
-select * from gio_hang
-delete vi_diem
-select * from hoa_don where trangthai = 0
-select * from hoa_don_chi_tiet
-select * from giay
-select * from giay_chi_tiet
-select * from giay_chi_tiet where id ='8ADF9BDF-D25B-BB4F-9875-0408037556E1'
-select * from giay where id ='A0E7FE26-C8E0-B348-AC67-6440F74B2B08'
-select * from giay_chi_tiet
-select * from kich_co
-delete from hoa_don_chi_tiet
-delete from hoa_don
-
-
-select * from chuong_trinh_giam_gia_chi_tiet_hoa_don
-
-Alter table hoa_don
-add hinh_thuc_nhan_hang int;
