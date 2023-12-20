@@ -309,6 +309,7 @@
                     <table class="table table-hover custom-table" style="margin: 20px 0;">
                         <thead class="thead-light">
                         <tr>
+                            <th scope="col">Thao tác</th>
                             <th scope="col">Mã</th>
                             <th scope="col">Ảnh</th>
                             <th scope="col">Tên sản phẩm</th>
@@ -322,12 +323,17 @@
                             <th scope="col">Giá nhập</th>
                             <th scope="col">Giá bán</th>
                             <th scope="col">Trạng thái</th>
-                            <th scope="col">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="sp:${items.content}">
-                            <th scope="row">[[${sp.ma}]]</th>
+                            <th scope="row">
+                                <a class="btn-sm btn-warning" style="text-align: center"
+                                   th:href="@{|/admin/sanpham/update/${sp.ma}|}">
+                                    <i style="color: white" class="bi bi-eye"></i>
+                                </a>
+                            </th>
+                            <th scope="col">[[${sp.ma}]]</th>
                             <th scope="col"><img style="width: 100px" th:src="@{|/images/${sp.getAnhDau(sp.anhs)}|}" alt=""></th>
                             <th scope="col">[[${sp.ten}]]</th>
                             <th scope="col">[[${sp.chat_lieu.ten}]]</th>
@@ -340,12 +346,7 @@
                             <th scope="col">[[*{#numbers.formatDecimal(sp.gianhap, 0, 'COMMA', 0, 'POINT')}]] ₫</th>
                             <th scope="col">[[*{#numbers.formatDecimal(sp.giaban, 0, 'COMMA', 0, 'POINT')}]] ₫</th>
                             <th scope="col">[[${sp.trangthai==1?'Hoạt Động':'Ngừng Hoạt Động'}]]</th>
-                            <th scope="col">
-                                <a class="btn-sm btn-warning" style="text-align: center"
-                                   th:href="@{|/admin/sanpham/update/${sp.ma}|}">
-                                    <i style="color: white" class="bi bi-eye"></i>
-                                </a>
-                            </th>
+
                         </tr>
                         </tbody>
                     </table>

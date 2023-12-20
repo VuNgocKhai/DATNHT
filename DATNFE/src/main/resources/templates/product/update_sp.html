@@ -152,8 +152,7 @@
         </nav>
         <div class="container-lg bg-light border">
             <div style="padding: 15px">
-                <h4 style="text-transform: uppercase; color: black; font-family: 'Lora'; text-align: center;">UPDATE SẢN
-                    PHẨM</h4>
+                <h4 style="text-transform: uppercase; color: black; font-family: 'Lora'; text-align: center;">CHI TIẾT SẢN PHẨM</h4>
                 <form id="kichcoForm" th:action="@{|/admin/sanpham/update/${sanpham.ma}|}" method="post"
                       th:object="${sanpham}">
                     <input type="text" hidden th:filed="*{id}" th:value="${sanpham.id}">

@@ -16,7 +16,7 @@ class GiamGiaHoaDonScheDule {
     @Autowired
     GiamGiaHoaDonDAO giamGiaHoaDonDAO;
 
-    @Scheduled(cron = "0 * * * * ?") // chạy mỗi phút
+    @Scheduled(fixedRate = 5000)
     public void updateExpiredGiamGiaHoaDon() {
         Date currentDate = new Date();
 
