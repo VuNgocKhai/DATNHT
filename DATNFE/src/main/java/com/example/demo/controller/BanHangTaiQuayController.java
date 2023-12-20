@@ -103,6 +103,17 @@ public class BanHangTaiQuayController {
 
     @Autowired
     LichSuTieuDiemDAO lichSuTieuDiemDAO;
+<<<<<<< Updated upstream
+=======
+    @Autowired
+    private KhachHangDao khachHangDao;
+
+    @Autowired
+    private HangKhachHangDAO hangKhachHangDAO;
+
+    @Autowired
+    GiamgiahodonDao giamgiahodonDao;
+>>>>>>> Stashed changes
 
     // Hiển thị danh sách hóa đơn đang chờ
     @RequestMapping("/admin/ban-hang-tai-quay")

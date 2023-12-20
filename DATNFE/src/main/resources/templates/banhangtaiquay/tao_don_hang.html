@@ -75,7 +75,7 @@
         input[type="number"] {
             -moz-appearance: textfield; /* Firefox */
         }
-      </style>
+    </style>
 </head>
 <body>
 <div class="wrapper d-flex align-items-stretch">
@@ -502,6 +502,7 @@
                             <button class="btn btn-primary">
                                 <i class="bi bi-search"></i>
                             </button>
+<<<<<<< Updated upstream
                         </div>
                         <div style="margin-top: 15px" class="address-card" th:if="${ListGiamGiaHoaDon.isEmpty()}">
                             <i style="font-size: 3rem"
@@ -523,39 +524,73 @@
                                         Đơn Hàng Tối Thiểu: <span style="color: #e3e308" class="giaBan">[[${item.dieu_kien}]]</span>
                                         --
                                         Giảm Tối Đa: <span style="color: #e3e308" class="giaBan">[[${item.so_tien_giam_max}]]</span>
+=======
+                        </form>
+                        <hr>
+                        <table id="ListgiamgiahoadonTable" style="margin-top: 15px" class="table table-hover">
+                            <div style="margin-top: 15px" class="address-card"
+                                 th:if="${ListGiamGiaHoaDon.content.isEmpty()}">
+                                <i style="font-size: 3rem"
+                                   class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>
+                                <div class="text-center">No Data</div>
+                            </div>
+                            <div style="margin-top: 15px" th:each="item:${ListGiamGiaHoaDon.content}"
+                                 th:if="${HoaDonDetail.tong_tien > item.dieu_kien}" class="address-card">
+                                <div class="row">
+                                    <div class="col-2 d-flex justify-content-center align-items-center">
+                                        <img src="https://img.timviec.com.vn/2020/10/voucher-la-gi-3.jpg"
+                                             style="width: 5rem">
+>>>>>>> Stashed changes
                                     </div>
-                                    <div style="color: red">
-                                        Hạn sử dụng: [[${item.ngay_ket_thuc}]]
+                                    <div class="col-7">
+                                        <h6 style="font-weight: 20px">
+                                            Tên chương trình : [[${item.ten}]]
+                                        </h6>
+                                        <div>
+                                            Giảm [[${item.phan_tram_giam}]]% cho hóa đơn
+                                            <br>
+                                            Đơn Hàng Tối Thiểu: <span style="color: #e3e308" class="giaBan">[[${item.dieu_kien}]]</span>
+                                            --
+                                            Giảm Tối Đa: <span style="color: #e3e308" class="giaBan">[[${item.so_tien_giam_max}]]</span>
+                                        </div>
+                                        <div style="color: red">
+                                            Hạn sử dụng: [[${item.ngay_ket_thuc}]]
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-3 d-flex justify-content-center align-items-center">
-                                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-voucher}" method="post"
-                                          class="d-inline">
-                                        <input type="hidden" class="form-control" th:name="maHD"
-                                               th:value="${maHD}">
-                                        <input type="hidden" class="form-control" th:name="maGGHD"
-                                               th:value="${item.ma}">
-                                        <button type="submit" class="btn btn-success"
-                                                style="text-decoration: none"
-                                                th:disabled="${checkGGHD != 1 || detailMaGGHD == item.ma}">
-                                            Chọn
-                                        </button>
-                                    </form>
-                                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/delete}" method="get"
-                                          class="d-inline">
-                                        <input type="hidden" class="form-control" th:name="maHD"
-                                               th:value="${maHD}">
-                                        <input type="hidden" class="form-control" th:name="maGGHD"
-                                               th:value="${item.ma}">
-                                        <button type="submit" class="btn btn-danger"
-                                                style="text-decoration: none"
-                                                th:disabled="${detailMaGGHD != item.ma}">
-                                            Hủy
-                                        </button>
-                                    </form>
+                                    <div class="col-3 d-flex justify-content-center align-items-center">
+                                        <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-voucher}"
+                                              method="post"
+                                              class="d-inline">
+                                            <input type="hidden" class="form-control" th:name="maHD"
+                                                   th:value="${maHD}">
+                                            <input type="hidden" class="form-control" th:name="maGGHD"
+                                                   th:value="${item.ma}">
+                                            <button type="submit" class="btn btn-success"
+                                                    style="text-decoration: none"
+                                                    th:disabled="${checkGGHD != 1 || detailMaGGHD == item.ma}">
+                                                Chọn
+                                            </button>
+                                        </form>
+                                        <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/delete}" method="get"
+                                              class="d-inline">
+                                            <input type="hidden" class="form-control" th:name="maHD"
+                                                   th:value="${maHD}">
+                                            <input type="hidden" class="form-control" th:name="maGGHD"
+                                                   th:value="${item.ma}">
+                                            <button type="submit" class="btn btn-danger"
+                                                    style="text-decoration: none"
+                                                    th:disabled="${detailMaGGHD != item.ma}">
+                                                Hủy
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
+<<<<<<< Updated upstream
                         </div>
+=======
+                        </table>
+>>>>>>> Stashed changes
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
                             </button>
@@ -576,10 +611,10 @@
                         <h5 class="modal-title" id="exampleModalLabel">Quét QR Sản Phẩm</h5>
                     </div>
                     <div class="modal-body">
-                            <div class="video-container">
-                                <video width="460px" id="videoElement" playsinline autoplay></video>
-                                <canvas id="canvasElement" style="display: none;width: 460px"></canvas>
-                            </div>
+                        <div class="video-container">
+                            <video width="460px" id="videoElement" playsinline autoplay></video>
+                            <canvas id="canvasElement" style="display: none;width: 460px"></canvas>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -762,9 +797,14 @@
                                         <input class="form-control giaBan" name="soTienGiam" id="soTienGiam"
                                                th:value="${soTienGiam}" readonly>
                                     </div>
-                                    <div class="col-12" style="margin-top: 10px" th:hidden="${tongDiemQuyDoiHienCo <= 0}">
-                                        <label> <span>Số điểm hiện có là</span>  <input type="text" class="form-control" id="diemHienCo" readonly th:value="${tongDiemQuyDoiHienCo}"> <span>nhập số điểm muốn sử dụng:</span>  </label>
-                                        <input class="form-control giaBan" name="sodiemsudung" id="sodiemsudung" th:value="${sodiemsudung}">
+                                    <div class="col-12" style="margin-top: 10px"
+                                         th:hidden="${tongDiemQuyDoiHienCo <= 0}">
+                                        <label> <span>Số điểm hiện có là</span> <input type="text" class="form-control"
+                                                                                       id="diemHienCo" readonly
+                                                                                       th:value="${tongDiemQuyDoiHienCo}">
+                                            <span>nhập số điểm muốn sử dụng:</span> </label>
+                                        <input class="form-control giaBan" name="sodiemsudung" id="sodiemsudung"
+                                               th:value="${sodiemsudung}">
                                         <span id="Error" class="error-message"></span>
                                     </div>
                                     <div class="col-6" style="margin-top: 10px"
@@ -780,7 +820,8 @@
                                     </div>
                                     <div class="col-6" style="margin-top: 10px;" th:hidden="${KhachHangcheck == null}">
                                         <label>Số điểm tích: </label>
-                                        <input class="form-control giaBan" readonly id="diemTichLuy" name="diemTichLuy" th:value="${diemTichLuy}">
+                                        <input class="form-control giaBan" readonly id="diemTichLuy" name="diemTichLuy"
+                                               th:value="${diemTichLuy}">
                                     </div>
                                     <div class="col-6" style="margin-top: 10px">
                                         <label style="color:red;">Tổng thanh toán:</label>
@@ -788,6 +829,11 @@
                                                name="tongTienSauGiam" id="tongTienSauGiam"
                                                th:value="${TongTienSauGiam}" readonly>
                                     </div>
+<<<<<<< Updated upstream
+=======
+                                    <input type="text" hidden="hidden" th:value="${tien_tuong_ung}" id="tien_tuong_ung">
+                                    <input type="text" hidden="hidden" th:value="${diem_tuong_ung}" id="diem_tuong_ung">
+>>>>>>> Stashed changes
                                 </div>
                             </form>
                         </div>
@@ -976,12 +1022,18 @@
 <script>
     var inputField = document.getElementById('sodiemsudung');
     var inputField1 = document.getElementById('diemHienCo');
-    var inputField2= document.getElementById('sotienquydoi');
+    var inputField2 = document.getElementById('sotienquydoi');
 
     // Thêm sự kiện 'input' vào phần tử input
-    inputField.addEventListener('input', function() {
+    inputField.addEventListener('input', function () {
         clearErrorMessages();
+<<<<<<< Updated upstream
         if (Number.parseInt(inputField.value) > 5000 && Number.parseInt(inputField.value) < Number.parseInt(inputField1.value)){
+=======
+        let tien_tuong_ung = document.getElementById("tien_tuong_ung");
+        let diem_tuong_ung = document.getElementById("diem_tuong_ung");
+        if (Number.parseInt(inputField.value) > 5000 && Number.parseInt(inputField.value) < Number.parseInt(inputField1.value)) {
+>>>>>>> Stashed changes
             // Hành động bạn muốn thực hiện khi có sự kiện input (người dùng nhập thông tin)
             let phiShip = document.getElementById('phiShip').value;
             let tongTienTruocGiam = document.getElementById('tongTienTruocGiam').value;
@@ -990,29 +1042,38 @@
             inputField2.value = inputField.value;
             document.getElementById('tongTienSauGiam').setAttribute('value', String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - Number.parseInt(inputField.value))));
             document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - Number.parseInt(inputField.value)));
+<<<<<<< Updated upstream
+=======
+            let diemCongSau = Math.round((((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - Number.parseInt(inputField.value)) / Number.parseInt(tien_tuong_ung.value)) * Number.parseInt(diem_tuong_ung.value)));
+            console.log('Đã nhập 2: ' + diemCongSau);
+
+>>>>>>> Stashed changes
             console.log('Đã nhập: ' + inputField.value);
         }
-        if (Number.parseInt(inputField.value) < 0){
+        if (Number.parseInt(inputField.value) < 0) {
             displayErrorMessage('Error', 'Số điểm sử dụng phải là số nguyên');
         }
-        if (Number.parseInt(inputField.value) < 5000){
+        if (Number.parseInt(inputField.value) < 5000) {
             displayErrorMessage('Error', 'Số điểm sử dụng tối thiểu là 5000');
         }
-        if (Number.parseInt(inputField.value) > Number.parseInt(inputField1.value)){
+        if (Number.parseInt(inputField.value) > Number.parseInt(inputField1.value)) {
             displayErrorMessage('Error', 'Số điểm sử dụng vượt quá số điểm hiện có');
         }
     });
+
     function displayErrorMessage(elementId, message) {
         var errorElement = document.getElementById(elementId);
         errorElement.innerText = message;
         errorElement.style.color = 'red';
     }
+
     function clearErrorMessages() {
         var errorElements = document.querySelectorAll('.error-message');
         errorElements.forEach(function (element) {
             element.innerText = '';
         });
     }
+
     function callAPIGHN() {
         var divPhiShip = document.getElementById("divPhiShip");
         if (divPhiShip.style.display === "block") {
@@ -1295,6 +1356,12 @@
         checkValue(input);
     }
 </script>
+<<<<<<< Updated upstream
+=======
+<!--end nút tăng giảm số lượng-->
+
+<!--End Ngăn chuyển trang khi chuyển page trong modal-->
+>>>>>>> Stashed changes
 <script>
     $(document).ready(function () {
         // Bắt sự kiện click trên các nút nav
@@ -1334,6 +1401,39 @@
     });
 
 </script>
+<<<<<<< Updated upstream
+=======
+<script>
+    $(document).ready(function () {
+        // Bắt sự kiện click trên các nút nav
+        $('.linkhd1').on('click', function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của nút nav
+
+            // Lấy URL từ thuộc tính th:href của nút nav
+            var url = $(this).attr('href');
+
+            // Gửi yêu cầu AJAX để tải lại nội dung của bảng
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'html', // Đảm bảo rằng bạn đang lấy HTML
+                success: function (data) {
+
+                    $('#ListKhachHangTable').html($(data).find('#ListKhachHangTable').html());
+
+                    // Hiển thị lại modal
+                    $('#exampleModal1').modal('show');
+
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải dữ liệu.');
+                }
+            });
+        });
+    });
+
+</script>
+>>>>>>> Stashed changes
 <!--End Ngăn chuyển trang khi chuyển page trong modal-->
 
 <!--Tìm Kiếm Sản Phẩm Trong Modal-->
@@ -1382,6 +1482,77 @@
 </script>
 <!--End tìm kiếm sản phẩm trong Modal-->
 
+<<<<<<< Updated upstream
+=======
+<!--Tìm Kiếm khách hàng Trong Modal-->
+<script>
+    $(document).ready(function () {
+        // Bắt sự kiện click trên nút Tìm kiếm
+        $('#searchButton1').click(function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của nút Tìm kiếm
+
+            // Lấy URL từ thuộc tính action của biểu mẫu tìm kiếm
+            var url = $('#searchForm').attr('action');
+            // Lấy giá trị từ trường nhập "keyword"
+            var keywordkh = $('#keywordkh').val();
+            // Gửi yêu cầu AJAX để tải lại nội dung của bảng
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: {
+                    keywordkh: keywordkh,
+                },
+                dataType: 'html',
+                success: function (data) {
+                    $('#ListKhachHangTable').html($(data).find('#ListKhachHangTable').html());
+                    // Hiển thị lại modal
+                    $('#exampleModal1').modal('show');
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải dữ liệu.');
+                }
+            });
+        });
+    });
+
+</script>
+<!--End tìm kiếm kh trong Modal-->
+
+<!--Tìm Kiếm voucher Trong Modal-->
+<script>
+    $(document).ready(function () {
+        // Bắt sự kiện click trên nút Tìm kiếm
+        $('#searchButton2').click(function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của nút Tìm kiếm
+
+            // Lấy URL từ thuộc tính action của biểu mẫu tìm kiếm
+            var url = $('#searchForm').attr('action');
+            // Lấy giá trị từ trường nhập "keyword"
+            var searchhd = $('#searchhd').val();
+            // Gửi yêu cầu AJAX để tải lại nội dung của bảng
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: {
+                    searchhd: searchhd,
+                },
+                dataType: 'html',
+                success: function (data) {
+                    $('#ListgiamgiahoadonTable').html($(data).find('#ListgiamgiahoadonTable').html());
+                    // Hiển thị lại modal
+                    $('#exampleModal10').modal('show');
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải dữ liệu.');
+                }
+            });
+        });
+    });
+
+</script>
+<!--End tìm kiếm voucher trong Modal-->
+
+>>>>>>> Stashed changes
 <!--Hiển thị giao diện đơn vị vận chuyển-->
 <script>
 
@@ -1505,7 +1676,7 @@
                     document.getElementById('tongTienSauGiam').setAttribute('value', String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam))));
                     document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam)));
                     ;
-                    document.getElementById('diemTichLuy').setAttribute('value', String(Math.floor(Number(document.getElementById('tongTienSauGiam').value)/10000)));
+                    document.getElementById('diemTichLuy').setAttribute('value', String(Math.floor(Number(document.getElementById('tongTienSauGiam').value) / 10000)));
                     document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam)));
 
                     fetch('/admin/ban-hang-tai-quay/tao-don-hang/add-dia-chi1', {
@@ -1589,86 +1760,86 @@
         const canvas = canvasElement.getContext("2d");
 
         document.getElementById("qrScannerModal").addEventListener("show.bs.modal", function () {
-                canvasElement.style.display = "none";
-                video.style.display = "block";
+            canvasElement.style.display = "none";
+            video.style.display = "block";
 
-                navigator.mediaDevices
-                    .getUserMedia({ video: { facingMode: "environment" } })
-                    .then(function (stream) {
-                        video.srcObject = stream;
-                        video.play();
-                    })
-                    .catch(function (err) {
-                        console.error("Error accessing the camera: ", err);
-                    });
-            });
+            navigator.mediaDevices
+                .getUserMedia({video: {facingMode: "environment"}})
+                .then(function (stream) {
+                    video.srcObject = stream;
+                    video.play();
+                })
+                .catch(function (err) {
+                    console.error("Error accessing the camera: ", err);
+                });
+        });
 
         document.getElementById("qrScannerModal").addEventListener("hide.bs.modal", function () {
-                if (video.srcObject) {
-                    video.srcObject.getTracks().forEach(function (track) {
-                        track.stop();
-                    });
-                }
-            });
+            if (video.srcObject) {
+                video.srcObject.getTracks().forEach(function (track) {
+                    track.stop();
+                });
+            }
+        });
 
         document.getElementById("scanQR").addEventListener("click", function () {
-                canvasElement.style.display = "block";
-                video.style.display = "none";
-                canvasElement.width = video.videoWidth;
-                canvasElement.height = video.videoHeight;
-                canvas.drawImage(
-                    video,
-                    0,
-                    0,
-                    canvasElement.width,
-                    canvasElement.height
-                );
+            canvasElement.style.display = "block";
+            video.style.display = "none";
+            canvasElement.width = video.videoWidth;
+            canvasElement.height = video.videoHeight;
+            canvas.drawImage(
+                video,
+                0,
+                0,
+                canvasElement.width,
+                canvasElement.height
+            );
 
-                const imageData = canvas.getImageData(
-                    0,
-                    0,
-                    canvasElement.width,
-                    canvasElement.height
-                );
-                const code = jsQR(
-                    imageData.data,
-                    imageData.width,
-                    imageData.height
-                );
+            const imageData = canvas.getImageData(
+                0,
+                0,
+                canvasElement.width,
+                canvasElement.height
+            );
+            const code = jsQR(
+                imageData.data,
+                imageData.width,
+                imageData.height
+            );
 
 
-                if (code) {
-                    const qrcode = code.data;
-                    const maHD = document.getElementById("maHoaDon").value;
+            if (code) {
+                const qrcode = code.data;
+                const maHD = document.getElementById("maHoaDon").value;
 
-                    var formData = new FormData();
-                    formData.append('maHD', maHD);
-                    formData.append('qrcode', qrcode);
+                var formData = new FormData();
+                formData.append('maHD', maHD);
+                formData.append('qrcode', qrcode);
 
-                    $.ajax({
-                        type: 'POST',
-                        url: '/admin/ban-hang-tai-quay/tao-don-hang/add-to-cart-by-qr',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (data) {
-                            swal("Success!", "Thành công !", "success")
-                                .then((value) => {
-                                    if (value) {
-                                        window.location.reload();
-                                    }
-                                });
-                        },
-                        error: function (xhr, status, error) {
-                            console.log(xhr.responseText);
-                            alert('An error occurred');
-                        }
-                    });
-                } else {
-                    alert("No QR Code detected!");
-                }
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/ban-hang-tai-quay/tao-don-hang/add-to-cart-by-qr',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        swal("Success!", "Thành công !", "success")
+                            .then((value) => {
+                                if (value) {
+                                    window.location.reload();
+                                }
+                            });
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                        alert('An error occurred');
+                    }
+                });
+            } else {
+                alert("No QR Code detected!");
+            }
 
-            });
+        });
     });
 
 </script>
