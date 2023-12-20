@@ -93,6 +93,26 @@ public class BanHangController {
         return giayDTOList;
     }
 
+    @GetMapping("/getHoaDonChiTiet/{maHoaDon}")
+    @ResponseBody
+    public List<GiayDTO> getHoaDonChiTiet2(@PathVariable String maHoaDon) {
+        List<HoaDonChiTiet> hoaDonChiTiet = hoaDonChiTietDAO.findHoaDonChiTietByMaHD(maHoaDon);
+        List<GiayDTO> giayDTOList = new ArrayList<>();
+
+        for (HoaDonChiTiet hdct : hoaDonChiTiet) {
+            GiayDTO giayDTO = new GiayDTO();
+            giayDTO.setTen(hdct.getGiayChiTiet().getGiay().getTen());
+            giayDTO.setKichCo(hdct.getGiayChiTiet().getKich_co().getTen());
+            giayDTO.setSoLuong(hdct.getSo_luong());
+            giayDTO.setDonGia(hdct.getDon_gia());
+            giayDTO.setAnhDau(hdct.getGiayChiTiet().getGiay().getAnhDau(hdct.getGiayChiTiet().getGiay().getAnhs()));
+
+            giayDTOList.add(giayDTO);
+        }
+
+        return giayDTOList;
+    }
+
     @RequestMapping("/admin/ban-hang/cho-giao-don-hang/{maHD}")
     @Transactional
     public String choGiaoDonHang(@PathVariable("maHD") String maHD) {

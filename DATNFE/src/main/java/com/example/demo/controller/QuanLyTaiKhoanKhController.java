@@ -77,10 +77,10 @@ public class QuanLyTaiKhoanKhController {
                 Files.copy(file.getInputStream(), path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
 
                 // Cập nhật đường dẫn file vào đối tượng khách hàng
-                khachHang.setAvatar( file.getOriginalFilename()); // Đường dẫn tới file ảnh sau khi lưu
+                khachHang.setAvatar(file.getOriginalFilename()); // Đường dẫn tới file ảnh sau khi lưu
             } else {
                 // Nếu không có file mới được chọn, giữ nguyên đường dẫn ảnh hiện tại
-                KhachHang existingKhachHang =  khachHangDao.findById(UUID.fromString(idKh)).get(); // Lấy thông tin khách hàng hiện tại từ database
+                KhachHang existingKhachHang = khachHangDao.findById(UUID.fromString(idKh)).get(); // Lấy thông tin khách hàng hiện tại từ database
                 khachHang.setAvatar(existingKhachHang.getAvatar()); // Sử dụng đường dẫn ảnh hiện tại
             }
 
@@ -113,7 +113,7 @@ public class QuanLyTaiKhoanKhController {
     ) {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
-        if(passwordEncoder.matches(mkCu,khachHang.getMatkhau())){
+        if (passwordEncoder.matches(mkCu, khachHang.getMatkhau())) {
             if (mkMoi.trim().equalsIgnoreCase(mkMoi2.trim())) {
                 khachHang.setMatkhau(passwordEncoder.encode(mkMoi));
                 khachHangRepo.update(String.valueOf(khachHang.getId()), khachHang);
@@ -141,13 +141,12 @@ public class QuanLyTaiKhoanKhController {
 
     @PostMapping("/qltk-kh/them-dia-chi")
     public String themDiaChi(@ModelAttribute DiaChi diaChi) {
-        diaChi.setMadc("DC"+String.valueOf(diachiDao.getMaMax()+1));
-        if(diaChi.getTrangthai()==null || diaChi.getTrangthai()==0){
+        diaChi.setMadc("DC" + String.valueOf(diachiDao.getMaMax() + 1));
+        if (diaChi.getTrangthai() == null || diaChi.getTrangthai() == 0) {
             diaChi.setTrangthai(0);
-        }
-        else{
-            diachiDao.updateTtDiaChiByIdKh(0,diaChi.getKhachHang().getId());
-            diachiDao.updateTtDiaChiByMaDc(1,diaChi.getMadc());
+        } else {
+            diachiDao.updateTtDiaChiByIdKh(0, diaChi.getKhachHang().getId());
+            diachiDao.updateTtDiaChiByMaDc(1, diaChi.getMadc());
         }
         diachiDao.save(diaChi);
         return "redirect:/qltk-kh/dia-chi";
@@ -164,12 +163,11 @@ public class QuanLyTaiKhoanKhController {
         dc1.setTen_nguoi_nhan(diaChi.getTen_nguoi_nhan());
         dc1.setSdt_nguoi_nhan(diaChi.getSdt_nguoi_nhan());
 
-        if(diaChi.getTrangthai()==null || diaChi.getTrangthai()==0){
+        if (diaChi.getTrangthai() == null || diaChi.getTrangthai() == 0) {
             dc1.setTrangthai(0);
-        }
-        else{
-            diachiDao.updateTtDiaChiByIdKh(0,dc1.getKhachHang().getId());
-            diachiDao.updateTtDiaChiByMaDc(1,dc1.getMadc());
+        } else {
+            diachiDao.updateTtDiaChiByIdKh(0, dc1.getKhachHang().getId());
+            diachiDao.updateTtDiaChiByMaDc(1, dc1.getMadc());
         }
         diachiDao.save(dc1);
         return "redirect:/qltk-kh/dia-chi";
@@ -177,13 +175,14 @@ public class QuanLyTaiKhoanKhController {
 
     @GetMapping("/qltk-kh/dat-dc-mac-dinh/{ma}")
     public String datDcMacDinh(@PathVariable("ma") String madc) {
-        DiaChi dc=diachiDao.getDiachiByma(madc);
-        diachiDao.updateTtDiaChiByIdKh(0,dc.getKhachHang().getId());
-        diachiDao.updateTtDiaChiByMaDc(1,madc);
+        DiaChi dc = diachiDao.getDiachiByma(madc);
+        diachiDao.updateTtDiaChiByIdKh(0, dc.getKhachHang().getId());
+        diachiDao.updateTtDiaChiByMaDc(1, madc);
         return "redirect:/qltk-kh/dia-chi";
     }
 
     static Map<String, Integer> trangThaiDonHang;
+
     static {
         trangThaiDonHang = new HashMap<String, Integer>();
         trangThaiDonHang.put("tat-ca", null);
@@ -198,96 +197,110 @@ public class QuanLyTaiKhoanKhController {
     public String donHang(Model model,
                           @RequestParam(defaultValue = "tat-ca") String trangThaiDon,
                           @RequestParam(defaultValue = "0") String number
-                          ) {
+    ) {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         KhachHang khachHang = khachHangDao.getKhByEmail(authentication.getName());
-        Pageable pageable= PageRequest.of(Integer.valueOf(number),6);
-        Page<HoaDon>page=hoaDonDAO.findHdByMaKhAndTt(khachHang.getMa(),trangThaiDonHang.get(trangThaiDon),pageable);
-        PageDTO<HoaDon> pageDTO=new PageDTO<>(page);
-        model.addAttribute("pageHd",pageDTO);
+        Pageable pageable = PageRequest.of(Integer.valueOf(number), 6);
+        Page<HoaDon> page = hoaDonDAO.findHdByMaKhAndTt(khachHang.getMa(), trangThaiDonHang.get(trangThaiDon), pageable);
+        PageDTO<HoaDon> pageDTO = new PageDTO<>(page);
+        model.addAttribute("pageHd", pageDTO);
 //        model.addAttribute("trangThaiDonHang",trangThaiDonHang);
-        model.addAttribute("trangThaiDon",trangThaiDon);
+        model.addAttribute("trangThaiDon", trangThaiDon);
         model.addAttribute("khachHang", khachHang);
         return "qltk_kh/don_hang";
     }
 
+    @GetMapping("/qltk-kh/huy-don-hang/{mahd}")
+    @ResponseBody
+    public Boolean huyDonHang(
+            @PathVariable String mahd
+    ) {
+        try {
+            HoaDon hd=hoaDonDAO.findHoaDonByMa(mahd);
+            hd.setTrangthai(4);
+            hoaDonDAO.save(hd);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     @GetMapping("/dang-ky-khach-hang")
-    public String dangKyKhachHang(Model model,@ModelAttribute KhachHang khachHang){
+    public String dangKyKhachHang(Model model, @ModelAttribute KhachHang khachHang) {
         return "qltk_kh/dang_ky";
     }
 
     @PostMapping("/dang-ky-khach-hang")
     public String dangKyKhachHangPost(Model model,
-                                      @ModelAttribute KhachHang khachHang){
-        model.addAttribute("khachHang",khachHang);
-        KhachHang kh=khachHangDao.getKhByEmail(khachHang.getEmail().trim());
-        if(kh==null){
+                                      @ModelAttribute KhachHang khachHang) {
+        model.addAttribute("khachHang", khachHang);
+        KhachHang kh = khachHangDao.getKhByEmail(khachHang.getEmail().trim());
+        if (kh == null) {
             emailService.sendOtpDangKy(khachHang.getEmail());
             return "qltk_kh/otp";
-        }
-        else {
+        } else {
             return "qltk_kh/dang_ky";
         }
     }
 
     @PostMapping("/otp")
     public String otpPostDangKy(Model model,
-                                      @ModelAttribute KhachHang khachHang,
-                                      @RequestParam String OTP){
-        if(emailService.isValidOtp(khachHang.getEmail(),OTP)){
-            khachHang.setMa("KH"+String.valueOf(khachHangDao.getMaMax()+1));
+                                @ModelAttribute KhachHang khachHang,
+                                @RequestParam String OTP) {
+        if (emailService.isValidOtp(khachHang.getEmail(), OTP)) {
+            khachHang.setMa("KH" + String.valueOf(khachHangDao.getMaMax() + 1));
             khachHang.setTrangthai(1);
             khachHang.setAvatar("avatar.jpg");
             khachHang.setMatkhau(passwordEncoder.encode(khachHang.getMatkhau()));
             KhachHang kh = khachHangDao.save(khachHang);
-                GioHang gioHang1 = new GioHang();
-                gioHang1.setKhach_hang(kh);
-                gioHang1.setNgay_tao(LocalDate.now());
-                gioHang1.setMa(gioHangDAO.generateNextMaGioHang());
-                gioHangDAO.save(gioHang1);
-        }
-        else {
-            model.addAttribute("khachHang",khachHang);
-            model.addAttribute("otp","OTP không đúng hoặc hết hiệu lực");
+            GioHang gioHang1 = new GioHang();
+            gioHang1.setKhach_hang(kh);
+            gioHang1.setNgay_tao(LocalDate.now());
+            gioHang1.setMa(gioHangDAO.generateNextMaGioHang());
+            gioHangDAO.save(gioHang1);
+        } else {
+            model.addAttribute("khachHang", khachHang);
+            model.addAttribute("otp", "OTP không đúng hoặc hết hiệu lực");
             return "qltk_kh/otp";
         }
         return "redirect:/login";
     }
 
     @GetMapping("/quen-mk")
-    public String quenMk(){
+    public String quenMk() {
         return "qltk_kh/quen_mk";
     }
 
     @PostMapping("/quen-mk")
-    public String quenMkPost(@RequestParam String email,Model model){
-        if(khachHangDao.getKhByEmail(email)!=null){
+    public String quenMkPost(@RequestParam String email, Model model) {
+        if (khachHangDao.getKhByEmail(email) != null) {
             emailService.sendOtpQuenMk(email);
         }
-        model.addAttribute("email",email);
+        model.addAttribute("email", email);
         return "qltk_kh/otp_quenmk";
     }
 
     @PostMapping("/otp-quen-mk")
     public String otpPostQuenMk(@RequestParam String OTP,
                                 @RequestParam String email,
-                                Model model){
-        if(emailService.isValidOtp(email,OTP)){
+                                Model model) {
+        if (emailService.isValidOtp(email, OTP)) {
             emailService.sendPass(email);
-        }
-        else {
-            model.addAttribute("email",email);
-            model.addAttribute("otp","OTP không đúng hoặc hết hiệu lực");
+        } else {
+            model.addAttribute("email", email);
+            model.addAttribute("otp", "OTP không đúng hoặc hết hiệu lực");
             return "qltk_kh/otp_quenmk";
         }
         return "redirect:/login";
     }
+
     @Autowired
     private EmailService emailService;
 
     @ResponseBody
     @GetMapping("/gui-otp/{email}")
-    public Boolean guiOtp(@PathVariable String email){
+    public Boolean guiOtp(@PathVariable String email) {
         emailService.sendOtpDangKy(email);
         return true;
     }
@@ -295,10 +308,10 @@ public class QuanLyTaiKhoanKhController {
     @ResponseBody
     @GetMapping("/khIsExist/{email}")
     public Boolean isExist(@PathVariable String email) {
-        KhachHang kh=khachHangDao.getKhByEmail(email.trim());
-        if(kh!=null){
+        KhachHang kh = khachHangDao.getKhByEmail(email.trim());
+        if (kh != null) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }

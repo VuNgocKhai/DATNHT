@@ -31,4 +31,6 @@ public interface DanhGiaDAO extends JpaRepository<DanhGia, UUID> {
 
     @Query("select count(dg) from DanhGia dg where dg.giay.ma=?1 and dg.trangThai=1")
     Integer countGiayByMaGiayAndTt(String ma);
+
+    
 }
