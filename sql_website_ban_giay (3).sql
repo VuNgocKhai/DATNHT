@@ -347,7 +347,6 @@ INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [
 INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [email], [mat_khau],[id_hkh], [trangthai]) VALUES (N'019427f5-1e52-402f-b5dc-ec17ad5f139a', N'KH02', 'avatar.jpg', N'Nguyễn Đại', CAST(N'2003-08-08' AS Date), N'0387090080', N'kh02@gmail.com', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',N'5b52f69d-5508-4745-926f-a22f9907e523', 1)
 INSERT [dbo].[khach_hang] ([id], [ma], [avatar], [ho_ten], [ngay_sinh], [sdt], [email], [mat_khau],[id_hkh], [trangthai]) VALUES (N'22b427f5-1e52-402f-b5dc-ec17ad5f139a', N'KH03', 'avatar.jpg', N'Đào Gia Phong', CAST(N'2003-09-16' AS Date), N'0385370656', N'kh03@gmail.com', N'$2a$10$6xUrgawUAXvPCohIWbL9e.lD8LKI1.ZyeZyo8hKRzQqlqVJ3CpBtq',N'5b52f69d-5508-4745-926f-a22f9907e523', 1)
 GO
-
 	INSERT INTO website_ban_giay.dbo.thuong_hieu (id,ma,ten,trangthai,ten_url) VALUES
 	 (N'F6F425A0-AD73-421F-B76B-09787A50808F',N'TH07',N'Gucci',1,N'Logogucci.jpg'),
 	 (N'C41E486F-1EB2-40FD-9D2A-1F8F12298488',N'TH08',N'Calvin Klein',1,N'Logocalvin klein.jpg'),

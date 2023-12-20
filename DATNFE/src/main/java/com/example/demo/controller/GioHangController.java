@@ -659,7 +659,7 @@ public class GioHangController {
             }
             return "redirect:/trangchu";
         }
-        return "redirect:/trangchu";
+        return null;
     }
 
     @GetMapping("/hoadon/{x}")
