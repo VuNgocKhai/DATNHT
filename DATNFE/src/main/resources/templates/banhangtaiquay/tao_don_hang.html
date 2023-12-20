@@ -1191,24 +1191,24 @@
 <!--End tự động post-->
 
 <!--Sau khi nhập thông tin địa chỉ nó sẽ hiện thị số ngày sau-->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const addressForm = document.getElementById("address-form");
-        addressForm.addEventListener("change", function () {
-            const diaChi = document.querySelector('input[name="dia_chi"]').value;
-            const thanhPho = document.querySelector('select[name="province"]').value;
-            const huyen = document.querySelector('select[name="district"]').value;
-            const xa = document.querySelector('select[name="ward"]').value;
-            if (diaChi && thanhPho && huyen && xa) {
-                const estimatedDeliveryTime = document.getElementById("estimated-delivery-time");
-                estimatedDeliveryTime.style.display = "block";
-            } else {
-                const estimatedDeliveryTime = document.getElementById("estimated-delivery-time");
-                estimatedDeliveryTime.style.display = "none";
-            }
-        });
-    });
-</script>
+<!--<script>-->
+<!--    document.addEventListener("DOMContentLoaded", function () {-->
+<!--        const addressForm = document.getElementById("address-form");-->
+<!--        addressForm.addEventListener("change", function () {-->
+<!--            const diaChi = document.querySelector('input[name="dia_chi"]').value;-->
+<!--            const thanhPho = document.querySelector('select[name="province"]').value;-->
+<!--            const huyen = document.querySelector('select[name="district"]').value;-->
+<!--            const xa = document.querySelector('select[name="ward"]').value;-->
+<!--            if (diaChi && thanhPho && huyen && xa) {-->
+<!--                const estimatedDeliveryTime = document.getElementById("estimated-delivery-time");-->
+<!--                estimatedDeliveryTime.style.display = "block";-->
+<!--            } else {-->
+<!--                const estimatedDeliveryTime = document.getElementById("estimated-delivery-time");-->
+<!--                estimatedDeliveryTime.style.display = "none";-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 <!--End sau khi nhập thông tin địa chỉ nó sẽ hiển thị số ngày sau-->
 
 <!--Chọn nhiều sản phẩm bằng checkbox-->

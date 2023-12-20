@@ -2,6 +2,7 @@
 go
 create database website_ban_giay
 go
+select *from hoa_don
 use website_ban_giay
 go
 create table thuong_hieu (
@@ -247,9 +248,12 @@ create table hoa_don (
 	sdt_nguoi_nhan nvarchar(255) null,
 	dia_chi nvarchar(255) null,
 	tong_tien decimal,
-	hinh_thuc_mua int,
-	hinh_thuc_thanh_toan int,
+	select * from hoa_don 
+	hinh_thuc_mua int,		--1 online 0 offline
+	hinh_thuc_thanh_toan int, --1 online 0 Tiền mặt 3 Khi nhận hàng
+	hinh_thuc_nhan_hang int, --0 giao hàng --1 tại quầy
 	so_tien_giam money,
+	hinh_thuc_nhan_hang int,
 	phi_ship money,
 	so_diem_su_dung int,
 	so_tien_quy_doi int,
@@ -1027,9 +1031,8 @@ INSERT [dbo].[anh_giay] ([id], [ten_url], [id_giay], [trangthai]) VALUES (N'b28d
 INSERT [dbo].[anh_giay] ([id], [ten_url], [id_giay], [trangthai]) VALUES (N'07267569-3361-5a47-ad78-fecfd9c220e4', N'ysl3_2.jpg', N'3af55b31-a9a6-e548-a8f7-6e598f233d98', NULL)
 GO
 
-<<<<<<< HEAD
 select * from gio_hang
-=======
+delete vi_diem
 select * from hoa_don where trangthai = 0
 select * from hoa_don_chi_tiet
 select * from giay
@@ -1043,4 +1046,6 @@ delete from hoa_don
 
 
 select * from chuong_trinh_giam_gia_chi_tiet_hoa_don
->>>>>>> origin/qr-code
+
+Alter table hoa_don
+add hinh_thuc_nhan_hang int;
