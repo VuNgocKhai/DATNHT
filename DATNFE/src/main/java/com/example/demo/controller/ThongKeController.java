@@ -40,7 +40,7 @@ public class ThongKeController {
         BigDecimal tongTien = (tongTienTheoNgay != null) ? tongTienTheoNgay : BigDecimal.ZERO;
         model.addAttribute("tongTien",tongTien);
         model.addAttribute("tongTienTrongNgay",hoaDonDAO.tongTienTrongNgay(ngayHienTai));
-        model.addAttribute("tongsohoadondangchoxanhan", hoaD onDAO.tongsohoadondangchoxanhan());
+        model.addAttribute("tongsohoadondangchoxanhan", hoaDonDAO.tongsohoadondangchoxanhan());
         model.addAttribute("tongSoHoaDonDaHuy", hoaDonDAO.countByTrangthai(4));
         model.addAttribute("tongSoHoaDonDaHoanThanh", hoaDonDAO.countByTrangthai(5));
         model.addAttribute("tongLoiNhuan", tinhLoiNhuanTheoNgay(ngayHienTai));

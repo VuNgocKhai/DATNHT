@@ -1,6 +1,9 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.GiayChiTiet;
 import com.example.demo.entity.KhachHang;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -8,6 +11,10 @@ import java.util.List;
 import java.util.UUID;
 
 public interface KhachHangDao extends JpaRepository<KhachHang, UUID> {
+
+    @Query("SELECT kh FROM KhachHang kh LEFT JOIN FETCH kh.viDiems")
+    List<KhachHang> findAllWithViDiems();
+
     @Query("select p from KhachHang p where p.email=?1")
     KhachHang getKhByEmail(String email);
 
@@ -44,4 +51,12 @@ public interface KhachHangDao extends JpaRepository<KhachHang, UUID> {
 
         return "KH" + nextNumber;
     }
+
+    @Query("select p from KhachHang p where p.hoten like ?1 or p.sdt like ?1 or p.email like ?1")
+    Page<KhachHang> getSearchkhachhang(String keyword, Pageable pageable);
+
+    @Query(value = "SELECT kh.*, vd.tong_diem, vd.so_diem_da_dung, vd.so_diem_da_cong\n" +
+            "FROM khach_hang kh\n" +
+            "LEFT JOIN vi_diem vd ON kh.id = vd.id_khach_hang",nativeQuery = true)
+    List<Object[]> getKhachHangBydiem();
 }

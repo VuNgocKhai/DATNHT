@@ -104,6 +104,13 @@ public class BanHangTaiQuayController {
     @Autowired
     LichSuTieuDiemDAO lichSuTieuDiemDAO;
 
+    @Autowired
+    KhachHangDao khachHangDao;
+
+    @Autowired
+    GiamgiahodonDao giamgiahodonDao;
+
+
     // Hiển thị danh sách hóa đơn đang chờ
     @RequestMapping("/admin/ban-hang-tai-quay")
     public String giamGiaHoaDon(@RequestParam("page") Optional<Integer> page,
@@ -178,7 +185,8 @@ public class BanHangTaiQuayController {
                               @RequestParam("size") Optional<String> size,
                               @RequestParam("page1") Optional<Integer> page1,
                               @RequestParam("page2") Optional<Integer> page2,
-
+                              @RequestParam("keywordkh") Optional<String> keywordkh,
+                              @RequestParam("searchhd") Optional<String> searchhd,
                               Model model) {
 
         Pageable pageable1 = PageRequest.of(page2.orElse(0), 12);
@@ -189,8 +197,12 @@ public class BanHangTaiQuayController {
         PageDTO<HoaDonChiTiet> pageDTO = new PageDTO<>(hoaDonChiTietDAO.findByHoaDonMaPage(ma, pageable));
         model.addAttribute("hoaDonChiTietPage", pageDTO); // danh sách hóa đơn chi tiết theo page
 
-        model.addAttribute("ListKhachHang", khachHangRepo.getAll()); //ListKhachHang
-        model.addAttribute("ListGiamGiaHoaDon", giamGiaHoaDonRepo.getAllGGHDtrangthai1()); //List Giảm giá hóa đơn
+        PageDTO<KhachHang> pageDTO2 = new PageDTO<>(khachHangDao.getSearchkhachhang("%" + keywordkh.orElse("") + "%", pageable));
+        model.addAttribute("ListKhachHang", pageDTO2); //ListKhachHang
+
+        PageDTO<GiamGiaHoaDon> pageDTO3 = new PageDTO<>(giamgiahodonDao.getSearchGiamgiahodonDao("%" + searchhd.orElse("") + "%", pageable));
+        model.addAttribute("ListGiamGiaHoaDon", pageDTO3); //List Giảm giá hóa đơn
+
         model.addAttribute("maHD", ma); // Mã hóa đơn
         model.addAttribute("HoaDonDetail", hoaDonRepo.getHoaDonByMa(ma));
         model.addAttribute("dskichco", kichCoRepo.getListKichCo());
