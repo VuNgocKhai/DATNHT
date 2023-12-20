@@ -27,7 +27,7 @@ public class GiamGiaSpSchedule {
     @Autowired
     GiayDAO giayDAO;
 
-    @Scheduled(cron = "0 * * * * ?") // chạy mỗi phút
+    @Scheduled(fixedRate = 5000)
     public void updateExpiredGiamGiaHoaDon() {
         Date currentDate = new Date();
         List<ChuongTrinhGiamGiaSP> updateTT = ggspRepo

@@ -14,7 +14,7 @@ public class GiayChiTietSchedule {
     @Autowired
     private GiayChiTietDAO giayChiTietDAO;
 
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(fixedRate = 5000)
     public void kiemTraVaCapNhatTrangThai() {
         List<GiayChiTiet> danhSachGiayChiTiet = giayChiTietDAO.findAll();
 

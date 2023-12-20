@@ -720,7 +720,7 @@
                                                                                class="form-control"
                                                                                readonly>
                                                                     </div>
-                                                                    <div style="margin-top: 10px" class="col-6">
+                                                                    <div style="margin-top: 10px" class="col-12">
                                                                         <label class="p-l-5" style="font-weight: bold">Nhân
                                                                             viên:</label>
                                                                         <input type="text"
@@ -730,6 +730,28 @@
                                                                         <input type="text"
                                                                                th:if="${hd.nhanVien == null}"
                                                                                value="Chưa có" class="form-control"
+                                                                               readonly>
+                                                                    </div>
+                                                                    <div style="margin-top: 10px" class="col-6">
+                                                                        <label class="p-l-5" style="font-weight: bold">Số tiền giảm:</label>
+                                                                        <input type="text"
+                                                                               th:if="${hd.so_tien_giam != null}"
+                                                                               th:value="${hd.so_tien_giam}"
+                                                                               class="form-control" readonly>
+                                                                        <input type="text"
+                                                                               th:if="${hd.so_tien_giam == null}"
+                                                                               value="0" class="form-control"
+                                                                               readonly>
+                                                                    </div>
+                                                                    <div style="margin-top: 10px" class="col-6">
+                                                                        <label class="p-l-5" style="font-weight: bold">Phí ship:</label>
+                                                                        <input type="text"
+                                                                               th:if="${hd.phi_ship != null}"
+                                                                               th:value="${hd.phi_ship}"
+                                                                               class="form-control" readonly>
+                                                                        <input type="text"
+                                                                               th:if="${hd.phi_ship == null}"
+                                                                               value="0" class="form-control"
                                                                                readonly>
                                                                     </div>
                                                                     <div style="margin-top: 10px" class="col-6">
@@ -747,9 +769,9 @@
                                                                             -
                                                                             <span style="font-weight: bold">Hình thức thanh toán: </span>
                                                                             <span th:if="${hd.hinh_thuc_thanh_toan != null}">
-                                                                                <div th:if="${hd.hinh_thuc_thanh_toan == 0}">Tiền mặt</div>
-                                                                                <div th:if="${hd.hinh_thuc_thanh_toan == 1}">VNPAY</div>
-                                                                                <div th:if="${hd.hinh_thuc_thanh_toan == 3}">Khi nhận hàng</div>
+                                                                                <span th:if="${hd.hinh_thuc_thanh_toan == 0}">Tiền mặt</span>
+                                                                                <span th:if="${hd.hinh_thuc_thanh_toan == 1}">VNPAY</span>
+                                                                                <span th:if="${hd.hinh_thuc_thanh_toan == 3}">Khi nhận hàng</span>
                                                                             </span>
                                                                             <span th:if="${hd.hinh_thuc_thanh_toan == null}">...</span>
                                                                         </label>
@@ -1043,7 +1065,7 @@
                                                                            class="form-control"
                                                                            readonly>
                                                                 </div>
-                                                                <div style="margin-top: 10px" class="col-6">
+                                                                <div style="margin-top: 10px" class="col-12">
                                                                     <label class="p-l-5" style="font-weight: bold">Nhân
                                                                         viên:</label>
                                                                     <input type="text"
@@ -1053,6 +1075,28 @@
                                                                     <input type="text"
                                                                            th:if="${hd.nhanVien == null}"
                                                                            value="Chưa có" class="form-control"
+                                                                           readonly>
+                                                                </div>
+                                                                <div style="margin-top: 10px" class="col-6">
+                                                                    <label class="p-l-5" style="font-weight: bold">Số tiền giảm:</label>
+                                                                    <input type="text"
+                                                                           th:if="${hd.so_tien_giam != null}"
+                                                                           th:value="${hd.so_tien_giam}"
+                                                                           class="form-control" readonly>
+                                                                    <input type="text"
+                                                                           th:if="${hd.so_tien_giam == null}"
+                                                                           value="0" class="form-control"
+                                                                           readonly>
+                                                                </div>
+                                                                <div style="margin-top: 10px" class="col-6">
+                                                                    <label class="p-l-5" style="font-weight: bold">Phí ship:</label>
+                                                                    <input type="text"
+                                                                           th:if="${hd.phi_ship != null}"
+                                                                           th:value="${hd.phi_ship}"
+                                                                           class="form-control" readonly>
+                                                                    <input type="text"
+                                                                           th:if="${hd.phi_ship == null}"
+                                                                           value="0" class="form-control"
                                                                            readonly>
                                                                 </div>
                                                                 <div style="margin-top: 10px" class="col-6">
@@ -1070,9 +1114,9 @@
                                                                         -
                                                                         <span style="font-weight: bold">Hình thức thanh toán: </span>
                                                                         <span th:if="${hd.hinh_thuc_thanh_toan != null}">
-                                                                                <div th:if="${hd.hinh_thuc_thanh_toan == 0}">Tiền mặt</div>
-                                                                                <div th:if="${hd.hinh_thuc_thanh_toan == 1}">VNPAY</div>
-                                                                                <div th:if="${hd.hinh_thuc_thanh_toan == 3}">Khi nhận hàng</div>
+                                                                                <span th:if="${hd.hinh_thuc_thanh_toan == 0}">Tiền mặt</span>
+                                                                                <span th:if="${hd.hinh_thuc_thanh_toan == 1}">VNPAY</span>
+                                                                                <span th:if="${hd.hinh_thuc_thanh_toan == 3}">Khi nhận hàng</span>
                                                                             </span>
                                                                         <span th:if="${hd.hinh_thuc_thanh_toan == null}">...</span>
                                                                     </label>
@@ -1353,7 +1397,7 @@
                                                                            class="form-control"
                                                                            readonly>
                                                                 </div>
-                                                                <div style="margin-top: 10px" class="col-6">
+                                                                <div style="margin-top: 10px" class="col-12">
                                                                     <label class="p-l-5" style="font-weight: bold">Nhân
                                                                         viên:</label>
                                                                     <input type="text"
@@ -1363,6 +1407,28 @@
                                                                     <input type="text"
                                                                            th:if="${hd.nhanVien == null}"
                                                                            value="Chưa có" class="form-control"
+                                                                           readonly>
+                                                                </div>
+                                                                <div style="margin-top: 10px" class="col-6">
+                                                                    <label class="p-l-5" style="font-weight: bold">Số tiền giảm:</label>
+                                                                    <input type="text"
+                                                                           th:if="${hd.so_tien_giam != null}"
+                                                                           th:value="${hd.so_tien_giam}"
+                                                                           class="form-control" readonly>
+                                                                    <input type="text"
+                                                                           th:if="${hd.so_tien_giam == null}"
+                                                                           value="0" class="form-control"
+                                                                           readonly>
+                                                                </div>
+                                                                <div style="margin-top: 10px" class="col-6">
+                                                                    <label class="p-l-5" style="font-weight: bold">Phí ship:</label>
+                                                                    <input type="text"
+                                                                           th:if="${hd.phi_ship != null}"
+                                                                           th:value="${hd.phi_ship}"
+                                                                           class="form-control" readonly>
+                                                                    <input type="text"
+                                                                           th:if="${hd.phi_ship == null}"
+                                                                           value="0" class="form-control"
                                                                            readonly>
                                                                 </div>
                                                                 <div style="margin-top: 10px" class="col-6">
@@ -1378,12 +1444,11 @@
                                                                         <span th:if="${hd.hinh_thuc_nhan_hang != null}"> [[${hd.hinh_thuc_nhan_hang == 0 ? 'Tại cửa hàng' : 'Giao hàng'}]]</span>
                                                                         <span th:if="${hd.hinh_thuc_nhan_hang == null}">...</span>
                                                                         -
-
                                                                         <span style="font-weight: bold">Hình thức thanh toán: </span>
                                                                         <span th:if="${hd.hinh_thuc_thanh_toan != null}">
-                                                                                <div th:if="${hd.hinh_thuc_thanh_toan == 0}">Tiền mặt</div>
-                                                                                <div th:if="${hd.hinh_thuc_thanh_toan == 1}">VNPAY</div>
-                                                                                <div th:if="${hd.hinh_thuc_thanh_toan == 3}">Khi nhận hàng</div>
+                                                                                <span th:if="${hd.hinh_thuc_thanh_toan == 0}">Tiền mặt</span>
+                                                                                <span th:if="${hd.hinh_thuc_thanh_toan == 1}">VNPAY</span>
+                                                                                <span th:if="${hd.hinh_thuc_thanh_toan == 3}">Khi nhận hàng</span>
                                                                             </span>
                                                                         <span th:if="${hd.hinh_thuc_thanh_toan == null}">...</span>
                                                                     </label>

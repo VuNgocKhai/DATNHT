@@ -28,6 +28,4 @@ public interface ChuongTrinhGiamGiaSPRepository extends JpaRepository<ChuongTrin
 
     @Query("select ctggsp from ChuongTrinhGiamGiaSP  ctggsp where ctggsp.maKhuyenMai like ?1 or ctggsp.tenKhuyenMai like ?1 or ctggsp.trangThai like ?1 order by ctggsp.maKhuyenMai desc ")
     Page<ChuongTrinhGiamGiaSP> searchMaOrTenOrTrangThai(String keyword, Pageable pageable);
-
-
 }

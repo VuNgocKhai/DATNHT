@@ -164,16 +164,27 @@ public class BanHangTaiQuayController {
         return "banhangtaiquay/ban_hang_tai_quay";
     }
 
+
+    @GetMapping("/admin/ban-hang-tai-quay/kiem-tra-so-luong-hoa-don")
+    @ResponseBody
+    public Map<String, Boolean> kiemTraSoLuongHoaDon() {
+        Map<String, Boolean> response = new HashMap<>();
+        int countPendingHoaDon = hoaDonDAO.countHoaDonByTrangThai(0);
+        boolean exceededLimit = countPendingHoaDon >= 7;
+        response.put("exceededLimit", exceededLimit);
+        return response;
+    }
+
     @PostMapping("/admin/ban-hang-tai-quay/tao-don-hang")
     public String taoHoaDonTaiQuay(RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         NhanVien nv = nhanVienDAO.getNVByEmail(authentication.getName());
         HoaDon hoaDon = new HoaDon();
         int countPendingHoaDon = hoaDonDAO.countHoaDonByTrangThai(0);
-
-        if (nv == null || countPendingHoaDon > 5) {
-            return "redirect:/admin/ban-hang";
-        } else {
+        System.out.println("soLuongHD" + countPendingHoaDon);
+        if (nv == null || countPendingHoaDon >= 7) {
+            return "redirect:/admin/ban-hang-tai-quay";
+        } else if (countPendingHoaDon < 7) {
             String maHoaDonMoi = hoaDonDAO.generateNextMaHoaDon();
             hoaDon.setMa(maHoaDonMoi);
             hoaDon.setNhanVien(nv);
@@ -192,6 +203,10 @@ public class BanHangTaiQuayController {
             hoaDonRepo.createHoaDon(hoaDon);
             redirectAttributes.addAttribute("maHD", maHoaDonMoi);
             return "redirect:/admin/ban-hang-tai-quay/view-cart/{maHD}";
+        }
+        else
+        {
+            return "redirect:/admin/ban-hang-tai-quay";
         }
     }
 
