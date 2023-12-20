@@ -57,6 +57,6 @@ public interface KhachHangDao extends JpaRepository<KhachHang, UUID> {
     Page<KhachHang> khInHkh(String ma, Pageable pageable);
     @Query("select p from KhachHang p where p.hoten like ?1 or p.sdt like ?1 or p.email like ?1")
     Page<KhachHang> getSearchkhachhang(String keyword, Pageable pageable);
-    @Query("select kh from KhachHang  kh where kh.hoten like ?1 or kh.sdt like ?1 or  kh.ma like ?1")
+    @Query("select kh from KhachHang  kh where kh.hoten like ?1 or kh.sdt like ?1 or  kh.ma like ?1 and kh.trangthai = 1")
     Page<KhachHang> search( String keyword, Pageable pageable);
 }
