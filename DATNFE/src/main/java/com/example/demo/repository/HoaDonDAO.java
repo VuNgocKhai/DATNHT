@@ -30,6 +30,9 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
     @Query("select p from HoaDon p where p.khachHang.ma=?1")
     List<HoaDon> getHoaDonByMaKh(String makh);
 
+    @Query("SELECT COUNT(hd) FROM HoaDon hd WHERE hd.trangthai = :trangThai")
+    int countHoaDonByTrangThai(@Param("trangThai") int trangThai);
+
     @Query("SELECT hd FROM HoaDon hd WHERE hd.ma LIKE %:keyword% AND hd.trangthai = :trangThai")
     Page<HoaDon> searchHoaDon(@Param("keyword") String keyword, @Param("trangThai") Integer trangThai, Pageable pageable);
 

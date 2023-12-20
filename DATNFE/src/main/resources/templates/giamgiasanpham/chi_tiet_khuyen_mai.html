@@ -337,13 +337,6 @@
                         <tr>
                             <th scope="col">Mã</th>
                             <th scope="col">Tên sản phẩm</th>
-                            <th scope="col">Chất liệu</th>
-                            <th scope="col">Đế giày</th>
-                            <th scope="col">Giới tính</th>
-                            <th scope="col">Màu sắc</th>
-                            <th scope="col">Xuất xứ</th>
-                            <th scope="col">Kiểu dáng</th>
-                            <th scope="col">Thương hiệu</th>
                             <th scope="col">Giá nhập</th>
                             <th scope="col">Giá bán</th>
                             <th scope="col">Số tiền giảm</th>
@@ -365,13 +358,6 @@
                         <tr th:each="item,state:${dsSPTable}">
                             <td scope="row">[[${item.giay.ma}]]</td>
                             <td>[[${item.giay.ten}]]</td>
-                            <td>[[${item.giay.chat_lieu.ten}]]</td>
-                            <td>[[${item.giay.de_giay.ten}]]</td>
-                            <td>[[${item.giay.gioi_tinh.ten}]]</td>
-                            <td>[[${item.giay.mau_sac.ten}]]</td>
-                            <td>[[${item.giay.xuat_xu.ten}]]</td>
-                            <td>[[${item.giay.kieu_dang.ten}]]</td>
-                            <td>[[${item.giay.thuong_hieu.ten}]]</td>
                             <td>[[${item.giay.gianhap}]]</td>
                             <td>[[${item.giay.giaban}]]</td>
                             <td>[[${item.soTienDaGiam}]]</td>

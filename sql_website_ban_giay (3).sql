@@ -1026,3 +1026,4 @@ INSERT [dbo].[anh_giay] ([id], [ten_url], [id_giay], [trangthai]) VALUES (N'c913
 INSERT [dbo].[anh_giay] ([id], [ten_url], [id_giay], [trangthai]) VALUES (N'b28d3cfa-9f19-9a49-9dd4-fe0abcf42cf9', N'nike2_3.jpg', N'12300a57-8b03-2846-927e-6cfc2ae3b52e', NULL)
 INSERT [dbo].[anh_giay] ([id], [ten_url], [id_giay], [trangthai]) VALUES (N'07267569-3361-5a47-ad78-fecfd9c220e4', N'ysl3_2.jpg', N'3af55b31-a9a6-e548-a8f7-6e598f233d98', NULL)
 GO
+select * from dia_chi

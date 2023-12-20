@@ -84,9 +84,13 @@ public class Giay implements Serializable {
     Set<ChuongTrinhGiamGiaChiTietSP> chuongTrinhGiamGiaChiTietSP;
 
     public String getAnhDau(Set<Anh> anhs1){
-        List<Anh> list = new ArrayList<Anh>(anhs1);
-        list.sort(Comparator.comparing(Anh::getTen_url));
-        return list.get(0).getTen_url();
+        try {
+            List<Anh> list = new ArrayList<Anh>(anhs1);
+            list.sort(Comparator.comparing(Anh::getTen_url));
+            return list.get(0).getTen_url();
+        }catch (Exception e){
+            return "imagedefault.png";
+        }
     }
 
     public BigDecimal tinhTong(BigDecimal giaban, Integer soluong) {
