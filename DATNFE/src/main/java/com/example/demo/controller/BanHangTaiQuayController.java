@@ -117,7 +117,21 @@ public class BanHangTaiQuayController {
     // Xóa Hóa Đơn
     @RequestMapping("/admin/ban-hang-tai-quay/delete/{id}")
     public String deleteHoaDon(@PathVariable("id") UUID id) {
-        hoaDonRepo.deleteHD(id);
+        // Lấy thông tin hóa đơn cần xóa
+        HoaDon hoaDon = hoaDonRepo.getHoaDonByID(id);
+        if (hoaDon != null) {
+            // Lấy danh sách hóa đơn chi tiết của hóa đơn cần xóa
+            List<HoaDonChiTiet> listHdct =hoaDonChiTietRepo.getListHDCTbyMaHD(hoaDon.getMa());
+            // Cập nhật số lượng sản phẩm
+            for (HoaDonChiTiet hdct : listHdct) {
+                GiayChiTiet giayChiTiet = hdct.getGiayChiTiet();
+                giayChiTiet.setSo_luong_ton(giayChiTiet.getSo_luong_ton() + hdct.getSo_luong());
+                giayChiTietDAO.save(giayChiTiet);
+                hoaDonChiTietRepo.deleteHDCT(hoaDon.getId(),hdct.getGiayChiTiet().getId());
+            }
+            hoaDonRepo.deleteHD(hoaDon.getId());
+        }
+
         return "redirect:/admin/ban-hang";
     }
 

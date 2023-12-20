@@ -27,7 +27,7 @@ class GiamGiaHoaDonScheDule {
                 .collect(Collectors.toList());
 
         expiredGiamGiaHoaDon.forEach(gghd -> {
-            gghd.setTrangthai(0); // Cập nhật trạng thái thành 0
+            gghd.setTrangthai(0);
         });
 
         giamGiaHoaDonDAO.saveAll(expiredGiamGiaHoaDon);
