@@ -141,15 +141,37 @@ public class SanPhamController {
     @PostMapping("/admin/sanpham/createkc")
     public String productcreatekc(Model model, HttpServletRequest request, @RequestParam("idsp") UUID idsp) {
         String[] listvalue = request.getParameterValues("listKC");
+        Set<GiayChiTiet> list = giayDAO.findById(idsp).get().getGiayChiTiets();
+        List<GiayChiTiet> list1 = new ArrayList<>();
+        if (list!=null){
+            list1 = new ArrayList<GiayChiTiet>(list);
+        }
+        List<UUID> list2 = new ArrayList<>();
+        if (list1!=null){
+            for (GiayChiTiet x:list1){
+                list2.add(x.getKich_co().getId());
+            }
+        }
         if (listvalue != null) {
             for (String x : listvalue) {
-                GiayChiTiet giayChiTiet = new GiayChiTiet();
-                giayChiTiet.setKich_co(kichCoDAO.findById(UUID.fromString(x)).get());
-                giayChiTiet.setSo_luong_ton(Integer.parseInt(request.getParameter(x + "_soluong")));
-                giayChiTiet.setGiay(Giay.builder().id(idsp).build());
-                giayChiTiet.setTrangthai(1);
-
-                giayChiTietDAO.save(giayChiTiet);
+                boolean bl = true;
+                for (UUID a:list2
+                     ) {
+                    if (UUID.fromString(x).equals(a)){
+                        GiayChiTiet giayChiTiet = giayChiTietDAO.getAllByIDGiayAndSize(idsp,UUID.fromString(x));
+                        giayChiTiet.setSo_luong_ton(giayChiTiet.getSo_luong_ton()+Integer.parseInt(request.getParameter(x + "_soluong")));
+                        giayChiTietDAO.save(giayChiTiet);
+                        bl = false;
+                    }
+                }
+               if (bl==true){
+                   GiayChiTiet giayChiTiet = new GiayChiTiet();
+                   giayChiTiet.setKich_co(kichCoDAO.findById(UUID.fromString(x)).get());
+                   giayChiTiet.setSo_luong_ton(Integer.parseInt(request.getParameter(x + "_soluong")));
+                   giayChiTiet.setGiay(Giay.builder().id(idsp).build());
+                   giayChiTiet.setTrangthai(1);
+                   giayChiTietDAO.save(giayChiTiet);
+               }
             }
         }
         String ma = giayDAO.findById(idsp).get().getMa();

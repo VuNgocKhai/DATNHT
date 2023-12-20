@@ -55,5 +55,4 @@ public class KhachHang implements Serializable {
     @Column(name = "trangthai")
     private Integer trangthai;
 
-
 }

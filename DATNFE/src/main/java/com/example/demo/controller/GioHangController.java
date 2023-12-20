@@ -428,11 +428,11 @@ public class GioHangController {
         String sdt_nguoi_nhan = "";
         if (dc.equals("existing")) {
             DiaChi diaChi = diachiDao.getDiachiByma(request.getParameter("dia_chi"));
-            dia_chi = diaChi.getTendiachi() + "-" + diaChi.getXa() + "-" + diaChi.getHuyen() + "-" + diaChi.getThanhpho();
+            dia_chi = diaChi.getTendiachi() + "," + diaChi.getXa() + "," + diaChi.getHuyen() + "," + diaChi.getThanhpho();
             ten_nguoi_nhan = diaChi.getTen_nguoi_nhan();
             sdt_nguoi_nhan = diaChi.getSdt_nguoi_nhan();
         } else {
-            dia_chi = request.getParameter("address_1") + "-" + request.getParameter("ward") + "-" + request.getParameter("district") + "-" + request.getParameter("province");
+            dia_chi = request.getParameter("address_1") + "," + request.getParameter("ward") + "," + request.getParameter("district") + "," + request.getParameter("province");
             ten_nguoi_nhan = request.getParameter("firstname");
             sdt_nguoi_nhan = request.getParameter("sdt");
         }

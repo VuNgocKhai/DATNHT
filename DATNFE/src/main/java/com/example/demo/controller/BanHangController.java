@@ -150,6 +150,13 @@ public class BanHangController {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
                     hoaDon.setTrangthai(4);
                     hoaDonRepo.createHoaDon(hoaDon);
+                    if (hoaDon.getKhachHang() != null) {
+                        ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
+//                        viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong() + soDiemCong);
+                        viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() - hoaDon.getSo_diem_su_dung());
+                        viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
+                        viDiemDAO.save(viDiem);
+                    }
                 }
             } else if ("xac-nhan".equals(huyxacnhan1)) {
                 for (String maHD : selectedMa1) {
@@ -176,6 +183,13 @@ public class BanHangController {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
                     hoaDon.setTrangthai(4);
                     hoaDonRepo.createHoaDon(hoaDon);
+                    if (hoaDon.getKhachHang() != null) {
+                        ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
+//                        viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong() + soDiemCong);
+                        viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() - hoaDon.getSo_diem_su_dung());
+                        viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
+                        viDiemDAO.save(viDiem);
+                    }
                 }
             }
         } else if (selectedMa3 != null) {
@@ -223,7 +237,7 @@ public class BanHangController {
                             lichSuTieuDiem.setSo_diem_cong(soDiemCong);
                             lichSuTieuDiemDAO.save(lichSuTieuDiem);
                             viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong() + soDiemCong);
-                            viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() + hoaDon.getSo_diem_su_dung());
+//                            viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() + hoaDon.getSo_diem_su_dung());
                             viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
                             viDiemDAO.save(viDiem);
                         }
@@ -233,6 +247,13 @@ public class BanHangController {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
                     hoaDon.setTrangthai(4);
                     hoaDonRepo.createHoaDon(hoaDon);
+                    if (hoaDon.getKhachHang() != null) {
+                        ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
+//                        viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong() + soDiemCong);
+                        viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() - hoaDon.getSo_diem_su_dung());
+                        viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
+                        viDiemDAO.save(viDiem);
+                    }
                 }
             }
         }

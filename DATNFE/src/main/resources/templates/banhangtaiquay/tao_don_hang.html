@@ -788,6 +788,8 @@
                                                name="tongTienSauGiam" id="tongTienSauGiam"
                                                th:value="${TongTienSauGiam}" readonly>
                                     </div>
+                                    <input type="text" hidden="hidden" th:value="${tien_tuong_ung}" id="tien_tuong_ung" >
+                                    <input type="text" hidden="hidden" th:value="${diem_tuong_ung}" id="diem_tuong_ung" >
                                 </div>
                             </form>
                         </div>
@@ -981,6 +983,8 @@
     // Thêm sự kiện 'input' vào phần tử input
     inputField.addEventListener('input', function() {
         clearErrorMessages();
+        let tien_tuong_ung = document.getElementById("tien_tuong_ung");
+        let diem_tuong_ung = document.getElementById("diem_tuong_ung");
         if (Number.parseInt(inputField.value) > 5000 && Number.parseInt(inputField.value) < Number.parseInt(inputField1.value)){
             // Hành động bạn muốn thực hiện khi có sự kiện input (người dùng nhập thông tin)
             let phiShip = document.getElementById('phiShip').value;
@@ -990,16 +994,43 @@
             inputField2.value = inputField.value;
             document.getElementById('tongTienSauGiam').setAttribute('value', String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - Number.parseInt(inputField.value))));
             document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - Number.parseInt(inputField.value)));
+            let diemCongSau = Math.round((((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - Number.parseInt(inputField.value))/Number.parseInt(tien_tuong_ung.value))*Number.parseInt(diem_tuong_ung.value)));
+            console.log('Đã nhập 2: ' + diemCongSau);
+
             console.log('Đã nhập: ' + inputField.value);
         }
         if (Number.parseInt(inputField.value) < 0){
             displayErrorMessage('Error', 'Số điểm sử dụng phải là số nguyên');
+            let phiShip = document.getElementById('phiShip').value;
+            let tongTienTruocGiam = document.getElementById('tongTienTruocGiam').value;
+            let soTienGiam = document.getElementById('soTienGiam').value;
+            inputField2.setAttribute('value', inputField.value);
+            inputField2.value = inputField.value;
+            document.getElementById('tongTienSauGiam').setAttribute('value', String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - 0)));
+            document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - 0));
+            console.log('Đã nhập: ' + inputField.value);
         }
         if (Number.parseInt(inputField.value) < 5000){
             displayErrorMessage('Error', 'Số điểm sử dụng tối thiểu là 5000');
+            let phiShip = document.getElementById('phiShip').value;
+            let tongTienTruocGiam = document.getElementById('tongTienTruocGiam').value;
+            let soTienGiam = document.getElementById('soTienGiam').value;
+            inputField2.setAttribute('value', inputField.value);
+            inputField2.value = inputField.value;
+            document.getElementById('tongTienSauGiam').setAttribute('value', String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - 0)));
+            document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - 0));
+            console.log('Đã nhập: ' + inputField.value);
         }
         if (Number.parseInt(inputField.value) > Number.parseInt(inputField1.value)){
             displayErrorMessage('Error', 'Số điểm sử dụng vượt quá số điểm hiện có');
+            let phiShip = document.getElementById('phiShip').value;
+            let tongTienTruocGiam = document.getElementById('tongTienTruocGiam').value;
+            let soTienGiam = document.getElementById('soTienGiam').value;
+            inputField2.setAttribute('value', inputField.value);
+            inputField2.value = inputField.value;
+            document.getElementById('tongTienSauGiam').setAttribute('value', String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - 0)));
+            document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - 0));
+            console.log('Đã nhập: ' + inputField.value);
         }
     });
     function displayErrorMessage(elementId, message) {

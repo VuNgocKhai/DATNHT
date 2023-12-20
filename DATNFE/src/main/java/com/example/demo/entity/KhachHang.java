@@ -12,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Set;
 import java.util.UUID;
 import java.util.List;
 import java.util.UUID;
@@ -61,4 +62,7 @@ public class KhachHang implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<DiaChi> diaChiList;
+    @JsonIgnore
+    @OneToOne(mappedBy = "khach_hang") // lấy hết các thông tin
+    ViDiem viDiem;
 }
