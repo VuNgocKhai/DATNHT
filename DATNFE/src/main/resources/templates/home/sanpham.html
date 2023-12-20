@@ -286,30 +286,44 @@
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
                             <img class="img-fluid w-100" th:src="@{|/images/*{getAnhDau(anhs)}|}" alt="">
-                            <div class="discount-badge2" th:if="${item.getCHGTHD()!=null}">🏷️ [[${item.getCHGTHD.chuongTrinhGiamGiaSP.tenKhuyenMai}]] 🏷️</div>
-                            <div class="discount-badge" th:if="${item.getCHGTHD()!=null}">[[${item.getCHGTHD.chuongTrinhGiamGiaSP.phanTramGiam}]]%</div>
+                            <div class="discount-badge2" th:if="${item.getCHGTHD()!=null}">🏷️
+                                [[${item.getCHGTHD.chuongTrinhGiamGiaSP.tenKhuyenMai}]] 🏷️
+                            </div>
+                            <div class="discount-badge" th:if="${item.getCHGTHD()!=null}">
+                                [[${item.getCHGTHD.chuongTrinhGiamGiaSP.phanTramGiam}]]%
+                            </div>
                             <div class="discount-badge1" th:if="${item.do_hot==1}">HOT</div>
                             <div class="discount-badge3" th:if="${item.getNewGiay}">🌟 Hàng Mới Về 🌟</div>
 
                             <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i
+                                        class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                             </div>
                         </div>
                         <div class="text-center">
-                            <a th:href="@{|/sanpham?thuong_hieu=${item.thuong_hieu.ten}|}" style="text-decoration: underline;">[[${item.thuong_hieu.ten}]]</a>
+                            <a th:href="@{|/sanpham?thuong_hieu=${item.thuong_hieu.ten}|}"
+                               style="text-decoration: underline;">[[${item.thuong_hieu.ten}]]</a>
                         </div>
                         <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" th:href="@{|/ctsp/*{ma}-*{thuong_hieu.ten}-*{mau_sac.ten}|}"><p style="margin: auto;
+                            <a class="h6 text-decoration-none text-truncate"
+                               th:href="@{|/ctsp/*{ma}-*{thuong_hieu.ten}-*{mau_sac.ten}|}"><p style="margin: auto;
     text-align: center;
     max-width: 226px;
     white-space: break-spaces;color: #817d70;">[[*{ten}]]</p></a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5 th:if="*{gia_sau_khuyen_mai.compareTo(giaban)==0}" style="color: #ee4d2d">[[*{#numbers.formatDecimal(gia_sau_khuyen_mai, 0, 'COMMA', 0, 'POINT')}]] ₫</h5>
+                                <h5 th:if="*{gia_sau_khuyen_mai.compareTo(giaban)==0}" style="color: #ee4d2d">
+                                    [[*{#numbers.formatDecimal(gia_sau_khuyen_mai, 0, 'COMMA', 0, 'POINT')}]] ₫</h5>
                                 <div th:if="*{gia_sau_khuyen_mai.compareTo(giaban)<0}">
-                                    <h5  style="color: #ee4d2d">[[*{#numbers.formatDecimal(gia_sau_khuyen_mai, 0, 'COMMA', 0, 'POINT')}]] ₫</h5><h6 class="text-muted ml-2"><del style="color: #ee4d2d">[[*{#numbers.formatDecimal(giaban, 0, 'COMMA', 0, 'POINT')}]] ₫</del></h6>
+                                    <h5 style="color: #ee4d2d">[[*{#numbers.formatDecimal(gia_sau_khuyen_mai, 0,
+                                        'COMMA', 0, 'POINT')}]] ₫</h5>
+                                    <h6 class="text-muted ml-2">
+                                        <del style="color: #ee4d2d">[[*{#numbers.formatDecimal(giaban, 0, 'COMMA', 0,
+                                            'POINT')}]] ₫
+                                        </del>
+                                    </h6>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-center mb-1">
@@ -334,9 +348,11 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="col-12" id="contentContainer" style="background: linear-gradient(to bottom, #ffffff, #cfcfcf);">
+                <div class="col-12" id="contentContainer"
+                     style="background: linear-gradient(to bottom, #ffffff, #cfcfcf);">
                     <div id="initialContent" class="p-4">
-                        <h5 style="font-weight: bolder">DARLINSHOP™ MUA HÀNG CHÍNH HIỆU CHÍNH HÃNG TRỰC TUYẾN, GIÁ TỐT NHẤT</h5>
+                        <h5 style="font-weight: bolder">DARLINSHOP™ MUA HÀNG CHÍNH HIỆU CHÍNH HÃNG TRỰC TUYẾN, GIÁ TỐT
+                            NHẤT</h5>
                         <p>
                             Sản thương mại điện tử Vua Hàng Hiệu - địa chỉ mua sắm trực tuyến uy tín, tin cậy, an toàn
                             và miễn phil Vua Hàng Hiệu là sự lựa chọn hàng đầu khi mua sắm đồ hiệu chính hãng, sang
@@ -399,7 +415,8 @@
                             Vans....Hay những mẫu túi xách đắt tiền từ những cái tên nhắc tới ai cũng biết
                             Charles & Keith, Louis Vuitton, Michael Kors, Furla, Coach,...
                         </p>
-                        <h5 style="font-weight: bolder">BẢO MẬT THÔNG TIN KHÁCH HÀNG TUYỆT ĐỐI, ƯU ĐÃI THÀNH VIÊN HẤP DẪN</h5>
+                        <h5 style="font-weight: bolder">BẢO MẬT THÔNG TIN KHÁCH HÀNG TUYỆT ĐỐI, ƯU ĐÃI THÀNH VIÊN HẤP
+                            DẪN</h5>
                         <p>
                             Mua hàng trên Vua Hàng Hiệu luôn là một trải nghiệm ấn tượng. Dù bạn đang có nhu cầu mua bất
                             kỳ mặt hàng thời trang nam, thời trang nữ, đồng hồ, túi xách, giày dép, mũ nón, kính mắt,
@@ -438,6 +455,7 @@
             }
         });
     }
+
     function handleCheckbox1(checkbox) {
         // Uncheck all checkboxes in the same group
         var checkboxes = document.querySelectorAll('.custom-control-input1');
@@ -447,6 +465,7 @@
             }
         });
     }
+
     function handleCheckbox2(checkbox) {
         // Uncheck all checkboxes in the same group
         var checkboxes = document.querySelectorAll('.custom-control-input2');
@@ -456,6 +475,7 @@
             }
         });
     }
+
     function handleCheckbox3(checkbox) {
         // Uncheck all checkboxes in the same group
         var checkboxes = document.querySelectorAll('.custom-control-input3');
@@ -465,6 +485,7 @@
             }
         });
     }
+
     function handleCheckbox4(checkbox) {
         // Uncheck all checkboxes in the same group
         var checkboxes = document.querySelectorAll('.custom-control-input4');
@@ -474,6 +495,7 @@
             }
         });
     }
+
     function handleCheckbox5(checkbox) {
         // Uncheck all checkboxes in the same group
         var checkboxes = document.querySelectorAll('.custom-control-input5');
@@ -483,6 +505,7 @@
             }
         });
     }
+
     function handleCheckbox6(checkbox) {
         // Uncheck all checkboxes in the same group
         var checkboxes = document.querySelectorAll('.custom-control-input6');
@@ -492,6 +515,7 @@
             }
         });
     }
+
     function handleCheckbox7(checkbox) {
         // Uncheck all checkboxes in the same group
         var checkboxes = document.querySelectorAll('.custom-control-input7');

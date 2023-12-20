@@ -139,7 +139,9 @@ public class SanPhamController {
     }
 
     @PostMapping("/admin/sanpham/createkc")
-    public String productcreatekc(Model model, HttpServletRequest request, @RequestParam("idsp") UUID idsp) {
+    public String productcreatekc(Model model,
+                                  HttpServletRequest request,
+                                  @RequestParam("idsp") UUID idsp) {
         String[] listvalue = request.getParameterValues("listKC");
         Set<GiayChiTiet> list = giayDAO.findById(idsp).get().getGiayChiTiets();
         List<GiayChiTiet> list1 = new ArrayList<>();

@@ -117,9 +117,12 @@ public class BanHangController {
     @Transactional
     public String choGiaoDonHang(@PathVariable("maHD") String maHD) {
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv = nhanVienDAO.getNVByEmail(authentication.getName());
         if(hoaDon.getHinh_thuc_mua() == 0)
         {
             hoaDon.setTrangthai(3);
+            hoaDon.setNhanVien(nv);
             LocalDate currentDate = LocalDate.now();
             hoaDon.setNgay_thanh_toan(currentDate);
             hoaDonRepo.createHoaDon(hoaDon);
@@ -127,6 +130,7 @@ public class BanHangController {
         else
         {
             hoaDon.setTrangthai(1);
+            hoaDon.setNhanVien(nv);
             LocalDate currentDate = LocalDate.now();
             hoaDon.setNgay_thanh_toan(currentDate);
             hoaDonRepo.createHoaDon(hoaDon);
@@ -137,8 +141,11 @@ public class BanHangController {
     @RequestMapping("/admin/ban-hang/van-chuyen-don-hang/{maHD}")
     @Transactional
     public String vanChuyenDonHang(@PathVariable("maHD") String maHD) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv = nhanVienDAO.getNVByEmail(authentication.getName());
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
         hoaDon.setTrangthai(2);
+        hoaDon.setNhanVien(nv);
         hoaDonRepo.createHoaDon(hoaDon);
         return "redirect:/admin/ban-hang";
     }
@@ -147,7 +154,10 @@ public class BanHangController {
     @Transactional
     public String hoanThanhDonHang(@PathVariable("maHD") String maHD) {
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv = nhanVienDAO.getNVByEmail(authentication.getName());
         hoaDon.setTrangthai(3);
+        hoaDon.setNhanVien(nv);
         hoaDonRepo.createHoaDon(hoaDon);
         return "redirect:/admin/ban-hang";
     }
@@ -164,10 +174,14 @@ public class BanHangController {
                                       @RequestParam(value = "hoanthanh", required = false, defaultValue = "huy") String hoanthanh,
                                       RedirectAttributes redirectAttributes) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv = nhanVienDAO.getNVByEmail(authentication.getName());
+
         if (selectedMa1 != null) {
             if ("huy".equals(huyxacnhan1)) {
                 for (String maHD : selectedMa1) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
+                    hoaDon.setNhanVien(nv);
                     hoaDon.setTrangthai(4);
                     hoaDonRepo.createHoaDon(hoaDon);
                     if (hoaDon.getKhachHang() != null) {
@@ -183,6 +197,7 @@ public class BanHangController {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
                     LocalDate currentDate = LocalDate.now();
                     hoaDon.setNgay_thanh_toan(currentDate);
+                    hoaDon.setNhanVien(nv);
                     if (hoaDon.getHinh_thuc_mua() == 0) {
                         hoaDon.setTrangthai(3);
                     } else {
@@ -196,12 +211,14 @@ public class BanHangController {
                 for (String maHD : selectedMa2) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
                     hoaDon.setTrangthai(2);
+                    hoaDon.setNhanVien(nv);
                     hoaDonRepo.createHoaDon(hoaDon);
                 }
             } else if ("huy".equals(huyxacnhan2)) {
                 for (String maHD : selectedMa2) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
                     hoaDon.setTrangthai(4);
+                    hoaDon.setNhanVien(nv);
                     hoaDonRepo.createHoaDon(hoaDon);
                     if (hoaDon.getKhachHang() != null) {
                         ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
@@ -217,6 +234,7 @@ public class BanHangController {
                 for (String maHD : selectedMa3) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
                     hoaDon.setTrangthai(3);
+                    hoaDon.setNhanVien(nv);
                     hoaDonRepo.createHoaDon(hoaDon);
                     if (hoaDon.getKhachHang()!=null){
                         List<HoaDon> hoaDons = hoaDonDAO.getHoaDonByMaKh(hoaDon.getKhachHang().getMa());
@@ -265,6 +283,7 @@ public class BanHangController {
             } else if ("huy".equals(huyxacnhan3)) {
                 for (String maHD : selectedMa3) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
+                    hoaDon.setNhanVien(nv);
                     hoaDon.setTrangthai(4);
                     hoaDonRepo.createHoaDon(hoaDon);
                     if (hoaDon.getKhachHang() != null) {

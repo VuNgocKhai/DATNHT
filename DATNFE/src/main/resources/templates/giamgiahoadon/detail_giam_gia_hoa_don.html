@@ -38,35 +38,27 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="/admin/ban-hang" ><span class="fa fa-user mr-3"></span> Quản Lý Đơn Hàng</a>
+                    <a href="/admin/ban-hang"><span class="fa fa-user mr-3"></span> Quản Lý Đơn Hàng</a>
 
                 </li>
                 <li>
                     <a href="/admin/ban-hang-tai-quay"><span class="fa fa-briefcase mr-3"></span> Bán Hàng Tại Quầy</a>
                 </li>
                 <li>
-                    <a href="#homeSubmenu2"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
+                    <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu2">
                         <li>
                             <a href="/admin/sanpham">Sản Phẩm</a>
                         </li>
                         <li>
-                            <a href="/admin/camgiac">Cảm Giác</a>
+                            <a href="/admin/kichco">Kích cỡ</a>
                         </li>
                         <li>
                             <a href="/admin/chatlieu">Chất Liệu</a>
                         </li>
                         <li>
-                            <a href="/admin/danhmuc">Danh Mục</a>
-                        </li>
-                        <li>
                             <a href="/admin/degiay">Đế Giày</a>
-                        </li>
-                        <li>
-                            <a href="/admin/diahinh">Địa Hình</a>
-                        </li>
-                        <li>
-                            <a href="/admin/docaogiay">Độ Cao Giày</a>
                         </li>
                         <li>
                             <a href="/admin/gioitinh">Giới Tính</a>
@@ -75,15 +67,20 @@
                             <a href="/admin/mausac">Màu Sắc</a>
                         </li>
                         <li>
-                            <a href="/admin/thoitietthichhop">Thời Tiết Thích Hợp</a>
+                            <a href="/admin/xuatxu">Xuất xứ</a>
+                        </li>
+                        <li>
+                            <a href="/admin/kieudang">Kiểu dáng</a>
                         </li>
                         <li>
                             <a href="/admin/thuonghieu">Thương Hiệu</a>
                         </li>
+
                     </ul>
                 </li>
                 <li>
-                    <a href="#homeSubmenu3"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
+                    <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu3">
                         <li>
                             <a href="/admin/nhan-vien">Nhân Viên</a>
@@ -94,7 +91,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#homeSubmenu4"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-cubes mr-3"></span>Khuyến Mại</a>
+                    <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-cubes mr-3"></span>Khuyến Mại</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu4">
                         <li>
                             <a href="/admin/chuong-trinh-giam-gia-sp">Sản Phẩm</a>
@@ -118,7 +116,9 @@
 
             <div class="footer">
                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a
+                            href="https://colorlib.com" target="_blank">Colorlib.com</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
             </div>
 
@@ -271,8 +271,8 @@
                      class="collapse list-unstyled col-12 border bg-light"
                      id="danhSachDaApMaDropDown">
                     <div class="row">
-                        <div class="col-6">
-                            <h5 class="text-center">Danh Sách Hóa Đơn</h5>
+                        <div class="col-12">
+                            <h5 class="text-center">Danh sách hóa đơn</h5>
                             <form id="formapma" th:action="@{/admin/giamgiachitiethoadon/createGGCTHD}"
                                   method="post">
                                 <input type="hidden" name="GiamGiaHoaDonMa"
@@ -289,7 +289,9 @@
                                         </th>
                                         <th scope="col">Mã HĐ</th>
                                         <th scope="col">Ngày Tạo</th>
+                                        <th scope="col">Ngày Thanh Toán</th>
                                         <th scope="col">Khách Hàng</th>
+                                        <th scope="col">Nhân Viên</th>
                                         <th scope="col">Tổng Tiền</th>
                                         <th scope="col">Trạng thái</th>
                                     </tr>
@@ -322,16 +324,32 @@
                                             </div>
                                         </td>
                                         <td class="text-center">
+                                            <div th:if="${hd.ngay_thanh_toan == null}"
+                                                 class="badge badge-pill badge-primary badge-sm">
+                                                Đang Chờ
+                                            </div>
+                                            <div th:if="${hd.ngay_thanh_toan != null}">
+                                                [[${hd.ngay_thanh_toan}]]
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
                                             <div th:if="${hd.khachHang == null}"
                                                  class="badge badge-pill badge-warning">Chưa Có Thông Tin
                                             </div>
                                             <div th:if="${hd.khachHang != null}"
                                                  th:text="${hd.khachHang.hoten}"></div>
                                         </td>
+                                        <td class="text-center">
+                                            <div th:if="${hd.nhanVien == null}"
+                                                 class="badge badge-pill badge-warning">Chưa Có Thông Tin
+                                            </div>
+                                            <div th:if="${hd.nhanVien != null}"
+                                                 th:text="${hd.nhanVien.hoTen}"></div>
+                                        </td>
                                         <td class="text-center giaBan"
                                             th:text="${hd.tong_tien != null ? hd.tong_tien : 0}"></td>
                                         <td class="text-center" style="color: red"
-                                            th:text="${hd.trangthai == 1 ? 'Chờ xác nhận' : 'Đang chuẩn bị'}"></td>
+                                            th:text="${hd.trangthai == 0 ? 'Chờ xác nhận' : 'Chờ giao'}"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -371,8 +389,11 @@
                                 </button>
                             </form>
                         </div>
-                        <div class="col-6">
-                            <h5 class="text-center">Danh Sách Hóa Đơn Đã Áp Mã CT</h5>
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                        <div class="col-12">
+                            <h5 class="text-center">Danh sách hóa đơn đã áp dụng chương trình này</h5>
                             <form id="formhuyapma" th:action="@{/admin/giamgiachitiethoadon/huy-ap-ma}" method="post">
                                 <input type="hidden" name="GiamGiaHoaDonMa"
                                        th:value="${giamgiahoadon.ma}"/>
@@ -391,9 +412,11 @@
                                             </th>
                                             <th scope="col">Mã HĐ</th>
                                             <th scope="col">Ngày Tạo</th>
+                                            <th scope="col">Ngày Thanh Toán</th>
                                             <th scope="col">Khách Hàng</th>
+                                            <th scope="col">Nhân Viên</th>
                                             <th scope="col">Tổng Tiền</th>
-                                            <th scope="col">Trạng Thái</th>
+                                            <th scope="col">Trạng thái</th>
                                         </tr>
                                         </thead>
                                         <tbody style="max-height: 300px; overflow-y: auto;">
@@ -421,15 +444,31 @@
                                                 <span th:if="${hd.ngay_tao != null}" th:text="${hd.ngay_tao}"></span>
                                             </td>
                                             <td class="text-center">
+                                                <div th:if="${hd.ngay_thanh_toan == null}"
+                                                     class="badge badge-pill badge-primary badge-sm">
+                                                    Đang Chờ
+                                                </div>
+                                                <div th:if="${hd.ngay_thanh_toan != null}">
+                                                    [[${hd.ngay_thanh_toan}]]
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
                                                 <span th:if="${hd.khachHang == null}"
                                                       class="badge badge-pill badge-warning">Chưa Có Thông Tin</span>
                                                 <span th:if="${hd.khachHang != null}"
                                                       th:text="${hd.khachHang.hoten}"></span>
                                             </td>
+                                            <td class="text-center">
+                                                <div th:if="${hd.nhanVien == null}"
+                                                     class="badge badge-pill badge-warning">Chưa Có Thông Tin
+                                                </div>
+                                                <div th:if="${hd.nhanVien != null}"
+                                                     th:text="${hd.nhanVien.hoTen}"></div>
+                                            </td>
                                             <td class="text-center giaBan"
                                                 th:text="${hd.tong_tien != null ? hd.tong_tien : 0}"></td>
                                             <td class="text-center" style="color: red"
-                                                th:text="${hd.trangthai == 1 ? 'Chờ xác nhận' : 'Đang chuẩn bị'}"></td>
+                                                th:text="${hd.trangthai == 0 ? 'Chờ xác nhận' : 'Chờ giao'}"></td>
                                         </tr>
                                         </tbody>
                                     </table>
