@@ -107,10 +107,11 @@ public class GioHangController {
         model.addAttribute("giaythuonghieu", thuonghieu);
         model.addAttribute("giaymausac", mausac);
         model.addAttribute("dg", DanhGia.builder().giay(giayDAO.getGiayByMa(ma)).trangThai(0).build());
+        Long tbs=danhGiaDAO.customRound(giay.getMa());
+        model.addAttribute("tbs",tbs);
 
         return "home/chitietsanpham";
     }
-
 
     @ResponseBody
     @PostMapping("/danh-gia")
@@ -679,4 +680,5 @@ public class GioHangController {
         System.out.println(maHD);
         return "home/index";
     }
+
 }

@@ -32,5 +32,11 @@ public interface DanhGiaDAO extends JpaRepository<DanhGia, UUID> {
     @Query("select count(dg) from DanhGia dg where dg.giay.ma=?1 and dg.trangThai=1")
     Integer countGiayByMaGiayAndTt(String ma);
 
-    
+    @Query("select avg(dg.sao) from DanhGia dg where dg.trangThai=1 and dg.giay.ma=?1 ")
+    Double tbs(String mg);
+
+    default Long customRound(String mg) {
+        Double tbs=tbs(mg)==null?0:tbs(mg);
+        return Math.round(tbs);
+    }
 }
