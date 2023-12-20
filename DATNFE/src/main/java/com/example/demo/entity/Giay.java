@@ -1,7 +1,9 @@
 package com.example.demo.entity;
 
+import com.example.demo.repository.DanhGiaDAO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.io.Serializable;

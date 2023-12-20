@@ -206,236 +206,232 @@
 
                 <div>
                     <div th:each="hd:${pageHd.content}" style="margin-bottom: 15px">
-                        <div class="container">
-                            <div style="border-top: 3px solid #6C757D;"></div>
-                            <div class="row" style="margin-top: 10px">
-                                <div class="col-7">
-                                    <h5>Mã đơn hàng : [[${hd.ma}]]</h5>
-                                    <h5>Ngày tạo : [[${#temporals.format(hd.ngay_tao, 'dd/MM/yyyy')}]]</h5>
+                        <a class="btn-sm  btn-detail"
+                           th:ma="${hd.ma}"
+                           data-bs-toggle="modal"
+                           data-bs-target='#ModalDetailHoaDon' href="#"
+                           style="text-decoration: none;color: #6C757D">
+                            <div class="container">
+                                <div style="border-top: 3px solid #6C757D;"></div>
+                                <div class="row" style="margin-top: 10px">
+                                    <div class="col-7">
+                                        <h5>Mã đơn hàng : [[${hd.ma}]]</h5>
+                                        <h5>Ngày tạo : [[${#temporals.format(hd.ngay_tao, 'dd/MM/yyyy')}]]</h5>
+                                    </div>
+                                    <div class="col-5">
+                                        <h4 style="text-transform: uppercase">đơn hàng [[${hd.convertTrangThai()}]]</h4>
+                                    </div>
                                 </div>
-                                <div class="col-5">
-                                    <h4 style="text-transform: uppercase">đơn hàng [[${hd.convertTrangThai()}]]</h4>
-                                </div>
-                            </div>
-                            <div th:each="hdct:${hd.listHdct}"
-                                 style="margin-bottom: 5px">
+                                <div th:each="hdct:${hd.listHdct}"
+                                     style="margin-bottom: 5px">
 
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <img style="width: 100%"
+                                                 th:src="@{|/images/${hdct.giayChiTiet.giay.anhs[0].ten_url}|}"
+                                                 alt="">
+                                        </div>
+                                        <div class="col-8">
+                                            <p>[[${hdct.giayChiTiet.giay.ten}]]</p>
+                                            <p>[[${hdct.so_luong}]] x</p>
+                                        </div>
+                                        <div class="col-2"
+                                             th:text="${#numbers.formatDecimal(hdct.don_gia, 1, 'COMMA', 0, 'POINT')+'VNĐ'}"
+                                        >
+                                        </div>
+                                    </div>
+                                    <div style="border-bottom: 1px solid darkgray;width: 400px;margin: 0 auto">
+
+                                    </div>
+                                </div>
                                 <div class="row">
-                                    <div class="col-2">
-                                        <img style="width: 100%"
-                                             th:src="@{|/images/${hdct.giayChiTiet.giay.anhs[0].ten_url}|}"
-                                             alt="">
+                                    <div class="col-7">
                                     </div>
-                                    <div class="col-8">
-                                        <p>[[${hdct.giayChiTiet.giay.ten}]]</p>
-                                        <p>[[${hdct.so_luong}]] x</p>
-                                    </div>
-                                    <div class="col-2"
-                                         th:text="${#numbers.formatDecimal(hdct.don_gia, 1, 'COMMA', 0, 'POINT')+'VNĐ'}"
-                                    >
+                                    <div class="col-5">
+                                        <h5 th:text="${'Tổng tiền '+#numbers.formatDecimal(hd.tong_tien, 1, 'COMMA', 0, 'POINT')+' VNĐ'}"></h5>
                                     </div>
                                 </div>
-                                <div style="border-bottom: 1px solid darkgray;width: 400px;margin: 0 auto">
+                                <div class="row col-12">
+                                    <div class="col-7">
 
+                                    </div>
+                                    <div class="col-5">
+                                        <a th:href="@{|/qltk-kh/huy-don-hang/${hd.ma}|}" th:if="${hd.trangthai==0}"
+                                           class="btn-huy-hd btn btn-primary">Hủy đơn hàng
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-7">
-                                </div>
-                                <div class="col-5">
-                                    <h5 th:text="${'Tổng tiền '+#numbers.formatDecimal(hd.tong_tien, 1, 'COMMA', 0, 'POINT')+' VNĐ'}"></h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-7">
-                                </div>
-                                <div class="col-5">
-                                    <a th:href="@{|/qltk-kh/huy-don-hang/${hd.ma}|}" th:if="${hd.trangthai==0}"
-                                       class="btn-huy-hd btn btn-primary">Hủy đơn hàng</a>
-                                    <a class="btn-sm btn-warning btn-detail"
-                                       th:ma="${hd.ma}"
-                                       data-bs-toggle="modal"
-                                       data-bs-target='#ModalDetailHoaDon' href="#">
-                                        <i style="color: white" class="bi bi-eye"></i>
-                                    </a>
-                                    <div>
-                                        <div class="modal fade" id="ModalDetailHoaDon" tabindex="-1"
-                                             aria-labelledby="exampleModalLabel"
-                                             aria-hidden="true">
-                                            <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title fs-5 text-center"
-                                                            id="exampleModalLabel">Xem chi tiết Hóa Đơn</h5>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <div class="row p-3">
-                                                                    <div style="margin-bottom: 10px" class="col-12">
-                                                                        <h6 style="font-weight: bold;">Thông tin Hóa
-                                                                            Đơn</h6></div>
-                                                                    <div class="col-4">
-                                                                        <label class="p-l-5" style="font-weight: bold">Mã
-                                                                            HĐ:</label><br>
-                                                                        <label th:if="${hd.ma != null}" class="font-25"
-                                                                               th:text="${hd.ma}"
-                                                                        ></label>
-                                                                        <label th:if="${hd.ma == null}" class="font-25"
-                                                                               value="Chưa có"
-                                                                        ></label>
-                                                                    </div>
-                                                                    <div class="col-4">
-                                                                        <label class="p-l-5" style="font-weight: bold">Ngày
-                                                                            tạo:</label>
-                                                                        <label th:if="${hd.ngay_tao != null}"
-                                                                               th:text="${hd.ngay_tao}"
-                                                                               class="font-25"></label>
-                                                                        <input th:if="${hd.ngay_tao == null}">
-                                                                    </div>
-                                                                    <div class="col-4">
-                                                                        <label class="p-l-5" style="font-weight: bold">Ngày
-                                                                            thanh toán:</label>
-                                                                        <label
-                                                                                th:if="${hd.ngay_thanh_toan != null}"
-                                                                                th:text="${hd.ngay_thanh_toan}"
-                                                                                class="font-25"></label>
-                                                                        <label
-                                                                                th:if="${hd.ngay_thanh_toan == null}"
-                                                                        ></label>
-                                                                    </div>
+                        </a>
+                        <div>
+                            <div class="modal fade" id="ModalDetailHoaDon" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title fs-5 text-center"
+                                                id="exampleModalLabel">Xem chi tiết Hóa Đơn</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="row p-3">
+                                                        <div style="margin-bottom: 10px" class="col-12">
+                                                            <h6 style="font-weight: bold;">Thông tin Hóa
+                                                                Đơn</h6></div>
+                                                        <div class="col-4">
+                                                            <label class="p-l-5"
+                                                                   style="font-weight: bold">Mã
+                                                                HĐ:</label><br>
+                                                            <label th:if="${hd.ma != null}"
+                                                                   class="font-25"
+                                                                   th:text="${hd.ma}"
+                                                            ></label>
+                                                            <label th:if="${hd.ma == null}"
+                                                                   class="font-25"
+                                                                   value="Chưa có"
+                                                            ></label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label class="p-l-5"
+                                                                   style="font-weight: bold">Ngày
+                                                                tạo:</label>
+                                                            <label th:if="${hd.ngay_tao != null}"
+                                                                   th:text="${hd.ngay_tao}"
+                                                                   class="font-25"></label>
+                                                            <input th:if="${hd.ngay_tao == null}">
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label class="p-l-5"
+                                                                   style="font-weight: bold">Ngày
+                                                                thanh toán:</label>
+                                                            <label
+                                                                    th:if="${hd.ngay_thanh_toan != null}"
+                                                                    th:text="${hd.ngay_thanh_toan}"
+                                                                    class="font-25"></label>
+                                                            <label
+                                                                    th:if="${hd.ngay_thanh_toan == null}"
+                                                            ></label>
+                                                        </div>
 
-                                                                    <div style="margin-top: 10px;"
-                                                                         class="col-12 font-25">
-                                                                        <label class="p-l-5" style="font-weight: bold">Số
-                                                                            tiền giảm:</label>
-                                                                        <label
-                                                                                th:text="${hd.so_tien_giam != null ? #numbers.formatDecimal(hd.so_tien_giam, 1, 'COMMA', 0, 'POINT')+' VNĐ' : 0}"
-                                                                                style="color: red"></label>
-                                                                    </div>
+                                                        <div style="margin-top: 10px;"
+                                                             class="col-12 font-25">
+                                                            <label class="p-l-5"
+                                                                   style="font-weight: bold">Số
+                                                                tiền giảm:</label>
+                                                            <label
+                                                                    th:text="${hd.so_tien_giam != null ? #numbers.formatDecimal(hd.so_tien_giam, 1, 'COMMA', 0, 'POINT')+' VNĐ' : 0}"
+                                                                    style="color: red"></label>
+                                                        </div>
 
-                                                                    <div style="margin-top: 10px;"
-                                                                         class="col-12 font-25">
-                                                                        <label class="p-l-5" style="font-weight: bold">Số
-                                                                            tiền quy đổi:</label>
-                                                                        <label
-                                                                                th:text="${hd.so_tien_quy_doi != null ? #numbers.formatDecimal(hd.so_tien_quy_doi, 1, 'COMMA', 0, 'POINT')+' VNĐ' : 0}"
-                                                                                style="color: red"></label>
-                                                                    </div>
-
-                                                                    <div style="margin-top: 10px;"
-                                                                         class="col-12 font-25">
-                                                                        <label class="p-l-5" style="font-weight: bold">Số
-                                                                            điểm sử dụng:</label>
-                                                                        <label
-                                                                                th:text="${hd.so_diem_su_dung  != null ? #numbers.formatDecimal(hd.so_diem_su_dung, 1, 'COMMA', 0, 'POINT')+' VNĐ' : 0}"
-                                                                                style="color: red"></label>
-                                                                    </div>
-
-                                                                    <div style="margin-top: 10px;" class="col-12
+                                                        <div style="margin-top: 10px;" class="col-12
                                                                      font-25">
-                                                                        <label class="p-l-5" style="font-weight: bold">Phí
-                                                                            ship:</label>
-                                                                        <label
-                                                                                th:text="${hd.phi_ship != null ? #numbers.formatDecimal(hd.phi_ship, 1, 'COMMA', 0, 'POINT')+' VNĐ' : 0}"
-                                                                                style="color: red"></label>
-                                                                    </div>
-                                                                    <div style="margin-top: 10px;" class="col-12 font-25
+                                                            <label class="p-l-5"
+                                                                   style="font-weight: bold">Phí
+                                                                ship:</label>
+                                                            <label
+                                                                    th:text="${hd.phi_ship != null ? #numbers.formatDecimal(hd.phi_ship, 1, 'COMMA', 0, 'POINT')+' VNĐ' : 0}"
+                                                                    style="color: red"></label>
+                                                        </div>
+                                                        <div style="margin-top: 10px;" class="col-12 font-25
                                                                 ">
-                                                                        <label class="p-l-5" style="font-weight: bold">Tổng
-                                                                            tiền:</label>
-                                                                        <label
-                                                                                th:text="${hd.tong_tien != null ? #numbers.formatDecimal(hd.tong_tien, 1, 'COMMA', 0, 'POINT')+' VNĐ' : 0}"
-                                                                                style="color: red"></label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <div class="row p-3">
-                                                                    <div style="margin-bottom: 10px" class="col-12">
-                                                                        <h6 style="font-weight: bold;">Thông tin Khách
-                                                                            Hàng</h6>
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <label class="p-l-5" style="font-weight: bold">Khách
-                                                                            Hàng:</label>
-                                                                        <br>
-                                                                        <label th:if="${hd.khachHang == null}"
-                                                                               th:text="Khách Lẻ"
-                                                                        ></label>
-                                                                        <label th:if="${hd.khachHang != null}"
-                                                                               th:text="${hd.khachHang.hoten + ' - ' + hd.khachHang.email + ' - ' + hd.khachHang.sdt}"
-                                                                        ></label>
-                                                                    </div>
-                                                                    <div class="col-6" style="margin-top: 10px">
-                                                                        <label class="p-l-5" style="font-weight: bold">Tên
-                                                                            người nhận:</label>
-                                                                        <br>
-                                                                        <label
-                                                                                th:if="${hd.ten_nguoi_nhan != null}"
-                                                                                th:text="${hd.ten_nguoi_nhan}"
-                                                                        ></label>
-                                                                        <label
-                                                                                th:if="${hd.ten_nguoi_nhan == null}"
-                                                                                th:text="No data"
-                                                                        ></label>
-                                                                    </div>
-                                                                    <div class="col-6" style="margin-top: 10px">
-                                                                        <label class="p-l-5"
-                                                                               style="font-weight: bold">SĐT:</label>
-                                                                        <br>
-                                                                        <label
-                                                                                th:if="${hd.sdt_nguoi_nhan != null}"
-                                                                                th:text="${hd.sdt_nguoi_nhan}"
-                                                                        ></label>
-                                                                        <label
-                                                                                th:if="${hd.sdt_nguoi_nhan == null}"
-                                                                                th:text="No data"
-                                                                        ></label>
-                                                                    </div>
-                                                                    <div style="margin-top: 10px" class="col-12">
-                                                                        <label class="p-l-5" style="font-weight: bold">Địa
-                                                                            chỉ:</label>
-                                                                        <textarea th:if="${hd.dia_chi != null}"
-                                                                                  cols="70"
-                                                                                  rows="3">[[${hd.dia_chi}]]</textarea>
-                                                                        <textarea th:if="${hd.dia_chi == null}"
-                                                                                  cols="70"
-                                                                                  rows="3">[[${hd.dia_chi}]]</textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <table id="table-hdct" class="table">
-                                                                    <thead>
-                                                                    <tr>
-                                                                        <th scope="col">Ảnh</th>
-                                                                        <th scope="col">Tên SP</th>
-                                                                        <th scope="col">Size</th>
-                                                                        <th scope="col">Số lượng</th>
-                                                                        <th scope="col">Đơn giá</th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                    <tr>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
+                                                            <label class="p-l-5"
+                                                                   style="font-weight: bold">Tổng
+                                                                tiền:</label>
+                                                            <label
+                                                                    th:text="${hd.tong_tien != null ? #numbers.formatDecimal(hd.tong_tien, 1, 'COMMA', 0, 'POINT')+' VNĐ' : 0}"
+                                                                    style="color: red"></label>
                                                         </div>
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close
-                                                        </button>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="row p-3">
+                                                        <div style="margin-bottom: 10px" class="col-12">
+                                                            <h6 style="font-weight: bold;">Thông tin
+                                                                Khách
+                                                                Hàng</h6>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label class="p-l-5"
+                                                                   style="font-weight: bold">Khách
+                                                                Hàng:</label>
+                                                            <br>
+                                                            <label th:if="${hd.khachHang == null}"
+                                                                   th:text="Khách Lẻ"
+                                                            ></label>
+                                                            <label th:if="${hd.khachHang != null}"
+                                                                   th:text="${hd.khachHang.hoten + ' - ' + hd.khachHang.email + ' - ' + hd.khachHang.sdt}"
+                                                            ></label>
+                                                        </div>
+                                                        <div class="col-6" style="margin-top: 10px">
+                                                            <label class="p-l-5"
+                                                                   style="font-weight: bold">Tên
+                                                                người nhận:</label>
+                                                            <br>
+                                                            <label
+                                                                    th:if="${hd.ten_nguoi_nhan != null}"
+                                                                    th:text="${hd.ten_nguoi_nhan}"
+                                                            ></label>
+                                                            <label
+                                                                    th:if="${hd.ten_nguoi_nhan == null}"
+                                                                    th:text="No data"
+                                                            ></label>
+                                                        </div>
+                                                        <div class="col-6" style="margin-top: 10px">
+                                                            <label class="p-l-5"
+                                                                   style="font-weight: bold">SĐT:</label>
+                                                            <br>
+                                                            <label
+                                                                    th:if="${hd.sdt_nguoi_nhan != null}"
+                                                                    th:text="${hd.sdt_nguoi_nhan}"
+                                                            ></label>
+                                                            <label
+                                                                    th:if="${hd.sdt_nguoi_nhan == null}"
+                                                                    th:text="No data"
+                                                            ></label>
+                                                        </div>
+                                                        <div style="margin-top: 10px" class="col-12">
+                                                            <label class="p-l-5"
+                                                                   style="font-weight: bold">Địa
+                                                                chỉ:</label>
+                                                            <textarea th:if="${hd.dia_chi != null}"
+                                                                      cols="70"
+                                                                      rows="3">[[${hd.dia_chi}]]</textarea>
+                                                            <textarea th:if="${hd.dia_chi == null}"
+                                                                      cols="70"
+                                                                      rows="3">[[${hd.dia_chi}]]</textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-12">
+                                                    <table id="table-hdct" class="table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th scope="col">Ảnh</th>
+                                                            <th scope="col">Tên SP</th>
+                                                            <th scope="col">Size</th>
+                                                            <th scope="col">Số lượng</th>
+                                                            <th scope="col">Đơn giá</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
