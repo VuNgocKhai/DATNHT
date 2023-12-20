@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.HangKhachHang;
+import com.example.demo.entity.GiayChiTiet;
 import com.example.demo.entity.KhachHang;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +12,10 @@ import java.util.List;
 import java.util.UUID;
 
 public interface KhachHangDao extends JpaRepository<KhachHang, UUID> {
+
+    @Query("SELECT kh FROM KhachHang kh LEFT JOIN FETCH kh.viDiems")
+    List<KhachHang> findAllWithViDiems();
+
     @Query("select p from KhachHang p where p.email=?1")
     KhachHang getKhByEmail(String email);
 
@@ -50,4 +55,8 @@ public interface KhachHangDao extends JpaRepository<KhachHang, UUID> {
 
     @Query("select kh FROM KhachHang kh where kh.hang_khach_hang.ma=?1")
     Page<KhachHang> khInHkh(String ma, Pageable pageable);
+    @Query("select p from KhachHang p where p.hoten like ?1 or p.sdt like ?1 or p.email like ?1")
+    Page<KhachHang> getSearchkhachhang(String keyword, Pageable pageable);
+    @Query("select kh from KhachHang  kh where kh.hoten like ?1 or kh.sdt like ?1 or  kh.ma like ?1")
+    Page<KhachHang> search( String keyword, Pageable pageable);
 }

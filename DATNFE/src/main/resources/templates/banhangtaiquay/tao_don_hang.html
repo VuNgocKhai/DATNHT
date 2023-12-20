@@ -104,35 +104,27 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="/admin/ban-hang" ><span class="fa fa-user mr-3"></span> Quản Lý Đơn Hàng</a>
+                    <a href="/admin/ban-hang"><span class="fa fa-user mr-3"></span> Quản Lý Đơn Hàng</a>
 
                 </li>
                 <li>
                     <a href="/admin/ban-hang-tai-quay"><span class="fa fa-briefcase mr-3"></span> Bán Hàng Tại Quầy</a>
                 </li>
                 <li>
-                    <a href="#homeSubmenu2"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
+                    <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu2">
                         <li>
                             <a href="/admin/sanpham">Sản Phẩm</a>
                         </li>
                         <li>
-                            <a href="/admin/camgiac">Cảm Giác</a>
+                            <a href="/admin/kichco">Kích cỡ</a>
                         </li>
                         <li>
                             <a href="/admin/chatlieu">Chất Liệu</a>
                         </li>
                         <li>
-                            <a href="/admin/danhmuc">Danh Mục</a>
-                        </li>
-                        <li>
                             <a href="/admin/degiay">Đế Giày</a>
-                        </li>
-                        <li>
-                            <a href="/admin/diahinh">Địa Hình</a>
-                        </li>
-                        <li>
-                            <a href="/admin/docaogiay">Độ Cao Giày</a>
                         </li>
                         <li>
                             <a href="/admin/gioitinh">Giới Tính</a>
@@ -141,15 +133,20 @@
                             <a href="/admin/mausac">Màu Sắc</a>
                         </li>
                         <li>
-                            <a href="/admin/thoitietthichhop">Thời Tiết Thích Hợp</a>
+                            <a href="/admin/xuatxu">Xuất xứ</a>
+                        </li>
+                        <li>
+                            <a href="/admin/kieudang">Kiểu dáng</a>
                         </li>
                         <li>
                             <a href="/admin/thuonghieu">Thương Hiệu</a>
                         </li>
+
                     </ul>
                 </li>
                 <li>
-                    <a href="#homeSubmenu3"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
+                    <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu3">
                         <li>
                             <a href="/admin/nhan-vien">Nhân Viên</a>
@@ -160,7 +157,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#homeSubmenu4"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-cubes mr-3"></span>Khuyến Mại</a>
+                    <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-cubes mr-3"></span>Khuyến Mại</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu4">
                         <li>
                             <a href="/admin/chuong-trinh-giam-gia-sp">Sản Phẩm</a>
@@ -184,7 +182,9 @@
 
             <div class="footer">
                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a
+                            href="https://colorlib.com" target="_blank">Colorlib.com</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
             </div>
 
@@ -358,19 +358,24 @@
                         <h5 class="modal-title" id="exampleModalLabel">Chọn Tài Khoản Khách Hàng</h5>
                     </div>
                     <div class="modal-body">
-                        <div id="searchKH" class="d-flex align-items-center">
-                            <input type="text" class="form-control col-6 m-r-1" style="border: 1px solid black">
-                            <button class="btn btn-primary">
-                                <i class="bi bi-search"></i>
+                        <!--                    Begin tìm kiếm trong modal-->
+                        <form class="form-inline search-form" th:action="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}}"
+                              method="get">
+                            <div class="form-group mx-sm-3 mb-2">
+                                <input hidden type="text" class="form-control" name="maHD" th:value="${maHD}">
+                                <input type="text" class="form-control-sm" id="keywordkh" name="keywordkh">
+                            </div>
+                            <button type="submit" class="btn-sm btn-primary mb-2" id="searchButton1">
+                                <i class="fa fa-search"></i>
                             </button>
-                        </div>
+                        </form>
                         <table id="ListKhachHangTable" style="margin-top: 15px" class="table table-hover">
                             <tbody style="max-height: 300px; overflow-y: auto;">
                             <!-- Dữ liệu của tbody -->
-                            <tr th:if="${ListKhachHang.isEmpty()}">
+                            <tr th:if="${ListKhachHang.content.isEmpty()}">
                                 <td colspan="9">Danh Sách Khách Hàng Trống</td>
                             </tr>
-                            <tr th:each="kh:${ListKhachHang}">
+                            <tr th:each="kh:${ListKhachHang.content}">
                                 <th style="width: 8rem">
                                     <i style="font-size: 3rem" class="bi bi-person-circle"></i>
                                 </th>
@@ -405,6 +410,33 @@
                         </table>
                         <!--            end phần table-->
                     </div>
+                    <!--            nav-->
+                    <nav aria-label="Page navigation example"
+                         style="display: flex;justify-content: space-between;">
+                        <ul class="pagination" style="margin-right: 24px;">
+                            <li class="page-item">
+                                <a class="page-link linkhd1" th:if="${ListKhachHang.number > 0}"
+                                   th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${ListKhachHang.number-1}|}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li th:each="tongtrang,status:${#numbers.sequence(1, ListKhachHang.totalPages)}"
+                                class="page-item">
+                                <a class="page-link linkhd1"
+                                   th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${status.index}|}">[[${status.index+1}]]</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link linkhd1"
+                                   th:if="${ListKhachHang.number < ListKhachHang.totalPages - 1}"
+                                   th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${ListKhachHang.number+1}|}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!--            nav-->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Close
@@ -489,7 +521,7 @@
         <!--            End Modal chọn địa chỉ -->
 
         <!--            Begin Modal danh sách voucher-->
-        <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="exampleModal10" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content" style="background-color: #ffffff">
@@ -497,18 +529,24 @@
                         <h5 class="modal-title" id="exampleModalLabel">Chọn Voucher</h5>
                     </div>
                     <div class="modal-body">
-                        <div id="searchVC" class="d-flex align-items-center">
-                            <input type="text" style="border: 1px solid black" class="form-control col-6">
-                            <button class="btn btn-primary">
-                                <i class="bi bi-search"></i>
+                        <!--                    Begin tìm kiếm trong modal-->
+                        <form class="form-inline search-form" th:action="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}}"
+                              method="get">
+                            <div class="form-group mx-sm-3 mb-2">
+                                <input hidden type="text" class="form-control" name="maHD" th:value="${maHD}">
+                                <input type="text" class="form-control-sm" id="searchhd" name="searchhd">
+                            </div>
+                            <button type="submit" class="btn-sm btn-primary mb-2" id="searchButton2">
+                                <i class="fa fa-search"></i>
                             </button>
-                        </div>
-                        <div style="margin-top: 15px" class="address-card" th:if="${ListGiamGiaHoaDon.isEmpty()}">
+                        </form>
+                        <table id="ListgiamgiahoadonTable" style="margin-top: 15px" class="table table-hover">
+                        <div style="margin-top: 15px" class="address-card" th:if="${ListGiamGiaHoaDon.content.isEmpty()}">
                             <i style="font-size: 3rem"
                                class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>
                             <div class="text-center">No Data</div>
                         </div>
-                        <div style="margin-top: 15px" th:each="item:${ListGiamGiaHoaDon}"
+                        <div style="margin-top: 15px" th:each="item:${ListGiamGiaHoaDon.content}"
                              class="address-card">
                             <div class="row">
                                 <div class="col-2 d-flex justify-content-center align-items-center">
@@ -556,6 +594,7 @@
                                 </div>
                             </div>
                         </div>
+                        </table>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
                             </button>
@@ -655,7 +694,7 @@
                                 <input type="text" class="form-control" th:value="${detailMaGGHD}"
                                        placeholder="Mã Giảm Giá">
                                 <button style="margin-right: 10px" class="btn-sm btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal3">
+                                        data-bs-target="#exampleModal10">
                                     <i class="bi bi-ticket-perforated"></i>
                                 </button>
                             </div>
@@ -788,6 +827,8 @@
                                                name="tongTienSauGiam" id="tongTienSauGiam"
                                                th:value="${TongTienSauGiam}" readonly>
                                     </div>
+                                    <input type="text" hidden="hidden" th:value="${tien_tuong_ung}" id="tien_tuong_ung" >
+                                    <input type="text" hidden="hidden" th:value="${diem_tuong_ung}" id="diem_tuong_ung" >
                                 </div>
                             </form>
                         </div>
@@ -981,6 +1022,8 @@
     // Thêm sự kiện 'input' vào phần tử input
     inputField.addEventListener('input', function() {
         clearErrorMessages();
+        let tien_tuong_ung = document.getElementById("tien_tuong_ung");
+        let diem_tuong_ung = document.getElementById("diem_tuong_ung");
         if (Number.parseInt(inputField.value) > 5000 && Number.parseInt(inputField.value) < Number.parseInt(inputField1.value)){
             // Hành động bạn muốn thực hiện khi có sự kiện input (người dùng nhập thông tin)
             let phiShip = document.getElementById('phiShip').value;
@@ -990,16 +1033,43 @@
             inputField2.value = inputField.value;
             document.getElementById('tongTienSauGiam').setAttribute('value', String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - Number.parseInt(inputField.value))));
             document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - Number.parseInt(inputField.value)));
+            let diemCongSau = Math.round((((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - Number.parseInt(inputField.value))/Number.parseInt(tien_tuong_ung.value))*Number.parseInt(diem_tuong_ung.value)));
+            console.log('Đã nhập 2: ' + diemCongSau);
+
             console.log('Đã nhập: ' + inputField.value);
         }
         if (Number.parseInt(inputField.value) < 0){
             displayErrorMessage('Error', 'Số điểm sử dụng phải là số nguyên');
+            let phiShip = document.getElementById('phiShip').value;
+            let tongTienTruocGiam = document.getElementById('tongTienTruocGiam').value;
+            let soTienGiam = document.getElementById('soTienGiam').value;
+            inputField2.setAttribute('value', inputField.value);
+            inputField2.value = inputField.value;
+            document.getElementById('tongTienSauGiam').setAttribute('value', String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - 0)));
+            document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - 0));
+            console.log('Đã nhập: ' + inputField.value);
         }
         if (Number.parseInt(inputField.value) < 5000){
             displayErrorMessage('Error', 'Số điểm sử dụng tối thiểu là 5000');
+            let phiShip = document.getElementById('phiShip').value;
+            let tongTienTruocGiam = document.getElementById('tongTienTruocGiam').value;
+            let soTienGiam = document.getElementById('soTienGiam').value;
+            inputField2.setAttribute('value', inputField.value);
+            inputField2.value = inputField.value;
+            document.getElementById('tongTienSauGiam').setAttribute('value', String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - 0)));
+            document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - 0));
+            console.log('Đã nhập: ' + inputField.value);
         }
         if (Number.parseInt(inputField.value) > Number.parseInt(inputField1.value)){
             displayErrorMessage('Error', 'Số điểm sử dụng vượt quá số điểm hiện có');
+            let phiShip = document.getElementById('phiShip').value;
+            let tongTienTruocGiam = document.getElementById('tongTienTruocGiam').value;
+            let soTienGiam = document.getElementById('soTienGiam').value;
+            inputField2.setAttribute('value', inputField.value);
+            inputField2.value = inputField.value;
+            document.getElementById('tongTienSauGiam').setAttribute('value', String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - 0)));
+            document.getElementById('tongTienSauGiam').value = String((Number.parseInt(phiShip) + Number.parseInt(tongTienTruocGiam) - Number.parseInt(soTienGiam) - 0));
+            console.log('Đã nhập: ' + inputField.value);
         }
     });
     function displayErrorMessage(elementId, message) {
@@ -1295,6 +1365,7 @@
         checkValue(input);
     }
 </script>
+
 <script>
     $(document).ready(function () {
         // Bắt sự kiện click trên các nút nav
@@ -1315,6 +1386,11 @@
                     // Hiển thị lại modal
                     $('#exampleModal').modal('show');
 
+                    $('#ListKhachHangTable').html($(data).find('#ListKhachHangTable').html());
+
+                    // Hiển thị lại modal
+                    $('#exampleModal1').modal('show');
+
                     var giaBanElements = document.querySelectorAll('.giaBan');
                     giaBanElements.forEach(function (element) {
                         var giaBanText = element.textContent.trim();
@@ -1324,6 +1400,38 @@
                         // Cập nhật lại văn bản đã định dạng trong phần tử
                         element.textContent = giaBanFormatted + " VNĐ";
                     });
+
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải dữ liệu.');
+                }
+            });
+        });
+    });
+
+</script>
+<!--End Ngăn chuyển trang khi chuyển page trong modal-->
+
+<script>
+    $(document).ready(function () {
+        // Bắt sự kiện click trên các nút nav
+        $('.linkhd1').on('click', function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của nút nav
+
+            // Lấy URL từ thuộc tính th:href của nút nav
+            var url = $(this).attr('href');
+
+            // Gửi yêu cầu AJAX để tải lại nội dung của bảng
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'html', // Đảm bảo rằng bạn đang lấy HTML
+                success: function (data) {
+
+                    $('#ListKhachHangTable').html($(data).find('#ListKhachHangTable').html());
+
+                    // Hiển thị lại modal
+                    $('#exampleModal1').modal('show');
 
                 },
                 error: function () {
@@ -1371,6 +1479,75 @@
                         // Cập nhật lại văn bản đã định dạng trong phần tử
                         element.textContent = giaBanFormatted + " VNĐ";
                     });
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải dữ liệu.');
+                }
+            });
+        });
+    });
+
+</script>
+<!--End tìm kiếm sản phẩm trong Modal-->
+
+<!--Tìm Kiếm khách hàng Trong Modal-->
+<script>
+    $(document).ready(function () {
+        // Bắt sự kiện click trên nút Tìm kiếm
+        $('#searchButton1').click(function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của nút Tìm kiếm
+
+            // Lấy URL từ thuộc tính action của biểu mẫu tìm kiếm
+            var url = $('#searchForm').attr('action');
+            // Lấy giá trị từ trường nhập "keyword"
+            var keywordkh = $('#keywordkh').val();
+            // Gửi yêu cầu AJAX để tải lại nội dung của bảng
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: {
+                    keywordkh: keywordkh,
+                },
+                dataType: 'html',
+                success: function (data) {
+                    $('#ListKhachHangTable').html($(data).find('#ListKhachHangTable').html());
+                    // Hiển thị lại modal
+                    $('#exampleModal1').modal('show');
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải dữ liệu.');
+                }
+            });
+        });
+    });
+
+</script>
+<!--End tìm kiếm sản phẩm trong Modal-->
+
+
+<!--Tìm Kiếm voucher Trong Modal-->
+<script>
+    $(document).ready(function () {
+        // Bắt sự kiện click trên nút Tìm kiếm
+        $('#searchButton2').click(function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của nút Tìm kiếm
+
+            // Lấy URL từ thuộc tính action của biểu mẫu tìm kiếm
+            var url = $('#searchForm').attr('action');
+            // Lấy giá trị từ trường nhập "keyword"
+            var searchhd = $('#searchhd').val();
+            // Gửi yêu cầu AJAX để tải lại nội dung của bảng
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: {
+                    searchhd: searchhd,
+                },
+                dataType: 'html',
+                success: function (data) {
+                    $('#ListgiamgiahoadonTable').html($(data).find('#ListgiamgiahoadonTable').html());
+                    // Hiển thị lại modal
+                    $('#exampleModal10').modal('show');
                 },
                 error: function () {
                     alert('Có lỗi xảy ra khi tải dữ liệu.');

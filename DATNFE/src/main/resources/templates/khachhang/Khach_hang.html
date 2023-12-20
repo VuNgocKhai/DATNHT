@@ -60,7 +60,17 @@
             opacity: 0;
             cursor: pointer;
         }
-
+        .success-message {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4caf50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            z-index: 9999;
+        }
     </style>
 </head>
 <body>
@@ -89,35 +99,27 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="/admin/ban-hang" ><span class="fa fa-user mr-3"></span> Quản Lý Đơn Hàng</a>
+                    <a href="/admin/ban-hang"><span class="fa fa-user mr-3"></span> Quản Lý Đơn Hàng</a>
 
                 </li>
                 <li>
                     <a href="/admin/ban-hang-tai-quay"><span class="fa fa-briefcase mr-3"></span> Bán Hàng Tại Quầy</a>
                 </li>
                 <li>
-                    <a href="#homeSubmenu2"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
+                    <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu2">
                         <li>
                             <a href="/admin/sanpham">Sản Phẩm</a>
                         </li>
                         <li>
-                            <a href="/admin/camgiac">Cảm Giác</a>
+                            <a href="/admin/kichco">Kích cỡ</a>
                         </li>
                         <li>
                             <a href="/admin/chatlieu">Chất Liệu</a>
                         </li>
                         <li>
-                            <a href="/admin/danhmuc">Danh Mục</a>
-                        </li>
-                        <li>
                             <a href="/admin/degiay">Đế Giày</a>
-                        </li>
-                        <li>
-                            <a href="/admin/diahinh">Địa Hình</a>
-                        </li>
-                        <li>
-                            <a href="/admin/docaogiay">Độ Cao Giày</a>
                         </li>
                         <li>
                             <a href="/admin/gioitinh">Giới Tính</a>
@@ -126,15 +128,20 @@
                             <a href="/admin/mausac">Màu Sắc</a>
                         </li>
                         <li>
-                            <a href="/admin/thoitietthichhop">Thời Tiết Thích Hợp</a>
+                            <a href="/admin/xuatxu">Xuất xứ</a>
+                        </li>
+                        <li>
+                            <a href="/admin/kieudang">Kiểu dáng</a>
                         </li>
                         <li>
                             <a href="/admin/thuonghieu">Thương Hiệu</a>
                         </li>
+
                     </ul>
                 </li>
                 <li>
-                    <a href="#homeSubmenu3"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
+                    <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu3">
                         <li>
                             <a href="/admin/nhan-vien">Nhân Viên</a>
@@ -145,7 +152,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#homeSubmenu4"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-cubes mr-3"></span>Khuyến Mại</a>
+                    <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-cubes mr-3"></span>Khuyến Mại</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu4">
                         <li>
                             <a href="/admin/chuong-trinh-giam-gia-sp">Sản Phẩm</a>
@@ -169,7 +177,9 @@
 
             <div class="footer">
                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a
+                            href="https://colorlib.com" target="_blank">Colorlib.com</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
             </div>
 
@@ -365,6 +375,7 @@
                         <th scope="col">Ngày Sinh</th>
                         <th scope="col">Số Điện Thoại</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Điểm hiện có</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -375,12 +386,13 @@
                         <td>[[${item.ngaysinh}]]</td>
                         <td>[[${item.sdt}]]</td>
                         <td>[[${item.email}]]</td>
+                        <td th:text="${item.viDiems != null ? item.viDiems.tong_diem : '0'}"></td>
                         <td th:text="${item.trangthai == 1 ? 'Đang Hoạt Động' : 'Không Hoạt Động'}"></td>
                         <td>
                             <a class="btn-sm btn-warning" th:href="@{|/admin/khachhang/detail/${item.ma}|}"><i
-                                    style="color: white" class="bi bi-eye"></i></a>
-                            <a class="btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                               th:href="@{|/admin/khachhang/delete/${item.id}|}"><i class="bi bi-trash"></i></a>
+                                   style="color: white" class="bi bi-eye"></i></a>
+                            <a class="btn-sm btn-danger delete-btn" th:data-id="${item.id}"><i class="bi bi-trash"></i></a>
+
                         </td>
                     </tr>
                 </table>
@@ -436,6 +448,12 @@
             <!--            End modal quét qr-->
         </div>
     </div>
+
+    <div id="successMessage" class="success-message" style="display: none;">
+        Khách hàng đã được thêm thành công!
+    </div>
+
+
 </div>
 <!--lấy các dự liệu trong db chuyển đổi thành mảng trong javascript-->
 <script th:inline="javascript">
@@ -476,6 +494,7 @@
                         // Xử lý lỗi nếu cần
                     }
                 });
+
             }
         });
     });
@@ -659,102 +678,57 @@
 
 </script>
 
-<!--camera-->
+<!-- Bao gồm các tệp cần thiết cho SweetAlert -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+<!--Thông báo khi xóa thành công-->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const video = document.getElementById("videoElement");
-        const canvasElement = document.getElementById("canvasElement");
-        const canvas = canvasElement.getContext("2d");
+    $(document).on('click', '.delete-btn', function(e) {
+        e.preventDefault();
 
-        document.getElementById("qrScannerModal").addEventListener("show.bs.modal", function () {
-            canvasElement.style.display = "none";
-            video.style.display = "block";
+        var id = $(this).data('id');
 
-            navigator.mediaDevices
-                .getUserMedia({ video: { facingMode: "environment" } })
-                .then(function (stream) {
-                    video.srcObject = stream;
-                    video.play();
-                })
-                .catch(function (err) {
-                    console.error("Error accessing the camera: ", err);
-                });
-        });
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn xóa?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/admin/khachhang/delete/' + id,
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Xóa thành công',
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
 
-        document.getElementById("qrScannerModal").addEventListener("hide.bs.modal", function () {
-            if (video.srcObject) {
-                video.srcObject.getTracks().forEach(function (track) {
-                    track.stop();
+                        // Chờ 1.5 giây trước khi tải lại trang
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500);
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Xóa không thành công',
+                            text: 'Đã xảy ra lỗi khi xóa.',
+                            position: 'top-end'
+                        });
+                    }
                 });
             }
-        });
-
-        document.getElementById("scanQR").addEventListener("click", function () {
-            canvasElement.style.display = "block";
-            video.style.display = "none";
-            canvasElement.width = video.videoWidth;
-            canvasElement.height = video.videoHeight;
-            canvas.drawImage(
-                video,
-                0,
-                0,
-                canvasElement.width,
-                canvasElement.height
-            );
-
-            const imageData = canvas.getImageData(
-                0,
-                0,
-                canvasElement.width,
-                canvasElement.height
-            );
-            const code = jsQR(
-                imageData.data,
-                imageData.width,
-                imageData.height
-            );
-
-
-            if (code) {
-                alert("QR Code detected! Content: " + code.data);
-            } else {
-                alert("No QR Code detected!");
-            }
-
         });
     });
-
 </script>
-<!--end camera-->
-
-
-<!--<script>-->
-<!--    $(document).ready(function () {-->
-<!--        $("#khachHangForm").submit(function (e) {-->
-<!--            e.preventDefault();-->
-<!--            var formData = $(this).serialize();-->
-
-<!--            $.ajax({-->
-<!--                type: "POST",-->
-<!--                url: $(this).attr("action"),-->
-<!--                data: formData,-->
-<!--                success: function (data) {-->
-<!--                    console.log("Thêm Thành Công!", data); // Log dữ liệu trả về nếu có-->
-
-<!--                    // Chuyển hướng sau khi thành công-->
-<!--                    window.location.href = '/admin/khachhang/detail/' + data.ma; // Chuyển hướng đến URL mong muốn-->
-<!--                },-->
-<!--                error: function (xhr, status, error) {-->
-<!--                    console.log("Lỗi:", status, error); // Log thông tin lỗi nếu có-->
-<!--                    toastr.error("Đã xảy ra lỗi!", "", {-->
-<!--                        positionClass: "toast-top-right",-->
-<!--                    });-->
-<!--                }-->
-<!--            });-->
-<!--        });-->
-<!--    });-->
-
-<!--</script>-->
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

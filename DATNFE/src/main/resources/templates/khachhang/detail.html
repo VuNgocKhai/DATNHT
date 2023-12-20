@@ -94,35 +94,27 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="/admin/ban-hang" ><span class="fa fa-user mr-3"></span> Quản Lý Đơn Hàng</a>
+                    <a href="/admin/ban-hang"><span class="fa fa-user mr-3"></span> Quản Lý Đơn Hàng</a>
 
                 </li>
                 <li>
                     <a href="/admin/ban-hang-tai-quay"><span class="fa fa-briefcase mr-3"></span> Bán Hàng Tại Quầy</a>
                 </li>
                 <li>
-                    <a href="#homeSubmenu2"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
+                    <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu2">
                         <li>
                             <a href="/admin/sanpham">Sản Phẩm</a>
                         </li>
                         <li>
-                            <a href="/admin/camgiac">Cảm Giác</a>
+                            <a href="/admin/kichco">Kích cỡ</a>
                         </li>
                         <li>
                             <a href="/admin/chatlieu">Chất Liệu</a>
                         </li>
                         <li>
-                            <a href="/admin/danhmuc">Danh Mục</a>
-                        </li>
-                        <li>
                             <a href="/admin/degiay">Đế Giày</a>
-                        </li>
-                        <li>
-                            <a href="/admin/diahinh">Địa Hình</a>
-                        </li>
-                        <li>
-                            <a href="/admin/docaogiay">Độ Cao Giày</a>
                         </li>
                         <li>
                             <a href="/admin/gioitinh">Giới Tính</a>
@@ -131,15 +123,20 @@
                             <a href="/admin/mausac">Màu Sắc</a>
                         </li>
                         <li>
-                            <a href="/admin/thoitietthichhop">Thời Tiết Thích Hợp</a>
+                            <a href="/admin/xuatxu">Xuất xứ</a>
+                        </li>
+                        <li>
+                            <a href="/admin/kieudang">Kiểu dáng</a>
                         </li>
                         <li>
                             <a href="/admin/thuonghieu">Thương Hiệu</a>
                         </li>
+
                     </ul>
                 </li>
                 <li>
-                    <a href="#homeSubmenu3"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
+                    <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu3">
                         <li>
                             <a href="/admin/nhan-vien">Nhân Viên</a>
@@ -150,7 +147,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#homeSubmenu4"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-cubes mr-3"></span>Khuyến Mại</a>
+                    <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-cubes mr-3"></span>Khuyến Mại</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu4">
                         <li>
                             <a href="/admin/chuong-trinh-giam-gia-sp">Sản Phẩm</a>
@@ -174,7 +172,9 @@
 
             <div class="footer">
                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a
+                            href="https://colorlib.com" target="_blank">Colorlib.com</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
             </div>
 
@@ -401,7 +401,10 @@
                             <td>
                                 <a th:href="@{|/admin/diachi/detail?makh=${item.khachHang.ma}&madc1=${item.madc}|}"><i class="bi bi-eye"></i></a>
 
-                                <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')" th:href="@{|/admin/diachi/delete/${item.id}|}"><i class="bi bi-trash3"></i></a>
+                                <a class="delete-btn" th:data-id="${item.id}" href="#"> <!-- Sử dụng class delete-btn để bắt sự kiện -->
+                                    <i class="bi bi-trash3"></i>
+                                </a>
+
                             </td>
                         </tr>
                     </table>
@@ -416,6 +419,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bao gồm các tệp cần thiết cho SweetAlert -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/popper.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/main.js"></script>
 
 <script>
     // 1. what is API
@@ -497,7 +507,6 @@
 
 <script>
 
-    <!--    documet khachhang-->
     document.getElementById('KhachHangForm').addEventListener('submit', function (event) {
         // Perform your validation logic here
         clearErrorMessages();
@@ -685,10 +694,32 @@
     }
 </script>
 
-<script src="/assets/js/jquery.min.js"></script>
-<script src="/assets/js/popper.js"></script>
-<script src="/assets/js/bootstrap.min.js"></script>
-<script src="/assets/js/main.js"></script>
+
+<script>
+    // Bắt sự kiện khi click vào nút xóa
+    $(document).on('click', '.delete-btn', function(e) {
+        e.preventDefault(); // Ngăn chặn hành động mặc định của nút
+
+        var id = $(this).data('id');
+
+        // Hiển thị Swal để xác nhận việc xóa
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn xóa?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng xác nhận muốn xóa, thực hiện request xóa
+                window.location.href = '/admin/diachi/delete/' + id;
+            }
+        });
+    });
+</script>
+
 
 </body>
 </html>

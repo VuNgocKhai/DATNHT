@@ -115,7 +115,6 @@ public class GiamGiaHoaDonController {
                 BigDecimal soTienGiamMax = giamGiaHoaDon.getSo_tien_giam_max();
                 BigDecimal soTienGiam = tongTienChuaShip.multiply(new BigDecimal(phanTramGiam)).divide(new BigDecimal(100));
 
-                // Nếu số tiền giảm vượt quá số tiền giảm tối đa, sử dụng số tiền giảm tối đa
                 if (soTienGiam.compareTo(soTienGiamMax) > 0) {
                     soTienGiam = soTienGiamMax;
                 }
@@ -155,15 +154,12 @@ public class GiamGiaHoaDonController {
                              Model model) {
         // tìm giảm giá hóa đơn tương ứng theo mã
         model.addAttribute("giamgiahoadon", giamGiaHoaDonRepo.getGiamGiaHoaDonByMa(ma));
-
         // Danh sách hóa đơn chưa áp mã
         PageDTO<HoaDon> hoaDonPageDTOchuaGG = hoaDonRepo.getAllHDchuaGGPage(page.orElse(0));
         model.addAttribute("listHoaDon", hoaDonPageDTOchuaGG);
         // Tìm danh sách hóa đơn đã được áp mã
         PageDTO<HoaDon> hoaDonPageDTOdaGG = giamGiaHoaDonRepo.getHoaDonByChuongTrinhGiamGiaPage(ma, page.orElse(0));
         model.addAttribute("hoaDonListdaGG", hoaDonPageDTOdaGG); // Page hóa đơn đã giảm giá
-
-
         return "giamgiahoadon/detail_giam_gia_hoa_don";
     }
 

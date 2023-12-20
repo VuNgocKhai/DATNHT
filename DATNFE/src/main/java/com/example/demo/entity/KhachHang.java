@@ -12,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Set;
 import java.util.UUID;
 import java.util.List;
 import java.util.UUID;
@@ -55,10 +56,17 @@ public class KhachHang implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_hkh")
     private HangKhachHang hang_khach_hang;
+
     @JsonIgnore
     @OneToOne(mappedBy = "khach_hang")
     private GioHang gio_hang;
+
     @JsonIgnore
     @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<DiaChi> diaChiList;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "khach_hang",fetch = FetchType.EAGER)
+    private ViDiem viDiems;
+
 }

@@ -117,9 +117,12 @@ public class BanHangController {
     @Transactional
     public String choGiaoDonHang(@PathVariable("maHD") String maHD) {
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv = nhanVienDAO.getNVByEmail(authentication.getName());
         if(hoaDon.getHinh_thuc_mua() == 0)
         {
             hoaDon.setTrangthai(3);
+            hoaDon.setNhanVien(nv);
             LocalDate currentDate = LocalDate.now();
             hoaDon.setNgay_thanh_toan(currentDate);
             hoaDonRepo.createHoaDon(hoaDon);
@@ -127,6 +130,7 @@ public class BanHangController {
         else
         {
             hoaDon.setTrangthai(1);
+            hoaDon.setNhanVien(nv);
             LocalDate currentDate = LocalDate.now();
             hoaDon.setNgay_thanh_toan(currentDate);
             hoaDonRepo.createHoaDon(hoaDon);
@@ -137,8 +141,11 @@ public class BanHangController {
     @RequestMapping("/admin/ban-hang/van-chuyen-don-hang/{maHD}")
     @Transactional
     public String vanChuyenDonHang(@PathVariable("maHD") String maHD) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv = nhanVienDAO.getNVByEmail(authentication.getName());
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
         hoaDon.setTrangthai(2);
+        hoaDon.setNhanVien(nv);
         hoaDonRepo.createHoaDon(hoaDon);
         return "redirect:/admin/ban-hang";
     }
@@ -147,7 +154,10 @@ public class BanHangController {
     @Transactional
     public String hoanThanhDonHang(@PathVariable("maHD") String maHD) {
         HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv = nhanVienDAO.getNVByEmail(authentication.getName());
         hoaDon.setTrangthai(3);
+        hoaDon.setNhanVien(nv);
         hoaDonRepo.createHoaDon(hoaDon);
         return "redirect:/admin/ban-hang";
     }
@@ -164,18 +174,30 @@ public class BanHangController {
                                       @RequestParam(value = "hoanthanh", required = false, defaultValue = "huy") String hoanthanh,
                                       RedirectAttributes redirectAttributes) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        NhanVien nv = nhanVienDAO.getNVByEmail(authentication.getName());
+
         if (selectedMa1 != null) {
             if ("huy".equals(huyxacnhan1)) {
                 for (String maHD : selectedMa1) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
+                    hoaDon.setNhanVien(nv);
                     hoaDon.setTrangthai(4);
                     hoaDonRepo.createHoaDon(hoaDon);
+                    if (hoaDon.getKhachHang() != null) {
+                        ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
+//                        viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong() + soDiemCong);
+                        viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() - hoaDon.getSo_diem_su_dung());
+                        viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
+                        viDiemDAO.save(viDiem);
+                    }
                 }
             } else if ("xac-nhan".equals(huyxacnhan1)) {
                 for (String maHD : selectedMa1) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
                     LocalDate currentDate = LocalDate.now();
                     hoaDon.setNgay_thanh_toan(currentDate);
+                    hoaDon.setNhanVien(nv);
                     if (hoaDon.getHinh_thuc_mua() == 0) {
                         hoaDon.setTrangthai(3);
                     } else {
@@ -189,13 +211,22 @@ public class BanHangController {
                 for (String maHD : selectedMa2) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
                     hoaDon.setTrangthai(2);
+                    hoaDon.setNhanVien(nv);
                     hoaDonRepo.createHoaDon(hoaDon);
                 }
             } else if ("huy".equals(huyxacnhan2)) {
                 for (String maHD : selectedMa2) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
                     hoaDon.setTrangthai(4);
+                    hoaDon.setNhanVien(nv);
                     hoaDonRepo.createHoaDon(hoaDon);
+                    if (hoaDon.getKhachHang() != null) {
+                        ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
+//                        viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong() + soDiemCong);
+                        viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() - hoaDon.getSo_diem_su_dung());
+                        viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
+                        viDiemDAO.save(viDiem);
+                    }
                 }
             }
         } else if (selectedMa3 != null) {
@@ -203,6 +234,7 @@ public class BanHangController {
                 for (String maHD : selectedMa3) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
                     hoaDon.setTrangthai(3);
+                    hoaDon.setNhanVien(nv);
                     hoaDonRepo.createHoaDon(hoaDon);
                     if (hoaDon.getKhachHang()!=null){
                         List<HoaDon> hoaDons = hoaDonDAO.getHoaDonByMaKh(hoaDon.getKhachHang().getMa());
@@ -243,7 +275,7 @@ public class BanHangController {
                             lichSuTieuDiem.setSo_diem_cong(soDiemCong);
                             lichSuTieuDiemDAO.save(lichSuTieuDiem);
                             viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong() + soDiemCong);
-                            viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() + hoaDon.getSo_diem_su_dung());
+//                            viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() + hoaDon.getSo_diem_su_dung());
                             viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
                             viDiemDAO.save(viDiem);
                         }
@@ -251,8 +283,16 @@ public class BanHangController {
             } else if ("huy".equals(huyxacnhan3)) {
                 for (String maHD : selectedMa3) {
                     HoaDon hoaDon = hoaDonRepo.getHoaDonByMa(maHD);
+                    hoaDon.setNhanVien(nv);
                     hoaDon.setTrangthai(4);
                     hoaDonRepo.createHoaDon(hoaDon);
+                    if (hoaDon.getKhachHang() != null) {
+                        ViDiem viDiem = viDiemDAO.getViDiemByMaKH(hoaDon.getKhachHang().getMa());
+//                        viDiem.setSo_diem_da_cong(viDiem.getSo_diem_da_cong() + soDiemCong);
+                        viDiem.setSo_diem_da_dung(viDiem.getSo_diem_da_dung() - hoaDon.getSo_diem_su_dung());
+                        viDiem.setTong_diem(viDiem.getSo_diem_da_cong() - viDiem.getSo_diem_da_dung());
+                        viDiemDAO.save(viDiem);
+                    }
                 }
             }
         }
@@ -276,13 +316,12 @@ public class BanHangController {
         PageDTO<HoaDon> hoaDonTrangThai2 = hoaDonRepo.getPageHDByTrangThai(2, page2.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai3 = hoaDonRepo.getPageHDByTrangThai(3, page3.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai4 = hoaDonRepo.getPageHDByTrangThai(4, page4.orElse(0));
-        PageDTO<HoaDon> hoaDonTrangThai5 = hoaDonRepo.getPageHDByTrangThai(4, page4.orElse(0));
+
         model.addAttribute("PageHoaDonTT0", hoaDonTrangThai0);
         model.addAttribute("PageHoaDonTT1", hoaDonTrangThai1);
         model.addAttribute("PageHoaDonTT2", hoaDonTrangThai2);
         model.addAttribute("PageHoaDonTT3", hoaDonTrangThai3);
         model.addAttribute("PageHoaDonTT4", hoaDonTrangThai4);
-        model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5);
         // Đặt các thuộc tính khác cần thiết và trả về view tìm kiếm
         model.addAttribute("timTheo", timTheo);
         model.addAttribute("keyword", keyword);
@@ -298,7 +337,6 @@ public class BanHangController {
                                  @RequestParam("page2") Optional<Integer> page2,
                                  @RequestParam("page3") Optional<Integer> page3,
                                  @RequestParam("page4") Optional<Integer> page4,
-                                 @RequestParam("page5") Optional<Integer> page5,
                                  Model model) {
 
         PageDTO<HoaDon> hoaDonTrangThai1 = hoaDonRepo.getPageHDByTrangThai1(trangThai, keyword, timTheo, page1.orElse(0));
@@ -306,8 +344,6 @@ public class BanHangController {
         PageDTO<HoaDon> hoaDonTrangThai2 = hoaDonRepo.getPageHDByTrangThai(2, page2.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai3 = hoaDonRepo.getPageHDByTrangThai(3, page3.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai4 = hoaDonRepo.getPageHDByTrangThai(4, page4.orElse(0));
-        PageDTO<HoaDon> hoaDonTrangThai5 = hoaDonRepo.getPageHDByTrangThai(5, page5.orElse(0));
-        model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5);
         model.addAttribute("PageHoaDonTT0", hoaDonTrangThai0);
         model.addAttribute("PageHoaDonTT1", hoaDonTrangThai1); // Page hóa đơn chuẩn bị
         model.addAttribute("PageHoaDonTT2", hoaDonTrangThai2);
@@ -328,7 +364,6 @@ public class BanHangController {
                                  @RequestParam("page2") Optional<Integer> page2,
                                  @RequestParam("page3") Optional<Integer> page3,
                                  @RequestParam("page4") Optional<Integer> page4,
-                                 @RequestParam("page5") Optional<Integer> page5,
                                  Model model) {
 
         PageDTO<HoaDon> hoaDonTrangThai2 = hoaDonRepo.getPageHDByTrangThai1(trangThai, keyword, timTheo, page2.orElse(0));
@@ -336,8 +371,6 @@ public class BanHangController {
         PageDTO<HoaDon> hoaDonTrangThai1 = hoaDonRepo.getPageHDByTrangThai(1, page1.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai3 = hoaDonRepo.getPageHDByTrangThai(3, page3.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai4 = hoaDonRepo.getPageHDByTrangThai(4, page4.orElse(0));
-        PageDTO<HoaDon> hoaDonTrangThai5 = hoaDonRepo.getPageHDByTrangThai(5, page5.orElse(0));
-        model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5);
         model.addAttribute("PageHoaDonTT0", hoaDonTrangThai0);
         model.addAttribute("PageHoaDonTT1", hoaDonTrangThai1);
         model.addAttribute("PageHoaDonTT2", hoaDonTrangThai2);
@@ -358,7 +391,6 @@ public class BanHangController {
                                  @RequestParam("page2") Optional<Integer> page2,
                                  @RequestParam("page3") Optional<Integer> page3,
                                  @RequestParam("page4") Optional<Integer> page4,
-                                 @RequestParam("page5") Optional<Integer> page5,
                                  Model model) {
 
         PageDTO<HoaDon> hoaDonTrangThai3 = hoaDonRepo.getPageHDByTrangThai1(trangThai, keyword, timTheo, page3.orElse(0));
@@ -366,8 +398,6 @@ public class BanHangController {
         PageDTO<HoaDon> hoaDonTrangThai1 = hoaDonRepo.getPageHDByTrangThai(1, page1.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai2 = hoaDonRepo.getPageHDByTrangThai(2, page2.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai4 = hoaDonRepo.getPageHDByTrangThai(4, page4.orElse(0));
-        PageDTO<HoaDon> hoaDonTrangThai5 = hoaDonRepo.getPageHDByTrangThai(5, page5.orElse(0));
-        model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5);
         model.addAttribute("PageHoaDonTT0", hoaDonTrangThai0);
         model.addAttribute("PageHoaDonTT1", hoaDonTrangThai1);
         model.addAttribute("PageHoaDonTT2", hoaDonTrangThai2);
@@ -388,7 +418,6 @@ public class BanHangController {
                                  @RequestParam("page2") Optional<Integer> page2,
                                  @RequestParam("page3") Optional<Integer> page3,
                                  @RequestParam("page4") Optional<Integer> page4,
-                                 @RequestParam("page5") Optional<Integer> page5,
                                  Model model) {
 
         PageDTO<HoaDon> hoaDonTrangThai4 = hoaDonRepo.getPageHDByTrangThai1(trangThai, keyword, timTheo, page4.orElse(0));
@@ -396,8 +425,6 @@ public class BanHangController {
         PageDTO<HoaDon> hoaDonTrangThai1 = hoaDonRepo.getPageHDByTrangThai(1, page1.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai2 = hoaDonRepo.getPageHDByTrangThai(2, page2.orElse(0));
         PageDTO<HoaDon> hoaDonTrangThai3 = hoaDonRepo.getPageHDByTrangThai(3, page3.orElse(0));
-        PageDTO<HoaDon> hoaDonTrangThai5 = hoaDonRepo.getPageHDByTrangThai(5, page5.orElse(0));
-        model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5);
         model.addAttribute("PageHoaDonTT0", hoaDonTrangThai0);
         model.addAttribute("PageHoaDonTT1", hoaDonTrangThai1);
         model.addAttribute("PageHoaDonTT2", hoaDonTrangThai2);
@@ -410,36 +437,6 @@ public class BanHangController {
         return "banhangtaiquay/ban_hang";
     }
 
-    @RequestMapping(value = "/admin/ban-hang/tim-kiem-hoa-don5", method = RequestMethod.GET)
-    public String timKiemHoaDon5(@RequestParam("timTheo") String timTheo,
-                                 @RequestParam("keyword") String keyword,
-                                 @RequestParam("trangThai") Integer trangThai,
-                                 @RequestParam("page0") Optional<Integer> page0,
-                                 @RequestParam("page1") Optional<Integer> page1,
-                                 @RequestParam("page2") Optional<Integer> page2,
-                                 @RequestParam("page3") Optional<Integer> page3,
-                                 @RequestParam("page4") Optional<Integer> page4,
-                                 @RequestParam("page5") Optional<Integer> page5,
-                                 Model model) {
-
-        PageDTO<HoaDon> hoaDonTrangThai5 = hoaDonRepo.getPageHDByTrangThai1(trangThai, keyword, timTheo, page5.orElse(0));
-        model.addAttribute("PageHoaDonTT5", hoaDonTrangThai5);
-        PageDTO<HoaDon> hoaDonTrangThai0 = hoaDonRepo.getPageHDByTrangThai(0, page0.orElse(0));
-        PageDTO<HoaDon> hoaDonTrangThai1 = hoaDonRepo.getPageHDByTrangThai(1, page1.orElse(0));
-        PageDTO<HoaDon> hoaDonTrangThai2 = hoaDonRepo.getPageHDByTrangThai(2, page2.orElse(0));
-        PageDTO<HoaDon> hoaDonTrangThai3 = hoaDonRepo.getPageHDByTrangThai(3, page3.orElse(0));
-        PageDTO<HoaDon> hoaDonTrangThai4 = hoaDonRepo.getPageHDByTrangThai(3, page4.orElse(0));
-        model.addAttribute("PageHoaDonTT0", hoaDonTrangThai0);
-        model.addAttribute("PageHoaDonTT1", hoaDonTrangThai1);
-        model.addAttribute("PageHoaDonTT2", hoaDonTrangThai2);
-        model.addAttribute("PageHoaDonTT3", hoaDonTrangThai3);
-        model.addAttribute("PageHoaDonTT4", hoaDonTrangThai4);
-        // Đặt các thuộc tính khác cần thiết và trả về view tìm kiếm
-        // Đặt các giá trị đã tìm kiếm vào Model
-        model.addAttribute("timTheo5", timTheo);
-        model.addAttribute("keyword5", keyword);
-        return "banhangtaiquay/ban_hang";
-    }
 
     private Authentication authentication;
     @ModelAttribute("nhanVienLogin")
