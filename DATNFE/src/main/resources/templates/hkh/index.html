@@ -170,14 +170,17 @@
                     <div class="form-group col-2">
                         <label for="tien">Tên</label>
                         <input type="text" th:field="*{ten}" class="form-control"
-                               id="tien"
+                               id="ten"
                                placeholder="Tên"/>
+                        <span class="err" id="tenErr"></span>
                     </div>
                     <div class="form-group col-2">
                         <label for="diem">Điều kiện</label>
                         <input type="text" th:field="*{dieu_kien}" class="form-control"
-                               id="diem"
+                               id="dk"
                                placeholder="Điều kiện"/>
+                        <span class="err" id="dkErr"></span>
+
                     </div>
                     <fieldset class="form-group col-8">
                         <div>
@@ -203,7 +206,7 @@
                         </div>
                     </fieldset>
                 </div>
-                <button class="btn btn-primary" type="submit">+Thêm mới</button>
+                <button class="btn btn-primary" type="submit" onclick="validateForm()">+Thêm mới</button>
             </form>
             <div>
                 <h1 style="text-transform: uppercase;
@@ -231,6 +234,9 @@
                             <a th:href=" @{|/admin/hkh/delete/${item.id}|}" title="Xóa">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </a>
+                            <a th:href=" @{|/admin/hkh/kh-by-hkh/${item.ma}|}">
+                                Xem khách hàng
+                            </a>
 
                         </th>
                     </tr>
@@ -243,7 +249,40 @@
 
 
 <script>
+    var form = document.getElementById("form");
+    var ten = document.getElementById("ten");
+    var tenErr = document.getElementById("tenErr");
+    var dk = document.getElementById("dk");
+    var dkErr = document.getElementById("dkErr");
 
+    function validateForm(e) {
+        event.preventDefault();
+        resetForm();
+        var check = false;
+
+        var tenv = ten.value;
+        if (tenv.trim() == '') {
+            tenErr.innerHTML = "Tên không được để trống";
+            check = true;
+        }
+        var dkv = dk.value;
+        if (dkv.trim() == '') {
+            dkErr.innerHTML = "Điều kiện không được để trống";
+            check = true;
+        } else if (isNaN(dkv)) {
+            dkErr.innerHTML = "Điều kiện phải là số";
+            check = true;
+        }
+
+        if (!check) {
+            form.submit();
+        }
+    }
+
+    function resetForm() {
+        dkErr.innerText = '';
+        tenErr.innerText = '';
+    }
 </script>
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/popper.js"></script>

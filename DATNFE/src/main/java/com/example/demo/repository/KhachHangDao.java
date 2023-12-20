@@ -1,6 +1,9 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.HangKhachHang;
 import com.example.demo.entity.KhachHang;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -44,4 +47,7 @@ public interface KhachHangDao extends JpaRepository<KhachHang, UUID> {
 
         return "KH" + nextNumber;
     }
+
+    @Query("select kh FROM KhachHang kh where kh.hang_khach_hang.ma=?1")
+    Page<KhachHang> khInHkh(String ma, Pageable pageable);
 }

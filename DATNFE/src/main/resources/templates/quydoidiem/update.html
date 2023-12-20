@@ -10,7 +10,15 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        .err {
+            font-family: Consolas;
+            color: red;
+            font-size: 13px;
+        }
+    </style>
 </head>
+
 <body>
 
 <div class="wrapper d-flex align-items-stretch">
@@ -158,23 +166,26 @@
             <a class="btn btn-primary" href="/admin/quydoidiem">
                 Quay về
             </a>
-            <form action="/admin/quydoidiem/update" method="post" th:object="${quyDoiDiem}">
+            <form action="/admin/quydoidiem/update" method="post" th:object="${quyDoiDiem}" id="form">
                 <h1 style="text-transform: uppercase;
     color: #000000;font-family: 'Lora';text-align: center;">Chi tiết quy đổi điểm</h1>
 
                 <div class="row">
                     <input th:field="*{id}" hidden>
                     <div class="form-group col-2">
-                        <label for="formGroupExampleInput">Số tiền tương ứng</label>
+                        <label for="tien">Số tiền tương ứng</label>
                         <input type="text" th:field="*{so_tien_tuong_ung}" class="form-control"
-                               id="formGroupExampleInput"
+                               id="tien"
                                placeholder="Số tiền tương ứng"/>
+                        <span class="err" id="tienErr"></span>
                     </div>
                     <div class="form-group col-2">
-                        <label for="formGroupExampleInput2">Số điểm tương ứng</label>
+                        <label for="diem">Số điểm tương ứng</label>
                         <input type="text" th:field="*{so_diem_tuong_ung}" class="form-control"
-                               id="formGroupExampleInput2"
+                               id="diem"
                                placeholder="Số điểm tương ứng"/>
+                        <span class="err" id="diemErr"></span>
+
                     </div>
                     <fieldset class="form-group col-8">
                         <div>
@@ -200,11 +211,50 @@
                         </div>
                     </fieldset>
                 </div>
-                <button class="btn btn-primary" type="submit">Sửa</button>
+                <button class="btn btn-primary" type="submit"  onclick="validateForm()">Sửa</button>
             </form>
         </div>
     </div>
 </div>
+<script>
+    var form = document.getElementById("form");
+    var diem = document.getElementById("diem");
+    var diemErr = document.getElementById("diemErr");
+    var tien = document.getElementById("tien");
+    var tienErr = document.getElementById("tienErr");
+
+    function validateForm(e) {
+        event.preventDefault();
+        resetForm();
+        var check = false;
+
+        var diemv = diem.value;
+        if (diemv.trim() == '') {
+            diemErr.innerHTML = "Số điểm tương ứng không được để trống";
+            check = true;
+        } else if (isNaN(diemv)) {
+            diemErr.innerHTML = "Số điểm tương ứng phải là số";
+            check = true;
+        }
+        var tienv = tien.value;
+        if (tienv.trim() == '') {
+            tienErr.innerHTML = "Số tiền tương ứng không được để trống";
+            check = true;
+        } else if (isNaN(tienv)) {
+            tienErr.innerHTML = "Số tiền tương ứng phải là số";
+            check = true;
+        }
+
+        if (!check) {
+            form.submit();
+        }
+    }
+
+    function resetForm() {
+        diemErr.innerText = '';
+        tienErr.innerText = '';
+    }
+</script>
 
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/popper.js"></script>

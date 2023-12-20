@@ -2,7 +2,7 @@
 <html lang="en">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Quy đổi điểm</title>
+    <title>Hạng khách hàng</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -162,125 +162,84 @@
             </div>
         </nav>
         <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px;margin: 20px">
-            <form action="/admin/quydoidiem/create" method="post" th:object="${quyDoiDiem}" id="form">
-                <h1 style="text-transform: uppercase;
-    color: #000000;font-family: 'Lora';text-align: center;">Thêm quy đổi điểm</h1>
-                <div class="row">
-                    <input th:field="*{id}" hidden>
-                    <div class="form-group col-2">
-                        <label for="tien">Số tiền tương ứng</label>
-                        <input type="text" th:field="*{so_tien_tuong_ung}" class="form-control"
-                               id="tien"
-                               placeholder="Số tiền tương ứng"/>
-                        <span class="err" id="tienErr"></span>
-                    </div>
-                    <div class="form-group col-2">
-                        <label for="diem">Số điểm tương ứng</label>
-                        <input type="text" th:field="*{so_diem_tuong_ung}" class="form-control"
-                               id="diem"
-                               placeholder="Số điểm tương ứng"/>
-                        <span class="err" id="diemErr"></span>
-                    </div>
-                    <fieldset class="form-group col-8">
-                        <div>
-                            <legend class="col-form-label pt-0">Trạng thái :</legend>
-                            <div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" th:field="*{trangthai}"
-                                           id="gridRadios1"
-                                           th:value=1 checked/>
-                                    <label class="form-check-label" for="gridRadios1">
-                                        Hoạt động
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" th:field="*{trangthai}"
-                                           id="gridRadios2"
-                                           th:value=0/>
-                                    <label class="form-check-label" for="gridRadios2">
-                                        Không hoạt động
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <button class="btn btn-primary" type="submit" onclick="validateForm()"> +Thêm mới</button>
-            </form>
-            <div>
-                <h1 style="text-transform: uppercase;
-    color: #000000;font-family: 'Lora';text-align: center;">Danh sách quy đổi điểm</h1>
-                <table class="table" style="margin: 20px 0;">
-                    <thead class="thead-light">
-                    <tr>
-                        <th scope="col">Số tiền tương ứng</th>
-                        <th scope="col">Số điểm tương ứng</th>
-                        <th scope="col">Trạng thái</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="item,state:${list}">
-                        <th scope="row">[[${item.so_tien_tuong_ung}]]</th>
-                        <th>[[${item.so_diem_tuong_ung}]]</th>
-                        <th th:text="${item.trangthai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></th>
-                        <th>
-                            <a th:href=" @{|/admin/quydoidiem/update/${item.id}|}" title="Xem chi tiết">
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                            </a>
-                            <a th:href=" @{|/admin/quydoidiem/delete/${item.id}|}" title="Xóa">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                            </a>
+            <a class="btn btn-primary" href="/admin/hkh">
+                Quay về
+            </a>
 
-                        </th>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <h1 style="text-transform: uppercase;
+    color: #000000;font-family: 'Lora';text-align: center;">DANH SÁCH KHÁCH HÀNG [[${hkh.ten}]]</h1>
+            <table>
+
+
+            </table>
+
+            <table class="table" style="margin: 20px 0;">
+                <thead class="thead-light">
+                <tr>
+                    <th>
+                        Mã
+                    </th>
+                    <th>
+                        Ảnh
+                    </th>
+                    <th>
+                        Họ tên
+                    </th>
+                    <th>
+                        Ngày sinh
+                    </th>
+                    <th>
+                        SĐT
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Trạng thái
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item:${page.content}">
+                    <td>
+                        [[${item.ma}]]
+                    </td>
+                    <td>
+                        <img th:src="@{|/images/${item.avatar}|}" width="50px">
+                    </td>
+                    <td>
+                        [[${item.hoten}]]
+                    </td>
+                    <td>
+                        [[${item.ngaysinh}]]
+                    </td>
+                    <td>
+                        [[${item.sdt}]]
+                    </td>
+                    <td>
+                        [[${item.email}]]
+                    </td>
+                    <td>
+                        [[${item.trangthai==1?"Đang hoạt động":"Không hoạt động"}]]
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation example" th:if="${page.totalPages>0}">
+                <ul class="pagination">
+                    <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, page.totalPages - 1)}">
+                        <a class="page-link" th:href="@{|/admin/hkh/kh-by-hkh/${hkh.ma}?number=${pageNumber}|}" th:text="${pageNumber+1}"
+                           th:attr="data-page=${pageNumber}"></a>
+                    </li>
+                </ul>
+            </nav>
+
+
         </div>
     </div>
 </div>
 
 
-<script>
-    var form = document.getElementById("form");
-    var diem = document.getElementById("diem");
-    var diemErr = document.getElementById("diemErr");
-    var tien = document.getElementById("tien");
-    var tienErr = document.getElementById("tienErr");
-
-    function validateForm(e) {
-        event.preventDefault();
-        resetForm();
-        var check = false;
-
-        var diemv = diem.value;
-        if (diemv.trim() == '') {
-            diemErr.innerHTML = "Số điểm tương ứng không được để trống";
-            check = true;
-        } else if (isNaN(diemv)) {
-            diemErr.innerHTML = "Số điểm tương ứng phải là số";
-            check = true;
-        }
-        var tienv = tien.value;
-        if (tienv.trim() == '') {
-            tienErr.innerHTML = "Số tiền tương ứng không được để trống";
-            check = true;
-        } else if (isNaN(tienv)) {
-            tienErr.innerHTML = "Số tiền tương ứng phải là số";
-            check = true;
-        }
-
-        if (!check) {
-            form.submit();
-        }
-    }
-
-    function resetForm() {
-        diemErr.innerText = '';
-        tienErr.innerText = '';
-    }
-</script>
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/popper.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>

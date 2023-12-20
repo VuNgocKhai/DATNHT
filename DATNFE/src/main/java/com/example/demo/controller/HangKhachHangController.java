@@ -1,12 +1,14 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.HangKhachHang;
-import com.example.demo.entity.NhanVien;
-import com.example.demo.entity.QuyDoiDiem;
+import com.example.demo.entity.*;
 import com.example.demo.repository.HangKhachHangDAO;
+import com.example.demo.repository.KhachHangDao;
 import com.example.demo.repository.NhanVienDAO;
 import com.example.demo.repository.QuyDoiDiemDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,7 @@ public class HangKhachHangController {
     private NhanVienDAO nhanVienDAO;
 
     private Authentication authentication;
+
     @ModelAttribute("nhanVienLogin")
     public NhanVien nhanVienLogin() {
         authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -65,6 +68,19 @@ public class HangKhachHangController {
     public String delete(@PathVariable String id) {
         hangKhachHangDAO.deleteById(UUID.fromString(id));
         return "redirect:/admin/hkh";
+    }
+
+    @Autowired
+    KhachHangDao khachHangDao;
+
+    @GetMapping("/kh-by-hkh/{ma}")
+    public String khByHkh(@PathVariable String ma, Model model, @RequestParam(defaultValue = "0") String number) {
+        Pageable pageable= PageRequest.of(Integer.valueOf(number),15);
+        Page<KhachHang> page=khachHangDao.khInHkh(ma,pageable);
+        PageDTO<KhachHang> pageDTO=new PageDTO<>(page);
+        model.addAttribute("page",pageDTO);
+        model.addAttribute("hkh",hangKhachHangDAO.getHangKhachHangByMa(ma));
+        return "hkh/khach_hang";
     }
 
 }
