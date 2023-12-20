@@ -358,19 +358,24 @@
                         <h5 class="modal-title" id="exampleModalLabel">Chọn Tài Khoản Khách Hàng</h5>
                     </div>
                     <div class="modal-body">
-                        <div id="searchKH" class="d-flex align-items-center">
-                            <input type="text" class="form-control col-6 m-r-1" style="border: 1px solid black">
-                            <button class="btn btn-primary">
-                                <i class="bi bi-search"></i>
+                        <!--                    Begin tìm kiếm trong modal-->
+                        <form class="form-inline search-form" th:action="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}}"
+                              method="get">
+                            <div class="form-group mx-sm-3 mb-2">
+                                <input hidden type="text" class="form-control" name="maHD" th:value="${maHD}">
+                                <input type="text" class="form-control-sm" id="keywordkh" name="keywordkh">
+                            </div>
+                            <button type="submit" class="btn-sm btn-primary mb-2" id="searchButton1">
+                                <i class="fa fa-search"></i>
                             </button>
-                        </div>
+                        </form>
                         <table id="ListKhachHangTable" style="margin-top: 15px" class="table table-hover">
                             <tbody style="max-height: 300px; overflow-y: auto;">
                             <!-- Dữ liệu của tbody -->
-                            <tr th:if="${ListKhachHang.isEmpty()}">
+                            <tr th:if="${ListKhachHang.content.isEmpty()}">
                                 <td colspan="9">Danh Sách Khách Hàng Trống</td>
                             </tr>
-                            <tr th:each="kh:${ListKhachHang}">
+                            <tr th:each="kh:${ListKhachHang.content}">
                                 <th style="width: 8rem">
                                     <i style="font-size: 3rem" class="bi bi-person-circle"></i>
                                 </th>
@@ -405,6 +410,33 @@
                         </table>
                         <!--            end phần table-->
                     </div>
+                    <!--            nav-->
+                    <nav aria-label="Page navigation example"
+                         style="display: flex;justify-content: space-between;">
+                        <ul class="pagination" style="margin-right: 24px;">
+                            <li class="page-item">
+                                <a class="page-link linkhd1" th:if="${ListKhachHang.number > 0}"
+                                   th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${ListKhachHang.number-1}|}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li th:each="tongtrang,status:${#numbers.sequence(1, ListKhachHang.totalPages)}"
+                                class="page-item">
+                                <a class="page-link linkhd1"
+                                   th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${status.index}|}">[[${status.index+1}]]</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link linkhd1"
+                                   th:if="${ListKhachHang.number < ListKhachHang.totalPages - 1}"
+                                   th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${ListKhachHang.number+1}|}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!--            nav-->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Close
@@ -489,7 +521,7 @@
         <!--            End Modal chọn địa chỉ -->
 
         <!--            Begin Modal danh sách voucher-->
-        <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="exampleModal10" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content" style="background-color: #ffffff">
@@ -497,18 +529,24 @@
                         <h5 class="modal-title" id="exampleModalLabel">Chọn Voucher</h5>
                     </div>
                     <div class="modal-body">
-                        <div id="searchVC" class="d-flex align-items-center">
-                            <input type="text" style="border: 1px solid black" class="form-control col-6">
-                            <button class="btn btn-primary">
-                                <i class="bi bi-search"></i>
+                        <!--                    Begin tìm kiếm trong modal-->
+                        <form class="form-inline search-form" th:action="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}}"
+                              method="get">
+                            <div class="form-group mx-sm-3 mb-2">
+                                <input hidden type="text" class="form-control" name="maHD" th:value="${maHD}">
+                                <input type="text" class="form-control-sm" id="searchhd" name="searchhd">
+                            </div>
+                            <button type="submit" class="btn-sm btn-primary mb-2" id="searchButton2">
+                                <i class="fa fa-search"></i>
                             </button>
-                        </div>
-                        <div style="margin-top: 15px" class="address-card" th:if="${ListGiamGiaHoaDon.isEmpty()}">
+                        </form>
+                        <table id="ListgiamgiahoadonTable" style="margin-top: 15px" class="table table-hover">
+                        <div style="margin-top: 15px" class="address-card" th:if="${ListGiamGiaHoaDon.content.isEmpty()}">
                             <i style="font-size: 3rem"
                                class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>
                             <div class="text-center">No Data</div>
                         </div>
-                        <div style="margin-top: 15px" th:each="item:${ListGiamGiaHoaDon}"
+                        <div style="margin-top: 15px" th:each="item:${ListGiamGiaHoaDon.content}"
                              class="address-card">
                             <div class="row">
                                 <div class="col-2 d-flex justify-content-center align-items-center">
@@ -556,6 +594,7 @@
                                 </div>
                             </div>
                         </div>
+                        </table>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
                             </button>
@@ -655,7 +694,7 @@
                                 <input type="text" class="form-control" th:value="${detailMaGGHD}"
                                        placeholder="Mã Giảm Giá">
                                 <button style="margin-right: 10px" class="btn-sm btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal3">
+                                        data-bs-target="#exampleModal10">
                                     <i class="bi bi-ticket-perforated"></i>
                                 </button>
                             </div>
@@ -1326,6 +1365,7 @@
         checkValue(input);
     }
 </script>
+
 <script>
     $(document).ready(function () {
         // Bắt sự kiện click trên các nút nav
@@ -1346,6 +1386,11 @@
                     // Hiển thị lại modal
                     $('#exampleModal').modal('show');
 
+                    $('#ListKhachHangTable').html($(data).find('#ListKhachHangTable').html());
+
+                    // Hiển thị lại modal
+                    $('#exampleModal1').modal('show');
+
                     var giaBanElements = document.querySelectorAll('.giaBan');
                     giaBanElements.forEach(function (element) {
                         var giaBanText = element.textContent.trim();
@@ -1355,6 +1400,38 @@
                         // Cập nhật lại văn bản đã định dạng trong phần tử
                         element.textContent = giaBanFormatted + " VNĐ";
                     });
+
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải dữ liệu.');
+                }
+            });
+        });
+    });
+
+</script>
+<!--End Ngăn chuyển trang khi chuyển page trong modal-->
+
+<script>
+    $(document).ready(function () {
+        // Bắt sự kiện click trên các nút nav
+        $('.linkhd1').on('click', function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của nút nav
+
+            // Lấy URL từ thuộc tính th:href của nút nav
+            var url = $(this).attr('href');
+
+            // Gửi yêu cầu AJAX để tải lại nội dung của bảng
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'html', // Đảm bảo rằng bạn đang lấy HTML
+                success: function (data) {
+
+                    $('#ListKhachHangTable').html($(data).find('#ListKhachHangTable').html());
+
+                    // Hiển thị lại modal
+                    $('#exampleModal1').modal('show');
 
                 },
                 error: function () {
@@ -1402,6 +1479,75 @@
                         // Cập nhật lại văn bản đã định dạng trong phần tử
                         element.textContent = giaBanFormatted + " VNĐ";
                     });
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải dữ liệu.');
+                }
+            });
+        });
+    });
+
+</script>
+<!--End tìm kiếm sản phẩm trong Modal-->
+
+<!--Tìm Kiếm khách hàng Trong Modal-->
+<script>
+    $(document).ready(function () {
+        // Bắt sự kiện click trên nút Tìm kiếm
+        $('#searchButton1').click(function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của nút Tìm kiếm
+
+            // Lấy URL từ thuộc tính action của biểu mẫu tìm kiếm
+            var url = $('#searchForm').attr('action');
+            // Lấy giá trị từ trường nhập "keyword"
+            var keywordkh = $('#keywordkh').val();
+            // Gửi yêu cầu AJAX để tải lại nội dung của bảng
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: {
+                    keywordkh: keywordkh,
+                },
+                dataType: 'html',
+                success: function (data) {
+                    $('#ListKhachHangTable').html($(data).find('#ListKhachHangTable').html());
+                    // Hiển thị lại modal
+                    $('#exampleModal1').modal('show');
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải dữ liệu.');
+                }
+            });
+        });
+    });
+
+</script>
+<!--End tìm kiếm sản phẩm trong Modal-->
+
+
+<!--Tìm Kiếm voucher Trong Modal-->
+<script>
+    $(document).ready(function () {
+        // Bắt sự kiện click trên nút Tìm kiếm
+        $('#searchButton2').click(function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của nút Tìm kiếm
+
+            // Lấy URL từ thuộc tính action của biểu mẫu tìm kiếm
+            var url = $('#searchForm').attr('action');
+            // Lấy giá trị từ trường nhập "keyword"
+            var searchhd = $('#searchhd').val();
+            // Gửi yêu cầu AJAX để tải lại nội dung của bảng
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: {
+                    searchhd: searchhd,
+                },
+                dataType: 'html',
+                success: function (data) {
+                    $('#ListgiamgiahoadonTable').html($(data).find('#ListgiamgiahoadonTable').html());
+                    // Hiển thị lại modal
+                    $('#exampleModal10').modal('show');
                 },
                 error: function () {
                     alert('Có lỗi xảy ra khi tải dữ liệu.');
