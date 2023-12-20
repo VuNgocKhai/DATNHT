@@ -209,7 +209,7 @@
                         <a class="btn-sm  btn-detail"
                            th:ma="${hd.ma}"
                            data-bs-toggle="modal"
-                           data-bs-target='#ModalDetailHoaDon' href="#"
+                           th:attr="data-bs-target='#ModalDetailHoaDon' + ${hd.ma}" href="#"
                            style="text-decoration: none;color: #6C757D">
                             <div class="container">
                                 <div style="border-top: 3px solid #6C757D;"></div>
@@ -264,7 +264,7 @@
                             </div>
                         </a>
                         <div>
-                            <div class="modal fade" id="ModalDetailHoaDon" tabindex="-1"
+                            <div class="modal fade" th:id="'ModalDetailHoaDon'+ ${hd.ma}" tabindex="-1"
                                  aria-labelledby="exampleModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-xl modal-dialog-scrollable">
