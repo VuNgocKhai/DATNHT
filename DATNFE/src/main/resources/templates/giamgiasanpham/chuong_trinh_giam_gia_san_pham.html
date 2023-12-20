@@ -162,8 +162,7 @@
 
         <div class="container-lg bg-light border">
             <div style="padding: 15px">
-                <h4 class="text-center" style="text-transform: uppercase; color: black; font-family: 'Lora';">DANH SÁCH
-                    CHƯƠNG TRÌNH KHUYẾN MÃI SẢN PHẨM</h4>
+                <h4 class="text-center">DANH SÁCH CHƯƠNG TRÌNH KHUYẾN MÃI SẢN PHẨM</h4>
                 <hr>
                 <!--        START FORM ADD MODAL      -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -187,7 +186,7 @@
                                                         <input hidden type="text" th:field="*{maKhuyenMai}"
                                                                class="form-control"
                                                                id="formGroupExampleInput" th:text="${valMaKM}">
-                                                        <td><label for="formGroupExampleInput2">Tên khuyến mại</label>
+                                                        <td><label for="tenKhuyenMaiError">Tên khuyến mại</label>
                                                         </td>
                                                         <td>
                                                             <input type="text" th:field="*{tenKhuyenMai}"
@@ -198,7 +197,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label for="formGroupExampleInput2">Ngày bắt đầu</label>
+                                                        <td><label for="ngayBatDauError">Ngày bắt đầu</label>
                                                         </td>
                                                         <td>
                                                             <input type="date" th:field="*{ngayBatDau}"
@@ -207,7 +206,7 @@
                                                                    placeholder="Nhập ngày bắt đầu">
                                                             <small class="text-danger" id="ngayBatDauError"></small>
                                                         </td>
-                                                        <td><label for="formGroupExampleInput2">Ngày kết thúc</label>
+                                                        <td><label for="ngayKetThucError">Ngày kết thúc</label>
                                                         </td>
                                                         <td>
                                                             <input type="date" th:field="*{ngayKetThuc}"
@@ -218,13 +217,15 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label for="formGroupExampleInput2">Phần trăm giảm</label>
+                                                        <td><label for="phanTramGiamInput">Phần trăm giảm</label>
                                                         </td>
                                                         <td>
                                                             <input type="number" th:field="*{phanTramGiam}"
+                                                                   min="0" max="100"
                                                                    class="form-control"
-                                                                   id="formGroupExampleInput2"
+                                                                   id="phanTramGiamInput"
                                                                    placeholder="Nhập số %">
+                                                            <small class="text-danger" id="phanTramGiamError"></small>
                                                         </td>
                                                         <td>
                                                             <lable>Trạng Thái :</lable>
@@ -280,19 +281,23 @@
                             <div class="col-8">
                                 <form class="row" action="/admin/chuong-trinh-giam-gia-sp" method="get">
                                     <div class="col-sm-9">
-                                        <label for="keyword" style="margin-top: 0.5rem; margin-right: 0.5rem;">Tìm kiếm</label>
-                                        <input type="text" id="keyword" name="keyword" placeholder="Nhập mã hoặc tên khuyến mại"
+                                        <label for="keyword" style="margin-top: 0.5rem; margin-right: 0.5rem;">Tìm
+                                            kiếm</label>
+                                        <input type="text" id="keyword" name="keyword"
+                                               placeholder="Nhập mã hoặc tên khuyến mại"
                                                class="form-control">
                                     </div>
                                     <div class="col-sm-3" style="display: flex; align-items: flex-end;">
-                                        <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+                                        <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i>
+                                        </button>
                                     </div>
                                 </form>
                             </div>
                             <div class="col-4">
                                 <button class="btn btn-primary" type="submit"
                                         style="display: inline;margin-left: 5px;margin-top: 43px">
-                                    <a href="/admin/chuong-trinh-giam-gia-sp" style="text-decoration: none;color: white;"><i
+                                    <a href="/admin/chuong-trinh-giam-gia-sp"
+                                       style="text-decoration: none;color: white;"><i
                                             class="bi bi-arrow-clockwise"></i></a>
                                 </button>
                             </div>
@@ -388,7 +393,8 @@
                     <h5 class="modal-title" id="exampleModalLabel">Update Giảm Giá Sản Phẩm</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="/admin/chuong-trinh-giam-gia-sp/update" method="post" th:object="${voucherForm}">
+                    <form action="/admin/chuong-trinh-giam-gia-sp/update" method="post" th:object="${voucherForm}"
+                          id="voucherForm2">
                         <input type="text" hidden th:field="*{idKhuyenMai}">
                         <div class="row">
                             <div class="col-4">
@@ -402,35 +408,38 @@
 
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="formGroupExampleInput2">Tên</label>
+                                    <label for="tenInput">Tên</label>
                                     <input type="text" th:field="*{tenKhuyenMai}" class="form-control"
-                                           id="formGroupExampleInput2"
+                                           id="tenInput"
                                            placeholder="Tên">
+                                    <small class="text-danger" id="tenError"></small>
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="formGroupExampleInput2">Phần trăm giảm</label>
-                                    <input type="number" th:field="*{phanTramGiam}" class="form-control"
-                                           id="formGroupExampleInput2"
-                                           placeholder="Nhập số %">
+                                    <label for="phantramInput">Phần trăm giảm</label>
+                                    <input type="number" min="0" max="100" th:field="*{phanTramGiam}"
+                                           class="form-control" id="phantramInput" placeholder="Nhập số %">
+                                    <small class="text-danger" id="phantramError"></small>
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="formGroupExampleInput2">Ngày Bắt Đầu</label>
+                                    <label for="ngaybatError">Ngày Bắt Đầu</label>
                                     <input type="date" th:field="*{ngayBatDau}" class="form-control"
-                                           id="formGroupExampleInput2">
+                                           id="ngaybatInput">
+                                    <small class="text-danger" id="ngaybatError"></small>
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="formGroupExampleInput2">Ngày Kết Thúc</label>
+                                    <label for="ngayketError">Ngày Kết Thúc</label>
                                     <input type="date" th:field="*{ngayKetThuc}" class="form-control"
-                                           id="formGroupExampleInput2">
+                                           id="ngayketInput">
+                                    <small class="text-danger" id="ngayketError"></small>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -460,8 +469,7 @@
                             </div>
                         </div>
                         <button class="btn btn-primary"
-                                onclick="return confirm('Bạn có chắc chắn muốn sửa ?')"
-                                type="submit">Cập nhật
+                                type="submit" onclick="validateForm2()">Cập nhật
                         </button>
                     </form>
                 </div>
@@ -488,7 +496,6 @@
 
 <!--Start script  validate-->
 <script>
-
     function submitFilterForm() {
         document.getElementById("filterForm").submit();
     }
@@ -496,6 +503,9 @@
     function validateForm() {
         // Làm sạch thông báo lỗi
         document.getElementById("tenKhuyenMaiError").innerHTML = "";
+        document.getElementById("ngayBatDauError").innerHTML = "";
+        document.getElementById("ngayKetThucError").innerHTML = "";
+        document.getElementById("phanTramGiamError").innerHTML = "";
         var isErr = false;
 
         // Kiểm tra lỗi cho từng trường
@@ -505,6 +515,37 @@
             isErr = true;
         }
 
+        var ngaybatdau = document.getElementById("ngayBatDauInput").value;
+        var ngayketthuc = document.getElementById("ngayKetThucInput").value;
+
+        if (ngaybatdau.trim() === "") {
+            document.getElementById("ngayBatDauError").innerHTML = "Không được để trống!";
+            isErr = true;
+        }
+
+        if (ngayketthuc.trim() === "") {
+            document.getElementById("ngayKetThucError").innerHTML = "Không được để trống!";
+            isErr = true;
+        }
+
+        if (!isErr) {
+            var ngayBatDauObj = new Date(ngaybatdau);
+            var ngayKetThucObj = new Date(ngayketthuc);
+
+            if (ngayBatDauObj >= ngayKetThucObj) {
+                document.getElementById("ngayKetThucError").innerHTML = "Ngày kết thúc phải sau ngày bắt đầu!";
+                isErr = true;
+            }
+        }
+
+        var phantramgiam = document.getElementById("phanTramGiamInput").value;
+        if (phantramgiam.trim() === "") {
+            document.getElementById("phanTramGiamError").innerHTML = "Không được để trống!";
+            isErr = true;
+        } else if (phantramgiam < 0 || phantramgiam > 100) {
+            document.getElementById("phanTramGiamError").innerHTML = "Nhập lại phần trăm giảm!";
+        }
+
         if (!isErr) {
             document.getElementById("voucherForm1").submit();
         }
@@ -512,17 +553,50 @@
 
     function validateForm2() {
         // Làm sạch thông báo lỗi
-        document.getElementById("tenKhuyenMaiError").innerHTML = "";
+        document.getElementById("tenError").innerHTML = "";
+        document.getElementById("ngaybatError").innerHTML = "";
+        document.getElementById("ngayketError").innerHTML = "";
+        document.getElementById("phantramError").innerHTML = "";
 
         var isErr = false;
 
         // Kiểm tra lỗi cho từng trường
-        var hoTen = document.getElementById("hoTenInput2").value;
-        if (hoTen.trim() === "") {
-            document.getElementById("hoTenError2").innerHTML = "Vui lòng nhập Họ tên.";
+        var tenKhuyenMai = document.getElementById("tenInput").value;
+        if (tenKhuyenMai.trim() === "") {
+            document.getElementById("tenError").innerHTML = "Không được để trống!";
             isErr = true;
         }
 
+        var ngaybatdau = document.getElementById("ngaybatInput").value;
+        var ngayketthuc = document.getElementById("ngayketInput").value;
+
+        if (ngaybatdau.trim() === "") {
+            document.getElementById("ngaybatError").innerHTML = "Không được để trống!";
+            isErr = true;
+        }
+
+        if (ngayketthuc.trim() === "") {
+            document.getElementById("ngayketError").innerHTML = "Không được để trống!";
+            isErr = true;
+        }
+
+        if (!isErr) {
+            var ngayBatDauObj = new Date(ngaybatdau);
+            var ngayKetThucObj = new Date(ngayketthuc);
+
+            if (ngayBatDauObj >= ngayKetThucObj) {
+                document.getElementById("ngayketError").innerHTML = "Ngày kết thúc phải sau ngày bắt đầu!";
+                isErr = true;
+            }
+        }
+
+        var phantramgiam = document.getElementById("phantramInput").value;
+        if (phantramgiam.trim() === "") {
+            document.getElementById("phantramError").innerHTML = "Không được để trống!";
+            isErr = true;
+        } else if (phantramgiam < 0 || phantramgiam > 100) {
+            document.getElementById("phantramError").innerHTML = "Nhập lại phần trăm giảm!";
+        }
         if (!isErr) {
             document.getElementById("voucherForm2").submit();
         }
