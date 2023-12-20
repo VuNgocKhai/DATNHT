@@ -107,7 +107,7 @@ public class GioHangController {
         model.addAttribute("giaythuonghieu", thuonghieu);
         model.addAttribute("giaymausac", mausac);
         model.addAttribute("dg", DanhGia.builder().giay(giayDAO.getGiayByMa(ma)).trangThai(0).build());
-        Double tbs=danhGiaDAO.tbs(giay.getMa());
+        Long tbs=danhGiaDAO.customRound(giay.getMa());
         model.addAttribute("tbs",tbs);
 
         return "home/chitietsanpham";
