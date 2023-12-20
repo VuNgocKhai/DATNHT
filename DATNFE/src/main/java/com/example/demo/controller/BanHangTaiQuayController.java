@@ -110,9 +110,6 @@ public class BanHangTaiQuayController {
     private HangKhachHangDAO hangKhachHangDAO;
 
     @Autowired
-    KhachHangDao khachHangDao;
-
-    @Autowired
     GiamgiahodonDao giamgiahodonDao;
 
 

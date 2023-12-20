@@ -36,6 +36,7 @@ public interface DanhGiaDAO extends JpaRepository<DanhGia, UUID> {
     Double tbs(String mg);
 
     default Long customRound(String mg) {
-        return Math.round(tbs(mg));
+        Double tbs=tbs(mg)==null?0:tbs(mg);
+        return Math.round(tbs);
     }
 }
