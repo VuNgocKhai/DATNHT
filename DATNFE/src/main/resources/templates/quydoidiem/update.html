@@ -2,7 +2,7 @@
 <html lang="en">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Chức vụ</title>
+    <title>Quy đổi điểm</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -10,7 +10,15 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        .err {
+            font-family: Consolas;
+            color: red;
+            font-size: 13px;
+        }
+    </style>
 </head>
+
 <body>
 
 <div class="wrapper d-flex align-items-stretch">
@@ -38,14 +46,15 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="/admin/ban-hang" ><span class="fa fa-user mr-3"></span> Quản Lý Đơn Hàng</a>
+                    <a href="/admin/ban-hang"><span class="fa fa-user mr-3"></span> Quản Lý Đơn Hàng</a>
 
                 </li>
                 <li>
                     <a href="/admin/ban-hang-tai-quay"><span class="fa fa-briefcase mr-3"></span> Bán Hàng Tại Quầy</a>
                 </li>
                 <li>
-                    <a href="#homeSubmenu2"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
+                    <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-sticky-note mr-3"></span> Quản Lý Sản Phẩm</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu2">
                         <li>
                             <a href="/admin/sanpham">Sản Phẩm</a>
@@ -83,7 +92,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#homeSubmenu3"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
+                    <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-paper-plane mr-3"></span> Quản Lý Tài Khoản</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu3">
                         <li>
                             <a href="/admin/nhan-vien">Nhân Viên</a>
@@ -94,7 +104,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#homeSubmenu4"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-cubes mr-3"></span>Khuyến Mại</a>
+                    <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="fa fa-cubes mr-3"></span>Khuyến Mại</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu4">
                         <li>
                             <a href="/admin/chuong-trinh-giam-gia-sp">Sản Phẩm</a>
@@ -118,7 +129,9 @@
 
             <div class="footer">
                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a
+                            href="https://colorlib.com" target="_blank">Colorlib.com</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
             </div>
 
@@ -150,87 +163,98 @@
             </div>
         </nav>
         <div class="container" style="border: 1px solid black;border-radius: 10px;padding: 20px;margin: 20px">
-            <form action="/admin/chuc-vu/create" method="post" th:object="${chucVu}">
+            <a class="btn btn-primary" href="/admin/quydoidiem">
+                Quay về
+            </a>
+            <form action="/admin/quydoidiem/update" method="post" th:object="${quyDoiDiem}" id="form">
                 <h1 style="text-transform: uppercase;
-    color: #000000;font-family: 'Lora';text-align: center;">Thêm chức vụ</h1>
-                <input type="text" hidden th:field="*{id}">
+    color: #000000;font-family: 'Lora';text-align: center;">Chi tiết quy đổi điểm</h1>
+
                 <div class="row">
+                    <input th:field="*{id}" hidden>
                     <div class="form-group col-2">
-                        <label for="formGroupExampleInput">Mã</label>
-                        <input type="text" th:field="*{ma}" class="form-control" id="formGroupExampleInput"
-                               placeholder="Mã" />
-                        <span type="text" th:errors="*{ma}" />
+                        <label for="tien">Số tiền tương ứng</label>
+                        <input type="text" th:field="*{so_tien_tuong_ung}" class="form-control"
+                               id="tien"
+                               placeholder="Số tiền tương ứng"/>
+                        <span class="err" id="tienErr"></span>
                     </div>
                     <div class="form-group col-2">
-                        <label for="formGroupExampleInput2">Tên</label>
-                        <input type="text" th:field="*{ten}" class="form-control" id="formGroupExampleInput2"
-                               placeholder="Tên"/>
-                        <span type="text" th:errors="*{ten}" />
+                        <label for="diem">Số điểm tương ứng</label>
+                        <input type="text" th:field="*{so_diem_tuong_ung}" class="form-control"
+                               id="diem"
+                               placeholder="Số điểm tương ứng"/>
+                        <span class="err" id="diemErr"></span>
+
                     </div>
                     <fieldset class="form-group col-8">
-                        <div >
+                        <div>
                             <legend class="col-form-label pt-0">Trạng thái :</legend>
                             <div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" th:field="*{trangThai}" id="gridRadios1"
-                                           th:value=1 checked />
+                                    <input class="form-check-input" type="radio" th:field="*{trangthai}"
+                                           id="gridRadios1"
+                                           th:value=1 checked/>
                                     <label class="form-check-label" for="gridRadios1">
                                         Hoạt động
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" th:field="*{trangThai}" id="gridRadios2"
-                                           th:value=0 />
+                                    <input class="form-check-input" type="radio" th:field="*{trangthai}"
+                                           id="gridRadios2"
+                                           th:value=0/>
                                     <label class="form-check-label" for="gridRadios2">
                                         Không hoạt động
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        <span type="text" th:errors="*{trangThai}" />
                     </fieldset>
                 </div>
-                <button class="btn btn-primary" type="submit">Thêm mới</button>
+                <button class="btn btn-primary" type="submit"  onclick="validateForm()">Sửa</button>
             </form>
-            <div >
-                <h1 style="text-transform: uppercase;
-    color: #000000;font-family: 'Lora';text-align: center;">Danh sách chức vụ</h1>
-                <table class="table" style="margin: 20px 0;">
-                    <thead class="thead-light">
-                    <tr>
-                        <th scope="col">Mã</th>
-                        <th scope="col">Tên chức vụ</th>
-                        <th scope="col">Trạng thái</th>
-                        <th scope="col">Thao tác</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="item,state:${page.content}">
-                        <th scope="row">[[${item.ma}]]</th>
-                        <th>[[${item.ten}]]</th>
-                        <th th:text="${item.trangThai == 1 ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></th>
-                        <th>
-                            <a th:href=" @{|/admin/chuc-vu/detail/${item.ma}|}" title="Xem chi tiết">
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                            </a>
-                            <a th:href=" @{|/admin/chuc-vu/delete/${item.ma}|}" title="Xóa">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                            </a>
-                        </th>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <span th:if="${page.totalPages>0}">
-                    <span th:each="i : ${#numbers.sequence(0, page.totalPages-1)}">
-                    <a th:text="${i+1}" th:href="@{|/admin/chuc-vu?number=${i}|}" class="btn btn-primary"></a>
-                    </span>
-                </span>
-
-            </div>
         </div>
     </div>
 </div>
+<script>
+    var form = document.getElementById("form");
+    var diem = document.getElementById("diem");
+    var diemErr = document.getElementById("diemErr");
+    var tien = document.getElementById("tien");
+    var tienErr = document.getElementById("tienErr");
+
+    function validateForm(e) {
+        event.preventDefault();
+        resetForm();
+        var check = false;
+
+        var diemv = diem.value;
+        if (diemv.trim() == '') {
+            diemErr.innerHTML = "Số điểm tương ứng không được để trống";
+            check = true;
+        } else if (isNaN(diemv)) {
+            diemErr.innerHTML = "Số điểm tương ứng phải là số";
+            check = true;
+        }
+        var tienv = tien.value;
+        if (tienv.trim() == '') {
+            tienErr.innerHTML = "Số tiền tương ứng không được để trống";
+            check = true;
+        } else if (isNaN(tienv)) {
+            tienErr.innerHTML = "Số tiền tương ứng phải là số";
+            check = true;
+        }
+
+        if (!check) {
+            form.submit();
+        }
+    }
+
+    function resetForm() {
+        diemErr.innerText = '';
+        tienErr.innerText = '';
+    }
+</script>
 
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/popper.js"></script>

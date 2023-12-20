@@ -228,12 +228,6 @@
                 isErr = true;
             }
 
-            var ngayNghiViec = document.getElementById("ngayNghiViecInput2").value;
-            if (ngayNghiViec.trim() === "") {
-                document.getElementById("ngayNghiViecError2").innerHTML = "Vui lòng chọn ngày nghỉ việc.";
-                isErr = true;
-            }
-
             if (!isErr) {
                 Swal.fire({
                     icon: 'success',

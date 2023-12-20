@@ -425,5 +425,6 @@ public interface HoaDonDAO extends JpaRepository<HoaDon, UUID> {
     List<Object[]> getHoaDonByTongTienloinhuanTheoThangTrongNam(Integer nam);
 
 
+    HoaDon findHoaDonByMa(String mahd);
 }
 

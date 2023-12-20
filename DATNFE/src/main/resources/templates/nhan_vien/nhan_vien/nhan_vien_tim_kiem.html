@@ -230,11 +230,6 @@
                 isErr=true;
             }
 
-            var ngayNghiViec = document.getElementById("ngayNghiViecInput2").value;
-            if (ngayNghiViec.trim() === "") {
-                document.getElementById("ngayNghiViecError2").innerHTML = "Vui lòng chọn ngày nghỉ việc.";
-                isErr = true;
-            }
 
             if(!isErr){
                 Swal.fire({
@@ -808,25 +803,25 @@
     var callAPI = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data, "province","Tỉnh/Thành phố");
+                renderData(response.data, "province", "Tỉnh/Thành phố");
             });
     }
     callAPI('https://provinces.open-api.vn/api/?depth=1');
     var callApiDistrict = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data.districts, "district","Quận/Huyện");
+                renderData(response.data.districts, "district", "Quận/Huyện");
             });
     }
     var callApiWard = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data.wards, "ward","Xã/Phường");
+                renderData(response.data.wards, "ward", "Xã/Phường");
             });
     }
 
-    var renderData = (array, select,type) => {
-        let row = ' <option disable value="" selected>Chọn '+type+'</option>';
+    var renderData = (array, select, type) => {
+        let row = ' <option disable value="" selected>Chọn ' + type + '</option>';
 
         array.forEach(element => {
             row += `<option value="${element.name}" data-code="${element.code}">${element.name}</option>`
@@ -836,7 +831,7 @@
 
     $("#province").change(() => {
         const selectedCode = $("#province option:selected").data("code");
-        if (selectedCode == '' || selectedCode == null ){
+        if (selectedCode == '' || selectedCode == null) {
             $("#district").val('');
             $("#ward").val('');
         }
@@ -845,7 +840,7 @@
     });
     $("#district").change(() => {
         const selectedCode = $("#district option:selected").data("code");
-        if (selectedCode == '' || selectedCode == null ){
+        if (selectedCode == '' || selectedCode == null) {
             $("#ward").val('');
         }
         callApiWard(host + "d/" + selectedCode + "?depth=2");
@@ -868,7 +863,7 @@
     var callAPI2 = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data, "province2","Tỉnh/Thành phố");
+                renderData(response.data, "province2", "Tỉnh/Thành phố");
 
             });
     }
@@ -876,29 +871,28 @@
     var callApiDistrict2 = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data.districts, "district2","Quận/Huyện");
+                renderData(response.data.districts, "district2", "Quận/Huyện");
             });
     }
     var callApiWard2 = (api) => {
         return axios.get(api)
             .then((response) => {
-                renderData(response.data.wards, "ward2","Xã/Phường");
+                renderData(response.data.wards, "ward2", "Xã/Phường");
             });
     }
 
     $("#province2").change(() => {
         const selectedCode = $("#province2 option:selected").data("code");
-        if (selectedCode == '' || selectedCode == null ){
+        if (selectedCode == '' || selectedCode == null) {
             $("#district2").val('');
             $("#ward2").val('');
         }
-        cal
         callApiDistrict2(host + "p/" + selectedCode + "?depth=2");
         printResult2();
     });
     $("#district2").change(() => {
         const selectedCode = $("#district2 option:selected").data("code");
-        if (selectedCode == '' || selectedCode == null ){
+        if (selectedCode == '' || selectedCode == null) {
             $("#ward2").val('');
         }
         callApiWard2(host + "d/" + selectedCode + "?depth=2");

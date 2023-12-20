@@ -44,20 +44,14 @@ public class NhanVienServiceImpl implements NhanVienService {
 
     @Override
     public Boolean update(NhanVien nhanVien) {
-        if(nhanVien.getNgayNghiViec()!=null && !nhanVien.getNgayNghiViec().trim().isEmpty()){
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate ngayNghiViecDate = LocalDate.parse(nhanVien.getNgayNghiViec(), formatter);
-            LocalDate currentDate = LocalDate.now();
-            if(ngayNghiViecDate.isBefore(currentDate)){
-                nhanVien.setTrangThai(0);
-            }
-        }
         return nhanVienRepository.update(nhanVien);
     }
 
     @Override
     public Boolean deleteByMa(String ma) {
-        return nhanVienRepository.delete(ma);
+        NhanVien nhanVien=findNvByMaNv(ma);
+        nhanVien.setTrangThai(0);
+        return nhanVienRepository.update(nhanVien);
     }
 
     @Override

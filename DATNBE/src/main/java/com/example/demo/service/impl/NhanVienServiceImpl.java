@@ -48,32 +48,22 @@ public class NhanVienServiceImpl implements NhanVienService {
     public Boolean update(NhanVien nhanVien) {
         try {
             NhanVien nv = nhanVienDAO.findByMa(nhanVien.getMa());
-//        nv= NhanVien.builder()
-//                .hoTen(nhanVien.getHoTen())
-//                .ngaySinh(nhanVien.getNgaySinh())
-//                .diaChi(nhanVien.getDiaChi())
-//                .thanhPho(nhanVien.getThanhPho())
-//                .sdt(nhanVien.getSdt())
-//                .email(nhanVien.getEmail())
-//                .matKhau(nhanVien.getMatKhau())
-//                .trangThai(nhanVien.getTrangThai())
-//                .chucVu(nhanVien.getChucVu())
-//                .build();
-            nv.setHoTen(nhanVien.getHoTen());
-            nv.setNgaySinh(nhanVien.getNgaySinh());
-            nv.setDiaChi(nhanVien.getDiaChi());
-            nv.setXa(nhanVien.getXa());
-            nv.setHuyen(nhanVien.getHuyen());
-            nv.setThanhPho(nhanVien.getThanhPho());
-            nv.setSdt(nhanVien.getSdt());
-            nv.setEmail(nhanVien.getEmail());
-            nv.setMatKhau(nhanVien.getMatKhau());
-            nv.setTrangThai(nhanVien.getTrangThai());
-            nv.setNgayVaoLam(nhanVien.getNgayVaoLam());
-            nv.setNgayNghiViec(nhanVien.getNgayNghiViec());
-            nv.setChucVu(nhanVien.getChucVu());
-            nv.setAnh(nhanVien.getAnh());
-            nhanVienDAO.save(nv);
+            nhanVien.setId(nv.getId());
+//            nv.setHoTen(nhanVien.getHoTen());
+//            nv.setNgaySinh(nhanVien.getNgaySinh());
+//            nv.setDiaChi(nhanVien.getDiaChi());
+//            nv.setXa(nhanVien.getXa());
+//            nv.setHuyen(nhanVien.getHuyen());
+//            nv.setThanhPho(nhanVien.getThanhPho());
+//            nv.setSdt(nhanVien.getSdt());
+//            nv.setEmail(nhanVien.getEmail());
+//            nv.setMatKhau(nhanVien.getMatKhau());
+//            nv.setTrangThai(nhanVien.getTrangThai());
+//            nv.setNgayVaoLam(nhanVien.getNgayVaoLam());
+//            nv.setNgayNghiViec(nhanVien.getNgayNghiViec());
+//            nv.setChucVu(nhanVien.getChucVu());
+//            nv.setAnh(nhanVien.getAnh());
+            nhanVienDAO.save(nhanVien);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
