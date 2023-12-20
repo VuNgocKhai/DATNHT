@@ -1,5 +1,6 @@
 package com.example.demo.controller;
-
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.Font;
 import com.example.demo.config.Config;
 import com.example.demo.entity.*;
 import com.example.demo.repository.*;
@@ -8,7 +9,6 @@ import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.DeviceRgb;
-import com.itextpdf.kernel.colors.WebColors;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -33,15 +33,18 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.Email;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
+
+import static com.itextpdf.kernel.pdf.PdfName.BaseFont;
 
 @Controller
 public class TrangChuController {
@@ -188,18 +191,31 @@ public class TrangChuController {
         return "home/contact";
     }
 
-    @RequestMapping("/pdf")
-    public String generatePdf(Model model) {
+    @RequestMapping("/pdf/{mahd}")
+    public void generatePdf(Model model,HttpServletResponse response,@PathVariable String mahd) {
+        String p="";
         try {
-            generateInvoicePdf();
+            generateInvoicePdf(mahd);
+            HoaDon hd=hoaDonDAO.findHoaDonByMa(mahd);
+            response.setContentType("application/vnd.ms-excel");
+            response.setHeader("Content-Disposition", "attachment; filename="+hd.getMa()+".pdf");
+            try (InputStream is = new FileInputStream("invoice.pdf");
+                 OutputStream os = response.getOutputStream()) {
+                org.apache.commons.io.IOUtils.copy(Objects.requireNonNull(is), os);
+                os.flush(); // Đảm bảo dữ liệu được ghi vào response
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
             // Xử lý lỗi nếu cần thiết
         }
-        return "redirect:/trangchu"; // Hoặc forward:/trangchu tùy thuộc vào yêu cầu của bạn
     }
 
-    public static void generateInvoicePdf() throws IOException {
+    @Autowired
+    HoaDonDAO hoaDonDAO;
+    public void generateInvoicePdf(String mahd) throws IOException {
+        HoaDon hd=hoaDonDAO.findHoaDonByMa(mahd);
         try (PdfWriter writer = new PdfWriter("invoice.pdf");
              PdfDocument pdf = new PdfDocument(writer);
              Document document = new Document(pdf)) {
@@ -208,7 +224,7 @@ public class TrangChuController {
 
             // Logo và tên thương hiệu
 //            Image logo = new Image(ImageDataFactory.create("E:\\Spring_Boot_Java5\\DATNFE\\src\\main\\webapp\\images\\logodarlin.png")).scaleToFit(200f, 100f);;
-            Image logo = new Image(ImageDataFactory.create("C:\\Users\\duc27\\OneDrive\\Máy tính\\DATNHT\\DATNFE\\src\\main\\webapp\\images\\logodarlin.png")).scaleToFit(200f, 100f);
+            Image logo = new Image(ImageDataFactory.create("src\\main\\webapp\\images\\logodarlin.png")).scaleToFit(200f, 100f);
             ;
             float[] columnWidths1 = {150f, 200f, 400f};
             Table headerTable = new Table(columnWidths1);
@@ -232,8 +248,9 @@ public class TrangChuController {
 
             Paragraph infoParagraph = new Paragraph();
             infoParagraph.setPaddingTop(0).setMarginTop(0);
-            infoParagraph.add(new Text("HOA DON HD03").setBold().setFontSize(23)).add("\n");
-            infoParagraph.add(new SimpleDateFormat("HH:mm 'Ngay' dd 'thang' MM 'nam' yyyy").format(new Date()));
+            infoParagraph.add(new Text("HOA DON "+hd.getMa()).setBold().setFontSize(23)).add("\n");
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("'Ngay' dd 'thang' MM 'nam' yyyy");
+            infoParagraph.add(hd.getNgay_tao().format(dateFormatter));
             Cell infoCell = new Cell().add(infoParagraph).setTextAlignment(TextAlignment.RIGHT);
             infoCell.setBorder(Border.NO_BORDER);
             infoCell.setTextAlignment(TextAlignment.RIGHT);
@@ -246,8 +263,6 @@ public class TrangChuController {
 
             // Tiêu đề HÓA ĐƠN
             document.add(new Paragraph("HOA DON \n").setFontSize(32).setBold());
-            document.add(new Paragraph("Nguyen Thanh Danh \n").setFontSize(20).setBold());
-
             // Thông tin khách hàng
             float[] columnWidths2 = {200f, 50f, 50f, 50f};
             Table table2 = new Table(columnWidths2)
@@ -256,10 +271,14 @@ public class TrangChuController {
                     .setMarginTop(2);
             table2.addCell(
                     new Cell().setBorder(Border.NO_BORDER).add(
-                            new Paragraph().add("Tên khách hàng \n So dien thoai khach hang \n Dia chi khach hang")));
+                            new Paragraph().add("Ten nguoi nhan\n So dien thoai nguoi nhan \n Dia chi nhan")));
             table2.addCell(
                     new Cell().setBorder(Border.NO_BORDER).add(
-                            new Paragraph().add("Nguyen Thanh Danh \n 0385090080 \n Ha Nam, Ha Noi")));
+                            new Paragraph().add(String.format(
+                                    "%s \n %s \n %s",
+                                    hd.getTen_nguoi_nhan(),
+                                    hd.getSdt_nguoi_nhan(),
+                                    hd.getDia_chi()))));
             document.add(table2);
             document.add(new Paragraph("\n\n"));
             // Bảng chi tiết sản phẩm
@@ -273,21 +292,25 @@ public class TrangChuController {
             table.addHeaderCell(new Cell().add(new Paragraph("Thanh Tien").setBold().setFontSize(12)).setBorder(Border.NO_BORDER));
 
             // Thêm sản phẩm (đây chỉ là ví dụ, bạn cần thay thế bằng dữ liệu thực tế)
-            int index = 5;
-            for (int i = 0; i < index; i++) {
-                table.addCell(new Cell().add(new Paragraph("\nSan pham 1\n"))
+            DecimalFormat decimalFormat = new DecimalFormat("#,###");
+
+            for (HoaDonChiTiet hdct:hd.getListHdct()
+                 )  {
+                table.addCell(new Cell().add(new Paragraph(String.format("\n%s\n",hdct.getGiayChiTiet().getGiay().getTen())))
                         .setBorderLeft(Border.NO_BORDER)
                         .setBorderRight(Border.NO_BORDER)
                         .setBorderBottom(Border.NO_BORDER));
-                table.addCell(new Cell().add(new Paragraph("\n2\n"))
+                table.addCell(new Cell().add(new Paragraph("\n"+hdct.getSo_luong()+"\n"))
                         .setBorderLeft(Border.NO_BORDER)
                         .setBorderRight(Border.NO_BORDER)
                         .setBorderBottom(Border.NO_BORDER));
-                table.addCell(new Cell().add(new Paragraph("\n$50\n"))
+
+                table.addCell(new Cell().add(new Paragraph("\n"+decimalFormat.format(hdct.getDon_gia())+" VND\n"))
                         .setBorderLeft(Border.NO_BORDER)
                         .setBorderRight(Border.NO_BORDER)
                         .setBorderBottom(Border.NO_BORDER));
-                table.addCell(new Cell().add(new Paragraph("\n$100\n"))
+                BigDecimal tt = hdct.getDon_gia().multiply(BigDecimal.valueOf(hdct.getSo_luong()));
+                table.addCell(new Cell().add(new Paragraph("\n"+decimalFormat.format(tt)+" VND\n"))
                         .setBorderLeft(Border.NO_BORDER)
                         .setBorderRight(Border.NO_BORDER)
                         .setBorderBottom(Border.NO_BORDER));
@@ -297,23 +320,23 @@ public class TrangChuController {
 
             // Thông tin thanh toán
 
-            float[] columnWidths3 = {200f, 200f, 200f, 200f};
+            float[] columnWidths3 = {600f, 600f, 20f, 20f};
             Table table3 = new Table(columnWidths3)
                     .setTextAlignment(TextAlignment.LEFT)
                     .setBorder(Border.NO_BORDER);
             //dong1
             table3.addCell(new Cell().setBorder(Border.NO_BORDER));
             table3.addCell(new Cell().setBorder(Border.NO_BORDER));
-            table3.addCell(
-                    new Cell()
-                            .setTextAlignment(TextAlignment.RIGHT)
-                            .setBorder(Border.NO_BORDER)
-                            .add(new Paragraph("Tong tien: ")));
-            table3.addCell(
-                    new Cell()
-                            .setTextAlignment(TextAlignment.LEFT)
-                            .setBorder(Border.NO_BORDER)
-                            .add(new Paragraph("$130")));
+//            table3.addCell(
+//                    new Cell()
+//                            .setTextAlignment(TextAlignment.RIGHT)
+//                            .setBorder(Border.NO_BORDER)
+//                            .add(new Paragraph("Tong tien: ")));
+//            table3.addCell(
+//                    new Cell()
+//                            .setTextAlignment(TextAlignment.LEFT)
+//                            .setBorder(Border.NO_BORDER)
+//                            .add(new Paragraph(decimalFormat.format(hd.getTong_tien()+" VNĐ"))));
 
             //dong2
             table3.addCell(new Cell().setBorder(Border.NO_BORDER));
@@ -323,12 +346,12 @@ public class TrangChuController {
                             .setTextAlignment(TextAlignment.RIGHT)
                             .setBorder(Border.NO_BORDER)
                             .add(new Paragraph("Giam gia: ")));
+            String gg=decimalFormat.format(hd.getSo_tien_giam())+" VND";
             table3.addCell(
                     new Cell()
                             .setTextAlignment(TextAlignment.LEFT)
                             .setBorder(Border.NO_BORDER)
-                            .add(new Paragraph("$10")));
-
+                            .add(new Paragraph(gg)));
             //dong3
             table3.addCell(new Cell().setBorder(Border.NO_BORDER));
             table3.addCell(new Cell().setBorder(Border.NO_BORDER));
@@ -341,7 +364,7 @@ public class TrangChuController {
                     new Cell()
                             .setTextAlignment(TextAlignment.LEFT)
                             .setBorder(Border.NO_BORDER)
-                            .add(new Paragraph("$5")));
+                            .add(new Paragraph(decimalFormat.format(hd.getPhi_ship())+" VND")));
 
             //dong4
 //            com.itextpdf.kernel.color.Color myColor = new DeviceRgb(255, 100, 20);
@@ -359,7 +382,7 @@ public class TrangChuController {
                             .setTextAlignment(TextAlignment.LEFT)
                             .setBorder(Border.NO_BORDER)
                             .setFontColor(color)
-                            .add(new Paragraph("$125").setFontSize(17)));
+                            .add(new Paragraph(decimalFormat.format(hd.getTong_tien())+" VND").setFontSize(17)));
             document.add(new Paragraph("\n\n"));
             document.add(table3);
 

@@ -493,6 +493,11 @@
                                                    th:href="@{|/admin/ban-hang-tai-quay/huy-hoa-don/${hd.ma}|}">
                                                     <i style="color: white" class="bi bi-x-lg"></i>
                                                 </a>
+                                                <a class="btn btn-primary"
+                                                   th:href="@{|/pdf/${hd.ma}|}">
+                                                    Xuất hóa đơn
+                                                </a>
+
                                             </th>
                                         </tr>
                                         </tbody>
@@ -664,6 +669,10 @@
                                                 <a class="btn-delete btn-sm btn-danger" style="text-align: center"
                                                    th:href="@{|/admin/ban-hang-tai-quay/huy-hoa-don/${hd.ma}|}">
                                                     <i style="color: white" class="bi bi-x-lg"></i>
+                                                </a>
+                                                <a class="btn btn-primary"
+                                                   th:href="@{|/pdf/${hd.ma}|}">
+                                                    Xuất hóa đơn
                                                 </a>
                                             </th>
                                         </tr>
@@ -986,6 +995,10 @@
                                                th:attr="data-bs-target='#ModalDetailHoaDon' + ${hd.ma}" href="#">
                                                 <i style="color: white" class="bi bi-eye"></i>
                                             </a>
+                                            <a class="btn btn-primary"
+                                               th:href="@{|/pdf/${hd.ma}|}">
+                                                Xuất hóa đơn
+                                            </a>
                                         </th>
                                     </tr>
                                     </tbody>
@@ -1290,6 +1303,10 @@
                                                data-bs-toggle="modal"
                                                th:attr="data-bs-target='#ModalDetailHoaDon' + ${hd.ma}" href="#">
                                                 <i style="color: white" class="bi bi-eye"></i>
+                                            </a>
+                                            <a class="btn btn-primary"
+                                               th:href="@{|/pdf/${hd.ma}|}">
+                                                Xuất hóa đơn
                                             </a>
                                         </th>
                                     </tr>
