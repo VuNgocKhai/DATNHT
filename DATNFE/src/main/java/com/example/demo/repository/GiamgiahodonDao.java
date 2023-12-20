@@ -10,6 +10,6 @@ import java.util.UUID;
 
 public interface GiamgiahodonDao extends JpaRepository<GiamGiaHoaDon, UUID> {
 
-    @Query("select p from GiamGiaHoaDon p where p.ten like ?1")
+    @Query("select p from GiamGiaHoaDon p where p.ten like ?1 and p.trangthai = 1")
     Page<GiamGiaHoaDon> getSearchGiamgiahodonDao(String keyword, Pageable pageable);
 }

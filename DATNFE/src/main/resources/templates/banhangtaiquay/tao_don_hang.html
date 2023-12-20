@@ -191,7 +191,6 @@
         </div>
     </nav>
     <!--    End Nav-->
-
     <!-- Page Content  -->
     <div id="content" class="p-4 p-md-5 pt-5 bg-secondary">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: -50px;">
@@ -530,71 +529,89 @@
                     </div>
                     <div class="modal-body">
                         <!--                    Begin tìm kiếm trong modal-->
-                        <form class="form-inline search-form" th:action="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}}"
+                        <form id="searchForm1" class="form-inline search-form" th:action="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}}"
                               method="get">
                             <div class="form-group mx-sm-3 mb-2">
                                 <input hidden type="text" class="form-control" name="maHD" th:value="${maHD}">
                                 <input type="text" class="form-control-sm" id="searchhd" name="searchhd">
                             </div>
-                            <button type="submit" class="btn-sm btn-primary mb-2" id="searchButton2">
+                            <button type="submit" class="btn-sm btn-primary mb-2" id="searchButtontt">
                                 <i class="fa fa-search"></i>
                             </button>
                         </form>
+                        <!-- Bảng hiển thị danh sách voucher -->
                         <table id="ListgiamgiahoadonTable" style="margin-top: 15px" class="table table-hover">
-                        <div style="margin-top: 15px" class="address-card" th:if="${ListGiamGiaHoaDon.content.isEmpty()}">
-                            <i style="font-size: 3rem"
-                               class="bi bi-inboxes d-flex justify-content-center align-items-center"></i>
-                            <div class="text-center">No Data</div>
-                        </div>
-                        <div style="margin-top: 15px" th:each="item:${ListGiamGiaHoaDon.content}"
-                             class="address-card">
-                            <div class="row">
-                                <div class="col-2 d-flex justify-content-center align-items-center">
-                                    <img src="https://img.timviec.com.vn/2020/10/voucher-la-gi-3.jpg"
-                                         style="width: 5rem">
-                                </div>
-                                <div class="col-7">
+                            <tbody>
+                            <!-- Dữ liệu voucher từ ListGiamGiaHoaDon.content -->
+                            <tr th:each="item: ${ListGiamGiaHoaDon.content}" th:if="${HoaDonDetail.tong_tien > item.dieu_kien}">
+                                <td>
+                                    <!-- Hiển thị thông tin voucher -->
+                                    <img src="https://img.timviec.com.vn/2020/10/voucher-la-gi-3.jpg" style="width: 5rem">
+                                </td>
+                                <td>
                                     <h6 style="font-weight: 20px">
                                         Giảm [[${item.phan_tram_giam}]]% cho hóa đơn
                                     </h6>
                                     <div>
-                                        Đơn Hàng Tối Thiểu: <span style="color: #e3e308" class="giaBan">[[${item.dieu_kien}]]</span>
-                                        --
+                                        Đơn Hàng Tối Thiểu: <span style="color: #e3e308" class="giaBan">[[${item.dieu_kien}]]</span> --
                                         Giảm Tối Đa: <span style="color: #e3e308" class="giaBan">[[${item.so_tien_giam_max}]]</span>
                                     </div>
                                     <div style="color: red">
                                         Hạn sử dụng: [[${item.ngay_ket_thuc}]]
                                     </div>
-                                </div>
-                                <div class="col-3 d-flex justify-content-center align-items-center">
-                                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-voucher}" method="post"
-                                          class="d-inline">
-                                        <input type="hidden" class="form-control" th:name="maHD"
-                                               th:value="${maHD}">
-                                        <input type="hidden" class="form-control" th:name="maGGHD"
-                                               th:value="${item.ma}">
-                                        <button type="submit" class="btn btn-success"
-                                                style="text-decoration: none"
-                                                th:disabled="${checkGGHD != 1 || detailMaGGHD == item.ma}">
+                                </td>
+                                <td>
+                                    <!-- Form để chọn hoặc hủy voucher -->
+                                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/add-voucher}" method="post" class="d-inline">
+                                        <input type="hidden" class="form-control" th:name="maHD" th:value="${maHD}">
+                                        <input type="hidden" class="form-control" th:name="maGGHD" th:value="${item.ma}">
+                                        <button type="submit" class="btn btn-success" style="text-decoration: none" th:disabled="${checkGGHD != 1 || detailMaGGHD == item.ma}">
                                             Chọn
                                         </button>
                                     </form>
-                                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/delete}" method="get"
-                                          class="d-inline">
-                                        <input type="hidden" class="form-control" th:name="maHD"
-                                               th:value="${maHD}">
-                                        <input type="hidden" class="form-control" th:name="maGGHD"
-                                               th:value="${item.ma}">
-                                        <button type="submit" class="btn btn-danger"
-                                                style="text-decoration: none"
-                                                th:disabled="${detailMaGGHD != item.ma}">
+                                    <form th:action="@{/admin/ban-hang-tai-quay/tao-don-hang/delete}" method="get" class="d-inline">
+                                        <input type="hidden" class="form-control" th:name="maHD" th:value="${maHD}">
+                                        <input type="hidden" class="form-control" th:name="maGGHD" th:value="${item.ma}">
+                                        <button type="submit" class="btn btn-danger" style="text-decoration: none" th:disabled="${detailMaGGHD != item.ma}">
                                             Hủy
                                         </button>
                                     </form>
-                                </div>
-                            </div>
-                        </div>
+                                </td>
+                            </tr>
+                            <!-- Kết thúc vòng lặp -->
+                            <!-- Thông báo nếu không có dữ liệu -->
+                            <tr th:if="${ListGiamGiaHoaDon.content.isEmpty()}">
+                                <td colspan="3">No Data</td>
+                            </tr>
+                            </tbody>
                         </table>
+                        <!--            nav-->
+                        <nav aria-label="Page navigation example"
+                             style="display: flex;justify-content: space-between;">
+                            <ul class="pagination" style="margin-right: 24px;">
+                                <li class="page-item">
+                                    <a class="page-link linkhd2" th:if="${ListGiamGiaHoaDon.number > 0}"
+                                       th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${ListGiamGiaHoaDon.number-1}|}"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li th:each="tongtrang,status:${#numbers.sequence(1, ListGiamGiaHoaDon.totalPages)}"
+                                    class="page-item">
+                                    <a class="page-link linkhd2"
+                                       th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${status.index}|}">[[${status.index+1}]]</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link linkhd2"
+                                       th:if="${ListGiamGiaHoaDon.number < ListGiamGiaHoaDon.totalPages - 1}"
+                                       th:href="@{|/admin/ban-hang-tai-quay/view-cart/${maHD}?page1=${ListGiamGiaHoaDon.number+1}|}"
+                                       aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!--            nav-->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
                             </button>
